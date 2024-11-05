@@ -79,11 +79,11 @@
                             <td>{{ $roomFeature->name }}</td>
                             <td>
                                 <a class="btn btn-sm btn-success"
-                                    href="{{ route('admin.roomFeature.edit', $roomFeature->id) }}">Edit</a>
+                                    href="{{ route('admin.roomFeature.edit', $roomFeature->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
                                     <form id="deleteForm" action="{{ route('admin.roomFeature.destroy', $roomFeature->id) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete()">Delete</button>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete()"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
                                     </form>
                             </td>
                         </tr>

@@ -120,14 +120,14 @@ a.t-btn {
 
                                 <td>
                                     <a class="btn btn-sm btn-success"
-                                        href="{{ route('admin.user.edit', $user->id) }}">Edit</a>
+                                        href="{{ route('admin.user.edit', $user->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
                                     <form id="deleteForm{{ $user->id }}"
                                         action="{{ route('admin.user.destroy', $user->id) }}" method="POST"
                                         style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button" class="btn btn-sm btn-danger"
-                                            onclick="confirmDelete({{ $user->id }})">Delete</button>
+                                            onclick="confirmDelete({{ $user->id }})"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
                                     </form>
                                 </td>
                             </tr>

@@ -54,13 +54,15 @@
                             <td>{{ $pet->id ?? '' }}</td>
                             <td>{{ $pet->name ?? '' }}</td>
                             <td>
-                                <a class="btn btn-sm btn-success" href="{{ route('admin.pets.edit', $pet->id) }}">Edit</a>
+
+                                <a class="btn btn-sm btn-success" href="{{ route('admin.pets.edit', $pet->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"> </a>
                                 <form id="deleteForm" action="{{ route('admin.pets.destroy', $pet->id) }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn btn-sm btn-danger"
-                                        onclick="confirmDelete()">Delete</button>
+                                        onclick="confirmDelete()">
+                                    <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
                                 </form>
                             </td>
                         </tr>

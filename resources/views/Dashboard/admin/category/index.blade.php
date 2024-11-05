@@ -77,11 +77,11 @@
                             <td>{{ $category->id ?? '' }}</td>
                             <td>{{ $category->name ?? '' }}</td>
                             <td>
-                                <a class="btn btn-sm btn-success" href="{{ route('admin.category.edit', $category->id) }}">Edit</a>
+                                <a class="btn btn-sm btn-success" href="{{ route('admin.category.edit', $category->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
                                 <form id="deleteForm-{{ $category->id }}" action="{{ route('admin.pets.destroy', $category->id) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $category->id }})">Delete</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $category->id }})"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
                                 </form>
                             </td>
                         </tr>

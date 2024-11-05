@@ -61,13 +61,13 @@
               <td>{{ $blog->created_at }}</td>
               <td>
                 <!-- Edit Button -->
-                <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-primary btn-sm"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
 
                 <!-- Delete Button -->
                 <form action="{{ route('admin.blog.destroy', $blog->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this blog?')">Delete</button>
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this blog?')"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
                 </form>
             </td>
         </tr>
