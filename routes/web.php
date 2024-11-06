@@ -99,6 +99,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['role:admin'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/properties',[AdminAuthController::class,'properties'])->name('properties');
+    Route::get('/properties/Bylandlord',[PropertyController::class,'Bylandlord'])->name('properties.bylandlord');
     Route::get('/income_reports',[AdminAuthController::class,'income_reports'])->name('income_reports');
     Route::get('/user_reports',[AdminAuthController::class,'user_reports'])->name('user_reports');
     Route::get('/pricing',[AdminAuthController::class,'pricing'])->name('pricing');

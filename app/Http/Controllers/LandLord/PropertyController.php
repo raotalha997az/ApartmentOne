@@ -26,6 +26,13 @@ class PropertyController extends Controller
         return view('Dashboard.landlord.properties',compact('properties'));
     }
 
+    public function Bylandlord(){
+    $properties = Property::where('approve', 1)
+    ->with('user', 'media')
+    ->get();
+    dd($properties);
+        return view('Dashboard.admin.properties',compact('properties'));
+    }
 
     public function add_property()
     {
@@ -43,82 +50,6 @@ class PropertyController extends Controller
 
     return view('Dashboard.tenant.profile' ,compact('user'));
     }
-
-    // public function store(Request $request)
-    // {
-
-    //     $id = Auth::user()->id;
-    //     // Validate the request data
-    //     $validated = $request->validate([
-    //         'images' => 'required|array|min:3|max:50',
-    //         'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4048',
-    //         'name' => 'required|string|max:255',
-    //         'address' => 'required|string|max:255',
-    //         'category' => 'required|integer',
-    //         'credit_point' => 'required|integer|min:10|max:2500',
-    //         'features' => 'required|array',
-    //         'pets' => 'required|array',
-    //         'rent_whos' => 'required|array',
-    //         'other_details' => 'nullable|string',
-    //         'availability' => 'required|boolean',
-    //         'price' => 'required|numeric',
-    //     ]);
-    //     // Create the new property
-    //     $property = Property::create([
-    //         'user_id' => $id,
-    //         'name' => $validated['name'],
-    //         'address' => $validated['address'],
-    //         'cat_id' => $validated['category'],
-    //         'credit_point' => $validated['credit_point'],
-    //         'other_details' => $validated['other_details'],
-    //         'available_status' => $validated['availability'],
-    //         'price_rent' => $validated['price'],
-    //     ]);
-
-    //     // Handle image upload and store paths in the Media model
-    //     if ($request->hasFile('images')) {
-    //         foreach ($request->file('images') as $image) {
-    //             $imagePath = $image->store('image/property', 'public');
-    //             Media::create([
-    //                 'property_id' => $property->id,
-    //                 'img_path' => $imagePath,
-    //             ]);
-    //         }
-    //     }
-
-    //     // Handle the rent_to_who relationship
-    //     if ($request->has('rent_whos') && is_array($request->rent_whos)) {
-    //         foreach ($request->rent_whos as $rentWhoId) {
-    //             RentToWhoDetails::create([
-    //                 'property_id' => $property->id,
-    //                 'rent_to_who_id' => $rentWhoId,
-    //             ]);
-    //         }
-    //     }
-    //     // Handle the pets relationship
-    //     if ($request->has('pets') && is_array($request->pets)) {
-    //         foreach ($request->pets as $petId) {
-    //             PetDetails::create([
-    //                 'property_id' => $property->id,
-    //                 'pet_id' => $petId,
-    //             ]);
-    //         }
-    //     }
-
-    //     // Handle the features relationship
-    //     if ($request->has('features') && is_array($request->features)) {
-    //         foreach ($request->features as $featureId) {
-    //             FeatureDetails::create([
-    //                 'property_id' => $property->id,
-    //                 'feature_id' => $featureId,
-    //                 'quantity' => 1, // Default quantity, you can adjust this based on your needs
-    //             ]);
-    //         }
-    //     }
-    //     // Return a success response
-    //     return response()->json(['message' => 'Property created successfully!'], 201);
-    // }
-
 
     public function store(Request $request)
     {
@@ -138,7 +69,6 @@ class PropertyController extends Controller
             'pets' => 'required|array',
             'rent_whos' => 'required|array',
             'other_details' => 'nullable|string',
-            'availability' => 'required|boolean',
             'price' => 'required|numeric',
         ]);
 
@@ -150,7 +80,7 @@ class PropertyController extends Controller
             'cat_id' => $validated['category'],
             'credit_point' => $validated['credit_point'],
             'other_details' => $validated['other_details'],
-            'available_status' => $validated['availability'],
+            'available_status' => 1,
             'price_rent' => $validated['price'],
         ]);
 

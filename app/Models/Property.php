@@ -17,6 +17,7 @@ class Property extends Model
         'rent',
         'other_details',
         'available_status',
+        'approve',
         'price_rent',
         'address'
     ];

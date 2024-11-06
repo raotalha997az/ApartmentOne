@@ -146,7 +146,7 @@
                                     <textarea placeholder="Type Here" name="other_details"></textarea>
                                 </div>
 
-                                <div class="input-box simple-select">
+                                {{-- <div class="input-box simple-select">
                                     <label for="availability">Availability</label>
                                     <select name="availability" id="availability" placeholder="Type Here">
                                         <option value="0">Booked</option>
@@ -155,7 +155,7 @@
                                     @error('availability')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="input-box simple-select">
                                     <label for="price">Price/Rent</label>

@@ -163,6 +163,7 @@
                     toastr.success(response.message);
                     $('#categoryModal').modal('hide'); // Hide the modal
                     $('#categoryForm')[0].reset(); // Reset the form
+                    location.reload();
                     // Optionally, refresh the list of categories on the page
                 },
                 error: function(xhr) {
@@ -174,24 +175,36 @@
     });
 
     function confirmDelete(categoryId) {
-    if (confirm("Are you sure you want to delete this category?")) {
-        $.ajax({
-            url: `/admin/category/${categoryId}`, // URL to delete the category
-            type: 'DELETE',
-            data: {
-                _token: '{{ csrf_token() }}' // CSRF token for Laravel
-            },
-            success: function(response) {
-                toastr.success(response.message); // Display success message
-                // Remove the row from the table
-                $(`#deleteForm-${categoryId}`).closest('tr').remove();
-            },
-            error: function(xhr) {
-                toastr.error(xhr.responseJSON.message || 'Failed to delete category'); // Display error message
-            }
-        });
-    }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/admin/category/${categoryId}`, // URL to delete the category
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}' // CSRF token for Laravel
+                },
+                success: function(response) {
+                    toastr.success(response.message); // Display success message
+                    // Remove the row from the table
+                    $(`#deleteForm-${categoryId}`).closest('tr').remove();
+                    location.reload();
+                },
+                error: function(xhr) {
+                    toastr.error(xhr.responseJSON.message || 'Failed to delete category'); // Display error message
+                }
+            });
+        }
+    });
 }
+
 
 $(document).ready(function() {
     // When the "Edit" button is clicked
@@ -239,6 +252,7 @@ function saveCategory() {
         success: function(response) {
             toastr.success(response.message); // Show success message
             $('#itemModal').modal('hide'); // Hide the modal
+            location.reload();
             // Optionally, refresh the list of categories on the page
         },
         error: function(xhr) {

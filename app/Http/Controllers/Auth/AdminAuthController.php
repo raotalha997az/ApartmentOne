@@ -35,7 +35,10 @@ class AdminAuthController extends Controller
 
     public function properties()
     {
-        return view('Dashboard.admin.properties');
+        $properties = Property::where('approve', 0)
+        ->with('user', 'media')
+        ->get();
+        return view('Dashboard.admin.properties',compact('properties'));
     }
 
     public function propertiesdetails()
