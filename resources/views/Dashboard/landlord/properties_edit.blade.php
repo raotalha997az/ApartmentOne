@@ -77,9 +77,11 @@
                         <div class="input-box simple-select">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <label for="category">Category</label>
+                                @if (Auth::user()->hasRole('admin'))
                                 <button type="button" id="create-category"
                                     class="fa fa-plus btn btn-primary btn-sm px-3 py-2" style="white-space: nowrap"
                                     data-bs-toggle="modal" data-bs-target="#categoryModal">Add Category</button>
+                                    @endif
                             </div>
                             <select name="category" id="category" placeholder="Type Here">
                                 <option disabled>Select Category</option>

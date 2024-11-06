@@ -20,27 +20,38 @@
                                             src="{{ asset('assets/images/file-upload-img.png') }}" alt=""></label>
                                     <input type="file" id="fileInput" accept="image/*" multiple name="images[]">
                                 </div>
+                                <!-- Display error for images array -->
+                                @error('images')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="many-forms-fields-box">
                                 <div class="input-box">
                                     <label for="">Name</label>
                                     <input type="text" placeholder="Type Here" name="name">
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="input-box">
                                     <label for="address">Address</label>
                                     <input type="text" placeholder="address" name="address" required>
+                                    @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="input-box simple-select">
-                                    @if (Auth::user()->hasRole('admin'))
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <label for="category">Category</label>
                                         <!-- Button to trigger the modal -->
-                                        <button type="button" id="create-category"
-                                        class="fa fa-plus btn btn-primary btn-sm px-3 py-2" style="white-space: nowrap"
-                                        data-bs-toggle="modal" data-bs-target="#categoryModal">Add Category</button>
-                                    </div>
-                                    @endif
+                                        @if (Auth::user()->hasRole('admin'))
+                                            <button type="button" id="create-category"
+                                                class="fa fa-plus btn btn-primary btn-sm px-3 py-2"
+                                                style="white-space: nowrap" data-bs-toggle="modal"
+                                                data-bs-target="#categoryModal">Add Category</button>
+                                                @endif
+                                        </div>
                                     <select name="category" id="category" placeholder="Type Here">
                                         <!-- Categories will be appended here -->
                                         <option disabled>Select Category</option>
@@ -48,6 +59,9 @@
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('category')
+                                        <div class="text-danger"> {{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="input-box progress-bar">
 
@@ -71,6 +85,10 @@
                                     <!-- Hidden input to hold the credit_point value -->
                                     <input type="hidden" name="credit_point" id="credit_point">
 
+                                    @error('credit_point')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+
 
                                 </div>
 
@@ -90,6 +108,9 @@
                                                 name="quantities[{{ $feature->id }}]" style="display: none;"
                                                 placeholder="Quantity" min="1"></div>
                                     @endforeach
+                                    @error('features')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
 
                                 </div>
 
@@ -102,6 +123,9 @@
                                             <option value="{{ $pet->id }}">{{ $pet->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('pets')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <!-- Rent To Who Section -->
@@ -128,11 +152,17 @@
                                         <option value="0">Booked</option>
                                         <option value="1">Available</option>
                                     </select>
+                                    @error('availability')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="input-box simple-select">
                                     <label for="price">Price/Rent</label>
                                     <input type="text" placeholder="price" name="price" id="price">
+                                    @error('price')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                                 </div>
 
                                 <div class="two-btn-inline">
