@@ -25,7 +25,7 @@ class WebController extends Controller
 
     public function blog()
     {
-        $blogs = Blog::paginate(10);
+        $blogs = Blog::orderBy('id', 'DESC')->paginate(10);
         return view('Website.blog')->with(compact('blogs'));
     }
 

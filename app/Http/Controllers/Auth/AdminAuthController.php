@@ -166,7 +166,7 @@ class AdminAuthController extends Controller
 
     public function features_show()
     {
-        $features = Feature::where('deleted_at', null)->get()->all();
+        $features = Feature::where('deleted_at', null)->orderBy('id', 'DESC')->get();
         return view('Dashboard.admin.roomFeature.show', compact('features'));
     }
     public function edit($id)

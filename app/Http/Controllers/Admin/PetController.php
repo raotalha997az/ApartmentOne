@@ -11,7 +11,7 @@ class PetController extends Controller
     // Display a listing of the pets
     public function index()
     {
-        $pets = Pet::all(); // Fetch all pets from the database
+        $pets = Pet::orderBy('id', 'DESC')->get(); // Fetch all pets from the database
         return view('Dashboard.admin.pets.index', compact('pets')); // Return the view with pets data
     }
 

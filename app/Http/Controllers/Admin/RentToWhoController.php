@@ -11,7 +11,7 @@ class RentToWhoController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        $rentToWhos = RentToWho::all();
+        $rentToWhos = RentToWho::orderBy('id', 'DESC')->get();
         return view('Dashboard.admin.rentToWho.index', compact('rentToWhos'));
     }
 
