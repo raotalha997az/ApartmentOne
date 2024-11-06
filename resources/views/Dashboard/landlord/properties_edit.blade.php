@@ -97,7 +97,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            v @error('category')
+                            @error('category')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                         </div>
