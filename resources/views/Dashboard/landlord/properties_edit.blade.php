@@ -68,11 +68,17 @@
                             <label for="">Name</label>
                             <input type="text" placeholder="Type Here" name="name"
                                 value="{{ old('name', $property->name) }}">
+                                @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="input-box">
                             <label for="address">Address</label>
                             <input type="text" placeholder="address" name="address"
                                 value="{{ old('address', $property->address) }}" required>
+                                @error('address')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="input-box simple-select">
                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -91,6 +97,9 @@
                                     </option>
                                 @endforeach
                             </select>
+                            v @error('category')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                         </div>
 
                         <div class="input-box progress-bar">
@@ -111,6 +120,9 @@
                             </div>
                             <div class="progress-number" id="progressNumber">{{ $property->credit_point ?? 0 }}</div>
                             <input type="hidden" id="progress_points" name="progress_points">
+                            @error('progress_points')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                         </div>
 
                         <!-- Rooms & Features Section -->
@@ -149,6 +161,9 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @error('pets')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                         </div>
 
 
@@ -164,6 +179,9 @@
                                         class="mt-3">
                                     <label for="rentWho-{{ $rentWho->id }}" class="mt-3">{{ $rentWho->name }}</label>
                                 @endforeach
+                                @error('rent_whos')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
 
@@ -180,12 +198,18 @@
                                 <option value="1" {{ $property->available_status == 1 ? 'selected' : '' }}>Available
                                 </option>
                             </select>
+                            @error('availability')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                         </div>
 
                         <div class="input-box simple-select">
                             <label for="price">Price/Rent</label>
                             <input type="text" placeholder="price" name="price" id="price"
                                 value="{{ old('price', $property->price_rent) }}">
+                                @error('price')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="two-btn-inline">
