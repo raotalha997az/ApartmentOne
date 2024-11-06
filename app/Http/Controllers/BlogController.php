@@ -93,7 +93,7 @@ class BlogController extends Controller
                     // Generate unique name with 'blog' prefix
                     $uniqueName = 'blog' . Str::random(40) . '.' . $extension;
                     // Store the image in the 'public' directory
-                    $request->file('image')->storeAs('public', $uniqueName);
+                    $request->file('image')->storeAs('public/blog', $uniqueName);
                     // Save the image name in the $data array (without 'public/')
                     $data['image'] =  $uniqueName;
                 }
