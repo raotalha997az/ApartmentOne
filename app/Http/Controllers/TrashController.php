@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class TrashController extends Controller
 {
    public function index(){
-    $users = User::onlyTrashed()->orderBy('id', 'DESC')->paginate(10);
+    // $users = User::onlyTrashed()->orderBy('id', 'updated_at')->paginate(10);
+    $users = User::onlyTrashed()
+                    ->orderByDesc('updated_at')
+                    ->paginate(10);
     return view('Dashboard.admin.trash.index', compact('users'));
    }
    public function undo($id){
