@@ -38,6 +38,7 @@ class AdminAuthController extends Controller
         $properties = Property::where('approve', 0)
         ->with('user', 'media')
         ->get();
+
         return view('Dashboard.admin.properties',compact('properties'));
     }
 

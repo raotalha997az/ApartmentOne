@@ -16,14 +16,18 @@
                             <p>Minimum 10 images, Maximum 50 images</p>
                             <div class="main-file-upload-box">
 
-                                <div id="imageContainer"><label for="fileInput"> <img
-                                            src="{{ asset('assets/images/file-upload-img.png') }}" alt=""></label>
+                                <div id="imageContainer"><label for="fileInput">
+                                        <img src="{{ asset('assets/images/file-upload-img.png') }}" alt=""></label>
                                     <input type="file" id="fileInput" accept="image/*" multiple name="images[]">
                                 </div>
-                                <!-- Display error for images array -->
+                                <!-- Display error for the images array -->
                                 @error('images')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
+                                <!-- Display error for each image item in the images array -->
+                                @foreach ($errors->get('images.*') as $error)
+                                    <div class="text-danger">{{ $error[0] }}</div>
+                                @endforeach
                             </div>
 
                             <div class="many-forms-fields-box">
@@ -50,8 +54,8 @@
                                                 class="fa fa-plus btn btn-primary btn-sm px-3 py-2"
                                                 style="white-space: nowrap" data-bs-toggle="modal"
                                                 data-bs-target="#categoryModal">Add Category</button>
-                                                @endif
-                                        </div>
+                                        @endif
+                                    </div>
                                     <select name="category" id="category" placeholder="Type Here">
                                         <!-- Categories will be appended here -->
                                         <option disabled>Select Category</option>
@@ -138,6 +142,9 @@
                                             <label for="rentWho-{{ $rentWho->id }}"
                                                 class="mt-3">{{ $rentWho->name }}</label>
                                         @endforeach
+                                        @error('rent_whos')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -161,8 +168,8 @@
                                     <label for="price">Price/Rent</label>
                                     <input type="text" placeholder="price" name="price" id="price">
                                     @error('price')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="two-btn-inline">
@@ -207,13 +214,13 @@
                     $('.js-example-basic-multiple').select2();
                 });
 
-                $(".js-example-basic-multiple").select2({
-                    placeholder: "Select a state",
-                    allowClear: true
-                });
-                $(".js-example-placeholder-multiple").select2({
-                    placeholder: "Select a state"
-                });
+                // $(".js-example-basic-multiple").select2({
+                //     placeholder: "Select a state",
+                //     allowClear: true
+                // });
+                // $(".js-example-placeholder-multiple").select2({
+                //     placeholder: "Select a state"
+                // });
             </script>
 
 
@@ -365,8 +372,8 @@
                 fileInput.addEventListener('change', (event) => {
                     const files = Array.from(event.target.files);
 
-                    if (selectedImages.length + files.length > 3) {
-                        alert("You can only upload a maximum of 50 images.");
+                    if (selectedImages.length + files.length > 50) {
+                        toastr.error('You can only upload a maximum of 50 images.');
                         return;
                     }
 
@@ -458,6 +465,10 @@
                 $(document).ready(function() {
                     $('#saveChangesBtn').click(function(e) {
                         e.preventDefault();
+                        $("#saveChangesBtn").html(
+                            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...'
+                            );
+                        $("#saveChangesBtn").prop('disabled', true);
 
                         // Clear previous error messages
                         $('.error-message').remove();
@@ -478,6 +489,8 @@
                             contentType: false,
                             processData: false,
                             success: function(response) {
+                                $("#saveChangesBtn").html('Save Changes');
+                                $("#saveChangesBtn").prop('disabled', false);
                                 // On success: clear the form and show a success toast
                                 $('#uploadForm')[0].reset(); // Reset the form
                                 // Optionally, you can use a toaster library for better UI
@@ -485,20 +498,36 @@
                                 window.location.href = "{{ route('landlord.properties') }}";
                             },
                             error: function(xhr, status, error) {
+                                $("#saveChangesBtn").html('Save Changes');
+                                $("#saveChangesBtn").prop('disabled', false);
                                 // On error, handle validation messages
                                 var errors = xhr.responseJSON.errors;
+                                console.log(errors);
                                 if (errors) {
                                     $.each(errors, function(key, value) {
                                         // Show error messages for each field
                                         var input = $('[name="' + key + '"]');
+
+                                        if(key == 'rent_whos'){
+                                            input = $('[name="rent_whos[]"]');
+                                        }
+                                        if(key == 'features'){
+                                            input = $('[name="features[]"]');
+                                        }
+                                        if(key == 'pets'){
+                                            input = $('[name="pets[]"]');
+                                        }
+                                        if(key == 'images'){
+                                            input = $('[name="images[]"]');
+                                        }
+
+
                                         input.addClass('is-invalid');
                                         input.after('<span class="error-message text-danger">' +
                                             value[0] + '</span>');
+                                        toastr.error(key + ": " + value[0]);
                                     });
 
-                                    toastr.error(
-                                        'Error occurred while creating property. Please check the fields.'
-                                    );
                                 } else {
                                     // Handle general errors
                                     alert('Error occurred while creating property.');

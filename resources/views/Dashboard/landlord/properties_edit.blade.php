@@ -68,7 +68,7 @@
                             <label for="">Name</label>
                             <input type="text" placeholder="Type Here" name="name"
                                 value="{{ old('name', $property->name) }}">
-                                @error('name')
+                            @error('name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -76,7 +76,7 @@
                             <label for="address">Address</label>
                             <input type="text" placeholder="address" name="address"
                                 value="{{ old('address', $property->address) }}" required>
-                                @error('address')
+                            @error('address')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -84,10 +84,10 @@
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <label for="category">Category</label>
                                 @if (Auth::user()->hasRole('admin'))
-                                <button type="button" id="create-category"
-                                    class="fa fa-plus btn btn-primary btn-sm px-3 py-2" style="white-space: nowrap"
-                                    data-bs-toggle="modal" data-bs-target="#categoryModal">Add Category</button>
-                                    @endif
+                                    <button type="button" id="create-category"
+                                        class="fa fa-plus btn btn-primary btn-sm px-3 py-2" style="white-space: nowrap"
+                                        data-bs-toggle="modal" data-bs-target="#categoryModal">Add Category</button>
+                                @endif
                             </div>
                             <select name="category" id="category" placeholder="Type Here">
                                 <option disabled>Select Category</option>
@@ -98,31 +98,40 @@
                                 @endforeach
                             </select>
                             @error('category')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="input-box progress-bar">
+                            <label for="category">Credit Points</label>
                             <div class="progress-container">
-                                <input type="range" id="progressInput" min="10" max="2500" value="{{ $property->credit_point? $property->credit_point <= 10 :  10 }}" step="10">
+                                {{-- <label for="category">Credit Points</label> --}}
+                                <input type="range" id="progressInput" min="10" max="2500"
+                                    value="{{ $property->credit_point ?? 0 }}" step="10">
                             </div>
-                            <div class="numbers-main-bb">
-                                <input type="number" id="numberInput1" class="number-input" value="{{  $property->credit_point? $property->credit_point <= 10 :  10  }}" min="10"
-                                    max="500" step="10">
-                                <input type="number" id="numberInput2" class="number-input" value="{{  $property->credit_point? $property->credit_point <= 500 :  500  }}" min="500"
-                                    max="1000" step="10">
-                                <input type="number" id="numberInput3" class="number-input" value="{{ $property->credit_point ?? 1000 }}" min="1000"
-                                    max="1500" step="10">
-                                <input type="number" id="numberInput4" class="number-input" value="{{ $property->credit_point ?? 1500 }}" min="1500"
-                                    max="2000" step="10">
-                                <input type="number" id="numberInput5" class="number-input" value="{{ $property->credit_point ?? 2000 }}" min="2000"
-                                    max="2500" step="10">
+                            <div class="numbers-main-bb d-none">
+                                <input type="number" id="numberInput1" class="number-input"
+                                    value="{{ $property->credit_point ? $property->credit_point <= 10 : 10 }}"
+                                    min="10" max="500" step="10">
+                                <input type="number" id="numberInput2" class="number-input"
+                                    value="{{ $property->credit_point ? $property->credit_point <= 500 : 500 }}"
+                                    min="500" max="1000" step="10">
+                                <input type="number" id="numberInput3" class="number-input"
+                                    value="{{ $property->credit_point ?? 1000 }}" min="1000" max="1500"
+                                    step="10">
+                                <input type="number" id="numberInput4" class="number-input"
+                                    value="{{ $property->credit_point ?? 1500 }}" min="1500" max="2000"
+                                    step="10">
+                                <input type="number" id="numberInput5" class="number-input"
+                                    value="{{ $property->credit_point ?? 2000 }}" min="2000" max="2500"
+                                    step="10">
                             </div>
                             <div class="progress-number" id="progressNumber">{{ $property->credit_point ?? 0 }}</div>
-                            <input type="hidden" id="progress_points" name="progress_points">
+                            <input type="hidden" id="progress_points" name="progress_points"
+                                value="{{ $property->credit_point ?? 0 }}">
                             @error('progress_points')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Rooms & Features Section -->
@@ -162,8 +171,8 @@
                                 @endforeach
                             </select>
                             @error('pets')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
 
@@ -180,352 +189,358 @@
                                     <label for="rentWho-{{ $rentWho->id }}" class="mt-3">{{ $rentWho->name }}</label>
                                 @endforeach
                                 @error('rent_whos')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="input-box textarea">
-                            <label for="other_details">Other Details</label>
-                            <textarea placeholder="Type Here" name="other_details">{{ old('other_details', $property->other_details) }}</textarea>
-                        </div>
+                            <div class="input-box textarea">
+                                <label for="other_details">Other Details</label>
+                                <textarea placeholder="Type Here" name="other_details">{{ old('other_details', $property->other_details) }}</textarea>
+                            </div>
 
-                        <div class="input-box simple-select">
-                            <label for="availability">Availability</label>
-                            <select name="availability" id="availability" placeholder="Type Here">
-                                <option value="0" {{ $property->available_status == 0 ? 'selected' : '' }}>Booked
-                                </option>
-                                <option value="1" {{ $property->available_status == 1 ? 'selected' : '' }}>Available
-                                </option>
-                            </select>
-                            @error('availability')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                        </div>
+                            <div class="input-box simple-select">
+                                <label for="availability">Availability</label>
+                                <select name="availability" id="availability" placeholder="Type Here">
+                                    <option value="0" {{ $property->available_status == 0 ? 'selected' : '' }}>Booked
+                                    </option>
+                                    <option value="1" {{ $property->available_status == 1 ? 'selected' : '' }}>Available
+                                    </option>
+                                </select>
+                                @error('availability')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-                        <div class="input-box simple-select">
-                            <label for="price">Price/Rent</label>
-                            <input type="text" placeholder="price" name="price" id="price"
-                                value="{{ old('price', $property->price_rent) }}">
+                            <div class="input-box simple-select">
+                                <label for="price">Price/Rent</label>
+                                <input type="text" placeholder="price" name="price" id="price"
+                                    value="{{ old('price', $property->price_rent) }}">
                                 @error('price')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="two-btn-inline">
-                            <button id="saveChangesBtn" type="button" class="t-btn">Save Changes</button>
-                            <button type="button" class="t-btn t-btn-gray"
-                                onclick="window.history.back();">Discard</button>
-                        </div>
-
-                    </div>
-                </form>
-
-                <!-- Modal for adding a new category -->
-                <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="categoryModalLabel">Add New Category</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="modal-body">
-                                <form id="categoryForm">
-                                    <div class="mb-3">
-                                        <label for="new-category" class="form-label">Category Name</label>
-                                        <input type="text" class="form-control" id="new-category"
-                                            placeholder="Enter category name" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Add Category</button>
-                                </form>
+
+                            <div class="two-btn-inline">
+                                <button id="saveChangesBtn" type="button" class="t-btn">Save Changes</button>
+                                <button type="button" class="t-btn t-btn-gray"
+                                    onclick="window.history.back();">Discard</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <!-- Modal for adding a new category -->
+                    <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="categoryModalLabel">Add New Category</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="categoryForm">
+                                        <div class="mb-3">
+                                            <label for="new-category" class="form-label">Category Name</label>
+                                            <input type="text" class="form-control" id="new-category"
+                                                placeholder="Enter category name" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Add Category</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Load jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2({
-                placeholder: "Select Allowed Pets",
-                allowClear: true
+        <!-- Load jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2({
+                    placeholder: "Select Allowed Pets",
+                    allowClear: true
+                });
+
+                var progressInput = document.getElementById('progress_points');
+                const progress = parseInt(progressInput.value);
+                updateProgress(progress);
+                changeBarColor(progressInput.value);
+                changeInputColors(progress);
             });
-        });
-    </script>
-    <script>
-        // check work feature
-        function toggleQuantityInput(checkbox, featureId) {
-            const quantityContainer = document.getElementById('quantity-container-' + featureId);
-            quantityContainer.style.display = checkbox.checked ? 'block' : 'none';
-        }
-        const fileInput = document.getElementById('fileInput');
-        const imageContainer = document.getElementById('imageContainer');
-        const existingImagesContainer = document.getElementById('existingImagesContainer');
-        let selectedImages = [];
-
-        // Function to handle file input change
-        fileInput.addEventListener('change', (event) => {
-            const files = Array.from(event.target.files);
-
-            // Check for max images
-            if (selectedImages.length + files.length > 50) {
-                alert("You can only upload a maximum of 50 images.");
-                return;
+        </script>
+        <script>
+            // check work feature
+            function toggleQuantityInput(checkbox, featureId) {
+                const quantityContainer = document.getElementById('quantity-container-' + featureId);
+                quantityContainer.style.display = checkbox.checked ? 'block' : 'none';
             }
+            const fileInput = document.getElementById('fileInput');
+            const imageContainer = document.getElementById('imageContainer');
+            const existingImagesContainer = document.getElementById('existingImagesContainer');
+            let selectedImages = [];
 
-            files.forEach(file => {
-                if (file.type.startsWith('image/')) {
-                    if (selectedImages.length < 50) {
-                        selectedImages.push(file);
-                        displayImage(file);
-                    }
-                } else {
-                    alert("Only image files are allowed.");
+            // Function to handle file input change
+            fileInput.addEventListener('change', (event) => {
+                const files = Array.from(event.target.files);
+
+                // Check for max images
+                if (selectedImages.length + files.length > 50) {
+                    alert("You can only upload a maximum of 50 images.");
+                    return;
                 }
-            });
 
-            checkImageCount();
-        });
-
-        // Function to display uploaded images
-        function displayImage(file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imagePreview = document.createElement('div');
-                imagePreview.classList.add('image-preview');
-
-                const img = document.createElement('img');
-                img.src = e.target.result;
-
-                const closeButton = document.createElement('button');
-                closeButton.classList.add('close-btn');
-                closeButton.innerHTML = 'X';
-                closeButton.onclick = function() {
-                    imageContainer.removeChild(imagePreview);
-                    selectedImages = selectedImages.filter(img => img !== file);
-                    checkImageCount();
-                };
-
-                imagePreview.appendChild(img);
-                imagePreview.appendChild(closeButton);
-                imageContainer.appendChild(imagePreview);
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // Function to check the number of images
-        function checkImageCount() {
-            const totalImages = selectedImages.length + existingImagesContainer.children.length;
-            if (totalImages < 3) {
-                alert('You need to upload at least 3 images.');
-            }
-        }
-
-        // Function to remove existing images
-        function removeImage(button, imagePath) {
-            const imagePreview = button.parentElement; // Get the parent div
-            existingImagesContainer.removeChild(imagePreview);
-
-            // You may also want to handle the removal from the server-side or store the path for deletion
-            // For example, you might send an AJAX request to delete the image from the server here
-            // e.g. deleteImageFromServer(imagePath);
-
-            checkImageCount(); // Check the image count after removal
-        }
-    </script>
-    <script>
-        var deletedImages = [];
-        function removeImage(button, imgPath) {
-            $(button).closest('.image-preview').remove();
-            deletedImages.push(imgPath);
-        }
-
-        $('#saveChangesBtn').click(function(e) {
-            e.preventDefault();
-
-            var formData = new FormData($('#uploadForm')[0]);
-
-            // Append deleted images to the FormData
-            deletedImages.forEach(function(image) {
-                formData.append('deleted_images[]', image);
-            });
-
-            // Proceed with the AJAX request as before
-            $.ajax({
-                url: "{{ route('landlord.properties.update', $property->id) }}",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    $('#uploadForm')[0].reset();
-                    toastr.success('Property updated successfully!');
-                    window.location.href = "{{ route('landlord.properties') }}";
-                },
-                error: function(xhr, status, error) {
-                    var errors = xhr.responseJSON.errors;
-                    if (errors) {
-                        $.each(errors, function(key, value) {
-                            var input = $('[name="' + key + '"]');
-                            input.addClass('is-invalid');
-                            input.after('<span class="error-message text-danger">' + value[0] +
-                                '</span>');
-                        });
-                        toastr.error('Error occurred while updating property.');
+                files.forEach(file => {
+                    if (file.type.startsWith('image/')) {
+                        if (selectedImages.length < 50) {
+                            selectedImages.push(file);
+                            displayImage(file);
+                        }
                     } else {
-                        alert('Error occurred while updating property.');
+                        alert("Only image files are allowed.");
                     }
+                });
+
+                checkImageCount();
+            });
+
+            // Function to display uploaded images
+            function displayImage(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imagePreview = document.createElement('div');
+                    imagePreview.classList.add('image-preview');
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+
+                    const closeButton = document.createElement('button');
+                    closeButton.classList.add('close-btn');
+                    closeButton.innerHTML = 'X';
+                    closeButton.onclick = function() {
+                        imageContainer.removeChild(imagePreview);
+                        selectedImages = selectedImages.filter(img => img !== file);
+                        checkImageCount();
+                    };
+
+                    imagePreview.appendChild(img);
+                    imagePreview.appendChild(closeButton);
+                    imageContainer.appendChild(imagePreview);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Function to check the number of images
+            function checkImageCount() {
+                const totalImages = selectedImages.length + existingImagesContainer.children.length;
+                if (totalImages < 3) {
+                    alert('You need to upload at least 3 images.');
+                }
+            }
+
+            // Function to remove existing images
+            function removeImage(button, imagePath) {
+                const imagePreview = button.parentElement; // Get the parent div
+                existingImagesContainer.removeChild(imagePreview);
+
+                // You may also want to handle the removal from the server-side or store the path for deletion
+                // For example, you might send an AJAX request to delete the image from the server here
+                // e.g. deleteImageFromServer(imagePath);
+
+                checkImageCount(); // Check the image count after removal
+            }
+        </script>
+        <script>
+            var deletedImages = [];
+
+            function removeImage(button, imgPath) {
+                $(button).closest('.image-preview').remove();
+                deletedImages.push(imgPath);
+            }
+
+            $('#saveChangesBtn').click(function(e) {
+                e.preventDefault();
+
+                var formData = new FormData($('#uploadForm')[0]);
+
+                // Append deleted images to the FormData
+                deletedImages.forEach(function(image) {
+                    formData.append('deleted_images[]', image);
+                });
+
+                // Proceed with the AJAX request as before
+                $.ajax({
+                    url: "{{ route('landlord.properties.update', $property->id) }}",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        $('#uploadForm')[0].reset();
+                        toastr.success('Property updated successfully!');
+                        window.location.href = "{{ route('landlord.properties') }}";
+                    },
+                    error: function(xhr, status, error) {
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            $.each(errors, function(key, value) {
+                                var input = $('[name="' + key + '"]');
+                                input.addClass('is-invalid');
+                                input.after('<span class="error-message text-danger">' + value[0] +'</span>');
+                            });
+                            toastr.error('Error occurred while updating property.');
+                        } else {
+                            alert('Error occurred while updating property.');
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            const progressInput = document.getElementById('progressInput');
+            const progressNumber = document.getElementById('progressNumber');
+            const progress_points = document.getElementById('progress_points');
+
+            // Individual input boxes
+            const numberInput1 = document.getElementById('numberInput1');
+            const numberInput2 = document.getElementById('numberInput2');
+            const numberInput3 = document.getElementById('numberInput3');
+            const numberInput4 = document.getElementById('numberInput4');
+            const numberInput5 = document.getElementById('numberInput5');
+
+            // Listen to slider changes and update corresponding number inputs
+            progressInput.addEventListener('input', function() {
+                const progress = parseInt(progressInput.value);
+                updateProgress(progress);
+                changeBarColor(progressInput.value);
+                changeInputColors(progress); // Change input box colors
+            });
+
+            // Listen to number input changes to update progress bar
+            numberInput1.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                if (value >= 10 && value < 500) {
+                    progressInput.value = value;
+                    updateProgress(value);
                 }
             });
-        });
-    </script>
-    <script>
-        const progressInput = document.getElementById('progressInput');
-        const progressNumber = document.getElementById('progressNumber');
-        const progress_points = document.getElementById('progress_points');
 
-        // Individual input boxes
-        const numberInput1 = document.getElementById('numberInput1');
-        const numberInput2 = document.getElementById('numberInput2');
-        const numberInput3 = document.getElementById('numberInput3');
-        const numberInput4 = document.getElementById('numberInput4');
-        const numberInput5 = document.getElementById('numberInput5');
-
-        // Listen to slider changes and update corresponding number inputs
-        progressInput.addEventListener('input', function() {
-            const progress = parseInt(progressInput.value);
-            updateProgress(progress);
-            changeBarColor(progressInput.value);
-            changeInputColors(progress); // Change input box colors
-        });
-
-        // Listen to number input changes to update progress bar
-        numberInput1.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 10 && value < 500) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput2.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 500 && value < 1000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput3.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 1000 && value < 1500) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput4.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 1500 && value < 2000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput5.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 2000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        // Function to update the progress and which number input is active
-        function updateProgress(value) {
-            progressNumber.innerText = value;
-            progress_points.value = value;
-
-            // Update number inputs based on the current progress value
-            if (value >= 10 && value < 500) {
-                numberInput1.value = value;
-            } else if (value >= 500 && value < 1000) {
-                numberInput2.value = value;
-            } else if (value >= 1000 && value < 1500) {
-                numberInput3.value = value;
-            } else if (value >= 1500 && value < 2000) {
-                numberInput4.value = value;
-            } else if (value >= 2000) {
-                numberInput5.value = value;
-            }
-        }
-
-        // Change the color of the progress bar based on the value
-        function changeBarColor(value) {
-            const maxValue = parseInt(progressInput.max);
-            const percentage = (value / maxValue) * 100;
-
-            // Set a color based on the percentage
-            if (percentage <= 50) {
-                progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
-            } else {
-                progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
-            }
-        }
-
-        // Change the background color of the input box corresponding to the progress value
-        function changeInputColors(value) {
-            // Reset background color of all input boxes
-            resetInputs();
-
-            // Change color based on the progress value
-            if (value >= 10 && value < 500) {
-                numberInput1.style.backgroundColor = '#0077B6'; // Change color for 10-500 range
-            } else if (value >= 500 && value < 1000) {
-                numberInput2.style.backgroundColor = '#0077B6'; // Change color for 500-1000 range
-            } else if (value >= 1000 && value < 1500) {
-                numberInput3.style.backgroundColor = '#0077B6'; // Change color for 1000-1500 range
-            } else if (value >= 1500 && value < 2000) {
-                numberInput4.style.backgroundColor = '#0077B6'; // Change color for 1500-2000 range
-            } else if (value >= 2000) {
-                numberInput5.style.backgroundColor = '#0077B6'; // Change color for 2000+ range
-            }
-        }
-
-        // Reset all number inputs to avoid multiple updates
-        function resetInputs() {
-            numberInput1.style.backgroundColor = '';
-            numberInput2.style.backgroundColor = '';
-            numberInput3.style.backgroundColor = '';
-            numberInput4.style.backgroundColor = '';
-            numberInput5.style.backgroundColor = '';
-        }
-
-        // Start progress on click (demo)
-        function startProgress() {
-            const intervals = [10, 500, 1000, 1500, 2000]; // The progress increments
-            let index = 0;
-
-            const progressInterval = setInterval(() => {
-                if (index < intervals.length) {
-                    const progress = intervals[index];
-                    progressInput.value = progress;
-                    updateProgress(progress);
-                    changeBarColor(progress);
-                    changeInputColors(progress); // Update input box colors
-                    index++;
-                } else {
-                    clearInterval(progressInterval); // Stop when all increments are done
+            numberInput2.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                if (value >= 500 && value < 1000) {
+                    progressInput.value = value;
+                    updateProgress(value);
                 }
-            }, 1000); // Update every second
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-@endsection
+            });
+
+            numberInput3.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                if (value >= 1000 && value < 1500) {
+                    progressInput.value = value;
+                    updateProgress(value);
+                }
+            });
+
+            numberInput4.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                if (value >= 1500 && value < 2000) {
+                    progressInput.value = value;
+                    updateProgress(value);
+                }
+            });
+
+            numberInput5.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                if (value >= 2000) {
+                    progressInput.value = value;
+                    updateProgress(value);
+                }
+            });
+
+            // Function to update the progress and which number input is active
+            function updateProgress(value) {
+                progressNumber.innerText = value;
+                progress_points.value = value;
+
+                // Update number inputs based on the current progress value
+                if (value >= 10 && value < 500) {
+                    numberInput1.value = value;
+                } else if (value >= 500 && value < 1000) {
+                    numberInput2.value = value;
+                } else if (value >= 1000 && value < 1500) {
+                    numberInput3.value = value;
+                } else if (value >= 1500 && value < 2000) {
+                    numberInput4.value = value;
+                } else if (value >= 2000) {
+                    numberInput5.value = value;
+                }
+            }
+
+            // Change the color of the progress bar based on the value
+            function changeBarColor(value) {
+                const maxValue = parseInt(progressInput.max);
+                const percentage = (value / maxValue) * 100;
+
+                // Set a color based on the percentage
+                if (percentage <= 50) {
+                    progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
+                } else {
+                    progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
+                }
+            }
+
+            // Change the background color of the input box corresponding to the progress value
+            function changeInputColors(value) {
+                // Reset background color of all input boxes
+                resetInputs();
+
+                // Change color based on the progress value
+                if (value >= 10 && value < 500) {
+                    numberInput1.style.backgroundColor = '#0077B6'; // Change color for 10-500 range
+                } else if (value >= 500 && value < 1000) {
+                    numberInput2.style.backgroundColor = '#0077B6'; // Change color for 500-1000 range
+                } else if (value >= 1000 && value < 1500) {
+                    numberInput3.style.backgroundColor = '#0077B6'; // Change color for 1000-1500 range
+                } else if (value >= 1500 && value < 2000) {
+                    numberInput4.style.backgroundColor = '#0077B6'; // Change color for 1500-2000 range
+                } else if (value >= 2000) {
+                    numberInput5.style.backgroundColor = '#0077B6'; // Change color for 2000+ range
+                }
+            }
+
+            // Reset all number inputs to avoid multiple updates
+            function resetInputs() {
+                numberInput1.style.backgroundColor = '';
+                numberInput2.style.backgroundColor = '';
+                numberInput3.style.backgroundColor = '';
+                numberInput4.style.backgroundColor = '';
+                numberInput5.style.backgroundColor = '';
+            }
+
+            // Start progress on click (demo)
+            function startProgress() {
+                const intervals = [10, 500, 1000, 1500, 2000]; // The progress increments
+                let index = 0;
+
+                const progressInterval = setInterval(() => {
+                    if (index < intervals.length) {
+                        const progress = intervals[index];
+                        progressInput.value = progress;
+                        updateProgress(progress);
+                        changeBarColor(progress);
+                        changeInputColors(progress); // Update input box colors
+                        index++;
+                    } else {
+                        clearInterval(progressInterval); // Stop when all increments are done
+                    }
+                }, 1000); // Update every second
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    @endsection

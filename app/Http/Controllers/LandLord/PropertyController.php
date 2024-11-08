@@ -14,14 +14,13 @@ use App\Models\FeatureDetails;
 use App\Models\RentToWhoDetails;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
     public function properties()
     {
-        // Load the user with properties relationship
         $userId = Auth::id();
-
         $properties = Property::where('user_id',$userId)->with('user','media')->get();
         return view('Dashboard.landlord.properties',compact('properties'));
     }
@@ -54,10 +53,9 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $id = Auth::user()->id;
-
         // Validate the request data
         $validated = $request->validate([
-            'images' => 'required|array|min:3|max:50',
+            'images' => 'required|array|max:50',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8048',
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
@@ -266,13 +264,36 @@ class PropertyController extends Controller
 
         return response()->json(['message' => 'Property updated successfully!'], 200);
         }
-    public function properties_delete($id)
-    {
-        $property = Property::findOrFail($id);
-        $property->delete(); // This will soft delete the property
+        public function properties_delete($id)
+        {
+            $property = Property::findOrFail($id);
 
-        return response()->json([
-            'message' => 'Property deleted successfully.',
-        ]);
-    }
+            // Delete related images and remove them from storage
+            $media = Media::where('property_id', $property->id)->get();
+            foreach ($media as $image) {
+                // Delete the image from the filesystem
+                if (Storage::disk('public')->exists($image->img_path)) {
+                    Storage::disk('public')->delete($image->img_path);
+                }
+                // Delete the media record
+                $image->delete();
+            }
+
+            // Delete related RentToWhoDetails records
+            RentToWhoDetails::where('property_id', $property->id)->delete();
+
+            // Delete related PetDetails records
+            PetDetails::where('property_id', $property->id)->delete();
+
+            // Delete related FeatureDetails records
+            FeatureDetails::where('property_id', $property->id)->delete();
+
+            // Delete the property itself
+            $property->delete();
+
+            return response()->json([
+                'message' => 'Property deleted successfully.',
+            ]);
+        }
+
  }

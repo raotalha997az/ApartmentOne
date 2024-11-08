@@ -6,17 +6,18 @@
             <div class="col-lg-4">
                 <div class="place-gallery-box">
                     <div class="large-gallery-box">
-                        <a href="{{ asset('assets/images/dash-properties-01.png') }} " data-fancybox="gallery"
+                        @if ($property->media->isNotEmpty())
+                        <a href="{{ Storage::url($property->media[0]->img_path ?? '') }}" data-fancybox="gallery"
                             data-caption="Caption Images 1">
                             <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}" alt="Image Gallery">
-
                         </a>
+                        @endif
                     </div>
                     <div class="small-gallery-box">
                         {{-- Check if the property has media --}}
                         @if ($property->media->isNotEmpty())
-                            @foreach ($property->media as $media)
-                                <a href="{{ Storage::url($media->img_path) }}" data-fancybox="gallery"
+                            @foreach ($property->media->skip(1) as $media)
+                                <a href="{{ Storage::url($media->img_path) }}" style="box-shadow: 0px 0px 11px 0px black;" data-fancybox="gallery"
                                     data-caption="Property Image {{ $loop->iteration }}">
                                     <img src="{{ Storage::url($media->img_path) }}" alt="Image Gallery">
                                 </a>
@@ -38,7 +39,7 @@
                     <div class="properties_name_add">
                         <div class="name">
                             <h5>{{ $property->name }}</h5>
-                            <h6>{{ $property->category->name }}</h6>
+                            <h6>{{ $property->category->name ?? '' }}</h6>
                         </div>
                         <div class="add">
                             <a href="{{ route('landlord.properties.edit', $property->id) }}"><svg width="20"

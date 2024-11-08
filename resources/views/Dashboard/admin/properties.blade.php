@@ -36,34 +36,36 @@
                     </div>
                 </div>
             </div>
+
             <div class="tab-content">
+                @foreach ( $properties as $property)
                 <div class="tab-pane p-3 active" id="tabs-1" role="tabpanel">
                     <div class="latest-listing-parent-box">
                         <div class="latest-child-box">
                             <div class="box property-detail-box">
                                 <div class="img-box">
-                                    <img src="{{ asset('assets/images/admin-properties-img.png') }}" alt="">
+                                    {{-- <img src="{{ optional($property->media)->img_path ? Storage::url($property->media['img_path'])) }}" alt="" width="150px" height="100" style="object-fit: contain"> --}}
                                 </div>
                                 <div class="content">
                                     <h6>Property Details</h6>
-                                    <h5>St. Crystal</h5>
-                                    <p>Lorem Ipsum is simply dummy text of the</p>
-                                    <h4>$2,400</h4>
+                                    <h5>{{ $property->name }}</h5>
+                                    <p>{{ $property->other_details }}</p>
+                                    <h4>{{ $property->price_rent }}</h4>
                                 </div>
                             </div>
                         </div>
                         <div class="box two-person-align-box">
                             <div class="sunb-person-child-box">
                                 <div class="img-box">
-                                    <img src="{{ asset('assets/images/admin-properties-img-person-01.png') }}" alt="">
+                                    <img src="{{ Storage::url($property->user->profile_img ?? '') }}" alt="" width="150px" height="100" style="object-fit: contain">
                                 </div>
                                 <div class="content">
                                     <h6>Owner/Land Lord</h6>
-                                    <h5>Jeff Bezos</h5>
-                                    <p>Listed On 20 January 2024</p>
+                                    <h5>{{ $property->user->name }}</h5>
+                                    {{ $property->created_at->format('d-m-Y') }}
                                 </div>
                             </div>
-                            <div class="sunb-person-child-box">
+                            {{-- <div class="sunb-person-child-box">
                                 <div class="img-box">
                                     <img src="{{ asset('assets/images/admin-properties-img-person-02.png') }}" alt="">
                                 </div>
@@ -72,7 +74,7 @@
                                     <h5>Sofia Strom</h5>
                                     <p>Applied On 30 January 2024</p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="two-btns-inline">
                             <button>Approve</button>
@@ -83,6 +85,7 @@
 
 
                 </div>
+                @endforeach
                 <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
                     <div class="latest-listing-parent-box">
                         <div class="latest-child-box">

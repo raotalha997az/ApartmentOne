@@ -41,13 +41,9 @@
 
                     <h3>Category</h3>
                     {{-- <a class="t-btn t-btn-blue" href="#">Add New</a> --}}
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        {{-- <label for="category">Category</label> --}}
-                        <!-- Button to trigger the modal -->
-                        <button type="button" id="create-category" class="fa fa-plus btn btn-primary btn-sm px-3 py-2"
-                            style="white-space: nowrap" data-bs-toggle="modal" data-bs-target="#categoryModal">Add
-                            Category</button>
-                    </div>
+                    <a href="#" class="t-btn t-btn-blue" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                        <i class="fa fa-plus"></i> Add Category
+                    </a>
                     {{-- <a class="t-btn t-btn-blue" href="{{ route('admin.pets.create') }}">Add New</a> --}}
                 </div>
                 <table class="table table-striped">
