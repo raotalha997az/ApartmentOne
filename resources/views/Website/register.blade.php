@@ -28,14 +28,20 @@
                             <input type="email" placeholder="Email Address" required name="email">
                             <input type="tel" placeholder="Contact Number" required name="phone">
                             <textarea placeholder="Address" required name="address"></textarea>
-                            <input type="password" placeholder="Password" required name="password">
-                            <input type="password" placeholder="Confirm Password" required name="c_password">
+                            <input type="password" id="password" placeholder="Password" required name="password">
+                            <input type="password" id="c_password" placeholder="Confirm Password" required name="c_password">
                             <select name="role">
                                 <option disabled>Select Role</option>
                                 <option value="tenant">Tenant</option>
                                 <option value="land_lord">Landlord</option>
                             </select>
                             {{-- <input type="text" placeholder="Social Security Number" required name="ssn"> --}}
+
+                            <div class="input-check-box mt-4">
+                                <input type="checkbox" id="show-password" onclick="togglePassword()"> 
+                                <label for="show-password">Show Password</label>
+                            </div>
+
                             <div class="forms-btns-inline">
                                 <button type="submit" class="mt-5">Create An Account</button>
                                 <a href="{{ route('login') }}">Back To Login</a>
@@ -47,4 +53,19 @@
         </div>
 
     </section>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const c_passwordField = document.getElementById('c_password');
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                c_passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+                c_passwordField.type = "password";
+            }
+        }
+    </script>
+    
 @endsection

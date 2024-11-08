@@ -4568,5 +4568,19 @@ width: 100%;
 
 }
 
+.input-check-box {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 10px;
+}
+
+
+.input-check-box input#show-password {
+    width: 20px;
+    margin: 0;
+    height: 15px;
+}
+
 
 
