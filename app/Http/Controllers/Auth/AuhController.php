@@ -6,8 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendPasswordResetEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
 class AuhController extends Controller
@@ -81,6 +83,54 @@ public function login(Request $request)
     {
         Auth::logout();
         return redirect()->route('login');
+    }
+
+
+    public function showLinkRequestForm()
+    {
+        return view('Website.resetPassword');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email|exists:users,email']);
+
+        $user = User::where('email', $request->email)->first();
+        $token = Password::createToken($user);
+
+        // $user->notify(new ResetPasswordNotification($token));
+        $resetUrl = url(route('password.reset', ['token' => $token, 'email' => $user->email], false));
+        SendPasswordResetEmail::dispatch($user->email, $resetUrl);
+
+        return back()->with('success', 'Password reset link sent!');
+    }
+
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('Website.reset-password-form')->with(['token' => $token, 'email' => $request->email]);
+    }
+
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user) use ($request) {
+                $user->password = bcrypt($request->password);
+                $user->save();
+            }
+        );
+
+        if ($status == Password::PASSWORD_RESET) {
+            return redirect()->route('login')->with('success', 'Password reset successfully!');
+        }
+
+        return back()->withErrors(['email' => [__($status)]]);
     }
 
 }

@@ -49,6 +49,11 @@ Route::post('/register/store',[AuhController::class,'register'])->name('register
 Route::post('/login/store',[AuhController::class,'login'])->name('login.store');
 Route::post('/logout',[AuhController::class,'logout'])->name('logout');
 
+Route::get('password/reset', [AuhController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [AuhController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [AuhController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [AuhController::class, 'reset'])->name('password.update');
+
 // blogs
 Route::get('blog', [WebController::class, 'blog'])->name('blog');
 Route::get('blog/details/{id}', [WebController::class, 'blogDetails'])->name('blog-details');

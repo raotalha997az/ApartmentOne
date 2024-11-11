@@ -28,14 +28,15 @@
                         <input type="password" placeholder="Password" required name="password" id="password">
 
                         <div class="input-check-box">
-                            <input type="checkbox" id="show-password" onclick="togglePassword()"> 
+                            <input type="checkbox" id="show-password" onclick="togglePassword()">
                             <label for="show-password">Show Password</label>
                         </div>
 
-                        
+
                         <div class="forms-btns-inline">
                             <button>Login</button>
                             <a href="{{ route('register') }}">Create a New Account</a>
+                            <a href="{{ route('password.request') }}">Forget Password</a>
                         </div>
                     </form>
                 </div>

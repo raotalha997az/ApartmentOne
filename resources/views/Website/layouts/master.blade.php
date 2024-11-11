@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apartment One</title>
+    <title>{{ config('app.name') }}</title>
+    {{-- <title>Apartment One</title> --}}
     <link rel="icon" href="assets/images/apartment-one-favicon.png" type="favicon.png" sizes="32x32">
     <link rel="stylesheet" href="{{ asset('assets/style-folder/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -20,7 +21,7 @@
                 <div class="col-lg-2">
                     <div class="header-logo">
                         <a href="{{ route('index') }}"><img src="{{ asset('assets/images/header-logo.png') }}" alt=""></a>
-                    </div>  
+                    </div>
                 </div>
                 <div class="col-lg-10">
                     <div class="header-menu">
@@ -33,7 +34,7 @@
                                 <li><a href="{{ route('seekingahome') }}">Seeking A Dream Home</a></li>
                             </ul>
                             </li>
-                            <li><a href="{{ route('blog') }}">Blogs</a></li>    
+                            <li><a href="{{ route('blog') }}">Blogs</a></li>
                             <li><a href="{{ route('help') }}">Help</a></li>
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                             <li><a href="{{ route('login') }}" class="t-btn t-btn-header">Login / Register</a></li>
@@ -42,7 +43,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12"> 
+                <div class="col-md-12">
                     <div class="two-things-header-mb">
                         <div class="header-logo">
                             <a href="index.php"><img src="{{ asset('assets/images/header-logo.png') }}" alt=""></a>
@@ -52,7 +53,7 @@
                             <label class="menu__btn" for="menu__toggle">
                               <span></span>
                             </label>
-                        
+
                             <ul class="menu__box">
                                 <li><a href="{{ route('index') }}">Home</a></li>
                                 <li><a href="{{ route('about') }}">About</a></li>
@@ -63,18 +64,18 @@
                                 </ul>
                                 </li>
                                 <li><a href="{{ route('blog') }}">Blogs</a></li>
-                                <li><a href="{{ route('help') }}">Help</a></li>   
+                                <li><a href="{{ route('help') }}">Help</a></li>
                                 <li><a href="{{ route('contact') }}">Contact</a></li>
                                 <li><a href="{{ route('login') }}" class="t-btn t-btn-header">Login / Register</a></li>
                             </ul>
                           </div>
                     </div>
-                    </div>  
+                    </div>
             </div>
         </div>
 
     </header>
-    
+
     @yield('content')
 
 
