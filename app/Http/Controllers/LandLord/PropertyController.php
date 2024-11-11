@@ -273,7 +273,6 @@ class PropertyController extends Controller
         {
             $property = Property::findOrFail($id);
             $property->delete();
-
             return response()->json([
                 'message' => 'Property deleted successfully.',
             ]);

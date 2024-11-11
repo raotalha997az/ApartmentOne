@@ -57,6 +57,8 @@ Route::get('blog/details/{id}', [WebController::class, 'blogDetails'])->name('bl
 Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::middleware(['role:tenant'])->group(function () {
     Route::get('/dashboard',[TenantAuthController::class,'dashboard'])->name('dashboard');
+    Route::get('/screening', [TenantAuthController::class, 'screening'])->name('screening');
+
     Route::get('/properties',[TenantAuthController::class,'properties'])->name('properties');
     Route::get('/propertieslistings',[DashboardController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/applyhistory',[DashboardController::class,'applyhistory'])->name('applyhistory');

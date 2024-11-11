@@ -34,7 +34,7 @@ public function updateProfile(Request $request)
         'state' => 'nullable|string|max:255',
         'postal_code' => 'nullable|string|max:255',
         // 'date_of_birth' => 'nullable|date',
-        'date_of_birth' => 'nullable|date|before_or_equal:today', 
+        'date_of_birth' => 'nullable|date|before_or_equal:today',
         'profile_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
     ]);
     if($validator->fails()) {
@@ -88,6 +88,11 @@ public function dashboard()
 {
     $user = Auth::user();
     return view('Dashboard.tenant.dashboard' ,compact('user'));
+}
+public function screening()
+{
+    // $user = Auth::user();
+    return view('Dashboard.tenant.screening');
 }
 
 public function properties()
