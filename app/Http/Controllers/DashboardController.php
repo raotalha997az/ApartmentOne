@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
 
-    public function propertieslistings()
-    {
-        return view('Dashboard.tenant.propertieslistings');
-    }
-
     public function applyhistory()
     {
         return view('Dashboard.tenant.applyhistory');

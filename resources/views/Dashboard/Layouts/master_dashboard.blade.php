@@ -88,7 +88,7 @@
                                                         d="M10.5 15H20.5V17.5H10.5V15ZM10.5 20H20.5V22.5H10.5V20ZM10.5 10H13V12.5H10.5V10Z"
                                                         fill="white" />
                                                 </svg>
-                                                Applying Property</a></li>
+                                                Apply Property History</a></li>
                                         <li><a href="{{ route('tenant.profile') }}" class="profile-active"><svg
                                                     width="31" height="30" viewBox="0 0 31 30" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -320,7 +320,7 @@
                                                     d="M10.5 15H20.5V17.5H10.5V15ZM10.5 20H20.5V22.5H10.5V20ZM10.5 10H13V12.5H10.5V10Z"
                                                     fill="white" />
                                             </svg>
-                                            Apply History</a></li>
+                                            Apply Property History</a></li>
                                     <li><a href="{{ route('tenant.profile') }}" class="profile-active"><svg
                                                 width="31" height="30" viewBox="0 0 31 30" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">

@@ -10,12 +10,37 @@
             fill: #414141 !important;
         }
 
+
+        .lock-access-box-top {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position:center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.lock-access-box-top .box {
+    text-align: center;
+    width: 40%;
+}
+
+.lock-access-box-top .box h6 {
+    color: #414141;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
 </style>
 
 
 @section('content')
 <div class="properties-page">
-    <div class="row">
+
+    <div class="row" style="position: relative">
         <div class="col-lg-12">
             <div class="top-listing-parent-box">
                 <div class="two-things-align">
@@ -1657,7 +1682,17 @@
             </div>
 
         </div>
+
+        <div class="lock-access-box-top" style="background-image: url({{asset('assets/images/Rectangle-400.png')}})">
+            <div class="box">
+                <h6>Apply For Screening To Get Full Access</h6>
+            <a href="{{route('tenant.screening')}}" class="t-btn t-btn-blue t-btn-svg">Apply Now<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.0215 17.5981L12.3834 18.9601L18.8435 12.5L12.3834 6.03992L11.0215 7.40186L15.1564 11.5368H5.92334V13.4632H15.1564L11.0215 17.5981Z" fill="white"></path>
+                </svg></a>
+            </div>
+        </div>
     </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TrashController;
 use App\Http\Controllers\Auth\AuhController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\PetController;
@@ -13,7 +14,7 @@ use App\Http\Controllers\Admin\RentToWhoController;
 use App\Http\Controllers\Auth\TenantAuthController;
 use App\Http\Controllers\Auth\LandlordAuthController;
 use App\Http\Controllers\LandLord\PropertyController;
-use App\Http\Controllers\TrashController;
+use App\Http\Controllers\tenant\TenantPropertiesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,10 +58,9 @@ Route::get('blog/details/{id}', [WebController::class, 'blogDetails'])->name('bl
 Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::middleware(['role:tenant'])->group(function () {
     Route::get('/dashboard',[TenantAuthController::class,'dashboard'])->name('dashboard');
-    Route::get('/screening', [TenantAuthController::class, 'screening'])->name('screening');
-
-    Route::get('/properties',[TenantAuthController::class,'properties'])->name('properties');
-    Route::get('/propertieslistings',[DashboardController::class,'propertieslistings'])->name('propertieslistings');
+    Route::get('/screening', [TenantPropertiesController::class, 'screening'])->name('screening');
+    Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
+    Route::get('/propertieslistings',[TenantPropertiesController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/applyhistory',[DashboardController::class,'applyhistory'])->name('applyhistory');
     Route::get('/profile',[DashboardController::class,'profile'])->name('profile');
     Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist');

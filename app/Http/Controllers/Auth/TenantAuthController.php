@@ -89,16 +89,7 @@ public function dashboard()
     $user = Auth::user();
     return view('Dashboard.tenant.dashboard' ,compact('user'));
 }
-public function screening()
-{
-    // $user = Auth::user();
-    return view('Dashboard.tenant.screening');
-}
 
-public function properties()
-    {
-        return view('Dashboard.tenant.properties');
-    }
 public function bank(Request $request)
 {
     $user = Auth::user();
