@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TrashProperty;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TrashController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\PetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\TrashPropertyController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\RentToWhoController;
 use App\Http\Controllers\Auth\TenantAuthController;
@@ -92,6 +94,12 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::put('update/property/{id}', [PropertyController::class, 'properties_update'])->name('properties.update');
     Route::post('delete/property/{id}', [PropertyController::class, 'properties_delete'])->name('properties.delete');
     Route::post('store/category',[PropertyController::class,'category_store'])->name('category.store');
+
+      // Trash Properties
+      Route::prefix('trash')->name('trash.')->group(function () {
+        Route::get('/index', [TrashPropertyController::class, 'index'])->name('index');
+        Route::match(['get' , 'post'],'{user}/undo', [TrashPropertyController::class, 'undo'])->name('undo'); // Fixed to reference 'user'
+    });
 
     // profile
     Route::get('/profile',[LandlordAuthController::class,'profile'])->name('profile');
