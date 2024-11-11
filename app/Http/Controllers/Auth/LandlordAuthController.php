@@ -18,7 +18,11 @@ class LandlordAuthController extends Controller
     public function dashboard()
     {
         $userId = Auth::id();
-        $properties = Property::where('user_id', $userId)->get(['id','name','cat_id']);
+        // $properties = Property::where('user_id', $userId)->get(['id','name','cat_id']);
+        $properties = Property::where('user_id', $userId)
+                                ->orderBy('id', 'desc')
+                                ->get(['id', 'name', 'cat_id']);
+
         return view('Dashboard.landlord.dashboard', compact('properties'));
     }
 

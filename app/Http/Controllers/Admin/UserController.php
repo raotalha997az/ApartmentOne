@@ -29,68 +29,68 @@ class UserController extends Controller
 
 
 
-public function store(Request $request)
-{
+    public function store(Request $request)
+    {
 
 
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'phone' => 'required',
-        'city' => 'nullable|string',
-        'country' => 'nullable|string',
-        'state' => 'nullable|string',
-        'postal_code' => 'nullable|string',
-        'address' => 'nullable|string',
-        'profile_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'date_of_birth' => 'nullable|date',
-        'password' => 'required|string|min:8|max:12', // Removed `confirmed` rule
-        'role' => 'required|string',
-    ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required',
+            'city' => 'nullable|string',
+            'country' => 'nullable|string',
+            'state' => 'nullable|string',
+            'postal_code' => 'nullable|string',
+            'address' => 'nullable|string',
+            'profile_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'date_of_birth' => 'nullable|date',
+            'password' => 'required|string|min:8|max:12', // Removed `confirmed` rule
+            'role' => 'required|string',
+        ]);
 
-    $land_lord = Role::firstOrCreate(['name' => 'land_lord']);
-    $tenant = Role::firstOrCreate(['name' => 'tenant']);
+        $land_lord = Role::firstOrCreate(['name' => 'land_lord']);
+        $tenant = Role::firstOrCreate(['name' => 'tenant']);
 
-    // Create or update the User
-    $user = User::firstOrCreate(['email' => $request->email], [
-        'name' => $request->name,
-        'address' => $request->address ?? 'null',
-        'phone' => $request->phone,
-        'city' => $request->city,
-        'country' => $request->country,
-        'state' => $request->state,
-        'postal_code' => $request->postal_code,
-        'date_of_birth' => $request->date_of_birth,
-        'password' => Hash::make($request->password),
-    ]);
+        // Create or update the User
+        $user = User::firstOrCreate(['email' => $request->email], [
+            'name' => $request->name,
+            'address' => $request->address ?? 'null',
+            'phone' => $request->phone,
+            'city' => $request->city,
+            'country' => $request->country,
+            'state' => $request->state,
+            'postal_code' => $request->postal_code,
+            'date_of_birth' => $request->date_of_birth,
+            'password' => Hash::make($request->password),
+        ]);
 
-    // Assign role to the user
-    $user->assignRole($request->role === 'land_lord' ? $land_lord : $tenant);
+        // Assign role to the user
+        $user->assignRole($request->role === 'land_lord' ? $land_lord : $tenant);
 
-    // Handle profile image upload
-    if ($request->hasFile('profile_img')) {
-        // Delete old profile image if it exists
-        if ($user->profile_img) {
-            $oldImagePath = storage_path('app/public/' . $user->profile_img);
-            if (file_exists($oldImagePath)) {
-                unlink($oldImagePath);
+        // Handle profile image upload
+        if ($request->hasFile('profile_img')) {
+            // Delete old profile image if it exists
+            if ($user->profile_img) {
+                $oldImagePath = storage_path('app/public/' . $user->profile_img);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
             }
+
+            // Store new profile image
+            $extension = $request->file('profile_img')->getClientOriginalExtension();
+            $uniqueName = 'profile_' . Str::random(40) . '.' . $extension;
+            $request->file('profile_img')->storeAs('public/profile_images', $uniqueName);
+
+            // Update the profile_img attribute
+            $user->profile_img = 'profile_images/' . $uniqueName;
         }
 
-        // Store new profile image
-        $extension = $request->file('profile_img')->getClientOriginalExtension();
-        $uniqueName = 'profile_' . Str::random(40) . '.' . $extension;
-        $request->file('profile_img')->storeAs('public/profile_images', $uniqueName);
+        // Save the user instance with the new profile image if applicable
+        $user->save();
 
-        // Update the profile_img attribute
-        $user->profile_img = 'profile_images/' . $uniqueName;
+        return redirect()->route('admin.user.index')->with('success', 'User created successfully!');
     }
-
-    // Save the user instance with the new profile image if applicable
-    $user->save();
-
-    return redirect()->route('admin.user.index')->with('success', 'User created successfully!');
-}
 
     // Show the form for editing the specified user
     public function edit($id)
@@ -169,16 +169,15 @@ public function store(Request $request)
 
         return redirect()->route('admin.user.index')->with('success', 'User updated successfully!');
     }
-
-    // Remove the specified user from the database
     public function destroy($id)
-    {
-        $user = User::findOrFail($id); // Find the user by ID
-        $user->delete(); // Delete the user
+{
+    $user = User::findOrFail($id);
 
-        return redirect()->route('admin.user.index')->with('success', 'User deleted successfully!');
-    }
+    // Delete the user
+    $user->delete();
+    return redirect()->route('admin.user.index')->with('success', 'User deleted successfully!');
 
+}
     public function search(Request $request)
     {
         // Retrieve the search value from the request

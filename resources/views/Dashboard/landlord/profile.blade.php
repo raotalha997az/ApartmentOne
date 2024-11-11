@@ -142,7 +142,10 @@
                             </div>
                             <div class="input-box">
                                 <label for="">Date Of Birth</label>
-                                <input type="date" value="{{ $user->date_of_birth ?? '' }}" name="date_of_birth">
+                                    <input type="date" value="{{ $user->date_of_birth ?? '' }}" name="date_of_birth" max="{{ \Carbon\Carbon::today()->toDateString() }}">
+                                    @error('date_of_birth')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
                         <div class="two-btn-align-sub-del">

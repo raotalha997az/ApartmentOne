@@ -38,9 +38,9 @@ class Property extends Model
     }
 
     public function features()
-{
-    return $this->hasMany(FeatureDetails::class, 'property_id');
-}
+    {
+        return $this->hasMany(FeatureDetails::class, 'property_id');
+    }
 
     public function RentToWhoDetails(){
         return $this->hasMany(RentToWhoDetails::class, 'property_id');

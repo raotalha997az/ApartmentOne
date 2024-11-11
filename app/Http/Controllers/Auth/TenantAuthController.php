@@ -33,7 +33,8 @@ public function updateProfile(Request $request)
         'country' => 'nullable|string|max:255',
         'state' => 'nullable|string|max:255',
         'postal_code' => 'nullable|string|max:255',
-        'date_of_birth' => 'nullable|date',
+        // 'date_of_birth' => 'nullable|date',
+        'date_of_birth' => 'nullable|date|before_or_equal:today', 
         'profile_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
     ]);
     if($validator->fails()) {

@@ -21,7 +21,12 @@ class PropertyController extends Controller
     public function properties()
     {
         $userId = Auth::id();
-        $properties = Property::where('user_id',$userId)->with('user','media')->get();
+        // $properties = Property::where('user_id',$userId)->with('user','media')->get();
+        $properties = Property::where('user_id', $userId)
+    ->with(['user', 'media'])
+    ->orderBy('id', 'desc')
+    ->get();
+
         return view('Dashboard.landlord.properties',compact('properties'));
     }
 
@@ -267,28 +272,6 @@ class PropertyController extends Controller
         public function properties_delete($id)
         {
             $property = Property::findOrFail($id);
-
-            // Delete related images and remove them from storage
-            $media = Media::where('property_id', $property->id)->get();
-            foreach ($media as $image) {
-                // Delete the image from the filesystem
-                if (Storage::disk('public')->exists($image->img_path)) {
-                    Storage::disk('public')->delete($image->img_path);
-                }
-                // Delete the media record
-                $image->delete();
-            }
-
-            // Delete related RentToWhoDetails records
-            RentToWhoDetails::where('property_id', $property->id)->delete();
-
-            // Delete related PetDetails records
-            PetDetails::where('property_id', $property->id)->delete();
-
-            // Delete related FeatureDetails records
-            FeatureDetails::where('property_id', $property->id)->delete();
-
-            // Delete the property itself
             $property->delete();
 
             return response()->json([

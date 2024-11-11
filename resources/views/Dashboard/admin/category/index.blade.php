@@ -25,10 +25,10 @@
         text-align: left;
     }
 </style>
-
 @section('content')
     <div class="profile-page rooms-features-page">
         <div class="row">
+
             <div class="col-lg-12">
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -37,7 +37,6 @@
                     </div>
                 @endif
                 <div class="profile-basic-info-form">
-
 
                     <h3>Category</h3>
                     {{-- <a class="t-btn t-btn-blue" href="#">Add New</a> --}}
@@ -54,21 +53,6 @@
                     </tr>
 
                     @foreach ($categorys as $category)
-                        {{-- <tr>
-                            <td>{{ $category->id ?? '' }}</td>
-                            <td>{{ $category->name ?? '' }}</td>
-                            <td>
-                                <a class="btn btn-sm btn-success"
-                                    href="{{ route('admin.pets.edit', $category->id) }}">Edit</a>
-                                <form id="deleteForm" action="{{ route('admin.pets.destroy', $category->id) }}"
-                                    method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-sm btn-danger"
-                                        onclick="confirmDelete()">Delete</button>
-                                </form>
-                            </td>
-                        </tr> --}}
                         <tr>
                             <td>{{ $category->id ?? '' }}</td>
                             <td>{{ $category->name ?? '' }}</td>
@@ -98,8 +82,10 @@
                     <form id="categoryForm">
                         <div class="mb-3">
                             <label for="new-category" class="form-label">Category Name</label>
-                            <input type="text" class="form-control" id="new-category" placeholder="Enter category name"
-                                required>
+                            <input type="text" name="name" class="form-control" id="new-category" placeholder="Enter category name" >
+                                @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Add Category</button>
                     </form>
