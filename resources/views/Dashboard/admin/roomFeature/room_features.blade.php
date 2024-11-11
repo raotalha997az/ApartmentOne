@@ -53,13 +53,14 @@
     <div class="profile-page rooms-features-page">
         <div class="row">
             <div class="col-lg-12">
-                <div class="profile-basic-info-form">
-                    @if (session('success'))
+                @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
+                <div class="profile-basic-info-form">
+
 
                     <h3>Rooms & Features Create</h3>
                     @if (Auth::user()->hasRole('admin'))

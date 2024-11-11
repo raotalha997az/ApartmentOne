@@ -117,7 +117,8 @@ class BlogController extends Controller
                }
            }
            $blog->delete();
-           return response()->json(['success' => true, 'message' => 'Staff deleted successfully!']);
+        //    return response()->json(['success' => true, 'message' => 'Staff deleted successfully!']);
+           return redirect()->route('admin.blog.index')->with('success', 'Blog post Deletet successfully.');
         }
 
 }

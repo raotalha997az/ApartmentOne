@@ -52,13 +52,14 @@
 <div class="profile-page rooms-features-page">
     <div class="row">
         <div class="col-lg-12">
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
             <div class="profile-basic-info-form">
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+
 
                 <h3>Rent To Who</h3>
                 <a  class="t-btn t-btn-blue"  href="{{ route('admin.rent-to-who.create') }}">Add New</a>
