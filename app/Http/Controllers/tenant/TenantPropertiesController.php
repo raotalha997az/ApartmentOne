@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\tenant;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TenantPropertiesController extends Controller
 {
     public function screening()
     {
-        // $user = Auth::user();
-        return view('Dashboard.tenant.screening');
+        $user = Auth::user()->load('bank');
+        return view('Dashboard.tenant.screening',compact('user'));
     }
 
     public function properties()

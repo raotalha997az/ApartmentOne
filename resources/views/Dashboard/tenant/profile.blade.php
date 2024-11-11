@@ -145,9 +145,10 @@
                                 <div class="input-box">
                                     <label for="">Date Of Birth</label>
                                     {{-- <input type="date" value="{{ $user->date_of_birth ?? '' }}" name="date_of_birth"> --}}
-                                    <input type="date" value="{{ $user->date_of_birth ?? '' }}" name="date_of_birth" max="{{ \Carbon\Carbon::today()->toDateString() }}">
+                                    <input type="date" value="{{ $user->date_of_birth ?? '' }}" name="date_of_birth"
+                                        max="{{ \Carbon\Carbon::today()->toDateString() }}">
                                     @error('date_of_birth')
-                                    <div class="text-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
 
                                 </div>
@@ -172,22 +173,39 @@
                                             value="{{ $user->bank->bank_name ?? '' }} ">
                                     </div>
                                     <div class="input-box">
-                                        <label for="">Branch Code</label>
-                                        <input type="text" placeholder="XXXX" name="branch_code"
-                                            value="{{ $user->bank->branch_code ?? '' }} ">
+                                        <label for="branch_code">Branch Code</label>
+                                        <input type="text" placeholder="XXXX" name="branch_code" id="branch_code"
+                                            value="{{ old('branch_code', $user->bank->branch_code ?? '') }}"
+                                            class="form-control @error('branch_code') is-invalid @enderror">
+
+                                        @error('branch_code')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="two-inputs-boxes-align">
                                     <div class="input-box">
-                                        <label for="">Identity Card Number</label>
-                                        <input type="text" placeholder="XXXX" name="identity_card"
-                                            value="{{ $user->bank->identity_card ?? '' }} ">
+                                        <label for="identity_card">Identity Card Number</label>
+                                        <input type="text" placeholder="XXXX" name="identity_card" id="identity_card"
+                                            value="{{ old('identity_card', $user->bank->identity_card ?? '') }}"
+                                            class="form-control @error('identity_card') is-invalid @enderror">
+
+                                        @error('identity_card')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="input-box">
-                                        <label for="">Account Number</label>
+                                        <label for="account_number">Account Number</label>
                                         <input type="text" placeholder="XXXX" name="account_number"
-                                            value="{{ $user->bank->account_number ?? '' }} ">
+                                            id="account_number"
+                                            value="{{ old('account_number', $user->bank->account_number ?? '') }}"
+                                            class="form-control @error('account_number') is-invalid @enderror">
+
+                                        @error('account_number')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
+
                                 </div>
                                 <div class="two-btn-align-sub-del">
                                     <button type="submit" class="form-btn submit">Save Changes <img
