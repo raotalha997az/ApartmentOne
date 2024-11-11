@@ -174,7 +174,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
         <script>
             document.getElementById('dateOfBirth').addEventListener('focus', function() {
-                this.showPicker(); // This line automatically shows the date picker on focus
+                this.showPicker(); 
             });
         </script>
     @endsection
