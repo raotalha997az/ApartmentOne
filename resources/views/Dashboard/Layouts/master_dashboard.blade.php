@@ -34,6 +34,52 @@
         .left-panel-menu {
             row-gap: 20px;
         }
+
+
+        .notification-drop-box {
+    position: relative;
+}
+
+
+
+.notification-drop-box .notification-dropdown {
+    background: white;
+    width: 500px;
+    position: absolute;
+    padding: 20px;
+    top: 30px;
+    left: -50px;
+    border: 1px solid;
+    display:none;
+    transition.3s;
+}
+
+.notification-drop-box .notification-dropdown .two-thing-space {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.notification-drop-box .notification-dropdown .notification-list-box .notification-listing {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-drop-box .notification-dropdown .notification-list-box .notification-listing button.cancel-notify {
+    height: 40px;
+    width: 40px;
+}
+
+.notification-drop-box:hover{
+     .notification-dropdown{
+           display:block;
+    transform:.3s;
+     }
+
+}
     </style>
 </head>
 
@@ -500,13 +546,39 @@
                         </div>
                         <div class="right-header-links">
                             <ul>
-                                <li><a href="#"><svg width="30" height="31" viewBox="0 0 30 31"
+                                <li class="notification-drop-box">
+                                    <a href="#"><svg width="30" height="31" viewBox="0 0 30 31"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M23.7969 17.2387V12.7562C23.7969 8.73498 21.0656 5.34748 17.3656 4.32873C16.9994 3.40623 16.1044 2.75623 15.0469 2.75623C13.9894 2.75623 13.0944 3.40623 12.7281 4.32873C9.02813 5.34873 6.29688 8.73498 6.29688 12.7562V17.2387L4.16313 19.3725C4.04682 19.4884 3.95459 19.6261 3.89173 19.7778C3.82888 19.9294 3.79664 20.092 3.79688 20.2562V22.7562C3.79688 23.0877 3.92857 23.4057 4.16299 23.6401C4.39741 23.8745 4.71536 24.0062 5.04688 24.0062H25.0469C25.3784 24.0062 25.6963 23.8745 25.9308 23.6401C26.1652 23.4057 26.2969 23.0877 26.2969 22.7562V20.2562C26.2971 20.092 26.2649 19.9294 26.202 19.7778C26.1392 19.6261 26.0469 19.4884 25.9306 19.3725L23.7969 17.2387ZM23.7969 21.5062H6.29688V20.7737L8.43063 18.64C8.54693 18.5241 8.63916 18.3864 8.70202 18.2347C8.76488 18.083 8.79711 17.9204 8.79688 17.7562V12.7562C8.79688 9.30998 11.6006 6.50623 15.0469 6.50623C18.4931 6.50623 21.2969 9.30998 21.2969 12.7562V17.7562C21.2969 18.0887 21.4281 18.4062 21.6631 18.64L23.7969 20.7737V21.5062ZM15.0469 27.7562C15.821 27.7572 16.5762 27.517 17.2075 27.0689C17.8388 26.6209 18.3148 25.9873 18.5694 25.2562H11.5244C11.779 25.9873 12.255 26.6209 12.8863 27.0689C13.5176 27.517 14.2728 27.7572 15.0469 27.7562Z"
                                                 fill="#777777" />
                                         </svg>
-                                        Notifications</a></li>
+                                        Notifications
+                                    </a>
+                                    <div class="notification-dropdown">
+                                        {{-- notification --}}
+                                        <div class="two-thing-space">
+                                            <h6>Notifications</h6>
+                                            <button id="markAllAsReadBtn">Mark All As Read</button>
+                                        </div>
+                                        <div class="notification-list-box">
+                                            <div class="notification-listing">
+                                                @foreach (Auth::user()->notifications->where('read_at', null) as $notification)
+
+                                                    <div class="box" id="notification-{{ $notification->id }}">
+                                                        <h6>Property Approved!</h6>
+                                                        <p> {{ $notification->data['message'] }}</p>
+                                                    </div>
+                                                    <button class="cancel-notify" data-id="{{ $notification->id }}">
+                                                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"/>
+                                                        </svg>
+                                                    </button>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                                 <li><a href="#"><svg width="30" height="31" viewBox="0 0 30 31"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -569,7 +641,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
 </body>
 
 </html>
+<script>
+    // Mark all notifications as read
+    $('#markAllAsReadBtn').click(function() {
+        $.ajax({
+            url: '{{ route('admin.notifications.markAllRead') }}',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                $('.notification-listing .box').removeClass('unread'); // Update UI if needed
+                toastr.success(response.success);
+            }
+        });
+    });
+
+    // Mark a single notification as read
+    $('.cancel-notify').click(function() {
+    const notificationId = $(this).data('id'); // Ensure this data-id is set in HTML
+    const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id', notificationId); // Replace :id placeholder with the actual ID
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(response) {
+            $(`#notification-${notificationId}`).remove(); // Remove or update UI
+            toastr.success(response.success); // Display success message
+        },
+        error: function(xhr) {
+            toastr.error('An error occurred.'); // Handle error
+        }
+    });
+});
+
+</script>

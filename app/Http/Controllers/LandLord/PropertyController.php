@@ -22,10 +22,10 @@ class PropertyController extends Controller
     {
         $userId = Auth::id();
         // $properties = Property::where('user_id',$userId)->with('user','media')->get();
-        $properties = Property::where('user_id', $userId)
-    ->with(['user', 'media'])
-    ->orderBy('id', 'desc')
-    ->get();
+        $properties = Property::where('user_id', $userId)->where('approve', 1)
+        ->with(['user', 'media'])
+        ->orderBy('id', 'desc')
+        ->get();
 
         return view('Dashboard.landlord.properties',compact('properties'));
     }

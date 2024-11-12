@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\TrashPropertyController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\RentToWhoController;
+use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Auth\TenantAuthController;
 use App\Http\Controllers\Auth\LandlordAuthController;
 use App\Http\Controllers\LandLord\PropertyController;
@@ -111,17 +112,24 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
 
 //Admin Dashboard Routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::middleware(['role:admin'])->group(function () {
+    Route::middleware(['role:admin|land_lord'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
-    Route::get('/properties',[AdminAuthController::class,'properties'])->name('properties');
+    Route::get('/properties',[AdminPropertyController::class,'properties'])->name(name: 'properties');
+    Route::get('/properties/approve/{id}',[AdminPropertyController::class,'propertyApprove'])->name('properties.approve');
+
+
+        Route::post('/notifications/mark-all-read', [AdminPropertyController::class, 'markAllRead'])->name('notifications.markAllRead');
+        Route::post('/notifications/{id}/mark-read', [AdminPropertyController::class, 'markAsRead'])->name('notifications.markAsRead');
+ 
+
     Route::get('/properties/Bylandlord',[PropertyController::class,'Bylandlord'])->name('properties.bylandlord');
     Route::get('/income_reports',[AdminAuthController::class,'income_reports'])->name('income_reports');
     Route::get('/user_reports',[AdminAuthController::class,'user_reports'])->name('user_reports');
     Route::get('/pricing',[AdminAuthController::class,'pricing'])->name('pricing');
     Route::get('/edit_pricing',[AdminAuthController::class,'edit_pricing'])->name('edit_pricing');
     Route::get('/users',[AdminAuthController::class,'users'])->name('users');
-    Route::get('/propertiesdetails',[AdminAuthController::class,'propertiesdetails'])->name('propertiesdetails');
-    Route::get('/propertieslistings',[AdminAuthController::class,'propertieslistings'])->name('propertieslistings');
+    Route::get('/propertiesdetails',[AdminPropertyController::class,'propertiesdetails'])->name('propertiesdetails');
+    Route::get('/propertieslistings',[AdminPropertyController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/wishlist',[AdminAuthController::class,'wishlist'])->name('wishlist');
     Route::get('/notifications',[AdminAuthController::class,'notifications'])->name('notifications');
     Route::get('/messages',[AdminAuthController::class,'messages'])->name('messages');

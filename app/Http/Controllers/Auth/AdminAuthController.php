@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\PropertyApprovedNotification;
 
 class AdminAuthController extends Controller
 {
@@ -33,19 +34,8 @@ class AdminAuthController extends Controller
         return view('Dashboard.tenant.notifications');
     }
 
-    public function properties()
-    {
-        $properties = Property::where('approve', 0)
-        ->with('user', 'media')
-        ->get();
 
-        return view('Dashboard.admin.properties',compact('properties'));
-    }
 
-    public function propertiesdetails()
-    {
-        return view('Dashboard.admin.propertiesdetails');
-    }
 
     public function income_reports()
     {
@@ -140,10 +130,7 @@ class AdminAuthController extends Controller
     {   $user = auth()->user();
         return view('Dashboard.admin.profile',compact('user'));
     }
-    public function propertieslistings()
-    {
-        return view('Dashboard.admin.propertieslistings');
-    }
+
 
     public function room_features(){
 
@@ -192,12 +179,12 @@ class AdminAuthController extends Controller
         return redirect()->route('admin.features.show')->with('success', 'Feature updated successfully!');
     }
 
-public function destroy($id)
-{
-    $feature = Feature::findOrFail($id);
-    $feature->delete();
+    public function destroy($id)
+    {
+        $feature = Feature::findOrFail($id);
+        $feature->delete();
 
-    return redirect()->route('admin.features.show')->with('success', 'Feature deleted successfully!');
-}
+        return redirect()->route('admin.features.show')->with('success', 'Feature deleted successfully!');
+    }
 
 }
