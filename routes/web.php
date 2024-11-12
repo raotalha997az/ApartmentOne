@@ -120,7 +120,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::post('/notifications/mark-all-read', [AdminPropertyController::class, 'markAllRead'])->name('notifications.markAllRead');
         Route::post('/notifications/{id}/mark-read', [AdminPropertyController::class, 'markAsRead'])->name('notifications.markAsRead');
- 
+
 
     Route::get('/properties/Bylandlord',[PropertyController::class,'Bylandlord'])->name('properties.bylandlord');
     Route::get('/income_reports',[AdminAuthController::class,'income_reports'])->name('income_reports');
@@ -128,7 +128,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/pricing',[AdminAuthController::class,'pricing'])->name('pricing');
     Route::get('/edit_pricing',[AdminAuthController::class,'edit_pricing'])->name('edit_pricing');
     Route::get('/users',[AdminAuthController::class,'users'])->name('users');
-    Route::get('/propertiesdetails',[AdminPropertyController::class,'propertiesdetails'])->name('propertiesdetails');
+    Route::get('/propertiesdetails/{id}', [AdminPropertyController::class, 'propertiesdetails'])->name('propertiesdetails');
+
     Route::get('/propertieslistings',[AdminPropertyController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/wishlist',[AdminAuthController::class,'wishlist'])->name('wishlist');
     Route::get('/notifications',[AdminAuthController::class,'notifications'])->name('notifications');

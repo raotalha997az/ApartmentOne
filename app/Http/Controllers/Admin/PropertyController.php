@@ -11,10 +11,12 @@ use App\Notifications\PropertyApprovedNotification;
 
 class PropertyController extends Controller
 {
-   public function propertiesdetails()
-   {
-       return view('Dashboard.admin.propertiesdetails');
-   }
+    public function propertiesdetails($id)
+    {
+        $property = Property::with('user', 'media','pets.pet', 'features.feature')->findOrFail($id);
+        return view('Dashboard.admin.propertiesdetails', compact('property'));
+    }
+
 
    public function propertieslistings()
     {
