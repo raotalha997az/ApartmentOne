@@ -1,4 +1,12 @@
 @extends('Dashboard.Layouts.master_dashboard')
+<style>
+    .propertieslistings-page .properties_details_main .properties-icons-details ul {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px !important;
+    flex-wrap: wrap;
+}
+</style>
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
     <div class="propertieslistings-page propertiesdetails-page">
@@ -71,8 +79,9 @@
                                             fill="#666666" />
                                     </svg>
                                     {{ $featureDetail->feature->name ?? '' }} <!-- Accessing the feature name here -->
+                                    <div class="quantity">{{ $featureDetail->quantity ?? '' }}</div>
                                 </li>
-                                <li class="quantity">{{ $featureDetail->quantity ?? '' }}</li>
+
                             @endforeach
                         </ul>
 

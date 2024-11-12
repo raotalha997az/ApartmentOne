@@ -1,4 +1,17 @@
 @extends('Dashboard.Layouts.master_dashboard')
+<style>
+    .dashboard-main .left-panel .left-panel-menu ul li a.dashboard-active {
+        background-color: white;
+        color: #414141;
+    }
+    .dashboard-main .left-panel .left-panel-menu ul li a.dashboard-active svg path {
+    fill: #414141 !important;
+}
+
+
+
+
+</style>
 @section('content')
 <div class="landlord-dashboard">
     <div class="row">
