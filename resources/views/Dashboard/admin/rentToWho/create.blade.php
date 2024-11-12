@@ -77,6 +77,9 @@
                                             <input type="text" placeholder="Rent To Who" name="rent_to_who"
                                                 class="w-100" value="">
                                         </div>
+                                        @error('rent_to_who')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

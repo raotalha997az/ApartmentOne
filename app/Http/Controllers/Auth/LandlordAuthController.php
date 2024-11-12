@@ -33,7 +33,7 @@ class LandlordAuthController extends Controller
     $validator = Validator::make($request->all(), [
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
-        'phone' => 'nullable|string|max:255',
+        'phone' => 'nullable|digits:10',
         'city' => 'nullable|string|max:255',
         'country' => 'nullable|string|max:255',
         'state' => 'nullable|string|max:255',

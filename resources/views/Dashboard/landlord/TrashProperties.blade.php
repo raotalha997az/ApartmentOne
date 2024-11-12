@@ -81,7 +81,8 @@
 
                                 <div class="three-box-table">
                                     @foreach ($properties as $property)
-                                        <a href="{{route('landlord.trash.undo',$property->id) }}">
+                                        {{-- <a href="{{route('landlord.trash.undo',$property->id) }}"> --}}
+                                            <a href="#">
                                             <div class="box img-box-property">
                                                     <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}"
                                                         alt="">
@@ -111,6 +112,7 @@
                                                     alt="">
 
                                             </div>
+                                        {{-- </a> --}}
 
                                             <div class="box numbers-of-applications">
                                                 <p>
@@ -119,6 +121,7 @@
                                                         @method('POST')
                                                         <button type="button" class="btn btn-sm btn-warning" onclick="undo({{ $property->id }})">Undo</button>
                                                     </form>
+
                                                 </p>
                                             </div>
                                         </a>

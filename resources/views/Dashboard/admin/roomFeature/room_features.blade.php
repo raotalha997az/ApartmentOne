@@ -54,11 +54,11 @@
         <div class="row">
             <div class="col-lg-12">
                 @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="profile-basic-info-form">
 
 
@@ -78,7 +78,11 @@
                                             <div class="two-hex-align">
                                                 <input type="text" placeholder="Room Features" name="room_features[]"
                                                     class="w-100" value="{{ isset($feature) ? $feature->name : '' }}">
+
                                             </div>
+                                            @if ($errors->has('room_features.0'))
+                                                    <div class="text-danger">{{ $errors->first('room_features.0') }}</div>
+                                                @endif
                                         </div>
                                     </div>
                                     <!-- Button to add more fields -->
@@ -88,6 +92,7 @@
                                         <button type="button" id="addMore" class="fa fa-plus btn btn-danger btn-sm p-2"
                                             onclick="addmore()">Add More</button>
                                     @endif
+
 
                                 </div>
                             </div>

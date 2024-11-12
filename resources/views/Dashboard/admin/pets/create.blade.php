@@ -77,6 +77,9 @@
                                             <input type="text" placeholder="Pets" name="pet"
                                                 class="w-100" value="">
                                         </div>
+                                        @error('pet')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

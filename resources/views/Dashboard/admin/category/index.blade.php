@@ -104,10 +104,12 @@
                     <form id="itemForm">
                         <div class="mb-3">
                             <label for="new-item" class="form-label">Category Name</label>
-                            <input type="text" class="form-control" id="new-item" placeholder="Enter Category name"
-                                required >
+                            <input type="text" class="form-control" id="new-item" placeholder="Enter Category name" name="name" >
                                 <input type="hidden" id="catId" name="category_id">
                         </div>
+                        @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <button type="submit" class="btn btn-primary">Update Category</button>
                     </form>
                 </div>

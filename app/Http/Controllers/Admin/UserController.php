@@ -36,7 +36,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|digits:10',
             'city' => 'nullable|string',
             'country' => 'nullable|string',
             'state' => 'nullable|string',

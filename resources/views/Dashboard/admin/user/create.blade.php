@@ -55,7 +55,7 @@
                         <div class="col-md-6">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input class="form-control"  type="text" name="name" placeholder="Name" required>
+                            <input class="form-control"  type="text" name="name" placeholder="Name">
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -64,7 +64,7 @@
                         <div class="col-md-6">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control"  type="email" name="email" placeholder="Email" required>
+                            <input class="form-control"  type="email" name="email" placeholder="Email">
                             @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -151,7 +151,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input class="form-control"  type="password" name="password" placeholder="Password" required>
+                        <input class="form-control"  type="password" name="password" placeholder="Password" >
                         @error('password')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror

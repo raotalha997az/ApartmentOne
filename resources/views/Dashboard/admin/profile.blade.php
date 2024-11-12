@@ -105,21 +105,33 @@
                                 <label for="">Full Name</label>
                                 <input type="text" placeholder="Full Name" name="name"
                                     value="{{ $user->name ?? '' }}" >
+                                    @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="input-box">
                                 <label for="">Email Address</label>
                                 <input type="email" placeholder="Email Address" value="{{ $user->email ?? '' }}"
                                     name="email" >
+                                    @error('email')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="two-inputs-boxes-align">
                             <div class="input-box">
                                 <label for="">City</label>
                                 <input type="text" placeholder="Chicago" name="city" value="{{ $user->city ?? '' }}">
+                                @error('city')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                             <div class="input-box">
                                 <label for="">Country</label>
                                 <input type="text" placeholder="USA" value="{{ $user->country ?? '' }}" name="country">
+                                @error('country')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
                         <div class="two-inputs-boxes-align">
@@ -127,11 +139,17 @@
                                 <label for="">State</label>
                                 <input type="text" placeholder="New York" name="state"
                                     value="{{ $user->state ?? '' }}">
+                                    @error('state')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="input-box">
                                 <label for="">Postal Code</label>
                                 <input type="tel" placeholder="1001" value="{{ $user->postal_code ?? '' }}"
                                     name="postal_code">
+                                    @error('postal_code')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
                         <div class="two-inputs-boxes-align">
@@ -139,10 +157,17 @@
                                 <label for="">Phone Number</label>
                                 <input type="tel" placeholder="+1 123 456 789" value="{{ $user->phone ?? '' }}"
                                     name="phone">
+
+                                    @error('phone')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                             <div class="input-box">
                                 <label for="">Date Of Birth</label>
                                 <input type="date" value="{{ $user->date_of_birth ?? '' }}" name="date_of_birth">
+                                @error('date_of_birth')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="two-btn-align-sub-del">
