@@ -32,6 +32,13 @@
             border-radius: 50%;
             padding: 2px 5px;
         }
+
+
+        div#existingImagesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
     </style>
     <div class="add-property-form-sec">
         <div class="row">
