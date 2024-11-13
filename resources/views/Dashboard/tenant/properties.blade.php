@@ -159,8 +159,9 @@
         </div>
 
     </div>
+    @endsection
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @section('scripts')
     <script>
         document.querySelectorAll('.heart-link').forEach(item => {
             console.log("object");
@@ -183,15 +184,17 @@
                     .then(data => {
                         if (data.status === 'added') {
                             // alert("Added to wishlist!");
-                            toster.success('Added to wishlist!');
+                            toastr.success('Added to wishlist!');
                             // Add toast notification here if needed
                         } else if (data.status === 'already_added') {
-                            alert("Already in wishlist!");
-                            toster.success('Already in wishlist!');
+                            // alert("Already in wishlist!");
+                            toastr.success('Already in wishlist!');
 
                             // Add toast notification here if needed
                         } else if (data.status === 'removed') {
-                            alert("Removed from wishlist!");
+                            // alert("Removed from wishlist!");
+                            toastr.success('Removed from wishlist!');
+                            
                             // Add toast notification here if needed
                         }
                     })
@@ -199,7 +202,4 @@
             });
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 @endsection

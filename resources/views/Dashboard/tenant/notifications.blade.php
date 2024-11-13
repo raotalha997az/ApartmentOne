@@ -60,6 +60,8 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
 
 <script>
     // Select all notification boxes

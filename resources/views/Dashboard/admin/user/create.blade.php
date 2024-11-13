@@ -55,7 +55,7 @@
                         <div class="col-md-6">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input class="form-control"  type="text" name="name" placeholder="Name">
+                            <input class="form-control"  type="text" name="name" placeholder="Name" value="{{ old('name') }}">
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -64,7 +64,7 @@
                         <div class="col-md-6">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control"  type="email" name="email" placeholder="Email">
+                            <input class="form-control"  type="email" name="email" placeholder="Email" value="{{ old('email') }}">
                             @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -76,7 +76,7 @@
                         <div class="col-md-6">
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input class="form-control"  type="text" name="phone" placeholder="Phone">
+                        <input class="form-control"  type="text" name="phone" placeholder="Phone" value="{{ old('phone') }}">
                           @error('phone')
                                     <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -85,7 +85,7 @@
                     <div class="col-md-6">
                     <div class="form-group">
                         <label for="city">City</label>
-                        <input class="form-control"  type="text" name="city" placeholder="City">
+                        <input class="form-control"  type="text" name="city" placeholder="City" value="{{ old('city') }}">
                         @error('city')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -96,7 +96,7 @@
                     <div class="col-md-6">
                     <div class="form-group">
                         <label for="country">Country</label>
-                        <input class="form-control"  type="text" name="country" placeholder="Country">
+                        <input class="form-control"  type="text" name="country" placeholder="Country" value="{{ old('country') }}">
                         @error('country')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -105,7 +105,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="state">State</label>
-                        <input class="form-control"  type="text" name="state" placeholder="State">
+                        <input class="form-control"  type="text" name="state" placeholder="State" value="{{ old('state') }}">
                         @error('state')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -116,7 +116,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="postal_code">Postal Code</label>
-                        <input class="form-control"  type="text" name="postal_code" placeholder="Postal Code">
+                        <input class="form-control"  type="text" name="postal_code" placeholder="Postal Code" value="{{ old('postal_code') }}">
                         @error('postal_code')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -125,7 +125,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <input class="form-control"  type="text" name="address">
+                        <input class="form-control"  type="text" name="address"  placeholder="Address" value="{{ old('address') }}">
                         @error('address')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -142,7 +142,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="date_of_birth">Date of Birth</label>
-                        <input class="form-control"  type="date" name="date_of_birth">
+                        <input class="form-control"  type="date" name="date_of_birth"   value="{{ old('date_of_birth') }}">
                     </div>
                 </div>
             </div>

@@ -82,7 +82,7 @@
                                             </div>
                                             @if ($errors->has('room_features.0'))
                                                     <div class="text-danger">{{ $errors->first('room_features.0') }}</div>
-                                                @endif
+                                            @endif
                                         </div>
                                     </div>
                                     <!-- Button to add more fields -->

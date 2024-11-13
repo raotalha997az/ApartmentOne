@@ -139,12 +139,14 @@ class AdminAuthController extends Controller
 
     public function features_store(Request $request)
     {
-    // Validate the input (optional but recommended)
-    $request->validate([
-        'room_features' => 'required|array',
-        'room_features.*' => 'required|string|max:255', // Validate each feature string
-    ]);
+        // Validate the input (optional but recommended)
+        $request->validate([
+            'room_features' => 'required|array',
+            'room_features.*' => 'required|string|max:255', // Validate each feature string
+        ]);
 
+
+        // dd($request->room_features);
     // Loop through the room_features array and create a new feature for each entry
     foreach ($request->room_features as $feature) {
         Feature::create([

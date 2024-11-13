@@ -152,12 +152,14 @@
 
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+
+    @endsection
+
+    @section('scripts')
     <script>
        document.querySelectorAll('.remove-wishlist-btn').forEach(button => {
-    button.addEventListener('click', function(event) {
+        button.addEventListener('click', function(event) {
         event.preventDefault();
         const propertyId = this.getAttribute('data-property-id');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -173,11 +175,11 @@
         .then(response => response.json())
         .then(data => {
             if (data.status === 'removed') {
-                alert("Removed from wishlist!");
                 // Optionally, add a toast notification or update the UI to reflect the removal
                 window.location.reload();
+                toastr.success("Removed from wishlist!");
             } else {
-                alert("Error removing from wishlist.");
+                toastr.error("Error removing from wishlist.");
             }
         })
         .catch(error => console.error('Error:', error));
@@ -186,6 +188,5 @@
 
     </script>
 @endsection
-
 
 

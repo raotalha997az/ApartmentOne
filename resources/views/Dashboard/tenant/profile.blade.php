@@ -224,6 +224,7 @@
         </div>
     </div>
 @endsection
+@section('scripts')
 <script>
     function formSubmit() {
         const form = document.getElementById('bank-form');
@@ -235,3 +236,4 @@
         form.submit();
     }
 </script>
+@endsection
