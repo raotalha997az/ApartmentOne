@@ -33,8 +33,8 @@ class TenantPropertiesController extends Controller
     public function propertiesdetails($id)
     {
         // Retrieve the specific property with its media, pets, and related features and feature details
-        $properties = Property::with(['media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category'])->findOrFail($id);
+        $property = Property::with(['media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category'])->findOrFail($id);    
 
-        return view('Dashboard.tenant.wishlist', compact('properties'));
+        return view('Dashboard.tenant.propertiesdetails', compact('property'));
     }
 }
