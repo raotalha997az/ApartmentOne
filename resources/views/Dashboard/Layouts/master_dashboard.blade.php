@@ -20,9 +20,6 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- Include Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
 
@@ -38,73 +35,73 @@
 
 
         .notification-drop-box {
-    position: relative;
-}
+            position: relative;
+        }
 
 
 
-.notification-drop-box .notification-dropdown {
-    background: white;
-    width: 500px;
-    position: absolute;
-    padding: 20px;
-    top: 30px;
-    left: -50px;
-    border: 1px solid;
-    display:none;
-    transition.3s;
-}
+        .notification-drop-box .notification-dropdown {
+            background: white;
+            width: 500px;
+            position: absolute;
+            padding: 20px;
+            top: 30px;
+            left: -50px;
+            border: 1px solid;
+            display: none;
+            transition.3s;
+        }
 
-.notification-drop-box .notification-dropdown .two-thing-space {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
+        .notification-drop-box .notification-dropdown .two-thing-space {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-.notification-drop-box .notification-dropdown .notification-list-box .notification-listing {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px;
-    background: #E5E5E5;
-    border-radius: 15px;
-}
+        .notification-drop-box .notification-dropdown .notification-list-box .notification-listing {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            background: #E5E5E5;
+            border-radius: 15px;
+        }
 
-.notification-drop-box .notification-dropdown .notification-list-box .notification-listing button.cancel-notify {
-    height: 40px;
-    width: 40px;
-    border-radius:10px;
-}
+        .notification-drop-box .notification-dropdown .notification-list-box .notification-listing button.cancel-notify {
+            height: 40px;
+            width: 40px;
+            border-radius: 10px;
+        }
 
-.notification-list-box {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    row-gap: 10px;
-}
+        .notification-list-box {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            row-gap: 10px;
+        }
 
-.notification-drop-box .notification-dropdown .two-thing-space h6 {
-    font-size: 20px;
-    font-weight: 600;
-}
+        .notification-drop-box .notification-dropdown .two-thing-space h6 {
+            font-size: 20px;
+            font-weight: 600;
+        }
 
-button#markAllAsReadBtn {
-    color: #0077B6;
-    background: transparent;
-    text-decoration: underline;
-    font-size: 14px;
-}
+        button#markAllAsReadBtn {
+            color: #0077B6;
+            background: transparent;
+            text-decoration: underline;
+            font-size: 14px;
+        }
 
-.notification-drop-box:hover{
-     .notification-dropdown{
-           display:block;
-    transform:.3s;
-     }
+        .notification-drop-box:hover {
+            .notification-dropdown {
+                display: block;
+                transform: .3s;
+            }
 
-}
+        }
     </style>
 </head>
 
@@ -198,21 +195,21 @@ button#markAllAsReadBtn {
                                                         fill="white" />
                                                 </svg>
                                                 Properties</a></li>
-                                                 <li><a href="{{ route('landlord.trash.index') }}" class="propertiestrash-active">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31"
-                                            viewBox="0 0 31 31" fill="none">
-                                            <path
-                                                d="M7.00806 25.5818C7.00806 26.2448 7.27145 26.8807 7.74029 27.3496C8.20913 27.8184 8.84502 28.0818 9.50806 28.0818H22.0081C22.6711 28.0818 23.307 27.8184 23.7758 27.3496C24.2447 26.8807 24.5081 26.2448 24.5081 25.5818V10.5818H27.0081V8.08179H22.0081V5.58179C22.0081 4.91875 21.7447 4.28286 21.2758 3.81402C20.807 3.34518 20.1711 3.08179 19.5081 3.08179H12.0081C11.345 3.08179 10.7091 3.34518 10.2403 3.81402C9.77145 4.28286 9.50806 4.91875 9.50806 5.58179V8.08179H4.50806V10.5818H7.00806V25.5818ZM12.0081 5.58179H19.5081V8.08179H12.0081V5.58179ZM10.7581 10.5818H22.0081V25.5818H9.50806V10.5818H10.7581Z"
-                                                fill="white" />
-                                            <path
-                                                d="M12.0081 13.0818H14.5081V23.0818H12.0081V13.0818ZM17.0081 13.0818H19.5081V23.0818H17.0081V13.0818Z"
-                                                fill="white" />
-                                        </svg>
-                                               Trash Properties</a></li>
+                                        <li><a href="{{ route('landlord.trash.index') }}"
+                                                class="propertiestrash-active">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31"
+                                                    viewBox="0 0 31 31" fill="none">
+                                                    <path
+                                                        d="M7.00806 25.5818C7.00806 26.2448 7.27145 26.8807 7.74029 27.3496C8.20913 27.8184 8.84502 28.0818 9.50806 28.0818H22.0081C22.6711 28.0818 23.307 27.8184 23.7758 27.3496C24.2447 26.8807 24.5081 26.2448 24.5081 25.5818V10.5818H27.0081V8.08179H22.0081V5.58179C22.0081 4.91875 21.7447 4.28286 21.2758 3.81402C20.807 3.34518 20.1711 3.08179 19.5081 3.08179H12.0081C11.345 3.08179 10.7091 3.34518 10.2403 3.81402C9.77145 4.28286 9.50806 4.91875 9.50806 5.58179V8.08179H4.50806V10.5818H7.00806V25.5818ZM12.0081 5.58179H19.5081V8.08179H12.0081V5.58179ZM10.7581 10.5818H22.0081V25.5818H9.50806V10.5818H10.7581Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M12.0081 13.0818H14.5081V23.0818H12.0081V13.0818ZM17.0081 13.0818H19.5081V23.0818H17.0081V13.0818Z"
+                                                        fill="white" />
+                                                </svg>
+                                                Trash Properties</a></li>
                                         <li><a href="{{ route('landlord.profile') }}" class="profile-active">
-                                            <svg
-                                                    width="31" height="30" viewBox="0 0 31 30" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="31" height="30" viewBox="0 0 31 30"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M15.231 2.01758C11.9288 2.05969 8.77383 3.39017 6.43869 5.72531C4.10355 8.06045 2.77307 11.2155 2.73096 14.5176C2.74639 16.4412 3.20561 18.3353 4.07285 20.0525C4.94009 21.7696 6.19195 23.2634 7.73096 24.4176V24.5176H7.85596C9.97244 26.1394 12.5645 27.0184 15.231 27.0184C17.8974 27.0184 20.4895 26.1394 22.606 24.5176H22.731V24.4176C24.27 23.2634 25.5218 21.7696 26.3891 20.0525C27.2563 18.3353 27.7155 16.4412 27.731 14.5176C27.6888 11.2155 26.3584 8.06045 24.0232 5.72531C21.6881 3.39017 18.5331 2.05969 15.231 2.01758ZM10.3185 23.1801C10.5009 22.3444 10.9636 21.5962 11.6298 21.0596C12.296 20.523 13.1256 20.2303 13.981 20.2301H16.481C17.3363 20.2303 18.1659 20.523 18.8321 21.0596C19.4983 21.5962 19.961 22.3444 20.1435 23.1801C18.6545 24.0561 16.9585 24.518 15.231 24.518C13.5035 24.518 11.8074 24.0561 10.3185 23.1801ZM22.2435 21.5676C21.768 20.4313 20.9674 19.4608 19.9421 18.778C18.9169 18.0953 17.7127 17.7307 16.481 17.7301H13.981C12.7492 17.7307 11.545 18.0953 10.5198 18.778C9.49456 19.4608 8.69392 20.4313 8.21846 21.5676C7.28179 20.6463 6.53583 19.5495 6.02322 18.3398C5.51061 17.1302 5.2414 15.8313 5.23096 14.5176C5.26338 11.8755 6.32736 9.35074 8.19574 7.48236C10.0641 5.61398 12.5889 4.55 15.231 4.51758C17.873 4.55 20.3978 5.61398 22.2662 7.48236C24.1346 9.35074 25.1985 11.8755 25.231 14.5176C25.2205 15.8313 24.9513 17.1302 24.4387 18.3398C23.9261 19.5495 23.1801 20.6463 22.2435 21.5676Z"
                                                         fill="white" />
@@ -322,15 +319,15 @@ button#markAllAsReadBtn {
 
                                                 Property Category</a></li>
                                         <li><a href="{{ route('admin.trash.index') }}" class="trash">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31"
-                                            viewBox="0 0 31 31" fill="none">
-                                            <path
-                                                d="M7.00806 25.5818C7.00806 26.2448 7.27145 26.8807 7.74029 27.3496C8.20913 27.8184 8.84502 28.0818 9.50806 28.0818H22.0081C22.6711 28.0818 23.307 27.8184 23.7758 27.3496C24.2447 26.8807 24.5081 26.2448 24.5081 25.5818V10.5818H27.0081V8.08179H22.0081V5.58179C22.0081 4.91875 21.7447 4.28286 21.2758 3.81402C20.807 3.34518 20.1711 3.08179 19.5081 3.08179H12.0081C11.345 3.08179 10.7091 3.34518 10.2403 3.81402C9.77145 4.28286 9.50806 4.91875 9.50806 5.58179V8.08179H4.50806V10.5818H7.00806V25.5818ZM12.0081 5.58179H19.5081V8.08179H12.0081V5.58179ZM10.7581 10.5818H22.0081V25.5818H9.50806V10.5818H10.7581Z"
-                                                fill="white" />
-                                            <path
-                                                d="M12.0081 13.0818H14.5081V23.0818H12.0081V13.0818ZM17.0081 13.0818H19.5081V23.0818H17.0081V13.0818Z"
-                                                fill="white" />
-                                        </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31"
+                                                    viewBox="0 0 31 31" fill="none">
+                                                    <path
+                                                        d="M7.00806 25.5818C7.00806 26.2448 7.27145 26.8807 7.74029 27.3496C8.20913 27.8184 8.84502 28.0818 9.50806 28.0818H22.0081C22.6711 28.0818 23.307 27.8184 23.7758 27.3496C24.2447 26.8807 24.5081 26.2448 24.5081 25.5818V10.5818H27.0081V8.08179H22.0081V5.58179C22.0081 4.91875 21.7447 4.28286 21.2758 3.81402C20.807 3.34518 20.1711 3.08179 19.5081 3.08179H12.0081C11.345 3.08179 10.7091 3.34518 10.2403 3.81402C9.77145 4.28286 9.50806 4.91875 9.50806 5.58179V8.08179H4.50806V10.5818H7.00806V25.5818ZM12.0081 5.58179H19.5081V8.08179H12.0081V5.58179ZM10.7581 10.5818H22.0081V25.5818H9.50806V10.5818H10.7581Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M12.0081 13.0818H14.5081V23.0818H12.0081V13.0818ZM17.0081 13.0818H19.5081V23.0818H17.0081V13.0818Z"
+                                                        fill="white" />
+                                                </svg>
 
                                                 Trash Users</a></li>
                                     </ul>
@@ -616,8 +613,8 @@ button#markAllAsReadBtn {
 
 
                                 </li>
-                                <li><a href="{{ route('tenant.wishlist.show') }}"><svg width="30" height="31" viewBox="0 0 30 31"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <li><a href="{{ route('tenant.wishlist.show') }}"><svg width="30" height="31"
+                                            viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M15.0001 6.24376C13.6381 4.99139 11.8554 4.29632 10.0051 4.29626C9.02577 4.29728 8.05632 4.49196 7.15252 4.8691C6.24872 5.24624 5.42843 5.79838 4.73885 6.49376C1.7976 9.44751 1.79885 14.0675 4.74135 17.0088L13.9063 26.1738C14.1188 26.5475 14.5288 26.7888 15.0001 26.7888C15.1936 26.7869 15.384 26.7397 15.5559 26.6509C15.7278 26.5621 15.8765 26.4342 15.9901 26.2775L25.2589 17.0088C28.2013 14.0663 28.2013 9.44751 25.2563 6.48876C24.5671 5.79466 23.7475 5.24364 22.8446 4.86737C21.9417 4.4911 20.9733 4.29701 19.9951 4.29626C18.1449 4.29657 16.3622 4.99161 15.0001 6.24376ZM23.4888 8.25626C25.4426 10.22 25.4438 13.2875 23.4913 15.2413L15.0001 23.7325L6.50885 15.2413C4.55635 13.2875 4.5576 10.22 6.50635 8.26126C7.45635 7.31626 8.69885 6.79626 10.0051 6.79626C11.3113 6.79626 12.5488 7.31626 13.4913 8.25876L14.1163 8.88376C14.2323 8.99995 14.3701 9.09212 14.5217 9.15501C14.6734 9.2179 14.8359 9.25027 15.0001 9.25027C15.1643 9.25027 15.3268 9.2179 15.4785 9.15501C15.6301 9.09212 15.7679 8.99995 15.8838 8.88376L16.5088 8.25876C18.3988 6.37251 21.6013 6.37751 23.4888 8.25626Z"
                                                 fill="#777777" />
@@ -664,15 +661,13 @@ button#markAllAsReadBtn {
 
     @yield('scripts')
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('assets/custom-js/custom.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <!-- Load Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <!-- Include Bootstrap JS (for dismissing alerts) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -700,51 +695,52 @@ button#markAllAsReadBtn {
 
     // Mark a single notification as read
     $('.cancel-notify').click(function() {
-    const notificationId = $(this).data('id'); // Ensure this data-id is set in HTML
-    const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id', notificationId); // Replace :id placeholder with the actual ID
+        const notificationId = $(this).data('id'); // Ensure this data-id is set in HTML
+        const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id',
+            notificationId); // Replace :id placeholder with the actual ID
 
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: {
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(response) {
-            $(`#notification-${notificationId}`).remove(); // Remove or update UI
-            toastr.success(response.success); // Display success message
-        },
-        error: function(xhr) {
-            toastr.error('An error occurred.'); // Handle error
-        }
-    });
-});
-
-
-$(document).ready(function () {
-    Pusher.logToConsole = true;
-
-    // Initialize Pusher
-    var pusher = new Pusher('3af0341c542582fe2550', {
-        cluster: 'ap2',
-        encrypted: true,
-        authEndpoint: '/pusher/auth', // Ensure this route is set up
-        auth: {
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}" // CSRF token for Laravel
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                $(`#notification-${notificationId}`).remove(); // Remove or update UI
+                toastr.success(response.success); // Display success message
+            },
+            error: function(xhr) {
+                toastr.error('An error occurred.'); // Handle error
             }
-        }
+        });
     });
 
-    // Get authenticated user ID
-    var userId = "{{ auth()->id() }}"; // Blade syntax to get current user ID
 
-    // Subscribe to the user's private notification channel
-    var channel = pusher.subscribe(`private-notifications.${userId}`);
+    $(document).ready(function() {
+        Pusher.logToConsole = true;
 
-    // Bind to PropertyApproved event
-    channel.bind('PropertyApproved', function (data) {
-        // HTML structure for each notification item
-        const notificationBox = `
+        // Initialize Pusher
+        var pusher = new Pusher('3af0341c542582fe2550', {
+            cluster: 'ap2',
+            encrypted: true,
+            authEndpoint: '/pusher/auth', // Ensure this route is set up
+            auth: {
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}" // CSRF token for Laravel
+                }
+            }
+        });
+
+        // Get authenticated user ID
+        var userId = "{{ auth()->id() }}"; // Blade syntax to get current user ID
+
+        // Subscribe to the user's private notification channel
+        var channel = pusher.subscribe(`private-notifications.${userId}`);
+
+        // Bind to PropertyApproved event
+        channel.bind('PropertyApproved', function(data) {
+            // HTML structure for each notification item
+            const notificationBox = `
             <div class="notification-listing">
                 <div class="box" id="notification-${new Date().getTime()}">
                     <h6>Property Approved!</h6>
@@ -756,13 +752,11 @@ $(document).ready(function () {
             </div>
         `;
 
-        // Append notification to the top of the list
-        $(".notification-list-box").prepend(notificationBox);
+            // Append notification to the top of the list
+            $(".notification-list-box").prepend(notificationBox);
 
-        // Show success notification using toastr
-        toastr.success(data.message);
+            // Show success notification using toastr
+            toastr.success(data.message);
+        });
     });
-});
-
-
 </script>
