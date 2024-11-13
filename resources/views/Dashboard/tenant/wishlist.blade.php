@@ -103,7 +103,7 @@
                                                 </div>
                                             </div>
                                             <div class="heart-box">
-                                                <button class="remove-wishlist-btn" data-property-id="{{ $property->property->id }}">Remove From Wishlist</button>
+                                                <button class="remove-wishlist-btn btn btn-sm btn-danger" data-property-id="{{ $property->property->id }}"><img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
                                             </div>
 
 
