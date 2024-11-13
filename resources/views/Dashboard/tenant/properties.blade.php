@@ -78,6 +78,7 @@
                     <div class="tab-pane p-3 active" id="tabs-1" role="tabpanel">
                         <div class="main-parent-place-box">
                             @foreach ($properties as $property)
+                            {{-- {{ dd($wishlist->contains($property->id)) }} --}}
                                 {{-- {{ dd($property);}} --}}
                                 <div class="child-place-box">
                                     <a href="{{ route('tenant.propertiesdetails', $property->id) }}">
@@ -102,7 +103,7 @@
                                             </div>
                                         </div>
                                         <div class="heart-box">
-                                            <a href="#" class="heart-link" id="heart-link"
+                                            <a href="#" class="heart-link {{ in_array($property->id, $wishlist) ? 'heart-active' : '' }}" id="heart-link"
                                                 data-property-id="{{ $property->id }}">
                                                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\tenant;
 
 use App\Models\Property;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,10 @@ class TenantPropertiesController extends Controller
     public function properties()
     {
         $properties = Property::where('approve', 1)->get();
-        return view('Dashboard.tenant.properties', compact('properties'));
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();$wishlist = Wishlist::where('user_id', Auth::user()->id)
+        ->pluck('property_id')
+        ->toArray();
+        return view('Dashboard.tenant.properties', compact('properties','wishlist'));
     }
 
     public function propertieslistings()
