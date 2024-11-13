@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrashProperty;
 use App\Http\Controllers\WebController;
@@ -13,11 +14,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\TrashPropertyController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\RentToWhoController;
-use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Auth\TenantAuthController;
 use App\Http\Controllers\Auth\LandlordAuthController;
 use App\Http\Controllers\LandLord\PropertyController;
 use App\Http\Controllers\tenant\TenantPropertiesController;
+use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,7 +110,12 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     });
 });
 
-
+Route::post('/pusher/auth', function (Request $request) {
+    if (Auth::check()) {
+        return Auth::user()->createToken($request->channel_name);
+    }
+    return response('Unauthorized', 403);
+});
 //Admin Dashboard Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['role:admin|land_lord'])->group(function () {

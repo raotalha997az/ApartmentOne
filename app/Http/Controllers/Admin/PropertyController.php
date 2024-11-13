@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use PropertyApproved;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,7 +37,7 @@ class PropertyController extends Controller
     {
         $property = Property::findOrFail($id);
         $userId = $property->user_id;
-        $landlord = User::find($userId); // Assuming `landlord_id` is the user ID of the landlord
+        $landlord = User::findOrFail($userId);
 
         // Update property status
         $property->approve = 1;
@@ -45,8 +46,12 @@ class PropertyController extends Controller
         // Send notification and email
         $landlord->notify(new PropertyApprovedNotification($property));
 
+        // Trigger real-time broadcast
+        event(new PropertyApproved($userId, 'Your property "' . $property->name . '" has been approved.'));
+
         return redirect()->back()->with('success', 'Property Approved Successfully');
     }
+
 
     public function markAllRead()
     {

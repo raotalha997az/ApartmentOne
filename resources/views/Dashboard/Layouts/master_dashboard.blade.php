@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="user-id" content="{{ auth()->id() }}">
     <title>Apartment One</title>
     <link rel="icon" href="{{ asset('assets/images/apartment-one-favicon.png') }}" type="favicon.png" sizes="32x32">
     <link rel="stylesheet" href="{{ asset('assets/style-folder/style.css') }}">
@@ -58,7 +59,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .notification-drop-box .notification-dropdown .notification-list-box .notification-listing {
@@ -66,11 +67,35 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 25px;
+    background: #E5E5E5;
+    border-radius: 15px;
 }
 
 .notification-drop-box .notification-dropdown .notification-list-box .notification-listing button.cancel-notify {
     height: 40px;
     width: 40px;
+    border-radius:10px;
+}
+
+.notification-list-box {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    row-gap: 10px;
+}
+
+.notification-drop-box .notification-dropdown .two-thing-space h6 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+button#markAllAsReadBtn {
+    color: #0077B6;
+    background: transparent;
+    text-decoration: underline;
+    font-size: 14px;
 }
 
 .notification-drop-box:hover{
@@ -555,16 +580,14 @@
                                         </svg>
                                         Notifications
                                     </a>
-                                    <div class="notification-dropdown">
-                                        {{-- notification --}}
+                                    {{-- <div class="notification-dropdown">
                                         <div class="two-thing-space">
                                             <h6>Notifications</h6>
                                             <button id="markAllAsReadBtn">Mark All As Read</button>
                                         </div>
                                         <div class="notification-list-box">
+                                            @foreach (Auth::user()->notifications->where('read_at', null) as $notification)
                                             <div class="notification-listing">
-                                                @foreach (Auth::user()->notifications->where('read_at', null) as $notification)
-
                                                     <div class="box" id="notification-{{ $notification->id }}">
                                                         <h6>Property Approved!</h6>
                                                         <p> {{ $notification->data['message'] }}</p>
@@ -574,10 +597,24 @@
                                                             <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"/>
                                                         </svg>
                                                     </button>
+                                                </div>
                                                 @endforeach
-                                            </div>
+                                        </div>
+                                    </div> --}}
+
+
+
+                                    <div class="notification-dropdown">
+                                        <div class="two-thing-space">
+                                            <h6>Notifications</h6>
+                                            <button id="markAllAsReadBtn">Mark All As Read</button>
+                                        </div>
+                                        <div class="notification-list-box">
+                                            <!-- Notifications will be prepended here by JavaScript -->
                                         </div>
                                     </div>
+
+
                                 </li>
                                 <li><a href="#"><svg width="30" height="31" viewBox="0 0 30 31"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -641,6 +678,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 </body>
 
 </html>
@@ -680,5 +718,51 @@
         }
     });
 });
+
+
+$(document).ready(function () {
+    Pusher.logToConsole = true;
+
+    // Initialize Pusher
+    var pusher = new Pusher('3af0341c542582fe2550', {
+        cluster: 'ap2',
+        encrypted: true,
+        authEndpoint: '/pusher/auth', // Ensure this route is set up
+        auth: {
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}" // CSRF token for Laravel
+            }
+        }
+    });
+
+    // Get authenticated user ID
+    var userId = "{{ auth()->id() }}"; // Blade syntax to get current user ID
+
+    // Subscribe to the user's private notification channel
+    var channel = pusher.subscribe(`private-notifications.${userId}`);
+
+    // Bind to PropertyApproved event
+    channel.bind('PropertyApproved', function (data) {
+        // HTML structure for each notification item
+        const notificationBox = `
+            <div class="notification-listing">
+                <div class="box" id="notification-${new Date().getTime()}">
+                    <h6>Property Approved!</h6>
+                    <p>${data.message}</p>
+                </div>
+                <button class="cancel-notify">
+                    <!-- SVG icon here if needed -->
+                </button>
+            </div>
+        `;
+
+        // Append notification to the top of the list
+        $(".notification-list-box").prepend(notificationBox);
+
+        // Show success notification using toastr
+        toastr.success(data.message);
+    });
+});
+
 
 </script>
