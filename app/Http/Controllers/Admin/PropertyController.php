@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use PropertyApproved;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\PropertyApprovedNotification;
+use App\Events\PropertyApprovedEvent;
 
 class PropertyController extends Controller
 {
@@ -47,7 +47,7 @@ class PropertyController extends Controller
         $landlord->notify(new PropertyApprovedNotification($property));
 
         // Trigger real-time broadcast
-        event(new PropertyApproved($userId, 'Your property "' . $property->name . '" has been approved.'));
+        event(new PropertyApprovedEvent($userId, 'Your property "' . $property->name . '" has been approved.'));
 
         return redirect()->back()->with('success', 'Property Approved Successfully');
     }

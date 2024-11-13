@@ -731,10 +731,10 @@
             var userId = "{{ auth()->id() }}"; // Blade syntax to get current user ID
     
             // Subscribe to the user's private notification channel
-            var channel = pusher.subscribe(`private-notifications.${userId}`);
+            var channel = pusher.subscribe('notifications');
     
             // Bind to PropertyApproved event
-            channel.bind('PropertyApproved', function(data) {
+            channel.bind('property_approved', function(data) {
                 // HTML structure for each notification item
                 const notificationBox = `
                 <div class="notification-listing">

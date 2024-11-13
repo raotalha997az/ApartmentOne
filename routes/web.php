@@ -115,12 +115,7 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     });
 });
 
-Route::post('/pusher/auth', function (Request $request) {
-    if (Auth::check()) {
-        return Auth::user()->createToken($request->channel_name);
-    }
-    return response('Unauthorized', 403);
-});
+
 //Admin Dashboard Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['role:admin|land_lord'])->group(function () {
