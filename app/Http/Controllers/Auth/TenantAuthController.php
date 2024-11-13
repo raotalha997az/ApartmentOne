@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Bank;
+use App\Models\Wishlist;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Bank;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -121,4 +122,55 @@ class TenantAuthController extends Controller
 
         return redirect()->back()->with('success', 'Bank information updated successfully.');
     }
+    public function addToWishlist(Request $request)
+{
+    $propertyId = $request->input('property_id');
+    $userId = Auth::id(); // Ensure the user is authenticated
+
+    // Check if the property already exists in the wishlist
+    $wishlist = Wishlist::where('user_id', $userId)->where('property_id', $propertyId)->first();
+
+    if ($wishlist) {
+        // If it exists, remove it
+        $wishlist->delete();
+        return response()->json(['status' => 'removed']);
+    }
+
+    // If it doesn't exist, add it to the wishlist
+    Wishlist::create([
+        'user_id' => $userId,
+        'property_id' => $propertyId,
+    ]);
+
+    return response()->json(['status' => 'added']);
+}
+public function removeFromWishlist(Request $request)
+{
+    $propertyId = $request->input('property_id');
+    $userId = Auth::id(); // Ensure the user is authenticated
+
+    // Check if the property exists in the wishlist
+    $wishlist = Wishlist::where('user_id', $userId)->where('property_id', $propertyId)->first();
+
+    if ($wishlist) {
+        // If it exists, remove it
+        $wishlist->delete();
+        return response()->json(['status' => 'removed']);
+    }
+
+    // If it doesn't exist, return an error message
+    return response()->json(['status' => 'not_found']);
+}
+
+public function showWishlist()
+{
+    $userId = Auth::id(); // Get the authenticated user's ID
+
+    // Retrieve all wishlist items for the authenticated user
+    $properties = Wishlist::where('user_id', $userId)->with('property')->get();
+// dd($properties);
+    // Return the wishlist items in JSON format
+    return view('Dashboard.tenant.wishlist', compact('properties'));
+}
+
 }

@@ -139,6 +139,9 @@
                                 <label for="">Phone Number</label>
                                 <input type="tel" placeholder="+1 123 456 789" value="{{ $user->phone ?? '' }}"
                                     name="phone">
+                                    @error('phone')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                             <div class="input-box">
                                 <label for="">Date Of Birth</label>

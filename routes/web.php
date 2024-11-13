@@ -69,6 +69,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::get('/dashboard',[TenantAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/screening', [TenantPropertiesController::class, 'screening'])->name('screening');
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
+    Route::get('/propertiesdetails/{id}', [TenantPropertiesController::class, 'propertiesdetails'])->name('propertiesdetails');
     Route::get('/propertieslistings',[TenantPropertiesController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/applyhistory',[DashboardController::class,'applyhistory'])->name('applyhistory');
     Route::get('/profile',[DashboardController::class,'profile'])->name('profile');
@@ -78,6 +79,10 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     // profile
     Route::get('/profile',[TenantAuthController::class,'profile'])->name('profile');
     Route::post('/profile/update', [TenantAuthController::class, 'updateProfile'])->name('profile.update');
+        // wishlist
+    Route::post('/wishlistadd', [TenantAuthController::class, 'addToWishlist'])->name('wishlist.add');
+     Route::post('/wishlistremove', [TenantAuthController::class, 'removeFromWishlist'])->name('wishlist.remove');
+     Route::get('/wishlist/show',[TenantAuthController::class,'showWishlist'])->name('wishlist.show');
     //  Bank Info
     Route::post('/bank', [TenantAuthController::class, 'bank'])->name('bank');
 });
