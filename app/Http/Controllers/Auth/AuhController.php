@@ -102,7 +102,7 @@ public function login(Request $request)
         $resetUrl = url(route('password.reset', ['token' => $token, 'email' => $user->email], false));
         SendPasswordResetEmail::dispatch($user->email, $resetUrl);
 
-        return back()->with('success', 'Password reset link sent!');
+        return back()->with('success', 'Password reset link sent check your email inbox!');
     }
 
     public function showResetForm(Request $request, $token = null)
