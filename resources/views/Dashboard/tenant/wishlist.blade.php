@@ -175,7 +175,7 @@
             if (data.status === 'removed') {
                 alert("Removed from wishlist!");
                 // Optionally, add a toast notification or update the UI to reflect the removal
-                
+                window.location.reload();
             } else {
                 alert("Error removing from wishlist.");
             }
