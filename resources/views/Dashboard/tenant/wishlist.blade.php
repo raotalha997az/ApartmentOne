@@ -123,8 +123,8 @@
                                                                 fill="#666666" />
                                                         </svg>
                                                         {{ $featureDetail->feature->name ?? '' }}
+                                                        {{ $featureDetail->quantity ?? '' }}
                                                         <!-- Accessing the feature name here -->
-                                                        <div class="quantity">{{ $featureDetail->quantity ?? '' }}</div>
                                                     </li>
                                                 @endforeach
                                             </ul>

@@ -132,8 +132,9 @@
                                                             fill="#666666" />
                                                     </svg>
                                                     {{ $featureDetail->feature->name ?? '' }}
+                                                    {{ $featureDetail->quantity ?? '' }}
+                                                    {{-- <div class="quantity">{{ $featureDetail->quantity ?? '' }}</div> --}}
                                                     <!-- Accessing the feature name here -->
-                                                    <div class="quantity">{{ $featureDetail->quantity ?? '' }}</div>
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -194,7 +195,7 @@
                         } else if (data.status === 'removed') {
                             // alert("Removed from wishlist!");
                             toastr.success('Removed from wishlist!');
-                            
+
                             // Add toast notification here if needed
                         }
                     })

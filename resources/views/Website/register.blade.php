@@ -9,7 +9,7 @@
                         <h2>Please Fill The Details To Get Stated </h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
                             the<br> industry's standard dummy text ever since the 1500s.</p>
-                            <div class="text text-center" style="justify-self: center ; width: 320px;">
+                            <div class="text text-center" style="justify-self: center ; width: 580px;">
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
