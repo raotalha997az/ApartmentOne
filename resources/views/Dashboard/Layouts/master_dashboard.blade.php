@@ -601,15 +601,19 @@
 
 
 
+                                    <div id="notification-container" data-unread-count="0"></div>
+
                                     <div class="notification-dropdown">
                                         <div class="two-thing-space">
                                             <h6>Notifications</h6>
                                             <button id="markAllAsReadBtn">Mark All As Read</button>
                                         </div>
-                                        <div class="notification-list-box">
+
+                                        <div class="notification-list-box" id="appendNotification">
                                             <!-- Notifications will be prepended here by JavaScript -->
                                         </div>
                                     </div>
+
 
 
                                 </li>
@@ -688,13 +692,13 @@
                 }
             });
         });
-    
+
         // Mark a single notification as read
         $('.cancel-notify').click(function() {
             const notificationId = $(this).data('id'); // Ensure this data-id is set in HTML
             const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id',
                 notificationId); // Replace :id placeholder with the actual ID
-    
+
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -710,55 +714,59 @@
                 }
             });
         });
-    
-    
-        $(document).ready(function() {
-            Pusher.logToConsole = true;
-    
-            // Initialize Pusher
-            var pusher = new Pusher('3af0341c542582fe2550', {
-                cluster: 'ap2',
-                encrypted: true,
-                authEndpoint: '/pusher/auth', // Ensure this route is set up
-                auth: {
-                    headers: {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}" // CSRF token for Laravel
-                    }
-                }
-            });
-    
-            // Get authenticated user ID
-            var userId = "{{ auth()->id() }}"; // Blade syntax to get current user ID
-    
-            // Subscribe to the user's private notification channel
-            var channel = pusher.subscribe('notifications');
-    
-            // Bind to PropertyApproved event
-            channel.bind('property_approved', function(data) {
-                // HTML structure for each notification item
-                const notificationBox = `
-                <div class="notification-listing">
-                    <div class="box" id="notification-${new Date().getTime()}">
-                        <h6>Property Approved!</h6>
-                        <p>${data.message}</p>
-                    </div>
-                    <button class="cancel-notify">
-                        <!-- SVG icon here if needed -->
-                    </button>
-                </div>
-            `;
-    
-                // Append notification to the top of the list
-                $(".notification-list-box").prepend(notificationBox);
-    
-                // Show success notification using toastr
-                toastr.success(data.message);
-            });
-        });
+
+        Pusher.logToConsole = true;
+
+var pusher = new Pusher("96010b48b2b6efb4c0f1", {
+    cluster: "ap2",
+    encrypted: true,
+});
+
+var channel = pusher.subscribe("notifications");
+
+channel.bind("property_approved", function(data) {
+    console.log(data);
+
+    // Check if notification container element exists
+    let unreadCountElem = document.getElementById("notification-container");
+    if (unreadCountElem) {
+        // Increment unread count
+        let unreadCount = parseInt(unreadCountElem.getAttribute("data-unread-count")) || 0;
+        unreadCount += 1;
+        unreadCountElem.setAttribute("data-unread-count", unreadCount);
+    } else {
+        console.warn("Notification container not found.");
+    }
+
+    // Notification HTML template with dynamic notificationId
+    let notificationHTML = `
+        <div class="notification-listing">
+            <div class="box" id="notification>
+                <h6>Property Approved!</h6>
+            <span>${data.message}</span>
+            </div>
+            <button class="cancel-notify" data-id="${data.notificationId}">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"/>
+                </svg>
+            </button>
+        </div>
+    `;
+
+    // Append the notification to the list if notification list container exists
+    let notificationListBox = document.querySelector(".notification-list-box");
+    if (notificationListBox) {
+        notificationListBox.insertAdjacentHTML("afterbegin", notificationHTML);
+    } else {
+        console.warn("Notification list box not found.");
+    }
+
+    console.log("New notification received: ", data.message);
+});
+
     </script>
 
-@yield('scripts')
+    @yield('scripts')
 </body>
 
 </html>
-

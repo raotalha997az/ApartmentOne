@@ -39,18 +39,23 @@ class PropertyController extends Controller
         $userId = $property->user_id;
         $landlord = User::findOrFail($userId);
 
+        // Generate a unique notificationId (could be a UUID or any other unique ID)
+        $notificationId = uniqid('notify_', true);  // Example, generates a unique ID
+
         // Update property status
         $property->approve = 1;
         $property->save();
 
         // Send notification and email
-        $landlord->notify(new PropertyApprovedNotification($property));
+        $landlord->notify(new PropertyApprovedNotification($property, $notificationId));  // Pass notificationId
 
-        // Trigger real-time broadcast
-        event(new PropertyApprovedEvent($userId, 'Your property "' . $property->name . '" has been approved.'));
+        // Trigger real-time broadcast with notificationId
+        event(new PropertyApprovedEvent($userId, 'Your property "' . $property->name . '" has been approved.', $notificationId));
 
         return redirect()->back()->with('success', 'Property Approved Successfully');
     }
+
+
 
 
     public function markAllRead()

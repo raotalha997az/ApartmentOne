@@ -1,7 +1,6 @@
 <?php
 namespace App\Notifications;
 
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -12,10 +11,12 @@ class PropertyApprovedNotification extends Notification implements ShouldQueue
     use Queueable;
 
     protected $property;
+    protected $notificationId;
 
-    public function __construct($property)
+    public function __construct($property, $notificationId)
     {
         $this->property = $property;
+        $this->notificationId = $notificationId;  // Store notificationId
     }
 
     public function via($notifiable)
@@ -35,8 +36,9 @@ class PropertyApprovedNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Your property "' . $this->property->name . '" has been approved.',
+            'message' => 'Your property ' . $this->property->name . ' has been approved.',
             'property_id' => $this->property->id,
+            'notification_id' => $this->notificationId,  // Return notificationId here
         ];
     }
 }
