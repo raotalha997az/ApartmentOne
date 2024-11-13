@@ -77,7 +77,7 @@
                                             <label for="room_features">Rooms & Features</label>
                                             <div class="two-hex-align">
                                                 <input type="text" placeholder="Room Features" name="room_features[]"
-                                                    class="w-100" value="{{ isset($feature) ? $feature->name : '' }}">
+                                                    class="w-100" value="{{ isset($feature) ? $feature->name : '' }}" autocomplete="off">
 
                                             </div>
                                             @if ($errors->has('room_features.0'))
