@@ -57,15 +57,21 @@
                             <td>{{ $category->id ?? '' }}</td>
                             <td>{{ $category->name ?? '' }}</td>
                             <td>
-                                <a class="btn btn-sm btn-success" href="{{ route('admin.category.edit', $category->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
-                                <form id="deleteForm-{{ $category->id }}" action="{{ route('admin.pets.destroy', $category->id) }}" method="POST" style="display:inline-block;">
+                                <a class="btn btn-sm btn-success"
+                                    href="{{ route('admin.category.edit', $category->id) }}"><img
+                                        src="{{ asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
+                                <form id="deleteForm-{{ $category->id }}"
+                                    action="{{ route('admin.pets.destroy', $category->id) }}" method="POST"
+                                    style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $category->id }})"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        onclick="confirmDelete({{ $category->id }})"> <img
+                                            src="{{ asset('assets/images/delete.png') }}" width="30"
+                                            height="20"></button>
                                 </form>
                             </td>
                         </tr>
-
                     @endforeach
                 </table>
             </div>
@@ -82,10 +88,11 @@
                     <form id="categoryForm">
                         <div class="mb-3">
                             <label for="new-category" class="form-label">Category Name</label>
-                            <input type="text" name="name" class="form-control" id="new-category" placeholder="Enter category name" >
-                                @error('name')
+                            <input type="text" name="name" class="form-control" id="new-category"
+                                placeholder="Enter category name">
+                            @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Add Category</button>
                     </form>
@@ -104,11 +111,12 @@
                     <form id="itemForm">
                         <div class="mb-3">
                             <label for="new-item" class="form-label">Category Name</label>
-                            <input type="text" class="form-control" id="new-item" placeholder="Enter Category name" name="name" >
-                                <input type="hidden" id="catId" name="category_id">
+                            <input type="text" class="form-control" id="new-item" placeholder="Enter Category name"
+                                name="name">
+                            <input type="hidden" id="catId" name="category_id">
                         </div>
                         @error('name')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                            <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <button type="submit" class="btn btn-primary">Update Category</button>
                     </form>
@@ -117,140 +125,137 @@
         </div>
     </div>
 @endsection
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
 
-   $(document).ready(function() {
-    // When the "Add Category" button is clicked, open the modal
-    $('#create-category').on('click', function() {
-        $('#categoryModal').modal('show');
-    });
-});
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            // When the "Add Category" button is clicked, open the modal
+            $('#create-category').on('click', function() {
+                $('#categoryModal').modal('show');
+            });
+            $('#categoryForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting traditionally
+
+                let categoryName = $('#new-category').val();
+
+                $.ajax({
+                    url: "{{ route('admin.category.store') }}", // Laravel route URL
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}', // CSRF token for security
+                        name: categoryName
+                    },
+                    success: function(response) {
+                        // alert(response.message); // Show success
+                        toastr.success(response.message);
+                        $('#categoryModal').modal('hide'); // Hide the modal
+                        $('#categoryForm')[0].reset(); // Reset the form
+                        location.reload();
+                        // Optionally, refresh the list of categories on the page
+                    },
+                    error: function(xhr) {
+                        // alert('An error occurred: ' + xhr.responseJSON.message);
+                        toastr.error('An error occurred: ' + xhr.responseJSON
+                            .message); // Show error toast
+                    }
+                });
+            });
+        });
+
+        function confirmDelete(categoryId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/admin/category/${categoryId}`, // URL to delete the category
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}' // CSRF token for Laravel
+                        },
+                        success: function(response) {
+                            toastr.success(response.message); // Display success message
+                            // Remove the row from the table
+                            $(`#deleteForm-${categoryId}`).closest('tr').remove();
+                            location.reload();
+                        },
+                        error: function(xhr) {
+                            toastr.error(xhr.responseJSON.message ||
+                                'Failed to delete category'); // Display error message
+                        }
+                    });
+                }
+            });
+        }
 
 
+        $(document).ready(function() {
+            // When the "Edit" button is clicked
+            $('.btn-success').on('click', function(event) {
+                event.preventDefault(); // Prevent the default link behavior
 
-    $(document).ready(function() {
-        $('#categoryForm').on('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting traditionally
+                // Get the URL from the link's href attribute
+                var url = $(this).attr('href');
 
-            let categoryName = $('#new-category').val();
+                // Make an AJAX request to fetch the category data
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function(response) {
+                        // Check if the category data is received
+                        if (response.category) {
+                            // Populate the input field in the modal with the category name
+                            $('#new-item').val(response.category.name);
+                            $('#catId').val(response.category.id);
+
+                            // Show the modal
+                            $('#itemModal').modal('show');
+                        } else {
+                            toastr.error('Category not found');
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Failed to fetch category data');
+                    }
+                });
+            });
+        });
+
+        function saveCategory() {
+            const id = $('#catId').val(); // Get the category ID from the modal
+            const name = $('#new-item').val(); // Get the category name from the input
 
             $.ajax({
-                url: "{{ route('admin.category.store') }}", // Laravel route URL
-                method: 'POST',
+                url: `/admin/category/${id}`, // Use the category ID in the URL
+                method: 'POST', // Use PUT method for updates
                 data: {
-                    _token: '{{ csrf_token() }}', // CSRF token for security
-                    name: categoryName
+                    name: name,
+                    '_token': '{{ csrf_token() }}' // Include CSRF token for security
                 },
                 success: function(response) {
-                    // alert(response.message); // Show success
-                    toastr.success(response.message);
-                    $('#categoryModal').modal('hide'); // Hide the modal
-                    $('#categoryForm')[0].reset(); // Reset the form
+                    toastr.success(response.message); // Show success message
+                    $('#itemModal').modal('hide'); // Hide the modal
                     location.reload();
                     // Optionally, refresh the list of categories on the page
                 },
                 error: function(xhr) {
-                    // alert('An error occurred: ' + xhr.responseJSON.message);
                     toastr.error('An error occurred: ' + xhr.responseJSON.message); // Show error toast
                 }
             });
-        });
-    });
+        }
 
-    function confirmDelete(categoryId) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: `/admin/category/${categoryId}`, // URL to delete the category
-                type: 'DELETE',
-                data: {
-                    _token: '{{ csrf_token() }}' // CSRF token for Laravel
-                },
-                success: function(response) {
-                    toastr.success(response.message); // Display success message
-                    // Remove the row from the table
-                    $(`#deleteForm-${categoryId}`).closest('tr').remove();
-                    location.reload();
-                },
-                error: function(xhr) {
-                    toastr.error(xhr.responseJSON.message || 'Failed to delete category'); // Display error message
-                }
+        // Update the event handler for the item form submission
+        $(document).ready(function() {
+            $('#itemForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                saveCategory(); // Call the saveCategory function
             });
-        }
-    });
-}
-
-
-$(document).ready(function() {
-    // When the "Edit" button is clicked
-    $('.btn-success').on('click', function(event) {
-        event.preventDefault(); // Prevent the default link behavior
-
-        // Get the URL from the link's href attribute
-        var url = $(this).attr('href');
-
-        // Make an AJAX request to fetch the category data
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: function(response) {
-                // Check if the category data is received
-                if (response.category) {
-                    // Populate the input field in the modal with the category name
-                    $('#new-item').val(response.category.name);
-                    $('#catId').val(response.category.id);
-
-                    // Show the modal
-                    $('#itemModal').modal('show');
-                } else {
-                    toastr.error('Category not found');
-                }
-            },
-            error: function() {
-                toastr.error('Failed to fetch category data');
-            }
         });
-    });
-});
-
-function saveCategory() {
-    const id = $('#catId').val(); // Get the category ID from the modal
-    const name = $('#new-item').val(); // Get the category name from the input
-
-    $.ajax({
-        url: `/admin/category/${id}`, // Use the category ID in the URL
-        method: 'POST', // Use PUT method for updates
-        data: {
-            name: name,
-            '_token': '{{ csrf_token() }}' // Include CSRF token for security
-        },
-        success: function(response) {
-            toastr.success(response.message); // Show success message
-            $('#itemModal').modal('hide'); // Hide the modal
-            location.reload();
-            // Optionally, refresh the list of categories on the page
-        },
-        error: function(xhr) {
-            toastr.error('An error occurred: ' + xhr.responseJSON.message); // Show error toast
-        }
-    });
-}
-
-// Update the event handler for the item form submission
-$(document).ready(function() {
-    $('#itemForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-        saveCategory(); // Call the saveCategory function
-    });
-});
-
-</script>
+    </script>
+@endsection

@@ -659,8 +659,6 @@
 
     </section>
 
-    @yield('scripts')
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('assets/custom-js/custom.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -674,89 +672,93 @@
     <script src="https://cdn.jsdelivr.net/npm/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+    <script>
+        // Mark all notifications as read
+        $('#markAllAsReadBtn').click(function() {
+            $.ajax({
+                url: '{{ route('admin.notifications.markAllRead') }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('.notification-listing .box').removeClass('unread'); // Update UI if needed
+                    toastr.success(response.success);
+                }
+            });
+        });
+    
+        // Mark a single notification as read
+        $('.cancel-notify').click(function() {
+            const notificationId = $(this).data('id'); // Ensure this data-id is set in HTML
+            const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id',
+                notificationId); // Replace :id placeholder with the actual ID
+    
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $(`#notification-${notificationId}`).remove(); // Remove or update UI
+                    toastr.success(response.success); // Display success message
+                },
+                error: function(xhr) {
+                    toastr.error('An error occurred.'); // Handle error
+                }
+            });
+        });
+    
+    
+        $(document).ready(function() {
+            Pusher.logToConsole = true;
+    
+            // Initialize Pusher
+            var pusher = new Pusher('3af0341c542582fe2550', {
+                cluster: 'ap2',
+                encrypted: true,
+                authEndpoint: '/pusher/auth', // Ensure this route is set up
+                auth: {
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}" // CSRF token for Laravel
+                    }
+                }
+            });
+    
+            // Get authenticated user ID
+            var userId = "{{ auth()->id() }}"; // Blade syntax to get current user ID
+    
+            // Subscribe to the user's private notification channel
+            var channel = pusher.subscribe(`private-notifications.${userId}`);
+    
+            // Bind to PropertyApproved event
+            channel.bind('PropertyApproved', function(data) {
+                // HTML structure for each notification item
+                const notificationBox = `
+                <div class="notification-listing">
+                    <div class="box" id="notification-${new Date().getTime()}">
+                        <h6>Property Approved!</h6>
+                        <p>${data.message}</p>
+                    </div>
+                    <button class="cancel-notify">
+                        <!-- SVG icon here if needed -->
+                    </button>
+                </div>
+            `;
+    
+                // Append notification to the top of the list
+                $(".notification-list-box").prepend(notificationBox);
+    
+                // Show success notification using toastr
+                toastr.success(data.message);
+            });
+        });
+    </script>
+
+@yield('scripts')
 </body>
 
 </html>
-<script>
-    // Mark all notifications as read
-    $('#markAllAsReadBtn').click(function() {
-        $.ajax({
-            url: '{{ route('admin.notifications.markAllRead') }}',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                $('.notification-listing .box').removeClass('unread'); // Update UI if needed
-                toastr.success(response.success);
-            }
-        });
-    });
 
-    // Mark a single notification as read
-    $('.cancel-notify').click(function() {
-        const notificationId = $(this).data('id'); // Ensure this data-id is set in HTML
-        const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id',
-            notificationId); // Replace :id placeholder with the actual ID
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                $(`#notification-${notificationId}`).remove(); // Remove or update UI
-                toastr.success(response.success); // Display success message
-            },
-            error: function(xhr) {
-                toastr.error('An error occurred.'); // Handle error
-            }
-        });
-    });
-
-
-    $(document).ready(function() {
-        Pusher.logToConsole = true;
-
-        // Initialize Pusher
-        var pusher = new Pusher('3af0341c542582fe2550', {
-            cluster: 'ap2',
-            encrypted: true,
-            authEndpoint: '/pusher/auth', // Ensure this route is set up
-            auth: {
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}" // CSRF token for Laravel
-                }
-            }
-        });
-
-        // Get authenticated user ID
-        var userId = "{{ auth()->id() }}"; // Blade syntax to get current user ID
-
-        // Subscribe to the user's private notification channel
-        var channel = pusher.subscribe(`private-notifications.${userId}`);
-
-        // Bind to PropertyApproved event
-        channel.bind('PropertyApproved', function(data) {
-            // HTML structure for each notification item
-            const notificationBox = `
-            <div class="notification-listing">
-                <div class="box" id="notification-${new Date().getTime()}">
-                    <h6>Property Approved!</h6>
-                    <p>${data.message}</p>
-                </div>
-                <button class="cancel-notify">
-                    <!-- SVG icon here if needed -->
-                </button>
-            </div>
-        `;
-
-            // Append notification to the top of the list
-            $(".notification-list-box").prepend(notificationBox);
-
-            // Show success notification using toastr
-            toastr.success(data.message);
-        });
-    });
-</script>
