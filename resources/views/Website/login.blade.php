@@ -24,8 +24,8 @@
                     </div>
                     <form action="{{ route('login.store') }}" method="POST">
                         @csrf
-                        <input type="email" placeholder="Email Address" required name="email">
-                        <input type="password" placeholder="Password" required name="password" id="password">
+                        <input type="email" placeholder="Email Address"  name="email">
+                        <input type="password" placeholder="Password"  name="password" id="password">
 
                         <div class="input-check-box">
                             <input type="checkbox" id="show-password" onclick="togglePassword()">

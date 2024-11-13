@@ -24,12 +24,12 @@
                     <div class="form-box">
                         <form action="{{ route('register.store') }}" method="POST">
                             @csrf
-                            <input type="text" placeholder="Full Name" required name="name">
-                            <input type="email" placeholder="Email Address" required name="email">
-                            <input type="tel" placeholder="Contact Number" required name="phone">
-                            <textarea placeholder="Address" required name="address"></textarea>
-                            <input type="password" id="password" placeholder="Password" required name="password">
-                            <input type="password" id="c_password" placeholder="Confirm Password" required name="c_password">
+                            <input type="text" placeholder="Full Name"  name="name">
+                            <input type="email" placeholder="Email Address" name="email">
+                            <input type="tel" placeholder="Contact Number" name="phone">
+                            <textarea placeholder="Address" name="address"></textarea>
+                            <input type="password" id="password" placeholder="Password" name="password">
+                            <input type="password" id="c_password" placeholder="Confirm Password" name="c_password">
                             <select name="role">
                                 <option disabled>Select Role</option>
                                 <option value="tenant">Tenant</option>
@@ -38,7 +38,7 @@
                             {{-- <input type="text" placeholder="Social Security Number" required name="ssn"> --}}
 
                             <div class="input-check-box mt-4">
-                                <input type="checkbox" id="show-password" onclick="togglePassword()"> 
+                                <input type="checkbox" id="show-password" onclick="togglePassword()">
                                 <label for="show-password">Show Password</label>
                             </div>
 
@@ -67,5 +67,5 @@
             }
         }
     </script>
-    
+
 @endsection

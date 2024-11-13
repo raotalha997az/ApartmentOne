@@ -84,9 +84,6 @@
                                     <div class="single-input-box">
                                         <input type="text" name="email" placeholder="Email *" aria-label="Email"
                                             aria-describedby="basic-addon1" >
-                                            @error('email')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
                                     </div>
                                     <div class="form-btm-content">
                                         <button type="submit" style="position:relative;">Reset password</button>

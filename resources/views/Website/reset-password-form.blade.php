@@ -79,12 +79,12 @@
 
                                 <div class="single-input-box">
                                     <label>New Password</label>
-                                    <input type="password" name="password" id="password" required autocomplete="new-password">
+                                    <input type="password" name="password" id="password"  autocomplete="new-password">
                                 </div>
 
                                 <div class="single-input-box">
                                     <label>Confirm Password</label>
-                                    <input type="password" id="n-password" name="password_confirmation" required
+                                    <input type="password" id="n-password" name="password_confirmation"
                                         autocomplete="new-password">
                                 </div>
 
