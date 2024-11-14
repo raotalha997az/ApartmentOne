@@ -21,11 +21,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('*', function ($view) {
-            if (Auth::check()) {
-                $notifications = Auth::user()->unreadNotifications;
-                $view->with('notifications', $notifications);
-            }
-        });
     }
 }
