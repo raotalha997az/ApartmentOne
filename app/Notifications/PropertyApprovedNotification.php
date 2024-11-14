@@ -11,12 +11,12 @@ class PropertyApprovedNotification extends Notification implements ShouldQueue
     use Queueable;
 
     protected $property;
-    protected $notificationId;
 
-    public function __construct($property, $notificationId)
+
+    public function __construct($property)
     {
         $this->property = $property;
-        $this->notificationId = $notificationId;  // Store notificationId
+ // Store notificationId
     }
 
     public function via($notifiable)

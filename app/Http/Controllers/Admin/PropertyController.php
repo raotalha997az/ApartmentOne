@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\PropertyApprovedNotification;
 use App\Events\PropertyApprovedEvent;
+use App\Notifications\PropertyApprovedNotification;
 
 class PropertyController extends Controller
 {
@@ -39,16 +40,17 @@ class PropertyController extends Controller
         $userId = $property->user_id;
         $landlord = User::findOrFail($userId);
 
-        // Generate a unique notificationId (could be a UUID or any other unique ID)
-        $notificationId = uniqid('notify_', true);  // Example, generates a unique ID
+
+
 
         // Update property status
         $property->approve = 1;
         $property->save();
 
         // Send notification and email
-        $landlord->notify(new PropertyApprovedNotification($property, $notificationId));  // Pass notificationId
+        $landlord->notify(new PropertyApprovedNotification($property));  // Pass notificationId
 
+       $notificationId = DB::table('notifications')->orderBy('created_at', 'desc')->first();
         // Trigger real-time broadcast with notificationId
         event(new PropertyApprovedEvent($userId, 'Your property "' . $property->name . '" has been approved.', $notificationId));
 
@@ -76,4 +78,5 @@ class PropertyController extends Controller
 
         return response()->json(['success' => 'Notification marked as read.']);
     }
+
 }
