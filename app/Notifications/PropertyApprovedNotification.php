@@ -9,14 +9,13 @@ use Illuminate\Notifications\Notification;
 class PropertyApprovedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-
+    public $tries = 3; 
+    public $timeout = 120;
     protected $property;
-
 
     public function __construct($property)
     {
         $this->property = $property;
- // Store notificationId
     }
 
     public function via($notifiable)
@@ -38,7 +37,6 @@ class PropertyApprovedNotification extends Notification implements ShouldQueue
         return [
             'message' => 'Your property ' . $this->property->name . ' has been approved.',
             'property_id' => $this->property->id,
-            'notification_id' => $this->notificationId,  // Return notificationId here
         ];
     }
 }

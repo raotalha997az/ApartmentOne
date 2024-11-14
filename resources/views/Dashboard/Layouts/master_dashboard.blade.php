@@ -719,9 +719,9 @@
                         // Loop through each notification and create HTML template
                         notifications.forEach(notification => {
                             let notificationHTML = `
-                                <div class="notification-listing" id="notification-${notification.id}">
+                                <div class="notification-listing" id="notification-${notification.id} ?? ''">
                                     <div class="box">
-                                        <h6>${notification.data.title || 'Notification'}</h6>
+                                        <h6>Property Approved!</h6>
                                         <span>${notification.data.message || 'No message available'}</span>
                                     </div>
                                     <button class="cancel-notify" data-id="${notification.id}">
@@ -746,8 +746,9 @@
 
         // Mark a single notification as read
         $(document).on('click', '.cancel-notify', function() {
-            let notificationId = $(this).data('id');
-            const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id', notificationId);
+            let notificationId = $(this).data('id').trim();  // Trim any extra spaces
+            const url = `{{ route('admin.notifications.markAsRead',':id') }}`.replace(':id', notificationId);
+            console.log(url);
 
             $.ajax({
                 url: url,
@@ -758,7 +759,7 @@
                 success: function(response) {
                     // Remove the specific notification element
                     $(`#notification-${notificationId}`).remove();
-
+                    getAllNotifications();
                     // Update unread count
                     let unreadCountElem = document.getElementById("notification-container");
                     if (unreadCountElem) {
@@ -813,7 +814,7 @@
                         <h6>Property Approved!</h6>
                         <span>${data.message}</span>
                     </div>
-                    <button class="cancel-notify" data-id="${data.notificationId.id}">
+                    <button class="cancel-notify" data-id="${data.notificationId}">
                         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"/>
                         </svg>

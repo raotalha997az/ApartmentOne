@@ -116,10 +116,10 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     });
 });
 
-// Notification All get
-Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications')->middleware('auth');
-//Admin Dashboard Routes
-Route::prefix('admin')->name('admin.')->group(function () {
+    // Notification All get
+    Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications')->middleware('auth');
+    //Admin Dashboard Routes
+    Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['role:admin|land_lord'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/properties',[AdminPropertyController::class,'properties'])->name(name: 'properties');

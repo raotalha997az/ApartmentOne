@@ -35,27 +35,31 @@ class PropertyController extends Controller
     }
 
     public function propertyApprove(Request $request, $id)
-    {
-        $property = Property::findOrFail($id);
-        $userId = $property->user_id;
-        $landlord = User::findOrFail($userId);
+{
+    $property = Property::findOrFail($id);
+    $userId = $property->user_id;
+    $landlord = User::findOrFail($userId);
 
+    // Update property status
+    $property->approve = 1;
+    $property->save();
 
+    // Send notification and email
+    $landlord->notify(new PropertyApprovedNotification($property));
 
+    // Retrieve the most recent notification ID for the landlord
+    $notification = DB::table('notifications')
+                      ->where('notifiable_id', $userId)
+                      ->orderBy('created_at', 'desc')
+                      ->first();
+    $notificationId = $notification ? $notification->id : null;
 
-        // Update property status
-        $property->approve = 1;
-        $property->save();
+    // Trigger real-time broadcast with notificationId
+    event(new PropertyApprovedEvent($userId, 'Your property "' . $property->name . '" has been approved.', $notificationId));
 
-        // Send notification and email
-        $landlord->notify(new PropertyApprovedNotification($property));  // Pass notificationId
+    return redirect()->back()->with('success', 'Property Approved Successfully');
+}
 
-       $notificationId = DB::table('notifications')->orderBy('created_at', 'desc')->first();
-        // Trigger real-time broadcast with notificationId
-        event(new PropertyApprovedEvent($userId, 'Your property "' . $property->name . '" has been approved.', $notificationId));
-
-        return redirect()->back()->with('success', 'Property Approved Successfully');
-    }
 
 
 }
