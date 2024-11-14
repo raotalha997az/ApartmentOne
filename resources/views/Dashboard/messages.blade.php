@@ -30,6 +30,7 @@
                         <button><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
+                {{-- {{ dd($landlord) }} --}}
                 <div class="main-person-message-box">
                         <a href="#" class="active-mesg-person">
                             <div class="parent-box-message-user">
@@ -45,104 +46,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="#">
-                            <div class="parent-box-message-user">
-                                <div class="img-box">
-                                    <img src="{{asset('assets/images/message-person-img.png')}}" alt="">
-                                </div>
-                                <div class="content-box">
-                                    <div class="name-and-date">
-                                        <h6>Jhon Wick</h6>
-                                        <h5>12/2/2024</h5>
-                                    </div>
-                                    <p>Lorem Ipsum is simply dummy text of the</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="parent-box-message-user">
-                                <div class="img-box">
-                                    <img src="{{asset('assets/images/message-person-img.png')}}" alt="">
-                                </div>
-                                <div class="content-box">
-                                    <div class="name-and-date">
-                                        <h6>Jhon Wick</h6>
-                                        <h5>12/2/2024</h5>
-                                    </div>
-                                    <p>Lorem Ipsum is simply dummy text of the</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="parent-box-message-user">
-                                <div class="img-box">
-                                    <img src="{{asset('assets/images/message-person-img.png')}}" alt="">
-                                </div>
-                                <div class="content-box">
-                                    <div class="name-and-date">
-                                        <h6>Jhon Wick</h6>
-                                        <h5>12/2/2024</h5>
-                                    </div>
-                                    <p>Lorem Ipsum is simply dummy text of the</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="parent-box-message-user">
-                                <div class="img-box">
-                                    <img src="{{asset('assets/images/message-person-img.png')}}" alt="">
-                                </div>
-                                <div class="content-box">
-                                    <div class="name-and-date">
-                                        <h6>Jhon Wick</h6>
-                                        <h5>12/2/2024</h5>
-                                    </div>
-                                    <p>Lorem Ipsum is simply dummy text of the</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="parent-box-message-user">
-                                <div class="img-box">
-                                    <img src="{{asset('assets/images/message-person-img.png')}}" alt="">
-                                </div>
-                                <div class="content-box">
-                                    <div class="name-and-date">
-                                        <h6>Jhon Wick</h6>
-                                        <h5>12/2/2024</h5>
-                                    </div>
-                                    <p>Lorem Ipsum is simply dummy text of the</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="parent-box-message-user">
-                                <div class="img-box">
-                                    <img src="{{asset('assets/images/message-person-img.png')}}" alt="">
-                                </div>
-                                <div class="content-box">
-                                    <div class="name-and-date">
-                                        <h6>Jhon Wick</h6>
-                                        <h5>12/2/2024</h5>
-                                    </div>
-                                    <p>Lorem Ipsum is simply dummy text of the</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="parent-box-message-user">
-                                <div class="img-box">
-                                    <img src="{{asset('assets/images/message-person-img.png')}}" alt="">
-                                </div>
-                                <div class="content-box">
-                                    <div class="name-and-date">
-                                        <h6>Jhon Wick</h6>
-                                        <h5>12/2/2024</h5>
-                                    </div>
-                                    <p>Lorem Ipsum is simply dummy text of the</p>
-                                </div>
-                            </div>
-                        </a>
+
                 </div>
             </div>
         </div>
@@ -168,20 +72,7 @@
                                         <p>Lorem Ipsum is simply dummy text of the</p>
                                     </div>
 
-                                    <div class="content-box you">
-                                        <div class="name-and-date">
-                                            <h6>Jhon Wick</h6>
-                                            <h5>12/2/2024</h5>
-                                        </div>
-                                        <p>Lorem Ipsum is simply dummy text of the</p>
-                                    </div>
-                                    <div class="content-box client">
-                                        <div class="name-and-date">
-                                            <h6>Jhon Wick</h6>
-                                            <h5>12/2/2024</h5>
-                                        </div>
-                                        <p>Lorem Ipsum is simply dummy text of the</p>
-                                    </div>
+                                 
                                 </div>
                     </div>
 

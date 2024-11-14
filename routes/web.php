@@ -85,6 +85,9 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
      Route::get('/wishlist/show',[TenantAuthController::class,'showWishlist'])->name('wishlist.show');
     //  Bank Info
     Route::post('/bank', [TenantAuthController::class, 'bank'])->name('bank');
+
+    Route::get('/applyforproperty/{property}/{user}', [TenantPropertiesController::class, 'applyForProperty'])->name('applyForProperty');
+
 });
 });
 

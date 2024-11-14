@@ -6,11 +6,25 @@
     margin-bottom: 30px !important;
     flex-wrap: wrap;
 }
+
+
+.propertieslistings-page .properties_details_main .properties_name_add .add a {
+    background-color: #0077B6 !important;
+    width: fit-content !important;
+    padding: 5px 20px !important;
+    border-radius: 20% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #fff !important;
+    transition: .3s !important;
+}
 </style>
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
     <div class="propertieslistings-page propertiesdetails-page">
         <div class="row">
+
             <div class="col-lg-4">
                 <div class="place-gallery-box">
                     <div class="large-gallery-box">
@@ -49,8 +63,23 @@
                             <h5>{{ $property->name }}</h5>
                             <h6>{{ $property->category->name ?? '' }}</h6>
                         </div>
-
+                        <div class="add">
+                            <a href="{{ route('tenant.applyForProperty', ['property' => $property->id, 'user' => auth()->user()->id]) }}">
+                                <span>Apply</span>
+                                <svg width="31" height="30"
+                                viewBox="0 0 31 30" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M25.3787 10.7325C25.3195 10.5968 25.2365 10.4728 25.1338 10.3663L17.6337 2.86625C17.5272 2.76348 17.4032 2.68051 17.2675 2.62125C17.23 2.60375 17.19 2.59375 17.15 2.58C17.0454 2.54441 16.9365 2.52297 16.8262 2.51625C16.8 2.51375 16.7762 2.5 16.75 2.5H8C6.62125 2.5 5.5 3.62125 5.5 5V25C5.5 26.3788 6.62125 27.5 8 27.5H23C24.3788 27.5 25.5 26.3788 25.5 25V11.25C25.5 11.2238 25.4862 11.2 25.4837 11.1725C25.4776 11.0621 25.4562 10.9532 25.42 10.8487C25.4075 10.8087 25.3962 10.77 25.3787 10.7325ZM21.2325 10H18V6.7675L21.2325 10ZM8 25V5H15.5V11.25C15.5 11.5815 15.6317 11.8995 15.8661 12.1339C16.1005 12.3683 16.4185 12.5 16.75 12.5H23L23.0025 25H8Z"
+                                    fill="white" />
+                                <path
+                                    d="M10.5 15H20.5V17.5H10.5V15ZM10.5 20H20.5V22.5H10.5V20ZM10.5 10H13V12.5H10.5V10Z"
+                                    fill="white" />
+                            </svg>
+                            </a>
+                        </div>
                     </div>
+
                     <div class="properties-icons-details">
                         <strong class="">Features :  </strong>
                         <ul>
