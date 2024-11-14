@@ -45,7 +45,7 @@
             width: 500px;
             position: absolute;
             padding: 20px;
-            top: 30px;
+            top: 20px;
             left: -50px;
             border: 1px solid;
             display: none;
@@ -113,8 +113,8 @@
     height: 250px;
 }
 
-.notification-list-box .notification-listing:nth-child(1) {
-    margin-top: 100px;
+.notification-drop-box .notification-dropdown .notification-list-box .notification-listing:nth-child(1) {
+    margin-top: 450px !important;
 }
 
         }
