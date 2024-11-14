@@ -1,4 +1,22 @@
 @extends('Dashboard.Layouts.master_dashboard')
+<style>
+     .dashboard-main .left-panel .left-panel-menu ul li a.messages {
+        background-color: white;
+        color: #414141;
+    }
+
+    .dashboard-main .left-panel .left-panel-menu ul li a.messages svg path {
+        fill: #414141 !important;
+    }
+
+    .main-dashboard-header .right-header-links ul li a.messages {
+    color: #0077B6;
+}
+
+.main-dashboard-header .right-header-links ul li a.messages svg path{
+    fill: #0077B6 !important;
+}
+</style>
 @section('content')
 <div class="messages-page">
     <div class="row">
@@ -149,7 +167,7 @@
                                         </div>
                                         <p>Lorem Ipsum is simply dummy text of the</p>
                                     </div>
-                                    
+
                                     <div class="content-box you">
                                         <div class="name-and-date">
                                             <h6>Jhon Wick</h6>

@@ -28,11 +28,6 @@ class DashboardController extends Controller
         return view('Dashboard.tenant.notifications');
     }
 
-    public function messages()
-    {
-        return view('Dashboard.tenant.messages');
-    }
-
 }
 
 

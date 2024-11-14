@@ -33,7 +33,6 @@ class User extends Authenticatable
         'profile_img',   // Profile image
         'date_of_birth', // Date of birth
         'password',
-        'role',
     ];
 
     public function getAgeAttribute()
@@ -72,4 +71,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Property::class);
     }
+
+    public function sentMessages()
+{
+    return $this->hasMany(Message::class, 'sender_id');
+}
+
+public function receivedMessages()
+{
+    return $this->hasMany(Message::class, 'receiver_id');
+}
+
 }

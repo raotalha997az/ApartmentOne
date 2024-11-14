@@ -6,6 +6,7 @@ use App\Http\Controllers\TrashProperty;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TrashController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Auth\AuhController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\PetController;
@@ -75,8 +76,6 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::get('/applyhistory',[DashboardController::class,'applyhistory'])->name('applyhistory');
     Route::get('/profile',[DashboardController::class,'profile'])->name('profile');
     Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist');
-
-    Route::get('/messages',[DashboardController::class,'messages'])->name('messages');
     // profile
     Route::get('/profile',[TenantAuthController::class,'profile'])->name('profile');
     Route::post('/profile/update', [TenantAuthController::class, 'updateProfile'])->name('profile.update');
@@ -115,7 +114,14 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     // Profile end
     });
 });
-
+    // Messages routes
+    Route::middleware(['auth'])->group(function () {
+        Route::post('/message/send', [MessageController::class, 'sendMessage'])->name('message.send');
+        Route::get('/messages/{receiverId}', [MessageController::class, 'getMessages'])->name('messages.get');
+        // blade message
+        Route::get('/messages',[MessageController::class,'messages'])->name('messages');
+    });
+    // Messages End routes
     // Notification All get
     Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications')->middleware('auth');
     //Admin Dashboard Routes
@@ -124,11 +130,8 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/properties',[AdminPropertyController::class,'properties'])->name(name: 'properties');
     Route::get('/properties/approve/{id}',[AdminPropertyController::class,'propertyApprove'])->name('properties.approve');
-
-
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
     Route::post('/notifications/{id}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-
     Route::get('/properties/Bylandlord',[PropertyController::class,'Bylandlord'])->name('properties.bylandlord');
     Route::get('/income_reports',[AdminAuthController::class,'income_reports'])->name('income_reports');
     Route::get('/user_reports',[AdminAuthController::class,'user_reports'])->name('user_reports');
@@ -140,7 +143,6 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('/propertieslistings',[AdminPropertyController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/wishlist',[AdminAuthController::class,'wishlist'])->name('wishlist');
     // Route::get('/notifications',[AdminAuthController::class,'notifications'])->name('notifications');
-    Route::get('/messages',[AdminAuthController::class,'messages'])->name('messages');
     // profile
     Route::get('/profile',[AdminAuthController::class,'profile'])->name('profile');
     Route::post('/profile/update', [AdminAuthController::class, 'updateProfile'])->name('profile.update');
