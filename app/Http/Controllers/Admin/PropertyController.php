@@ -58,25 +58,4 @@ class PropertyController extends Controller
     }
 
 
-
-
-    public function markAllRead()
-    {
-        Auth::user()->unreadNotifications->markAsRead();
-
-        return response()->json(['success' => 'All notifications marked as read.']);
-    }
-
-    // Mark a single notification as read
-    public function markAsRead($id)
-    {
-        $notification = Auth::user()->notifications()->find($id);
-
-        if ($notification && !$notification->read_at) {
-            $notification->markAsRead();
-        }
-
-        return response()->json(['success' => 'Notification marked as read.']);
-    }
-
 }

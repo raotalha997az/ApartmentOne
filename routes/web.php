@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\PetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TrashPropertyController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\RentToWhoController;
@@ -74,7 +75,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::get('/applyhistory',[DashboardController::class,'applyhistory'])->name('applyhistory');
     Route::get('/profile',[DashboardController::class,'profile'])->name('profile');
     Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist');
-    Route::get('/notifications',[DashboardController::class,'notifications'])->name('notifications');
+
     Route::get('/messages',[DashboardController::class,'messages'])->name('messages');
     // profile
     Route::get('/profile',[TenantAuthController::class,'profile'])->name('profile');
@@ -115,7 +116,8 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     });
 });
 
-
+// Notification All get
+Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications')->middleware('auth');
 //Admin Dashboard Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['role:admin|land_lord'])->group(function () {
@@ -124,9 +126,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/properties/approve/{id}',[AdminPropertyController::class,'propertyApprove'])->name('properties.approve');
 
 
-        Route::post('/notifications/mark-all-read', [AdminPropertyController::class, 'markAllRead'])->name('notifications.markAllRead');
-        Route::post('/notifications/{id}/mark-read', [AdminPropertyController::class, 'markAsRead'])->name('notifications.markAsRead');
-
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
+    Route::post('/notifications/{id}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
     Route::get('/properties/Bylandlord',[PropertyController::class,'Bylandlord'])->name('properties.bylandlord');
     Route::get('/income_reports',[AdminAuthController::class,'income_reports'])->name('income_reports');
@@ -138,7 +139,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/propertieslistings',[AdminPropertyController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/wishlist',[AdminAuthController::class,'wishlist'])->name('wishlist');
-    Route::get('/notifications',[AdminAuthController::class,'notifications'])->name('notifications');
+    // Route::get('/notifications',[AdminAuthController::class,'notifications'])->name('notifications');
     Route::get('/messages',[AdminAuthController::class,'messages'])->name('messages');
     // profile
     Route::get('/profile',[AdminAuthController::class,'profile'])->name('profile');

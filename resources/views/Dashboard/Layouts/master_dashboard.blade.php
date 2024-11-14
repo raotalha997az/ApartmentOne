@@ -695,28 +695,91 @@
         });
 
 
-          // Mark a single notification as read
-            $(document).on('click', '.cancel-notify', function() {
-                let notificationId = $(this).data('id').replace("notify_", ""); // Remove "notify_" prefix
-                const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id', notificationId); // Replace placeholder with actual ID
+        // Function to fetch and display notifications
+        function getAllNotifications() {
+            $.ajax({
+                url: '{{ route('notifications') }}',
+                type: 'GET',
+                success: function(data) {
+                    let notifications = data.notifications;
 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $(`#notification-${notificationId}`).remove();
-                        // Remove the specific notification element
-                        $('#appendNotification').empty();
-                        toastr.success(response.success); // Display success message
-                    },
-                    error: function(xhr) {
-                        toastr.error('An error occurred.'); // Handle error
+                    // Update unread count
+                    let unreadCountElem = document.getElementById("notification-container");
+                    if (unreadCountElem) {
+                        unreadCountElem.setAttribute("data-unread-count", notifications.length);
+                    } else {
+                        console.warn("Notification container not found.");
                     }
-                });
+
+                    // Display notifications
+                    let notificationListBox = document.querySelector(".notification-list-box");
+                    if (notificationListBox) {
+                        notificationListBox.innerHTML = ''; // Clear previous notifications
+
+                        // Loop through each notification and create HTML template
+                        notifications.forEach(notification => {
+                            let notificationHTML = `
+                                <div class="notification-listing" id="notification-${notification.id}">
+                                    <div class="box">
+                                        <h6>${notification.data.title || 'Notification'}</h6>
+                                        <span>${notification.data.message || 'No message available'}</span>
+                                    </div>
+                                    <button class="cancel-notify" data-id="${notification.id}">
+                                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            `;
+                            // Append each notification to the list
+                            notificationListBox.insertAdjacentHTML("afterbegin", notificationHTML);
+                        });
+                    } else {
+                        console.warn("Notification list box not found.");
+                    }
+                },
+                error: function(xhr) {
+                    toastr.error('An error occurred.');
+                }
             });
+        }
+
+        // Mark a single notification as read
+        $(document).on('click', '.cancel-notify', function() {
+            let notificationId = $(this).data('id');
+            const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id', notificationId);
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Remove the specific notification element
+                    $(`#notification-${notificationId}`).remove();
+
+                    // Update unread count
+                    let unreadCountElem = document.getElementById("notification-container");
+                    if (unreadCountElem) {
+                        let unreadCount = parseInt(unreadCountElem.getAttribute("data-unread-count")) || 0;
+                        unreadCount = Math.max(0, unreadCount - 1); // Ensure count does not go negative
+                        unreadCountElem.setAttribute("data-unread-count", unreadCount);
+                    }
+
+                    toastr.success(response.success);
+                },
+                error: function(xhr) {
+                    toastr.error('An error occurred.');
+                }
+            });
+        });
+
+        // Load notifications when the page loads
+        $(document).ready(function() {
+            getAllNotifications();
+        });
+
 
 
 
