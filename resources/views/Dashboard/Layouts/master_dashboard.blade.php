@@ -59,6 +59,7 @@
             margin-bottom: 20px;
         }
 
+
         .notification-drop-box .notification-dropdown .notification-list-box .notification-listing {
             display: flex;
             flex-direction: row;
@@ -100,6 +101,21 @@
                 display: block;
                 transform: .3s;
             }
+
+            .notification-drop-box .notification-dropdown .notification-list-box .notification-listing .box span {
+    font-size: 13px;
+}
+
+.notification-list-box {
+    overflow: scroll;
+    overflow-x: hidden;
+    padding-right: 5px;
+    height: 250px;
+}
+
+.notification-list-box .notification-listing:nth-child(1) {
+    margin-top: 100px;
+}
 
         }
     </style>
