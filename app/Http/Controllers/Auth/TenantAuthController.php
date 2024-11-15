@@ -32,8 +32,7 @@ class TenantAuthController extends Controller
             'city' => 'nullable|string|max:255',
             'country' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',
-            'postal_code' => 'nullable|string|max:255',
-            // 'date_of_birth' => 'nullable|date',
+            'postal_code' => 'nullable|digits_between:2,5',
             'date_of_birth' => 'nullable|date|before_or_equal:today',
             'profile_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
         ]);
@@ -99,7 +98,7 @@ class TenantAuthController extends Controller
         // Validation
         $validator = Validator::make($request->all(), [
             'bank_name' => 'nullable|string|max:255',
-            'branch_code' => 'nullable|string|min:3|max:20',
+            'branch_code' => 'nullable|string|min:3|max:5',
             'account_number' => 'nullable|digits_between:9,12',
             'identity_card' => 'nullable|digits:9',
         ]);

@@ -20,6 +20,7 @@ use App\Http\Controllers\Auth\TenantAuthController;
 use App\Http\Controllers\Auth\LandlordAuthController;
 use App\Http\Controllers\LandLord\PropertyController;
 use App\Http\Controllers\tenant\TenantPropertiesController;
+use App\Http\Controllers\tenant\ApplyPropertyHistoryController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 
 /*
@@ -73,7 +74,6 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
     Route::get('/propertiesdetails/{id}', [TenantPropertiesController::class, 'propertiesdetails'])->name('propertiesdetails');
     Route::get('/propertieslistings',[TenantPropertiesController::class,'propertieslistings'])->name('propertieslistings');
-    Route::get('/applyhistory',[DashboardController::class,'applyhistory'])->name('applyhistory');
     Route::get('/profile',[DashboardController::class,'profile'])->name('profile');
     Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist');
     // profile
@@ -87,6 +87,8 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::post('/bank', [TenantAuthController::class, 'bank'])->name('bank');
 
     Route::get('/applyforproperty/{property}/{user}', [TenantPropertiesController::class, 'applyForProperty'])->name('applyForProperty');
+    Route::get('/applyhistory',[ApplyPropertyHistoryController::class,'applyhistory'])->name('applyhistory');
+
 
 });
 });

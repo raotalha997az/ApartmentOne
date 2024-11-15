@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
 
-    public function applyhistory()
-    {
-        return view('Dashboard.tenant.applyhistory');
-    }
+   
 
     public function profile()
     {    $user = auth()->user();

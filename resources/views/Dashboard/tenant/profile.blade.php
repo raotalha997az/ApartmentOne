@@ -105,11 +105,17 @@
                                     <label for="">Full Name</label>
                                     <input type="text" placeholder="Full Name" name="name"
                                         value="{{ $user->name ?? '' }}">
+                                        @error('name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                 </div>
                                 <div class="input-box">
                                     <label for="">Email Address</label>
                                     <input type="email" placeholder="Email Address" value="{{ $user->email ?? '' }}"
                                         name="email">
+                                        @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="two-inputs-boxes-align">
@@ -117,11 +123,17 @@
                                     <label for="">City</label>
                                     <input type="text" placeholder="Chicago" name="city"
                                         value="{{ $user->city ?? '' }}">
+                                        @error('city')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="input-box">
                                     <label for="">Country</label>
                                     <input type="text" placeholder="USA" value="{{ $user->country ?? '' }}"
                                         name="country">
+                                        @error('country')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="two-inputs-boxes-align">
@@ -129,11 +141,17 @@
                                     <label for="">State</label>
                                     <input type="text" placeholder="New York" name="state"
                                         value="{{ $user->state ?? '' }}">
+                                        @error('state')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="input-box">
                                     <label for="">Postal Code</label>
                                     <input type="tel" placeholder="1001" value="{{ $user->postal_code ?? '' }}"
                                         name="postal_code">
+                                        @error('postal_code')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="two-inputs-boxes-align">
@@ -141,6 +159,9 @@
                                     <label for="">Phone Number</label>
                                     <input type="tel" placeholder="+1 123 456 789" value="{{ $user->phone ?? '' }}"
                                         name="phone">
+                                        @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                 </div>
                                 <div class="input-box">
                                     <label for="">Date Of Birth</label>
@@ -156,9 +177,9 @@
                             <div class="two-btn-align-sub-del">
                                 <button type="submit" class="form-btn submit">Save Changes <img
                                         src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button>
-                                <button type="button" class="form-btn delet" onclick="window.history.back()">Discard
+                                {{-- <button type="button" class="form-btn delet" onclick="window.history.back()">Discard
                                     Changes
-                                    <img src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button>
+                                    <img src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button> --}}
                             </div>
                         </form>
                         <div class="bank-info-box">
@@ -171,6 +192,9 @@
                                         <label for="">Bank Name</label>
                                         <input type="text" placeholder="ABC Bank" name="bank_name"
                                             value="{{ $user->bank->bank_name ?? '' }} ">
+                                            @error('bank_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                     </div>
                                     <div class="input-box">
                                         <label for="branch_code">Branch Code</label>
@@ -210,8 +234,8 @@
                                 <div class="two-btn-align-sub-del">
                                     <button type="submit" class="form-btn submit">Save Changes <img
                                             src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button>
-                                    <button class="form-btn delet">Discard Changes <img
-                                            src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button>
+                                    {{-- <button class="form-btn delet">Discard Changes <img
+                                            src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button> --}}
                                 </div>
                             </form>
 
