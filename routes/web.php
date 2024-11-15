@@ -123,6 +123,7 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
         Route::get('/messages/{receiverId}', [MessageController::class, 'getMessages'])->name('messages.get');
         // blade message
         Route::get('/messages',[MessageController::class,'messages'])->name('messages');
+        Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
     });
     // Messages End routes
     // Notification All get

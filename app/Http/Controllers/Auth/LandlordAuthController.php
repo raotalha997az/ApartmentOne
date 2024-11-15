@@ -28,6 +28,7 @@ class LandlordAuthController extends Controller
 
     public function updateProfile(Request $request)
     {
+
         $user = auth()->user();
         // Validate the incoming request
         $validator = Validator::make($request->all(), [

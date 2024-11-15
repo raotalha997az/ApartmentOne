@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Message;
+use App\Events\MessageSent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,31 +14,33 @@ class MessageController extends Controller
     public function messages()
     {
         return view('Dashboard.messages');
-    }
+    }                            
+
+
+
     public function sendMessage(Request $request)
     {
-        $request->validate([
-            'receiver_id' => 'required|exists:users,id',
+        // Validate input
+        $validated = $request->validate([
             'message' => 'required|string',
+            'receiver_id' => 'required|exists:users,id',  // Validate that the receiver exists
         ]);
 
-        $sender = Auth::user();
-        $receiver = User::findOrFail($request->receiver_id);
+        // Get the sender's ID (you could use auth()->id() or something similar)
+        $senderId = $request->sender_id;
 
-        // Check if the sender is a landlord and the receiver is a tenant or vice versa
-        if (($sender->hasRole('land_lord') && $receiver->hasRole('tenant')) ||
-            ($sender->hasRole('tenant') && $receiver->hasRole('land_lord'))) {
-            // Send message if roles are valid
-            $message = Message::create([
-                'sender_id' => $sender->id,
-                'receiver_id' => $receiver->id,
-                'message' => $request->message,
-            ]);
+        // Create the message
+        $message = Message::create([
+            'sender_id' => $senderId,
+            'receiver_id' => $validated['receiver_id'],
+            'message' => $validated['message'],
+        ]);
 
-            return response()->json(['success' => 'Message sent successfully']);
-        }
 
-        return response()->json(['error' => 'You are not allowed to message this user.'], 403);
+        // Broadcast the event
+        broadcast(new MessageSent($message));  // MessageSent is the event you defined for broadcasting
+
+        return response()->json(['status' => 'Message sent successfully']);
     }
 
     public function getMessages($receiverId)
