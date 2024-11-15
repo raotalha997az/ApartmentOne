@@ -7,6 +7,7 @@ use App\Models\Media;
 use App\Models\Feature;
 use App\Models\Category;
 use App\Models\Property;
+use App\Models\Wishlist;
 use App\Models\RentToWho;
 use App\Models\PetDetails;
 use Illuminate\Http\Request;
@@ -271,11 +272,25 @@ class PropertyController extends Controller
         }
         public function properties_delete($id)
         {
-            $property = Property::findOrFail($id);
-            $property->delete();
-            return response()->json([
-                'message' => 'Property deleted successfully.',
-            ]);
+            // Check if the property exists in any wishlist
+            $wishlistItem = Wishlist::where('property_id', $id)->first();
+
+            if ($wishlistItem) {
+                // If the property is found in a wishlist, prevent deletion
+                return response()->json([
+                    'message' => 'Property is in a tenant\'s wishlist, so it cannot be deleted.',
+                ]);
+            } else {
+                // If the property is not found in any wishlist, proceed with deletion
+                $property = Property::findOrFail($id);
+                $property->delete();
+
+                return response()->json([
+                    'message' => 'Property deleted successfully.',
+                ]);
+            }
+        }
+        
         }
 
- }
+
