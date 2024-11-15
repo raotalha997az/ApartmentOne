@@ -19,4 +19,8 @@ class ApplyPropertyHistory extends Model
     public function property(){
         return $this->belongsTo(Property::class, 'property_id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

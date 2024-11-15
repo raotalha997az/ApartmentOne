@@ -174,7 +174,7 @@
 
                                 <div class="two-btn-inline">
                                     <button type="button" class="t-btn" id="saveChangesBtn">Save Changes</button>
-                                    <button class="t-btn t-btn-gray"> Discard</button>
+                                    {{-- <button class="t-btn t-btn-gray"> Discard</button> --}}
                                 </div>
 
                             </div>

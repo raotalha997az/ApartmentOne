@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ route('landlord.add_property') }}" class="t-btn t-btn-blue t-btn-svg">Add Property
+                        {{-- <a href="{{ route('landlord.add_property') }}" class="t-btn t-btn-blue t-btn-svg">Add Property
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -52,7 +52,7 @@
                                     fill="white"></path>
                             </svg>
 
-                        </a>
+                        </a> --}}
                     </div>
 
                     <div class="two-things-align">

@@ -51,7 +51,7 @@
                 <div class="top-listing-parent-box">
                     <div class="two-things-align">
                         <div class="box">
-                            <h6>Top Listings</h6>
+                            <h6>Top Listings of Properties</h6>
                             <p>Based On Your Profile</p>
                         </div>
                         <div class="box">

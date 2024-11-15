@@ -45,4 +45,10 @@ class Property extends Model
     public function RentToWhoDetails(){
         return $this->hasMany(RentToWhoDetails::class, 'property_id');
     }
+
+    public function applyPropertyHistories()
+    {
+        return $this->hasMany(ApplyPropertyHistory::class, 'property_id');
+    }
+
 }

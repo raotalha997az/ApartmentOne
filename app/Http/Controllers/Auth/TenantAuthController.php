@@ -49,8 +49,6 @@ class TenantAuthController extends Controller
         $user->state = $request->state;
         $user->postal_code = $request->postal_code;
         $user->date_of_birth = $request->date_of_birth;
-        // Only update SSN if provided and valid
-        $user->social_security_number = $request->social_security_number;
 
         // Update password only if provided
         if ($request->filled('password')) {

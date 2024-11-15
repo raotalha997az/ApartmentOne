@@ -16,7 +16,7 @@
             <div class="top-listing-parent-box">
                 <div class="two-things-align">
                     <div class="box">
-                        <h6>Latest Listings</h6>
+                        <h6>Latest Listings Of Properties</h6>
                     </div>
                     <div class="box">
                         <ul class="nav nav-tabs" role="tablist">

@@ -46,7 +46,7 @@
 
             </div>
             <div class="col-lg-8">
-                <div class="credit-report-box">
+                {{-- <div class="credit-report-box">
                     <div class="two-things-align">
                         <div class="box">
                             <h6>Credit Report</h6>
@@ -84,7 +84,7 @@
                             <p>House Rentals</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="profile-basic-info-form">
                     <h3>Basic Info</h3>
                     @if (Auth::user()->hasRole('admin'))
@@ -98,6 +98,9 @@
                             <div class="input-box">
                                 <label for="">Change Password</label>
                                 <input type="text" name="password">
+                                @error('password')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
                         <div class="two-inputs-boxes-align">
@@ -173,8 +176,8 @@
                         <div class="two-btn-align-sub-del">
                             <button type="submit" class="form-btn submit">Save Changes <img
                                     src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button>
-                            <button type="button" class="form-btn delet" onclick="window.history.back()">Discard Changes
-                                <img src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button>
+                            {{-- <button type="button" class="form-btn delet" onclick="window.history.back()">Discard Changes
+                                <img src="{{ asset('assets/images/right-arrow.png') }}" alt=""></button> --}}
                         </div>
                     </form>
                     @endif

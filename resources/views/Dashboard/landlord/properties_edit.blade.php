@@ -230,8 +230,8 @@
 
                             <div class="two-btn-inline">
                                 <button id="saveChangesBtn" type="button" class="t-btn">Save Changes</button>
-                                <button type="button" class="t-btn t-btn-gray"
-                                    onclick="window.history.back();">Discard</button>
+                                {{-- <button type="button" class="t-btn t-btn-gray"
+                                    onclick="window.history.back();">Discard</button> --}}
                             </div>
 
                         </div>

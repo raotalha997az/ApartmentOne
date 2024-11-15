@@ -7,6 +7,7 @@ use App\Models\Property;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ApplyPropertyHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -15,16 +16,50 @@ class LandlordAuthController extends Controller
 {
 
 
-    public function dashboard()
-    {
-        $userId = Auth::id();
-        // $properties = Property::where('user_id', $userId)->get(['id','name','cat_id']);
-        $properties = Property::where('user_id', $userId)
-            ->orderBy('id', 'desc')
-            ->get(['id', 'name', 'cat_id']);
+    // public function dashboard()
+    // {
+    //     $userId = Auth::id();
 
-        return view('Dashboard.landlord.dashboard', compact('properties'));
-    }
+    //     $applyPropertyHistory = ApplyPropertyHistory::with('property', 'user')
+    //     ->whereHas('property', function ($query) use ($userId) {
+    //         $query->where('user_id', $userId);
+    //     })->get();
+
+
+    //     $properties = Property::where('user_id', $userId)
+    //     ->orderBy('id', 'desc')
+    //     ->get(['id', 'name', 'cat_id']);
+
+    //     return view('Dashboard.landlord.dashboard', compact('properties','applyPropertyHistory'));
+    // }
+
+
+    public function dashboard()
+{
+    $userId = Auth::id();
+
+    // Get property applications with tenants limited to 4 per property
+    $applyPropertyHistory = ApplyPropertyHistory::with(['property.media', 'user'])
+        ->whereHas('property', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+        ->get()
+        ->groupBy('property_id');
+
+    // Limit tenants to 4 per property
+    $propertiesWithTenants = $applyPropertyHistory->map(function ($applications) {
+        return [
+            'property' => $applications->first()->property,
+            'tenants' => $applications->take(4)->pluck('user')
+        ];
+    });
+
+    $properties = Property::where('user_id', $userId)
+        ->orderBy('id', 'desc')
+        ->get(['id', 'name', 'cat_id']);
+
+    return view('Dashboard.landlord.dashboard', compact('properties','propertiesWithTenants'));
+}
 
     public function updateProfile(Request $request)
     {
