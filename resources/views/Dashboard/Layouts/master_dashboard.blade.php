@@ -45,7 +45,7 @@
             width: 500px;
             position: absolute;
             padding: 20px;
-            top: 20px;
+            top: 100%;
             left: -50px;
             border: 1px solid;
             display: none;
@@ -103,21 +103,44 @@
             }
 
             .notification-drop-box .notification-dropdown .notification-list-box .notification-listing .box span {
-    font-size: 13px;
-}
-
-.notification-list-box {
-    overflow: scroll;
-    overflow-x: hidden;
-    padding-right: 5px;
-    height: 250px;
-}
-
-.notification-drop-box .notification-dropdown .notification-list-box .notification-listing:nth-child(1) {
-    margin-top: 450px !important;
-}
-
+                font-size: 13px;
+            }
         }
+
+        .notification-list-box {
+            overflow: scroll;
+            overflow-x: hidden;
+            padding-right: 5px;
+            height: 250px;
+        }
+
+        .notification-drop-box .notification-dropdown .notification-list-box .notification-listing:nth-child(1) {
+            margin-top: 300px !important;
+        }
+
+
+        .icon-notify {
+            position: relative;
+        }
+
+.icon-notify:after {
+    position: absolute;
+    content: "";
+    height: 10px;
+    width: 10px;
+    background: #0077b6;
+    top: 0;
+    z-index: 1;
+    border-radius: 100%;
+    left: 0;
+    opacity: 0; /* Initial opacity */
+    transition: opacity 0.3s ease;
+}
+
+.icon-notify.icon-notify-active:after {
+    opacity: 1; /* Change opacity to 1 when the class is added */
+}
+
     </style>
 </head>
 
@@ -585,8 +608,8 @@
                         <div class="right-header-links">
                             <ul>
                                 <li class="notification-drop-box">
-                                    <a href="#"><svg width="30" height="31" viewBox="0 0 30 31"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <a href="#" class="icon-notify"><svg width="30" height="31"
+                                            viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M23.7969 17.2387V12.7562C23.7969 8.73498 21.0656 5.34748 17.3656 4.32873C16.9994 3.40623 16.1044 2.75623 15.0469 2.75623C13.9894 2.75623 13.0944 3.40623 12.7281 4.32873C9.02813 5.34873 6.29688 8.73498 6.29688 12.7562V17.2387L4.16313 19.3725C4.04682 19.4884 3.95459 19.6261 3.89173 19.7778C3.82888 19.9294 3.79664 20.092 3.79688 20.2562V22.7562C3.79688 23.0877 3.92857 23.4057 4.16299 23.6401C4.39741 23.8745 4.71536 24.0062 5.04688 24.0062H25.0469C25.3784 24.0062 25.6963 23.8745 25.9308 23.6401C26.1652 23.4057 26.2969 23.0877 26.2969 22.7562V20.2562C26.2971 20.092 26.2649 19.9294 26.202 19.7778C26.1392 19.6261 26.0469 19.4884 25.9306 19.3725L23.7969 17.2387ZM23.7969 21.5062H6.29688V20.7737L8.43063 18.64C8.54693 18.5241 8.63916 18.3864 8.70202 18.2347C8.76488 18.083 8.79711 17.9204 8.79688 17.7562V12.7562C8.79688 9.30998 11.6006 6.50623 15.0469 6.50623C18.4931 6.50623 21.2969 9.30998 21.2969 12.7562V17.7562C21.2969 18.0887 21.4281 18.4062 21.6631 18.64L23.7969 20.7737V21.5062ZM15.0469 27.7562C15.821 27.7572 16.5762 27.517 17.2075 27.0689C17.8388 26.6209 18.3148 25.9873 18.5694 25.2562H11.5244C11.779 25.9873 12.255 26.6209 12.8863 27.0689C13.5176 27.517 14.2728 27.7572 15.0469 27.7562Z"
                                                 fill="#777777" />
@@ -640,7 +663,7 @@
                                                 fill="#777777" />
                                         </svg>
                                         Whishlist</a></li>
-                                <li><a href="#"><svg width="30" height="31" viewBox="0 0 30 31"
+                                <li><a href="{{ route('messages') }}" class="messages"><svg width="30" height="31" viewBox="0 0 30 31"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M6.25 3C4.87125 3 3.75 4.12125 3.75 5.5V20.5C3.75 21.8787 4.87125 23 6.25 23H10.7325L15 27.2675L19.2675 23H23.75C25.1287 23 26.25 21.8787 26.25 20.5V5.5C26.25 4.12125 25.1287 3 23.75 3H6.25ZM23.75 20.5H18.2325L15 23.7325L11.7675 20.5H6.25V5.5H23.75V20.5Z"
@@ -706,6 +729,12 @@
                     $('.notification-listing .box').removeClass('unread'); // Update UI if needed
                     $('#appendNotification').empty();
                     toastr.success(response.success);
+
+                    let iconNotify = document.querySelector(".icon-notify");
+                    if (iconNotify) {
+                        iconNotify.classList.remove("icon-notify-active");
+                    }
+
                 }
             });
         });
@@ -725,6 +754,13 @@
                         unreadCountElem.setAttribute("data-unread-count", notifications.length);
                     } else {
                         console.warn("Notification container not found.");
+                    }
+
+                    if(notifications.length > 0) {
+                    let iconNotify = document.querySelector(".icon-notify");
+                    if (iconNotify) {
+                        iconNotify.classList.add("icon-notify-active");
+                    }
                     }
 
                     // Display notifications
@@ -762,8 +798,8 @@
 
         // Mark a single notification as read
         $(document).on('click', '.cancel-notify', function() {
-            let notificationId = $(this).data('id').trim();  // Trim any extra spaces
-            const url = `{{ route('admin.notifications.markAsRead',':id') }}`.replace(':id', notificationId);
+            let notificationId = $(this).data('id').trim(); // Trim any extra spaces
+            const url = `{{ route('admin.notifications.markAsRead', ':id') }}`.replace(':id', notificationId);
             console.log(url);
 
             $.ajax({
@@ -779,7 +815,8 @@
                     // Update unread count
                     let unreadCountElem = document.getElementById("notification-container");
                     if (unreadCountElem) {
-                        let unreadCount = parseInt(unreadCountElem.getAttribute("data-unread-count")) || 0;
+                        let unreadCount = parseInt(unreadCountElem.getAttribute("data-unread-count")) ||
+                            0;
                         unreadCount = Math.max(0, unreadCount - 1); // Ensure count does not go negative
                         unreadCountElem.setAttribute("data-unread-count", unreadCount);
                     }
@@ -810,7 +847,12 @@
         var channel = pusher.subscribe("notifications");
 
         channel.bind("property_approved", function(data) {
-            console.log(data);
+            console.log("pusher",data);
+
+            let iconNotify = document.querySelector(".icon-notify");
+            if (iconNotify) {
+                iconNotify.classList.add("icon-notify-active");
+            }
 
             // Check if notification container element exists
             let unreadCountElem = document.getElementById("notification-container");
