@@ -80,7 +80,7 @@
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            justify-content: center;
+            justify-content: flex-start;
             row-gap: 10px;
         }
 
@@ -112,10 +112,6 @@
             overflow-x: hidden;
             padding-right: 5px;
             height: 250px;
-        }
-
-        .notification-drop-box .notification-dropdown .notification-list-box .notification-listing:nth-child(1) {
-            margin-top: 300px !important;
         }
 
 
@@ -648,9 +644,10 @@
                                             <button id="markAllAsReadBtn">Mark All As Read</button>
                                         </div>
 
-                                        <div class="notification-list-box" id="appendNotification">
-                                            <!-- Notifications will be prepended here by JavaScript -->
-                                        </div>
+                                        <div class="scroll-csutom-box">
+                                            <div class="notification-list-box" id="appendNotification">
+                                                <!-- Notifications will be prepended here by JavaScript -->
+                                            </div>
                                     </div>
 
 
@@ -809,6 +806,10 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    let iconNotify = document.querySelector(".icon-notify");
+                    if (iconNotify) {
+                        iconNotify.classList.remove("icon-notify-active");
+                    }
                     // Remove the specific notification element
                     $(`#notification-${notificationId}`).remove();
                     getAllNotifications();

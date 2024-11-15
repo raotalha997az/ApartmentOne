@@ -80,6 +80,8 @@
                             @foreach ($properties as $property)
 
                                     {{-- {{ dd($property);}} --}}
+                                    {{-- {{ dd($property->property);}} --}}
+                                    {{-- {{ dd($property->property->id);}} --}}
                                     <div class="child-place-box">
                                         <a href="{{ route('tenant.propertiesdetails', $property->property->id) }}">
                                             <div class="img-box">

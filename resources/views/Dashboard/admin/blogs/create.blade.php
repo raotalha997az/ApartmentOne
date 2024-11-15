@@ -109,7 +109,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="t-btn t-btn-blue t-btn-svg" style="margin-top: 10">Submit</button>
         </form>
     </div>
 

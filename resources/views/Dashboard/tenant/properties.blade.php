@@ -121,7 +121,6 @@
                                     <div class="properties-icons-details">
                                         <strong class="">Features : </strong>
                                         <ul>
-
                                             @foreach ($property->features->take(3) as $featureDetail)
                                                 <li>
 

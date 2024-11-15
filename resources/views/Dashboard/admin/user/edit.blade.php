@@ -175,7 +175,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="form-btn submit btn btn-danger">Save Changes</button>
+                    <button type="submit" class="form-btn t-btn t-btn-blue t-btn-svg" style="margin-top: 10px">Save Changes</button>
                 </form>
             </div>
         </div>
