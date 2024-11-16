@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Models\FeatureDetails;
 use App\Models\RentToWhoDetails;
 use App\Http\Controllers\Controller;
+use App\Models\ApplyPropertyHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,7 +29,24 @@ class PropertyController extends Controller
         ->orderBy('id', 'desc')
         ->get();
 
-        return view('Dashboard.landlord.properties',compact('properties'));
+
+        // Get property applications with tenants limited to 4 per property
+        $applyPropertyHistory = ApplyPropertyHistory::with(['property.media', 'user'])
+            ->whereHas('property', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->get()
+            ->groupBy('property_id');
+
+        // Limit tenants to 4 per property
+        $propertiesWithTenants = $applyPropertyHistory->map(function ($applications) {
+            return [
+                'property' => $applications->first()->property,
+                'tenants' => $applications->take(4)->pluck('user')
+            ];
+        });
+
+        return view('Dashboard.landlord.properties',compact('properties', 'propertiesWithTenants'));
     }
 
     public function Bylandlord(){
@@ -160,7 +178,12 @@ class PropertyController extends Controller
         // Retrieve the specific property with its media, pets, and related features and feature details
         $property = Property::with(['media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category'])->findOrFail($id);
 
-        return view('Dashboard.landlord.propertiesdetails', compact('property'));
+        $tenants = ApplyPropertyHistory::with('user')  // Assuming user is the tenant
+        ->where('property_id', $id)
+        ->get()
+        ->pluck('user');
+
+        return view('Dashboard.landlord.propertiesdetails', compact('tenants','property'));
     }
 
         public function properties_edit($id) {
@@ -290,7 +313,7 @@ class PropertyController extends Controller
                 ]);
             }
         }
-        
+
         }
 
 

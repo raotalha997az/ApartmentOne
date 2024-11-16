@@ -30,7 +30,7 @@
                             <img src="{{ asset('assets/images/Basic-Reports-img-01.png') }}" alt="">
                         </div>
                     </div>
-                    <div class="parent-box">
+                    {{-- <div class="parent-box">
                         <div class="content">
                             <h5>12</h5>
                             <p>New Property Listings</p>
@@ -38,7 +38,7 @@
                         <div class="img-box">
                             <img src="{{ asset('assets/images/Basic-Reports-img-02.png') }}" alt="">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="parent-box">
                         <div class="content">
                             <h5>150</h5>
@@ -48,7 +48,7 @@
                             <img src="{{ asset('assets/images/Basic-Reports-img-03.png') }}" alt="">
                         </div>
                     </div>
-                    <div class="parent-box">
+                    {{-- <div class="parent-box">
                         <div class="content">
                             <h5>10</h5>
                             <p>Messages</p>
@@ -56,12 +56,12 @@
                         <div class="img-box">
                             <img src="{{ asset('assets/images/Basic-Reports-img-04.png') }}" alt="">
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="two-things-align">
                     <div class="box">
-                        <h6>Top Listings</h6>
+                        {{-- <h6>Top Listings</h6> --}}
                     </div>
                     <div class="box">
                         <a href="{{ route('landlord.properties') }}" class="t-btn t-btn-blue t-btn-svg">See All

@@ -24,24 +24,24 @@
                                     <p>Total Properties</p>
                                 </div>
                             </div>
-                            <div class="parent-box">
+                            {{-- <div class="parent-box">
                                 <div class="content">
                                     <h5>12</h5>
                                     <p>Homes</p>
                                 </div>
-                            </div>
-                            <div class="parent-box">
+                            </div> --}}
+                            {{-- <div class="parent-box">
                                 <div class="content">
                                     <h5>150</h5>
                                     <p>Apartments</p>
                                 </div>
-                            </div>
-                            <div class="parent-box">
+                            </div> --}}
+                            {{-- <div class="parent-box">
                                 <div class="content">
                                     <h5>10</h5>
                                     <p>Lands</p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <a href="{{ route('landlord.add_property') }}" class="t-btn t-btn-blue t-btn-svg">Add Property
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
@@ -56,10 +56,10 @@
 
                     <div class="two-things-align">
                         <div class="box">
-                            <h6>Top Listings of Your Properties</h6>
-                            <p>Based On Your Profile</p>
+                            <h6>All Your Properties</h6>
+                            {{-- <p>Based On Your Profile</p> --}}
                         </div>
-                        <div class="box">
+                        {{-- <div class="box">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#tabs-1"
@@ -76,7 +76,7 @@
                                     <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">Luxury Houses</a>
                                 </li>
                             </ul><!-- Tab panes -->
-                        </div>
+                        </div> --}}
                     </div>
 
 
