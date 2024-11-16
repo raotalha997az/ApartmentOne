@@ -50,6 +50,7 @@
             border: 1px solid;
             display: none;
             transition.3s;
+            z-index: 999999;
         }
 
         .notification-drop-box .notification-dropdown .two-thing-space {

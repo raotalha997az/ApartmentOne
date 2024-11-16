@@ -38,7 +38,7 @@ class LandlordAuthController extends Controller
             'city' => 'nullable|string|max:255',
             'country' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',
-            'postal_code' => 'nullable|string|max:255',
+            'postal_code' => 'nullable|digits_between:2,5',
             'date_of_birth' => 'nullable|date',
             'profile_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
         ]);
