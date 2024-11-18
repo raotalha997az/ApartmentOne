@@ -45,6 +45,7 @@ class LandlordAuthController extends Controller
         })
         ->get()
         ->groupBy('property_id');
+        $totalApplications = $applyPropertyHistory->flatten()->count();
 
     // Limit tenants to 4 per property
     $propertiesWithTenants = $applyPropertyHistory->map(function ($applications) {
@@ -58,7 +59,7 @@ class LandlordAuthController extends Controller
         ->orderBy('id', 'desc')
         ->get(['id', 'name', 'cat_id']);
 
-    return view('Dashboard.landlord.dashboard', compact('properties','propertiesWithTenants'));
+    return view('Dashboard.landlord.dashboard', compact('properties','propertiesWithTenants', 'totalApplications'));
 }
 
     public function updateProfile(Request $request)
