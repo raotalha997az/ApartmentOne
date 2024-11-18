@@ -41,7 +41,7 @@
                     </div> --}}
                     <div class="parent-box">
                         <div class="content">
-                            <h5>150</h5>
+                            <h5>{{ $propertiesWithTenants->count() }}</h5>
                             <p>New Tenant Requests</p>
                         </div>
                         <div class="img-box">
