@@ -83,7 +83,7 @@
 
                         @foreach ($propertiesWithTenants as $propertyWithTenants)
                         <div class="three-box-table">
-                            <a href="#">
+                            <a href="{{ route('landlord.propertiesdetails', $propertyWithTenants['property']->id) }}">
                                 <div class="box img-box-property">
                                     @if (!empty($propertyWithTenants['property']['media']) && count($propertyWithTenants['property']['media']) > 0)
                                     {{-- Show the first image from the media array --}}

@@ -40,6 +40,24 @@
         margin-bottom: 30px !important;
         flex-wrap: wrap;
     }
+
+    .main-parent-place-box .child-place-box .img-box img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.main-parent-place-box .child-place-box .properties-icons-details {
+    padding: 0px 15px 15px 15px;
+}
+
+.main-parent-place-box .child-place-box .properties-icons-details ul li {font-size: 14px;margin-top: 5px;}
+
+.main-parent-place-box .child-place-box .properties-icons-details ul li svg {
+    width: 25px;
+    height: 25px;
+}
 </style>
 
 

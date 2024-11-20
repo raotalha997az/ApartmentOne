@@ -11,12 +11,12 @@
                         <h1>Connect with landlords<br> and renters</h1>
                         <p> Find your perfect home today!</p>
                     </div>
-                    <div class="form-box">
+                    {{-- <div class="form-box">
                         <form action="">
                             <input type="search" placeholder="Enter Location / ZIP Code">
-                            <button>Search</button> 
+                            <button>Search</button>
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
     </section>
 
 
-    
+
 
     <section class="home-sec-03">
         <div class="container">
@@ -150,7 +150,7 @@
     </section>
 
     <x-properties-component />
-    
+
 
     <x-news-letters/>
 

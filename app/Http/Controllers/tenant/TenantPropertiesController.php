@@ -78,8 +78,27 @@ class TenantPropertiesController extends Controller
         // Trigger real-time broadcast with the notification ID for the landlord
         event(new PropertyApplicationEvent($landlord->id, 'Your property "' . $property->name . '" has been applied by ' . $tenant->name . '.', $notificationId));
 
-        return view('Dashboard.messages', compact('tenant' , 'landlord'));
-    }
+
+
+        // return view('Dashboard.messages', compact('tenant' , 'landlord'));
+          // Set success message for SweetAlert
+    session()->flash('success', 'Application submitted successfully!');
+
+    // Redirect to messages blade
+    return redirect()->route('tenant.propertiesdetails', ['id' => $property->id]);
+
+    // return redirect()->route('dashboard.messages', ['tenant' => $tenant, 'landlord' => $landlord]);
+    // return back();
+
+
+
+    // return redirect()->route('tenant.propertiesdetails', [
+    //     'id' => $property->id,
+    //     'tenant' => $tenant->id,
+    //     'landlord' => $landlord->id
+    // ]);
+
+}
 
 
 }

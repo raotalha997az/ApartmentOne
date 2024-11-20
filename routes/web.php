@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\PetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\MessageControllerEvent;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TrashPropertyController;
 use App\Http\Controllers\Auth\AdminAuthController;
@@ -37,7 +38,6 @@ use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
 // WEBSITE ROUTES
 Route::get('/',[WebController::class,'index'])->name('index');
 Route::get('/about',[WebController::class,'about'])->name('about');
@@ -86,8 +86,13 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     //  Bank Info
     Route::post('/bank', [TenantAuthController::class, 'bank'])->name('bank');
 
-    Route::get('/applyforproperty/{property}/{user}', [TenantPropertiesController::class, 'applyForProperty'])->name('applyForProperty');
-    Route::get('/applyhistory',[ApplyPropertyHistoryController::class,'applyhistory'])->name('applyhistory');
+    Route::get('/applyforproperty/{property}/{user}', action: [TenantPropertiesController::class, 'applyForProperty'])->name('applyForProperty');
+    Route::get('/applyhistory',action: [ApplyPropertyHistoryController::class,'applyhistory'])->name('applyhistory');
+
+    //chat
+
+
+    Route::get('/fetch-messages', [MessageControllerEvent::class, 'fetchMessages'])->name('fetch.messages');
 
 
 });
@@ -218,3 +223,7 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     });
 });
 });
+
+Route::post('tenant/get/messages', [MessageControllerEvent::class, 'getMessages'])->name('tenant.get.messages');
+Route::post('tenant/send-message', [MessageControllerEvent::class, 'sendMessage'])->name('tenant.send.message');
+Route::get('tenant/chat', [MessageControllerEvent::class, 'go_to_chat'])->name('tenant.go.chat');
