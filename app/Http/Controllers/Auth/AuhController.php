@@ -140,6 +140,12 @@ public function login(Request $request)
     if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
         $user = Auth::user();
 
+       // Check if email is verified
+       if (!$user->hasVerifiedEmail()) {
+        Auth::logout();
+        return back()->withErrors(['email' => 'Your email is not verified. Please verify your email first.']);
+        }
+
         // Generate a 6-digit verification code
         $verificationCode = rand(100000, 999999);
 
@@ -149,8 +155,8 @@ public function login(Request $request)
         // Dispatch the job to send the email
         SendVerificationCodeJob::dispatch($user, $verificationCode);
 
-        // Redirect to verification page
-        return redirect()->route('verify.code')->with('message', 'A verification code has been sent to your email.');
+        // Redirect to dashboard or intended route
+        return redirect()->route('tenant.dashboard')->with('message', 'Logged in successfully.');
     }
 
     // If authentication fails, redirect back with an error message

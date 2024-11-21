@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrashProperty;
 use App\Http\Controllers\WebController;
@@ -69,9 +69,10 @@ Route::get('blog', [WebController::class, 'blog'])->name('blog');
 Route::get('blog/details/{id}', [WebController::class, 'blogDetails'])->name('blog-details');
 
 
+
 // Dashboard Routes
 Route::prefix('tenant')->name('tenant.')->group(function () {
-    Route::middleware(['role:tenant'])->group(function () {
+    Route::middleware(['auth', 'verified','role:tenant'])->group(function () {
     Route::get('/dashboard',[TenantAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/screening', [TenantPropertiesController::class, 'screening'])->name('screening');
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
@@ -105,7 +106,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
 
 // Landlord Routes
 Route::prefix('landlord')->name('landlord.')->group(function () {
-    Route::middleware(['role:land_lord'])->group(function () {
+    Route::middleware(['auth', 'verified', 'role:land_lord'])->group(function () {
     Route::get('/dashboard',[LandlordAuthController::class,'dashboard'])->name('dashboard');
     // properties
     Route::get('property',[PropertyController::class,'properties'])->name('properties');
@@ -145,7 +146,7 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications')->middleware('auth');
     //Admin Dashboard Routes
     Route::prefix('admin')->name('admin.')->group(function () {
-    Route::middleware(['role:admin|land_lord'])->group(function () {
+    Route::middleware(['auth', 'verified','role:admin|land_lord'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/properties',[AdminPropertyController::class,'properties'])->name(name: 'properties');
     Route::get('/properties/approve/{id}',[AdminPropertyController::class,'propertyApprove'])->name('properties.approve');
