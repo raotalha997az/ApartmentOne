@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuhController extends Controller
 {
+
+
 //     public function register(Request $request)
 // {
 //     // Validate the form data
@@ -77,8 +79,7 @@ public function register(Request $request)
     }
 
     // Generate a verification token
-    $verificationToken = Str::random(60);
-
+    $verificationToken = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 0, 20);
     // Create the new user
     $user = User::create([
         'name' => $request->name,
@@ -219,21 +220,20 @@ public function login(Request $request)
 
 
 
-    public function verifyEmail($token)
+    public function verify($token)
     {
+        // User find using the token
         $user = User::where('verification_token', $token)->first();
-
-        if (!$user) {
-            return redirect()->route('login')->withErrors('Invalid or expired verification link.');
+        if ($user) {
+            $user->verification_token = null;
+            $user->email_verified_at = now();
+            $user->save();
+            return redirect()->route('login')->with('success', 'Email successfully verified! You can now login.');
         }
 
-        $user->update([
-            'email_verified_at' => now(),
-            'verification_token' => null,
-        ]);
-
-        return redirect()->route('login')->with('success', 'Your email has been verified. You can now log in.');
+        return redirect()->route('login')->with('error', 'Invalid verification token.');
     }
+
 
     public function CodeVerify(Request $request)
     {

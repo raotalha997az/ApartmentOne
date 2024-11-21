@@ -10,6 +10,7 @@ class VerificationEmail extends Mailable
 {
     public $user;
 
+
     public function __construct($user)
     {
         $this->user = $user; // Ensure $user is an object with a `verification_token` property
@@ -18,9 +19,8 @@ class VerificationEmail extends Mailable
     public function build()
     {
         return $this->view('emails.verification')
-            ->with([
-                'token' => $this->user->verification_token, // Error occurs if $user is a string
-            ]);
+            ->with('user', $this->user); // Pass user object directly
     }
+
 }
 

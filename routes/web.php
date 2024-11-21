@@ -57,8 +57,7 @@ Route::post('/login/store',[AuhController::class,'login'])->name('login.store');
 Route::post('/logout',[AuhController::class,'logout'])->name('logout');
 Route::get('/verify-code', [AuhController::class, 'verifyCodeView'])->name('verify.code');
 Route::post('/verify-code', [AuhController::class, 'CodeVerify'])->name('verify.code.check');
-Route::get('/verify-email/{token}', [AuhController::class, 'verifyEmail'])->name('verify.email');
-
+Route::get('verify-email/{token}', [AuhController::class, 'verify'])->name('verify.email');
 
 Route::get('password/reset', [AuhController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [AuhController::class, 'sendResetLinkEmail'])->name('password.email');
@@ -101,6 +100,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
 
 });
 });
+
 
 // Landlord Routes
 Route::prefix('landlord')->name('landlord.')->group(function () {

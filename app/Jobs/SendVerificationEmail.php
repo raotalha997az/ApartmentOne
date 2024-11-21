@@ -25,8 +25,11 @@ class SendVerificationEmail implements ShouldQueue
 
     public function handle()
     {
-        // Mail::to($this->user->email)->send(new VerificationEmail($this->user));
-        $user = User::find($this->user->id); // Ensure this retrieves a valid User object
-        Mail::to($user->email)->send(new VerificationEmail($user));
+        $user = User::find($this->user->id);
+
+        if ($user) {
+            Mail::to($user->email)->send(new VerificationEmail($user));
+        }
     }
+
 }
