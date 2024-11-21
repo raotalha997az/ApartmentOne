@@ -55,6 +55,10 @@ Route::get('/register',[WebController::class,'register'])->name('register');
 Route::post('/register/store',[AuhController::class,'register'])->name('register.store');
 Route::post('/login/store',[AuhController::class,'login'])->name('login.store');
 Route::post('/logout',[AuhController::class,'logout'])->name('logout');
+Route::get('/verify-code', [AuhController::class, 'verifyCodeView'])->name('verify.code');
+Route::post('/verify-code', [AuhController::class, 'CodeVerify'])->name('verify.code.check');
+Route::get('/verify-email/{token}', [AuhController::class, 'verifyEmail'])->name('verify.email');
+
 
 Route::get('password/reset', [AuhController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [AuhController::class, 'sendResetLinkEmail'])->name('password.email');
