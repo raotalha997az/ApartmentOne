@@ -72,7 +72,7 @@
                     <div class="two-things-align">
                         <div class="box">
                             <h6>Top Listings of Properties</h6>
-                            <p>Based On Your Profile</p>
+                            {{-- <p>Based On Your Profile</p> --}}
                         </div>
                         <div class="box">
                             <ul class="nav nav-tabs" role="tablist">
