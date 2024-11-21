@@ -23,44 +23,49 @@ class AuhController extends Controller
 
 
 
-public function register(Request $request)
-{
-    // Validate the form data
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8',
-        'c_password' => 'required|string|min:8|same:password',
-        'phone' => 'nullable|string|max:255',
-        'address' => 'nullable|string|max:255',
-        'role' => 'required|in:tenant,land_lord',
-    ]);
+    public function register(Request $request)
+    {
+        // Validate the form data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'c_password' => 'required|string|min:8|same:password',
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'role' => 'required|in:tenant,land_lord',
+        ]);
 
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Get validated data
+        $data = $validator->validated();
+
+        // Generate a verification token
+        $verificationToken = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 0, 20);
+
+        // Create the new user
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'address' => $data['address'],
+            'verification_token' => $verificationToken,
+        ]);
+
+        // Assign role
+        $role = Role::firstOrCreate(['name' => $request->role]);
+        $user->assignRole($role);
+
+        // Dispatch the email job
+        SendVerificationEmail::dispatch($user);
+
+        return redirect()->route('login')->with('success', 'Registration successful! Please verify your email to activate your account.');
     }
 
-    // Generate a verification token
-    $verificationToken = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 0, 20);
-    // Create the new user
-    $user = User::create([
-        'name' => $validator['name'],
-        'email' => $validator['email'],
-        'password' => Hash::make($validator['password']),
-        'phone' => $validator['phone'],
-        'address' => $validator['address'],
-        'verification_token' => $verificationToken,
-    ]);
-
-    // Assign role
-    $role = Role::firstOrCreate(['name' => $request->role]);
-    $user->assignRole($role);
-
-    // Dispatch the email job
-    SendVerificationEmail::dispatch($user);
-
-    return redirect()->route('login')->with('success', 'Registration successful! Please verify your email to activate your account.');
-}
 
 
 
