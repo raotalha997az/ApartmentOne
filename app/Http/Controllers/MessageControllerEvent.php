@@ -68,14 +68,13 @@ use Illuminate\Support\Facades\Auth;
         {
             if(Auth::user()->hasRole('land_lord')){
                 $conversations = ApplyPropertyHistory::with(['user', 'property.user'])
-    ->whereNull('deleted_at') // Check for null values
-    ->whereHas('property.user', function ($query) {
-        $query->where('id', Auth::user()->id); // Filter by the user ID
-    })
-    ->get();
+                ->whereNull('deleted_at')
+                ->whereHas('property.user', function ($query) {
+                    $query->where('id', Auth::user()->id); // Filter by the user ID
+                })->orderBy('created_at', 'desc')->get();
             }
             if(Auth::user()->hasRole('tenant')){
-                $conversations = ApplyPropertyHistory::with(['user','property.user'])->where('user_id', Auth::user()->id)->where('deleted_at',null)->get();
+                $conversations = ApplyPropertyHistory::with(['user','property.user'])->where('user_id', Auth::user()->id)->where('deleted_at',null)->orderBy('created_at', 'desc')->get();
             }
             return view('Dashboard.messages',compact('conversations'));
         }

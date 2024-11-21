@@ -41,6 +41,9 @@
 
     div#chat-box {
         margin-top: 100px;
+        margin-bottom: 60px;
+        overflow-y: auto;
+        scroll-behavior: smooth;
     }
 
     div#write-message-box {
@@ -109,7 +112,7 @@
                                         <div class="content-box">
                                             <div class="name-and-date">
                                                 <h6>{{ $conversation->property->user->name }}</h6>
-                                                <h5>12/2/2024</h5>
+                                                <h5>{{ $conversation->created_at->format('d-m-Y') }}</h5>
                                             </div>
                                             <p>
                                                 <svg width="21" height="20" viewBox="0 0 31 30" fill="none"
@@ -131,7 +134,6 @@
 
                         @if (Auth::user()->hasRole('land_lord'))
                             @foreach ($conversations as $conversation)
-                                {{-- {{ dd($conversation) }} --}}
                                 <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person">
                                     <div class="parent-box-message-user">
                                         <div class="img-box">
@@ -140,7 +142,7 @@
                                         <div class="content-box">
                                             <div class="name-and-date">
                                                 <h6>{{ $conversation->user->name }}</h6>
-                                                <h5>12/2/2024</h5>
+                                                <h5>{{ $conversation->created_at->format('d-m-Y') }}</h5>
                                             </div>
                                             <p>
                                                 <svg width="21" height="20" viewBox="0 0 31 30" fill="none"
@@ -247,6 +249,15 @@
                 }
             }
         });
+
+        $('input[placeholder="Search"]').on('input', function() {
+            let query = $(this).val().toLowerCase();
+            $('.mesg-person').each(function() {
+                let name = $(this).find('h6').text().toLowerCase();
+                $(this).toggle(name.includes(query));
+            });
+        });
+
 
         function getMessages(id, element) {
             // Remove the active class from all elements
