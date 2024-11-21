@@ -46,7 +46,7 @@
             position: absolute;
             padding: 20px;
             top: 100%;
-            left: -50px;
+            right: -200px;
             border: 1px solid;
             display: none;
             transition.3s;
