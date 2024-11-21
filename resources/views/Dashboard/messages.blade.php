@@ -41,7 +41,7 @@
 
     div#chat-box {
         margin-top: 100px;
-        margin-bottom: 60px;
+        margin-bottom: 20px;
         overflow-y: auto;
         scroll-behavior: smooth;
     }
@@ -60,7 +60,7 @@
         position: fixed;
         background: #E5E5E5;
         width: 47.4%;
-        top: 97px;
+        top: 96px;
         right: 37px;
         z-index: 999;
         padding: 15px;
@@ -338,9 +338,18 @@
                         `);
                     });
 
-                    // Scroll chat box to the bottom
-                    const chatBox = document.getElementById("main-mesg-box");
-                    chatBox.scrollTop = chatBox.scrollHeight;
+                    if (response.messages.length >= 5) {
+                        // Scroll chat box to the bottom
+                        console.log("scroll to bottom");
+                        const chatBox = document.getElementById("main-mesg-box");
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    } else {
+                        // Scroll chat box to the top
+                        console.log("scroll to top");
+                        const chatBox = document.getElementById("main-mesg-box");
+                        chatBox.scrollTop = 0;
+                    }
+
                 },
                 error: function(xhr) {
                     console.log(xhr.responseJSON.message);
