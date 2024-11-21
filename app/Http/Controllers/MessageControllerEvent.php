@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
                 'sender_id' => 'required|exists:users,id',
                 'receiver_id' => 'required|exists:users,id',
                 'property_id' => 'required|exists:properties,id',
+                'conversation_id' => 'required|exists:applypropertyhistory,id',
                 'message' => 'required|string|max:500',
             ]);
 
@@ -72,18 +73,26 @@ use Illuminate\Support\Facades\Auth;
         $query->where('id', Auth::user()->id); // Filter by the user ID
     })
     ->get();
-
             }
             if(Auth::user()->hasRole('tenant')){
                 $conversations = ApplyPropertyHistory::with(['user','property.user'])->where('user_id', Auth::user()->id)->where('deleted_at',null)->get();
             }
             return view('Dashboard.messages',compact('conversations'));
         }
-
         public function getMessages(Request $request)
         {
+            if(Auth::user()->hasRole('tenant')){
             $history = ApplyPropertyHistory::with(['user','property.user'])->find($request->conversation_id);
-            $messages = Message::with(['sender:id,name', 'receiver:id,name'])->where('property_id', $history->property_id)->get();
+            // dd($history->property->user_id);
+            $messages = Message::with(['sender:id,name', 'receiver:id,name'])->where('property_id', $history->property_id)->where('conversation_id', $history->id)->get();
+            return response()->json([
+                'history' => $history,
+                'messages' => $messages
+            ]);
+            }
+            $history = ApplyPropertyHistory::with(['user','property.user'])->find($request->conversation_id);
+            // dd($history->property_id);
+            $messages = Message::with(['sender:id,name', 'receiver:id,name'])->where('property_id', $history->property_id)->where('conversation_id', $history->id)->get();
             return response()->json([
                 'history' => $history,
                 'messages' => $messages

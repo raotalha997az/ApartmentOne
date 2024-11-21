@@ -21,6 +21,19 @@
         background-color: #f0f0f0;
         border-left: 4px solid #0077B6;
     }
+
+    .parent-tabs-mesg-box .heading-form-mesg-box form input {
+        color: #000;
+    }
+
+    .parent-tabs-mesg-box .parent-box-message-user .content-box svg path {
+        fill: #000;
+    }
+
+
+    .parent-tabs-mesg-box .parent-box-message-user .content-box {
+        width: -webkit-fill-available;
+    }
 </style>
 @section('content')
     <meta name="user-id" content="{{ auth()->id() }}">
@@ -36,38 +49,69 @@
                             <button><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
-                    {{-- {{ dd($landlord) }} --}}
                     <div class="main-person-message-box">
-                        @foreach ($conversations as $conversation)
-                            {{-- active-mesg-person --}}
-                            <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person">
-                                <div class="parent-box-message-user">
-                                    <div class="img-box">
-                                        <img src="{{ Storage::url($conversation->property->user->profile_img) }}"
-                                            alt="">
-                                    </div>
-                                    <div class="content-box">
-                                        <div class="name-and-date">
-                                            <h6>{{ $conversation->property->user->name }}</h6>
-                                            <h5>12/2/2024</h5>
+                        @if (Auth::user()->hasRole('tenant'))
+                            @foreach ($conversations as $conversation)
+                                {{-- {{ dd($conversation) }} --}}
+                                <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person">
+                                    <div class="parent-box-message-user">
+                                        <div class="img-box">
+                                            <img src="{{ Storage::url($conversation->property->user->profile_img) }}"
+                                                alt="">
                                         </div>
-                                        <p>
-                                            <svg width="21" height="20" viewBox="0 0 31 30" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M24.6716 2.44946H12.1716C10.7929 2.44946 9.67161 3.57071 9.67161 4.94946V11.932L3.78786 17.8157C3.6131 17.9905 3.49409 18.2132 3.44588 18.4557C3.39767 18.6981 3.42242 18.9494 3.51701 19.1778C3.6116 19.4062 3.77177 19.6014 3.97729 19.7387C4.1828 19.8761 4.42442 19.9494 4.67161 19.9495V26.1995C4.67161 26.531 4.8033 26.8489 5.03773 27.0833C5.27215 27.3178 5.59009 27.4495 5.92161 27.4495H25.9216C26.2531 27.4495 26.5711 27.3178 26.8055 27.0833C27.0399 26.8489 27.1716 26.531 27.1716 26.1995V4.94946C27.1716 3.57071 26.0504 2.44946 24.6716 2.44946ZM14.6716 24.9495H7.17161V17.967L10.9216 14.217L14.6716 17.967V24.9495ZM24.6716 24.9495H17.1716V19.9495C17.4191 19.95 17.6611 19.877 17.867 19.7398C18.0729 19.6025 18.2334 19.4072 18.3281 19.1786C18.4228 18.9499 18.4474 18.6983 18.3988 18.4557C18.3503 18.213 18.2307 17.9903 18.0554 17.8157L12.1716 11.932V4.94946H24.6716V24.9495Z"
-                                                    fill="white" />
-                                                <path
-                                                    d="M14.6714 7.44946H17.1714V9.94946H14.6714V7.44946ZM19.6714 7.44946H22.1714V9.94946H19.6714V7.44946ZM19.6714 12.4882H22.1714V14.9495H19.6714V12.4882ZM19.6714 17.4495H22.1714V19.9495H19.6714V17.4495ZM9.67139 18.6995H12.1714V21.1995H9.67139V18.6995Z"
-                                                    fill="white" />
-                                            </svg>
-                                            {{ $conversation->property->name }}
-                                        </p>
+                                        <div class="content-box">
+                                            <div class="name-and-date">
+                                                <h6>{{ $conversation->property->user->name }}</h6>
+                                                <h5>12/2/2024</h5>
+                                            </div>
+                                            <p>
+                                                <svg width="21" height="20" viewBox="0 0 31 30" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M24.6716 2.44946H12.1716C10.7929 2.44946 9.67161 3.57071 9.67161 4.94946V11.932L3.78786 17.8157C3.6131 17.9905 3.49409 18.2132 3.44588 18.4557C3.39767 18.6981 3.42242 18.9494 3.51701 19.1778C3.6116 19.4062 3.77177 19.6014 3.97729 19.7387C4.1828 19.8761 4.42442 19.9494 4.67161 19.9495V26.1995C4.67161 26.531 4.8033 26.8489 5.03773 27.0833C5.27215 27.3178 5.59009 27.4495 5.92161 27.4495H25.9216C26.2531 27.4495 26.5711 27.3178 26.8055 27.0833C27.0399 26.8489 27.1716 26.531 27.1716 26.1995V4.94946C27.1716 3.57071 26.0504 2.44946 24.6716 2.44946ZM14.6716 24.9495H7.17161V17.967L10.9216 14.217L14.6716 17.967V24.9495ZM24.6716 24.9495H17.1716V19.9495C17.4191 19.95 17.6611 19.877 17.867 19.7398C18.0729 19.6025 18.2334 19.4072 18.3281 19.1786C18.4228 18.9499 18.4474 18.6983 18.3988 18.4557C18.3503 18.213 18.2307 17.9903 18.0554 17.8157L12.1716 11.932V4.94946H24.6716V24.9495Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M14.6714 7.44946H17.1714V9.94946H14.6714V7.44946ZM19.6714 7.44946H22.1714V9.94946H19.6714V7.44946ZM19.6714 12.4882H22.1714V14.9495H19.6714V12.4882ZM19.6714 17.4495H22.1714V19.9495H19.6714V17.4495ZM9.67139 18.6995H12.1714V21.1995H9.67139V18.6995Z"
+                                                        fill="white" />
+                                                </svg>
+                                                {{ $conversation->property->name }}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        @endforeach
+                                </a>
+                            @endforeach
+                        @endif
 
+                        @if (Auth::user()->hasRole('land_lord'))
+                            @foreach ($conversations as $conversation)
+                                {{-- {{ dd($conversation) }} --}}
+                                <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person">
+                                    <div class="parent-box-message-user">
+                                        <div class="img-box">
+                                            <img src="{{ Storage::url($conversation->user->profile_img) }}" alt="">
+                                        </div>
+                                        <div class="content-box">
+                                            <div class="name-and-date">
+                                                <h6>{{ $conversation->user->name }}</h6>
+                                                <h5>12/2/2024</h5>
+                                            </div>
+                                            <p>
+                                                <svg width="21" height="20" viewBox="0 0 31 30" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M24.6716 2.44946H12.1716C10.7929 2.44946 9.67161 3.57071 9.67161 4.94946V11.932L3.78786 17.8157C3.6131 17.9905 3.49409 18.2132 3.44588 18.4557C3.39767 18.6981 3.42242 18.9494 3.51701 19.1778C3.6116 19.4062 3.77177 19.6014 3.97729 19.7387C4.1828 19.8761 4.42442 19.9494 4.67161 19.9495V26.1995C4.67161 26.531 4.8033 26.8489 5.03773 27.0833C5.27215 27.3178 5.59009 27.4495 5.92161 27.4495H25.9216C26.2531 27.4495 26.5711 27.3178 26.8055 27.0833C27.0399 26.8489 27.1716 26.531 27.1716 26.1995V4.94946C27.1716 3.57071 26.0504 2.44946 24.6716 2.44946ZM14.6716 24.9495H7.17161V17.967L10.9216 14.217L14.6716 17.967V24.9495ZM24.6716 24.9495H17.1716V19.9495C17.4191 19.95 17.6611 19.877 17.867 19.7398C18.0729 19.6025 18.2334 19.4072 18.3281 19.1786C18.4228 18.9499 18.4474 18.6983 18.3988 18.4557C18.3503 18.213 18.2307 17.9903 18.0554 17.8157L12.1716 11.932V4.94946H24.6716V24.9495Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M14.6714 7.44946H17.1714V9.94946H14.6714V7.44946ZM19.6714 7.44946H22.1714V9.94946H19.6714V7.44946ZM19.6714 12.4882H22.1714V14.9495H19.6714V12.4882ZM19.6714 17.4495H22.1714V19.9495H19.6714V17.4495ZM9.67139 18.6995H12.1714V21.1995H9.67139V18.6995Z"
+                                                        fill="white" />
+                                                </svg>
+                                                {{ $conversation->property->name }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -107,6 +151,7 @@
                                 <input type="hidden" id="sender_id">
                                 <input type="hidden" id="receiver_id">
                                 <input type="hidden" id="property_id">
+                                <input type="hidden" id="conversation_id">
                                 <input type="text" id="message" placeholder="Type Here">
                                 <button type="button" onclick="sendMessage()">Send</button>
                             </form>
@@ -154,6 +199,7 @@
                     conversation_id: id
                 },
                 success: function(response) {
+                    console.log(response);
                     const currentUserId = {{ auth()->id() }}; // Get the logged-in user's ID
                     $("#chat-box").show();
                     $("#chat-box").empty();
@@ -163,16 +209,21 @@
                         $("#sender_id").val(response.history.property.user.id);
                         $("#receiver_id").val(response.history.user_id);
                         $("#property_id").val(response.history.property_id);
+                        $("#conversation_id").val(response.history.id);
                     @endif
                     @if (Auth::user()->hasRole('tenant'))
                         $("#sender_id").val(response.history.user_id);
                         $("#receiver_id").val(response.history.property.user.id);
                         $("#property_id").val(response.history.property_id);
+                        $("#conversation_id").val(response.history.id);
                     @endif
 
                     response.messages.forEach(message => {
                         const isSender = message.sender_id === currentUserId;
-
+                        // concole.log("is sender " + message.sender_id);
+                        // if (response.history.property.user_id != message.receiver_id){
+                        //     return;
+                        // }
                         $("#chat-box").append(`
                             <div class="main-person-message-box">
                                 <div class="parent-box-message-user">
@@ -186,6 +237,7 @@
                                 </div>
                             </div>
                         `);
+                        // }
                     });
                 },
                 error: function(xhr) {
@@ -200,6 +252,7 @@
             var receiverId = $('#receiver_id').val();
             var senderId = $('#sender_id').val();
             var propertyId = $('#property_id').val();
+            var conversationId = $('#conversation_id').val();
 
             if (message.trim() === '') {
                 alert('Please enter a message before sending.');
@@ -216,23 +269,24 @@
                     message: message,
                     receiver_id: receiverId,
                     sender_id: senderId,
-                    property_id: propertyId
+                    property_id: propertyId,
+                    conversation_id: conversationId
                 },
                 success: function(data) {
                     $('#message').val(''); // Clear input
                     $("#chat-box").append(`
-                <div class="main-person-message-box">
-                    <div class="parent-box-message-user">
-                        <div class="content-box client">
-                            <div class="name-and-date">
-                                <h6>You</h6>
-                                <h5>${new Date().toLocaleDateString()}</h5>
+                        <div class="main-person-message-box">
+                            <div class="parent-box-message-user">
+                                <div class="content-box you">
+                                    <div class="name-and-date">
+                                        <h6>You</h6>
+                                        <h5>${new Date().toLocaleDateString()}</h5>
+                                    </div>
+                                    <p>${data.data.message}</p>
+                                </div>
                             </div>
-                            <p>${data.data.message}</p>
                         </div>
-                    </div>
-                </div>
-            `);
+                    `);
                 },
                 error: function(error) {
                     console.error('Error sending message:', error);

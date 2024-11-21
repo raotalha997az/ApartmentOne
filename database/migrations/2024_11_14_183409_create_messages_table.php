@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('conversation_id')->constrained('applypropertyhistory')->onDelete('cascade'); // The sender of the message
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade'); // The sender of the message
             $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade'); // The receiver of the message
             $table->foreignId('property_id')->constrained('properties')->onDelete('cascade');
