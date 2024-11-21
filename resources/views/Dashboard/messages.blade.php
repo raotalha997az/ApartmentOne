@@ -34,6 +34,53 @@
     .parent-tabs-mesg-box .parent-box-message-user .content-box {
         width: -webkit-fill-available;
     }
+
+    #message {
+        color: #000 !important;
+    }
+
+    div#chat-box {
+        margin-top: 100px;
+    }
+
+    div#write-message-box {
+        position: fixed;
+        width: 45.5%;
+        bottom: 30px;
+    }
+
+
+    .parent-tabs-mesg-box .top-profile-message-box {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: fixed;
+        background: #E5E5E5;
+        width: 47.4%;
+        top: 97px;
+        right: 37px;
+        z-index: 999;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0px 3px 6px 0px #00000021;
+    }
+
+    .parent-tabs-mesg-box .top-profile-message-box .img-box img {
+        height: 50px;
+        width: 50px;
+        border: 3px solid #808080a3;
+        border-radius: 50%;
+    }
+
+    .maintop-bar-profile {
+        position: relative;
+    }
+
+    .parent-tabs-mesg-box .top-profile-message-box .profile-name-messange p {
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
 </style>
 @section('content')
     <meta name="user-id" content="{{ auth()->id() }}">
@@ -115,10 +162,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8" style="position: relative">
                 <div class="large-mesg-box" id="large-mesg-box">
 
+
+
                     <div class="parent-tabs-mesg-box">
+
+                        <div class="maintop-bar-profile" id="profileBar">
+                            {{-- <div class="top-profile-message-box">
+                                <div class="img-box">
+                                    <img src="{{ Storage::url($conversation->property->user->profile_img) }}"
+                                                    alt="">
+                                </div>
+                                <div class="profile-name-messange">
+                                    <p>Abdul Raheem</p>
+                                </div>
+
+                            </div> --}}
+                        </div>
 
                         <div id="chat-box">
 
@@ -173,6 +235,7 @@
     <script>
         $(document).ready(function() {
             $("#chat-box").hide();
+            $("#profileBar").hide();
             $("#write-message-box").hide();
 
             // Check if there is an active conversation stored in localStorage
@@ -191,6 +254,8 @@
             // Add the active class to the clicked element
             element.classList.add('active-mesg-person');
 
+            $("#message").val('');
+
             $.ajax({
                 url: "{{ route('tenant.get.messages') }}",
                 type: "POST",
@@ -200,18 +265,44 @@
                 },
                 success: function(response) {
                     console.log(response);
+                    console.log(response.history.user.profile_img);
                     const currentUserId = {{ auth()->id() }}; // Get the logged-in user's ID
                     $("#chat-box").show();
+                    $("#profileBar").show();
+                    $("#profileBar").empty();
                     $("#chat-box").empty();
                     $("#write-message-box").show();
 
                     @if (Auth::user()->hasRole('land_lord'))
+                        $("#profileBar").append(`
+                            <div class="top-profile-message-box">
+                                <div class="img-box">
+                                    <img src="{{ Storage::url('/') }}${response.history.user.profile_img}" alt="">
+                                </div>
+                                <div class="profile-name-messange">
+                                    <p>${response.history.user.name}</p>
+                                </div>
+                            </div>
+                        `);
+
                         $("#sender_id").val(response.history.property.user.id);
                         $("#receiver_id").val(response.history.user_id);
                         $("#property_id").val(response.history.property_id);
                         $("#conversation_id").val(response.history.id);
                     @endif
                     @if (Auth::user()->hasRole('tenant'))
+
+                        $("#profileBar").append(`
+                            <div class="top-profile-message-box">
+                                <div class="img-box">
+                                    <img src="{{ Storage::url('/') }}${response.history.property.user.profile_img}" alt="">
+                                </div>
+                                <div class="profile-name-messange">
+                                    <p>${response.history.property.user.name}</p>
+                                </div>
+                            </div>
+                        `);
+
                         $("#sender_id").val(response.history.user_id);
                         $("#receiver_id").val(response.history.property.user.id);
                         $("#property_id").val(response.history.property_id);
@@ -220,10 +311,7 @@
 
                     response.messages.forEach(message => {
                         const isSender = message.sender_id === currentUserId;
-                        // concole.log("is sender " + message.sender_id);
-                        // if (response.history.property.user_id != message.receiver_id){
-                        //     return;
-                        // }
+
                         $("#chat-box").append(`
                             <div class="main-person-message-box">
                                 <div class="parent-box-message-user">
@@ -237,7 +325,6 @@
                                 </div>
                             </div>
                         `);
-                        // }
                     });
                 },
                 error: function(xhr) {

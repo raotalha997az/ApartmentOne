@@ -53,14 +53,22 @@ class TenantPropertiesController extends Controller
         $userId = $property->user_id; // Landlord's user ID
         $landlord = User::findOrFail($userId);
         $tenant = User::findOrFail($user);
-
-        // dd($property->id);
-        // dd($tenant->id);
         $propertyId = $property->id;
         $tenantId = $tenant->id;
 
+        $applyPropertyHistory = ApplyPropertyHistory::where('property_id', $propertyId)
+        ->where('user_id', $tenantId)
+        ->first();
+
+        if ($applyPropertyHistory) {
+            session()->flash('error', 'You have already applied for this property.');
+            return redirect()->route('tenant.propertiesdetails', ['id' => $property->id]);
+        }
+
+
+
         $applyPropertyHistory = new ApplyPropertyHistory();
-        $applyPropertyHistory->user_id = $tenantId; // Assuming tenant ID maps to `user_id`
+        $applyPropertyHistory->user_id = $tenantId;
         $applyPropertyHistory->property_id = $propertyId;
         $applyPropertyHistory->save();
 
@@ -69,36 +77,18 @@ class TenantPropertiesController extends Controller
 
         // Retrieve the most recent notification ID for the landlord
         $notification = DB::table('notifications')
-                          ->where('notifiable_id', $userId)
-                          ->orderBy('created_at', 'desc')
-                          ->first();
+        ->where('notifiable_id', $userId)
+        ->orderBy('created_at', 'desc')
+        ->first();
 
         $notificationId = $notification->id;
-
         // Trigger real-time broadcast with the notification ID for the landlord
         event(new PropertyApplicationEvent($landlord->id, 'Your property "' . $property->name . '" has been applied by ' . $tenant->name . '.', $notificationId));
+        session()->flash('success', 'Application submitted successfully!');
 
-
-
-        // return view('Dashboard.messages', compact('tenant' , 'landlord'));
-          // Set success message for SweetAlert
-    session()->flash('success', 'Application submitted successfully!');
-
-    // Redirect to messages blade
-    return redirect()->route('tenant.propertiesdetails', ['id' => $property->id]);
-
-    // return redirect()->route('dashboard.messages', ['tenant' => $tenant, 'landlord' => $landlord]);
-    // return back();
-
-
-
-    // return redirect()->route('tenant.propertiesdetails', [
-    //     'id' => $property->id,
-    //     'tenant' => $tenant->id,
-    //     'landlord' => $landlord->id
-    // ]);
-
-}
+        // Redirect to messages blade
+        return redirect()->route('tenant.propertiesdetails', ['id' => $property->id]);
+    }
 
 
 }

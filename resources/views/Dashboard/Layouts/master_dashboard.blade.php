@@ -642,7 +642,9 @@
                                 Whishlist</a></li>
                                 @endif
 
-                                <li><a href="{{ route('tenant.go.chat') }}" class="messages"><svg width="30" height="31" viewBox="0 0 30 31"
+                                @if (Auth::user()->hasRole('land_lord'))
+                                <li>
+                                    <a href="{{ route('landlord.go.chat') }}" class="messages"><svg width="30" height="31" viewBox="0 0 30 31"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M6.25 3C4.87125 3 3.75 4.12125 3.75 5.5V20.5C3.75 21.8787 4.87125 23 6.25 23H10.7325L15 27.2675L19.2675 23H23.75C25.1287 23 26.25 21.8787 26.25 20.5V5.5C26.25 4.12125 25.1287 3 23.75 3H6.25ZM23.75 20.5H18.2325L15 23.7325L11.7675 20.5H6.25V5.5H23.75V20.5Z"
@@ -651,7 +653,25 @@
                                                 d="M8.75 9.25H21.25V11.75H8.75V9.25ZM8.75 14.25H17.5V16.75H8.75V14.25Z"
                                                 fill="#777777" />
                                         </svg>
-                                        Messages</a></li>
+                                        Messages</a>
+                                    </li>
+                                @endif
+
+                                @if (Auth::user()->hasRole('tenant'))
+                                <li>
+                                    <a href="{{ route('tenant.go.chat') }}" class="messages"><svg width="30" height="31" viewBox="0 0 30 31"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6.25 3C4.87125 3 3.75 4.12125 3.75 5.5V20.5C3.75 21.8787 4.87125 23 6.25 23H10.7325L15 27.2675L19.2675 23H23.75C25.1287 23 26.25 21.8787 26.25 20.5V5.5C26.25 4.12125 25.1287 3 23.75 3H6.25ZM23.75 20.5H18.2325L15 23.7325L11.7675 20.5H6.25V5.5H23.75V20.5Z"
+                                                fill="#777777" />
+                                            <path
+                                                d="M8.75 9.25H21.25V11.75H8.75V9.25ZM8.75 14.25H17.5V16.75H8.75V14.25Z"
+                                                fill="#777777" />
+                                        </svg>
+                                        Messages</a>
+                                    </li>
+                                @endif
+
                                 @if (Auth::user()->hasRole('land_lord'))
                                     <li><a href="{{ route('landlord.profile') }}" class="user-profile-link"><img
                                                 src="{{ Storage::url(auth()->user()->profile_img ?? '') }}"

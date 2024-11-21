@@ -93,6 +93,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::get('/applyhistory',action: [ApplyPropertyHistoryController::class,'applyhistory'])->name('applyhistory');
 
     //chat
+     Route::get('chat', [MessageControllerEvent::class, 'go_to_chat'])->name('go.chat');
 
 
     Route::get('/fetch-messages', [MessageControllerEvent::class, 'fetchMessages'])->name('fetch.messages');
@@ -121,6 +122,9 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
         Route::get('/index', [TrashPropertyController::class, 'index'])->name('index');
         Route::match(['get' , 'post'],'{user}/undo', [TrashPropertyController::class, 'undo'])->name('undo'); // Fixed to reference 'user'
     });
+
+    //chat
+    Route::get('chat', [MessageControllerEvent::class, 'go_to_chat'])->name('go.chat');
 
     // profile
     Route::get('/profile',[LandlordAuthController::class,'profile'])->name('profile');
@@ -230,4 +234,3 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
 
 Route::post('tenant/get/messages', [MessageControllerEvent::class, 'getMessages'])->name('tenant.get.messages');
 Route::post('tenant/send-message', [MessageControllerEvent::class, 'sendMessage'])->name('tenant.send.message');
-Route::get('tenant/chat', [MessageControllerEvent::class, 'go_to_chat'])->name('tenant.go.chat');
