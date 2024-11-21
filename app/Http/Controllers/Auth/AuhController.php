@@ -211,5 +211,26 @@ public function login(Request $request)
         return back()->withErrors(['verification_code' => 'Invalid verification code.']);
     }
 
+    public function resentVerifyCode(Request $request)
+{
+    $user = Auth::user();
+
+    // Ensure the user is authenticated
+    if (!$user) {
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+
+    // Generate a new verification code
+    $verificationCode = rand(100000, 999999);
+
+    // Store the code in the session or database
+    session(['verification_code' => $verificationCode]);
+
+    // Dispatch the job to send the email
+    SendVerificationCodeJob::dispatch($user, $verificationCode);
+
+    return response()->json(['message' => 'Verification code has been resent.'], 200);
+}
+
 
 }

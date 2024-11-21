@@ -56,6 +56,7 @@ Route::post('/register/store',[AuhController::class,'register'])->name('register
 Route::post('/login/store',[AuhController::class,'login'])->name('login.store');
 Route::post('/logout',[AuhController::class,'logout'])->name('logout');
 Route::get('/verify-code', [AuhController::class, 'verifyCodeView'])->name('verify.code');
+Route::post('/reset-verify-code', [AuhController::class, 'resentVerifyCode'])->name('reset.verify.code');
 Route::post('/verify-code', [AuhController::class, 'CodeVerify'])->name('verify.code.check');
 Route::get('verify-email/{token}', [AuhController::class, 'verify'])->name('verify.email');
 

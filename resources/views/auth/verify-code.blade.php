@@ -41,8 +41,33 @@
                     </ul>
                 </div>
             @endif
-            <button type="submit" class="t-btn t-btn-header w-100">Verify</button>
+            <button type="submit" class="t-btn t-btn-header w-100">Send Code</button>
+
+            <a href="javascript:void(0);" class="t-btn t-btn-header w-100" onclick="resendVerification()" style="text-align: center;">Resend Code </a>
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+     $(document).ready(function() {
+        console.log('runqq');
+    });
+
+    function resendVerification() {
+            $.ajax({
+                url: "{{ route('reset.verify.code') }}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    toastr.success(response.message);
+                },
+                error: function(xhr) {
+                    toastr.error(xhr.responseJSON?.message || "Failed to resend verification. Please try again.");
+                }
+            });
+        }
+    </script>
 @endsection

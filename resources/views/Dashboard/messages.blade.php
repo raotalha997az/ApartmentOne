@@ -47,10 +47,11 @@
     }
 
     div#write-message-box {
-        position: fixed;
-        width: 45.5%;
-        bottom: 30px;
-    }
+    position: fixed;
+    width: 45.5%;
+    bottom: 15.1px;
+    background: #E5E5E5;
+}
 
 
     .parent-tabs-mesg-box .top-profile-message-box {
