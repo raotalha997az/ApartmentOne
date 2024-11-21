@@ -164,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8" style="position: relative">
+            <div class="col-lg-8" id="main-mesg-box" style="position: relative">
                 <div class="large-mesg-box" id="large-mesg-box">
 
 
@@ -337,6 +337,10 @@
                             </div>
                         `);
                     });
+
+                    // Scroll chat box to the bottom
+                    const chatBox = document.getElementById("main-mesg-box");
+                    chatBox.scrollTop = chatBox.scrollHeight;
                 },
                 error: function(xhr) {
                     console.log(xhr.responseJSON.message);
