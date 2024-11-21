@@ -329,7 +329,7 @@
                                     <div class="content-box ${isSender ? 'you' : 'client'}">
                                         <div class="name-and-date">
                                             <h6>${isSender ? 'You' : message.sender.name}</h6>
-                                            <h5>${new Date(message.created_at).toLocaleDateString()}</h5>
+                                            <h5>${new Date(message.created_at).toLocaleDateString()} ${new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</h5>
                                         </div>
                                         <p>${message.message}</p>
                                     </div>
@@ -378,7 +378,7 @@
                                 <div class="content-box you">
                                     <div class="name-and-date">
                                         <h6>You</h6>
-                                        <h5>${new Date().toLocaleDateString()}</h5>
+                                        <h5>${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</h5>
                                     </div>
                                     <p>${data.data.message}</p>
                                 </div>
