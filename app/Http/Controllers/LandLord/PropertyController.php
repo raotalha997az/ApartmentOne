@@ -23,13 +23,6 @@ class PropertyController extends Controller
     public function properties()
     {
         $userId = Auth::id();
-        // $properties = Property::where('user_id',$userId)->with('user','media')->get();
-        $properties = Property::where('user_id', $userId)->where('approve', 1)
-        ->with(['user', 'media'])
-        ->orderBy('id', 'desc')
-        ->get();
-
-
         // Get property applications with tenants limited to 4 per property
         $applyPropertyHistory = ApplyPropertyHistory::with(['property.media', 'user'])
             ->whereHas('property', function ($query) use ($userId) {
@@ -39,14 +32,30 @@ class PropertyController extends Controller
             ->groupBy('property_id');
 
         // Limit tenants to 4 per property
-        $propertiesWithTenants = $applyPropertyHistory->map(function ($applications) {
+        $propertiesWithTenants = $applyPropertyHistory->mapWithKeys(function ($applications, $propertyId) {
             return [
-                'property' => $applications->first()->property,
-                'tenants' => $applications->take(4)->pluck('user')
+                $propertyId => [
+                    'property' => $applications->first()->property,
+                    'tenants' => $applications->take(4)->pluck('user')
+                ],
             ];
         });
+        // Get all properties for the landlord
+        $properties = Property::where('user_id', $userId)->where('approve', 1)->where('deleted_at', null)
+            ->with('media')
+            ->orderBy('id', 'desc')
+            ->get()
+            ->map(function ($property) use ($propertiesWithTenants) {
+                $propertyId = $property->id;
+                $tenants = $propertiesWithTenants[$propertyId]['tenants'] ?? collect();
+                return [
+                    'property' => $property,
+                    'tenants' => $tenants,
+                ];
+            });
 
-        return view('Dashboard.landlord.properties',compact('properties', 'propertiesWithTenants'));
+        $totalApplications = $applyPropertyHistory->flatten()->count();
+        return view('Dashboard.landlord.properties', compact('properties', 'totalApplications'));
     }
 
     public function Bylandlord(){
