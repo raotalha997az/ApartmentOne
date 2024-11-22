@@ -784,7 +784,7 @@
                             let notificationHTML = `
                                 <div class="notification-listing" id="notification-${notification.id} ?? ''">
                                     <div class="box">
-                                        <h6>Property Approved!</h6>
+                                    <h6>${notification.data.message && notification.data.message.includes('approved')? 'Property Approved!' : 'New Property Application!'}</h6>
                                         <span>${notification.data.message || 'No message available'}</span>
                                     </div>
                                     <button class="cancel-notify" data-id="${notification.id}">

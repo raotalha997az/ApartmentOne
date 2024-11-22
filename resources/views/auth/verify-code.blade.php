@@ -41,7 +41,7 @@
                     </ul>
                 </div>
             @endif
-            <button type="submit" class="t-btn t-btn-header w-100">Send Code</button>
+            <button type="submit" class="t-btn t-btn-header w-100">Verify Code</button>
 
             <a href="javascript:void(0);" class="t-btn t-btn-header w-100" onclick="resendVerification()" style="text-align: center;">Resend Code </a>
         </form>
