@@ -162,37 +162,82 @@
             });
         });
 
+        // function confirmDelete(categoryId) {
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: "You won't be able to revert this!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Yes, delete it!'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             $.ajax({
+        //                 url: `/admin/category/${categoryId}`, // URL to delete the category
+        //                 type: 'DELETE',
+        //                 data: {
+        //                     _token: '{{ csrf_token() }}' // CSRF token for Laravel
+        //                 },
+        //                 success: function(response) {
+        //                     toastr.success(response.message); // Display success message
+        //                     // Remove the row from the table
+        //                     $(`#deleteForm-${categoryId}`).closest('tr').remove();
+        //                     location.reload();
+        //                 },
+        //                 error: function(xhr) {
+        //                     toastr.error(xhr.responseJSON.message ||
+        //                         'Failed to delete category'); // Display error message
+        //                 }
+        //             });
+        //         }
+        //     });
+        // }
         function confirmDelete(categoryId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: `/admin/category/${categoryId}`, // URL to delete the category
-                        type: 'DELETE',
-                        data: {
-                            _token: '{{ csrf_token() }}' // CSRF token for Laravel
-                        },
-                        success: function(response) {
-                            toastr.success(response.message); // Display success message
-                            // Remove the row from the table
-                            $(`#deleteForm-${categoryId}`).closest('tr').remove();
-                            location.reload();
-                        },
-                        error: function(xhr) {
-                            toastr.error(xhr.responseJSON.message ||
-                                'Failed to delete category'); // Display error message
-                        }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/admin/category/${categoryId}`, // URL to delete the category
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}' // CSRF token for Laravel
+                },
+                success: function(response) {
+                    if (response.error) {
+                        // Display SweetAlert with the error message
+                        Swal.fire({
+                            title: 'Cannot Delete',
+                            text: response.error,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        // Display success message and reload the page
+                        toastr.success(response.message);
+                        $(`#deleteForm-${categoryId}`).closest('tr').remove();
+                        location.reload();
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: xhr.responseJSON.message || 'Failed to delete category',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
                     });
                 }
             });
         }
+    });
+}
 
 
         $(document).ready(function() {

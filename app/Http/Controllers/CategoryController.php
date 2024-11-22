@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Property;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -62,6 +63,10 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
+        $properties = Property::where('cat_id', $id)->get();
+        if($properties){
+            return response()->json(['error' => ' You can not delete this category because it include in properties!'], 200);
+        }
 
         if (!$category) {
             return response()->json(['message' => 'Category not found'], 404);
