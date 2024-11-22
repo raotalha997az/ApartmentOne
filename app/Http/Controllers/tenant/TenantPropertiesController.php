@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\tenant;
 
 use App\Models\User;
+use App\Models\Category;
 use App\Models\Property;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -23,12 +24,31 @@ class TenantPropertiesController extends Controller
 
     public function properties()
     {
-        $properties = Property::where('approve', 1)->get();
+        $properties = Property::where('approve', 1)->with('category')->get();
+        // dd($properties);
         $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();$wishlist = Wishlist::where('user_id', Auth::user()->id)
         ->pluck('property_id')
         ->toArray();
-        return view('Dashboard.tenant.properties', compact('properties','wishlist'));
+
+        $categories = Category::all();
+        return view('Dashboard.tenant.properties', compact('properties','wishlist', 'categories'));
     }
+
+        public function fluterproperty($id)
+        {
+            // dd($id);
+            $properties = Property::where('approve', 1)
+            ->with('category')
+            ->where('cat_id', $id)
+            ->get();
+
+            $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();$wishlist = Wishlist::where('user_id', Auth::user()->id)
+            ->pluck('property_id')
+            ->toArray();
+
+            $categories = Category::all();
+            return view('Dashboard.tenant.properties', compact('properties','wishlist', 'categories'));
+        }
 
     public function propertieslistings()
     {

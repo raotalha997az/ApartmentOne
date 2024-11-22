@@ -77,19 +77,22 @@
                         <div class="box">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#tabs-1"
-                                        role="tab">Apartments</a>
-                                </li>
+                                    <a class="nav-link active"
+                                    href="{{ route('tenant.properties') }}"
+                                    role="tab">
+                                   All Properties
+                                 </a>
+                            </li>
+                                @foreach ($categories as $category)
+                                    {{-- {{ dd($category) }} --}}
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Houses</a>
+                                        <a class="nav-link active"
+                                        href="{{ route('tenant.fluter.property', $category->id) }}"
+                                        role="tab">
+                                         {{ $category->name }}
+                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Luxury
-                                        Apartments</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">Luxury Houses</a>
-                                </li>
+                                @endforeach
                             </ul><!-- Tab panes -->
                         </div>
                     </div>
@@ -98,8 +101,6 @@
                     <div class="tab-pane p-3 active" id="tabs-1" role="tabpanel">
                         <div class="main-parent-place-box">
                             @foreach ($properties as $property)
-                            {{-- {{ dd($wishlist->contains($property->id)) }} --}}
-                                {{-- {{ dd($property);}} --}}
                                 <div class="child-place-box">
                                     <a href="{{ route('tenant.propertiesdetails', $property->id) }}">
                                         <div class="img-box">
@@ -120,6 +121,9 @@
                                             </a>
                                             <div class="place-location">
                                                 <p>{{ $property->address }} </p>
+                                            </div>
+                                            <div class="place-location">
+                                                <p>{{ $property->category->name ?? ''}} </p>
                                             </div>
                                         </div>
                                         <div class="heart-box">

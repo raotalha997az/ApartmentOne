@@ -77,6 +77,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::get('/dashboard',[TenantAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/screening', [TenantPropertiesController::class, 'screening'])->name('screening');
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
+    Route::get('/fluter/property/{id}',[TenantPropertiesController::class,'fluterproperty'])->name('fluter.property');
     Route::get('/propertiesdetails/{id}', [TenantPropertiesController::class, 'propertiesdetails'])->name('propertiesdetails');
     Route::get('/propertieslistings',[TenantPropertiesController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/profile',[DashboardController::class,'profile'])->name('profile');
