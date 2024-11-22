@@ -37,6 +37,55 @@ a.t-btn {
 .box-inline form {
     margin: 0 !important;
 }
+
+
+.profile-basic-info-form .input-group button {
+    background: #0077B6;
+    transition: .3s;
+}
+
+.profile-basic-info-form .input-group button:hover {
+    background: #000;
+    transition: .3s;
+}
+
+.pagination{
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+
+.pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between ul.pagination {
+    gap: 10px;
+}
+
+.pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between ul.pagination li .page-link {
+    padding: 5px 15px !important;
+    border: 1px solid #80808038 !important;
+    border-radius: 8px;
+    box-shadow: 0px 1px 1px grey;
+}
+
+.pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between div:nth-child(1) {
+    display: none !important;
+}
+
+.table-responsive::-webkit-scrollbar{
+    height: 5px;
+}
+
+.col-lg-9 .col-lg-12::-webkit-scrollbar, .col-lg-9 .col-md-12::-webkit-scrollbar{
+    width:5px;
+}
+
+.active>.page-link, .page-link.active{
+    background-color:#0077B6 !important;
+}
+.page-link:hover{
+    background-color:#000 !important;
+    color: #fff !Important;
+}
+
 </style>
 
 @section('content')
@@ -87,18 +136,18 @@ a.t-btn {
                         </tr>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $user->name ?? '' }}</td>
-                                <td>{{ $user->email ?? '' }}</td>
-                                <td>{{ $user->phone ?? '' }}</td>
-                                <td>{{ $user->city ?? '' }}</td>
-                                <td>{{ $user->country ?? '' }}</td>
-                                <td>{{ $user->state ?? '' }}</td>
-                                <td>{{ $user->postal_code ?? '' }}</td>
-                                <td>{{ $user->address ?? '' }}</td>
+                                <td>{{ $user->name ?? 'N/A' }}</td>
+                                <td>{{ $user->email ?? 'N/A' }}</td>
+                                <td>{{ $user->phone ?? 'N/A' }}</td>
+                                <td>{{ $user->city ?? 'N/A' }}</td>
+                                <td>{{ $user->country ?? 'N/A' }}</td>
+                                <td>{{ $user->state ?? 'N/A' }}</td>
+                                <td>{{ $user->postal_code ?? 'N/A' }}</td>
+                                <td>{{ $user->address ?? 'N/A' }}</td>
                                 <td>
                                     @if ($user->profile_img)
                                         {{-- <img src="{{ asset('storage/'.$user->profile_img) }}" alt="Profile Image" width="50" height="50"> --}}
-                                        <img src="{{ Storage::url($user->profile_img ?? '') }}" alt="Profile Image"
+                                        <img src="{{ Storage::url($user->profile_img ?? 'N/A') }}" alt="Profile Image"
                                             width="50" height="50">
 
                                         {{-- <img src="{{ asset('storage/' . $user->profiles) }}" alt="Profile Image" width="50" height="50"> --}}
@@ -117,24 +166,25 @@ a.t-btn {
                                         Null
                                     @endif
                                 </td>
-
                                 <td>
-                                    <a class="btn btn-sm btn-success"
-                                        href="{{ route('admin.user.edit', $user->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
-                                    <form id="deleteForm{{ $user->id }}"
-                                        action="{{ route('admin.user.destroy', $user->id) }}" method="POST"
-                                        style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger"
-                                            onclick="confirmDelete({{ $user->id }})"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
-                                    </form>
+                                    <div class="d-flex justify-content-between align-items-center gap-2" style="width: 100px">
+                                        <a class="btn btn-sm btn-success"
+                                            href="{{ route('admin.user.edit', $user->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
+                                        <form id="deleteForm{{ $user->id }}"
+                                            action="{{ route('admin.user.destroy', $user->id) }}" method="POST"
+                                            style="display:block; ">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger btn-del"
+                                                onclick="confirmDelete({{ $user->id }})"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
-                <div class="pagination justify-content-center">
+                <div class="pagination">
                     {{ $users->onEachSide(1)->links('pagination::bootstrap-5') }}
                 </div>
             </div>
