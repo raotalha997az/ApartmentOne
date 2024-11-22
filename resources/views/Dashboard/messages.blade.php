@@ -39,34 +39,19 @@
         color: #000 !important;
     }
 
-    div#chat-box {
-        margin-top: 100px;
-        margin-bottom: 20px;
-        overflow-y: auto;
-        scroll-behavior: smooth;
-    }
-
-    div#write-message-box {
-    position: fixed;
-    width: 45.5%;
-    bottom: 15.1px;
-    background: #E5E5E5;
+    .parent-tabs-mesg-box .top-profile-message-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* background: #E5E5E5;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0px 3px 6px 0px #00000021; */
 }
 
-
-    .parent-tabs-mesg-box .top-profile-message-box {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        position: fixed;
-        background: #E5E5E5;
-        width: 47.4%;
-        top: 96px;
-        right: 37px;
-        z-index: 999;
-        padding: 15px;
-        border-radius: 10px 10px 0 0;
-        box-shadow: 0px 3px 6px 0px #00000021;
+.parent-tabs-mesg-box .top-profile-message-box .profile-name-messange p {
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: capitalize;
     }
 
     .parent-tabs-mesg-box .top-profile-message-box .img-box img {
@@ -76,15 +61,115 @@
         border-radius: 50%;
     }
 
-    .maintop-bar-profile {
-        position: relative;
-    }
 
-    .parent-tabs-mesg-box .top-profile-message-box .profile-name-messange p {
-        font-size: 16px;
-        font-weight: 700;
-        text-transform: capitalize;
-    }
+/* Parent container for the chat box */
+#main-mesg-box {
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+    height: 100vh; /* Full viewport height */
+    position: relative;
+    overflow: hidden;
+
+}
+
+/* Top profile bar (fix at the top) */
+.maintop-bar-profile {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5; /* Light background color */
+    border-bottom: 1px solid #ddd;
+    position: sticky; /* Stick to top */
+    top: 0;
+    z-index: 10; /* Ensure it stays above the chat content */
+    background: #E5E5E5;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0px 3px 6px 0px #00000021;
+}
+
+/* Profile image box */
+.top-profile-message-box .img-box img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Maintain image aspect ratio */
+}
+
+/* Chat messages container (scrollable) */
+#chat-box {
+    flex: 1; /* Take remaining space */
+    overflow-y: auto; /* Enable vertical scroll */
+    padding: 10px;
+}
+
+/* Message box styles */
+.main-person-message-box {
+    margin-bottom: 10px;
+}
+
+.content-box {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.content-box.client {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+}
+
+.content-box.you {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+}
+
+/* Input form (stick to bottom) */
+#write-message-box {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    position: sticky;
+    bottom: 0;
+}
+
+#write-message-box input[type="text"] {
+    flex: 1;
+    padding: 0 !important;
+    margin-right: 0 !important;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    height: 50px;
+
+
+}
+
+.large-mesg-box .parent-tabs-mesg-box .heading-form-mesg-box form button{
+    top: 10% !important;
+}
+
+#write-message-box button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#write-message-box button:hover {
+    background-color: #0056b3;
+}
+
+.parent-tabs-mesg-box .heading-form-mesg-box form {
+    width: 100%;
+}
+
+
 </style>
 @section('content')
     <meta name="user-id" content="{{ auth()->id() }}">
@@ -104,7 +189,7 @@
                         @if (Auth::user()->hasRole('tenant'))
                             @foreach ($conversations as $conversation)
                                 {{-- {{ dd($conversation) }} --}}
-                                <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person">
+                                <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person-{{ $conversation->id }}">
                                     <div class="parent-box-message-user">
                                         <div class="img-box">
                                             <img src="{{ Storage::url($conversation->property->user->profile_img) }}"
@@ -135,7 +220,7 @@
 
                         @if (Auth::user()->hasRole('land_lord'))
                             @foreach ($conversations as $conversation)
-                                <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person">
+                                <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person-{{ $conversation->id }}">
                                     <div class="parent-box-message-user">
                                         <div class="img-box">
                                             <img src="{{ Storage::url($conversation->user->profile_img) }}" alt="">
@@ -170,7 +255,7 @@
 
 
 
-                    <div class="parent-tabs-mesg-box">
+                    <div class="parent-tabs-mesg-box" style="padding:0; border-radius: 0">
 
                         <div class="maintop-bar-profile" id="profileBar">
                             {{-- <div class="top-profile-message-box">
@@ -240,15 +325,23 @@
             $("#chat-box").hide();
             $("#profileBar").hide();
             $("#write-message-box").hide();
-
             // Check if there is an active conversation stored in localStorage
             const activeConversationId = localStorage.getItem('activeConversationId');
             if (activeConversationId) {
-                const activeElement = document.querySelector(`.mesg-person[data-id="${activeConversationId}"]`);
+                const activeElement = document.querySelector(`.mesg-person-${activeConversationId}`);
                 if (activeElement) {
                     getMessages(activeConversationId, activeElement);
                 }
             }
+            const userId = document.querySelector('meta[name="user-id"]').getAttribute('content');
+            const pusher = new Pusher('96010b48b2b6efb4c0f1', {
+                cluster: 'ap2',
+                encrypted: false,
+            });
+            const channel = pusher.subscribe(`chat.${userId}`);
+            channel.bind('App\\Events\\MessageSent', function(data) {
+                getMessages(data.conversation_id, document.querySelector(`.mesg-person-${data.conversation_id}`));
+            });
         });
 
         $('input[placeholder="Search"]').on('input', function() {
@@ -392,7 +485,7 @@
                                 <div class="content-box you">
                                     <div class="name-and-date">
                                         <h6>You</h6>
-                                        <h5>${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</h5>
+                                        <h5>${new Date(data.data.created_at).toLocaleDateString()} ${new Date(data.data.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</h5>
                                     </div>
                                     <p>${data.data.message}</p>
                                 </div>

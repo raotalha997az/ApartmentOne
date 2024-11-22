@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Auth;
     {
         public function sendMessage(Request $request)
         {
-            // Validate the input
-            // dd($request->all());
             $validated = $request->validate([
                 'sender_id' => 'required|exists:users,id',
                 'receiver_id' => 'required|exists:users,id',
@@ -26,42 +24,28 @@ use Illuminate\Support\Facades\Auth;
                 'message' => 'required|string|max:500',
             ]);
 
-            // Create the message
             $message = Message::create($validated);
+            broadcast(new MessageSent($message))->toOthers();
 
-            // // Broadcast the event
-            // broadcast(new MessageSentEvent(
-            //     $message->message,
-            //     $message->sender_id,
-            //     $message->receiver_id,
-            // ))->toOthers();
-
-            // event(new MessageSentEvent(
-            //     $message->message,
-            //     $message->sender_id,
-            //     $message->receiver_id,
-            // ));
-
-            $message = Message::with(['sender:id,name', 'receiver:id,name'])->find($message->id);
+            broadcast(new MessageSent($message))->toOthers();
 
             return response()->json(['message' => 'Message sent successfully!', 'data' => $message]);
         }
+        // public function fetchMessages(Request $request)
+        // {
+        //     $messages = Message::with(['sender:id,name', 'receiver:id,name'])
+        //         ->where(function ($query) use ($request) {
+        //             $query->where('sender_id', $request->sender_id)
+        //                 ->where('receiver_id', $request->receiver_id);
+        //         })
+        //         ->orWhere(function ($query) use ($request) {
+        //             $query->where('sender_id', $request->receiver_id)
+        //                 ->where('receiver_id', $request->sender_id);
+        //         })
+        //         ->orderBy('created_at')->get();
 
-        public function fetchMessages(Request $request)
-        {
-            $messages = Message::with(['sender:id,name', 'receiver:id,name'])
-                ->where(function ($query) use ($request) {
-                    $query->where('sender_id', $request->sender_id)
-                        ->where('receiver_id', $request->receiver_id);
-                })
-                ->orWhere(function ($query) use ($request) {
-                    $query->where('sender_id', $request->receiver_id)
-                        ->where('receiver_id', $request->sender_id);
-                })
-                ->orderBy('created_at')->get();
-
-            return response()->json($messages);
-        }
+        //     return response()->json($messages);
+        // }
 
 
         public function go_to_chat()

@@ -21,19 +21,7 @@ Broadcast::channel('notifications', function ($data) {
     return true;
 });
 
-// Broadcast::channel('messages', function ($data) {
-//     return true;
-// });
 
-
-
-// Broadcast::channel('messages.{senderId}.{receiverId}', function ($user, $senderId, $receiverId) {
-//     // Check if the user is authorized to listen to this channel
-//     return $user->id === $senderId || $user->id === $receiverId;
-// });
-
-Broadcast::channel('messages_{senderId}', function ($user, $senderId) {
-    // Check if the authenticated user is the sender
-    return $user->id === (int) $senderId;
+Broadcast::channel('chat.{receiverId}', function ($user, $receiverId) {
+    return (int) $user->id === (int) $receiverId;
 });
-
