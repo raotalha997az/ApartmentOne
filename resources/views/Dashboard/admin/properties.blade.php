@@ -1,11 +1,11 @@
 @extends('Dashboard.Layouts.master_dashboard')
 <style>
-    .dashboard-main .left-panel .left-panel-menu ul li a.properties-active {
+    .dashboard-main .left-panel .left-panel-menu ul li a.properties-aprove-active {
         background-color: white;
         color: #414141;
     }
 
-    .dashboard-main .left-panel .left-panel-menu ul li a.properties-active svg path {
+    .dashboard-main .left-panel .left-panel-menu ul li a.properties-aprove-active svg path {
         fill: #414141 !important;
     }
 </style>

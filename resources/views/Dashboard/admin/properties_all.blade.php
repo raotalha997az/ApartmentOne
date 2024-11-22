@@ -9,14 +9,7 @@
         fill: #414141 !important;
     }
 
-    .dashboard-main .left-panel .left-panel-menu ul li a.properties-aprove-active {
-        background-color: white;
-        color: #414141;
-    }
 
-    .dashboard-main .left-panel .left-panel-menu ul li a.properties-aprove-active svg path {
-        fill: #414141 !important;
-    }
 </style>
 @section('content')
 
