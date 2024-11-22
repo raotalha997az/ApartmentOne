@@ -69,7 +69,7 @@
                         </div>
                         <div class="two-btns-inline">
                             <a href="{{ route('admin.properties.approve', $property->id) }}"  class="t-btn t-btn-blue">Approve</a>
-                            <a href="{{ route('admin.propertiesdetails', $property->id) }}"  class="t-btn t-btn-blue">Details</a>
+                            <a href="{{ route('admin.propertiesdetails.approval', $property->id) }}"  class="t-btn t-btn-blue">Details</a>
                         </div>
 
                     </div>

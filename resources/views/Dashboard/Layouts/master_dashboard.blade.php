@@ -46,7 +46,7 @@
             position: absolute;
             padding: 20px;
             top: 100%;
-            left: -50px;
+            right: -50px;
             border: 1px solid;
             display: none;
             transition.3s;
@@ -280,6 +280,17 @@
                                                         fill="white" />
                                                 </svg>
                                                 Properties</a></li>
+                                                <li><a href="{{ route('admin.properties.approval') }}" class="properties-aprove-active"><svg
+                                                    width="31" height="30" viewBox="0 0 31 30" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M24.6716 2.44946H12.1716C10.7929 2.44946 9.67161 3.57071 9.67161 4.94946V11.932L3.78786 17.8157C3.6131 17.9905 3.49409 18.2132 3.44588 18.4557C3.39767 18.6981 3.42242 18.9494 3.51701 19.1778C3.6116 19.4062 3.77177 19.6014 3.97729 19.7387C4.1828 19.8761 4.42442 19.9494 4.67161 19.9495V26.1995C4.67161 26.531 4.8033 26.8489 5.03773 27.0833C5.27215 27.3178 5.59009 27.4495 5.92161 27.4495H25.9216C26.2531 27.4495 26.5711 27.3178 26.8055 27.0833C27.0399 26.8489 27.1716 26.531 27.1716 26.1995V4.94946C27.1716 3.57071 26.0504 2.44946 24.6716 2.44946ZM14.6716 24.9495H7.17161V17.967L10.9216 14.217L14.6716 17.967V24.9495ZM24.6716 24.9495H17.1716V19.9495C17.4191 19.95 17.6611 19.877 17.867 19.7398C18.0729 19.6025 18.2334 19.4072 18.3281 19.1786C18.4228 18.9499 18.4474 18.6983 18.3988 18.4557C18.3503 18.213 18.2307 17.9903 18.0554 17.8157L12.1716 11.932V4.94946H24.6716V24.9495Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M14.6714 7.44946H17.1714V9.94946H14.6714V7.44946ZM19.6714 7.44946H22.1714V9.94946H19.6714V7.44946ZM19.6714 12.4882H22.1714V14.9495H19.6714V12.4882ZM19.6714 17.4495H22.1714V19.9495H19.6714V17.4495ZM9.67139 18.6995H12.1714V21.1995H9.67139V18.6995Z"
+                                                        fill="white" />
+                                                </svg>
+                                                Properties For Approval</a></li>
                                         <li><a href="{{ route('admin.profile') }}" class="profile-active"><svg
                                                     width="31" height="30" viewBox="0 0 31 30" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -604,7 +615,8 @@
                         </div>
                         <div class="right-header-links">
                             <ul>
-                                @if (Auth::user()->hasRole('land_lord'))
+                                {{-- @if (Auth::user()->hasRole('land_lord')) --}}
+                                @if (Auth::user()->hasRole('land_lord') || Auth::user()->hasRole('admin'))
                                 <li class="notification-drop-box">
                                     <a href="#" class="icon-notify"><svg width="30" height="31"
                                             viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -108,7 +108,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
 
 // Landlord Routes
 Route::prefix('landlord')->name('landlord.')->group(function () {
-    Route::middleware(['auth', 'verified', 'role:land_lord'])->group(function () {
+    Route::middleware(['auth', 'verified', 'role:land_lord|admin'])->group(function () {
     Route::get('/dashboard',[LandlordAuthController::class,'dashboard'])->name('dashboard');
     // properties
     Route::get('property',[PropertyController::class,'properties'])->name('properties');
@@ -150,7 +150,10 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'verified','role:admin|land_lord'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
-    Route::get('/properties',[AdminPropertyController::class,'properties'])->name(name: 'properties');
+
+    Route::get('properties',[AdminPropertyController::class,'propertiesAll'])->name('properties');
+
+    Route::get('/properties-for-approval',[AdminPropertyController::class,'properties'])->name(name: 'properties.approval');
     Route::get('/properties/approve/{id}',[AdminPropertyController::class,'propertyApprove'])->name('properties.approve');
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
     Route::post('/notifications/{id}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
@@ -161,6 +164,7 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('/edit_pricing',[AdminAuthController::class,'edit_pricing'])->name('edit_pricing');
     Route::get('/users',[AdminAuthController::class,'users'])->name('users');
     Route::get('/propertiesdetails/{id}', [AdminPropertyController::class, 'propertiesdetails'])->name('propertiesdetails');
+    Route::get('/propertiesdetails-approval/{id}', [AdminPropertyController::class, 'propertiesdetailsApproval'])->name('propertiesdetails.approval');
 
     Route::get('/propertieslistings',[AdminPropertyController::class,'propertieslistings'])->name('propertieslistings');
     Route::get('/wishlist',[AdminAuthController::class,'wishlist'])->name('wishlist');

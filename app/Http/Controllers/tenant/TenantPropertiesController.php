@@ -76,37 +76,59 @@ class TenantPropertiesController extends Controller
         $propertyId = $property->id;
         $tenantId = $tenant->id;
 
+        // Check if tenant already applied for the property
         $applyPropertyHistory = ApplyPropertyHistory::where('property_id', $propertyId)
-        ->where('user_id', $tenantId)
-        ->first();
+            ->where('user_id', $tenantId)
+            ->first();
 
         if ($applyPropertyHistory) {
             session()->flash('error', 'You have already applied for this property.');
             return redirect()->route('tenant.propertiesdetails', ['id' => $property->id]);
         }
 
-
-
+        // Save application history
         $applyPropertyHistory = new ApplyPropertyHistory();
         $applyPropertyHistory->user_id = $tenantId;
         $applyPropertyHistory->property_id = $propertyId;
         $applyPropertyHistory->save();
 
-        // Send notification to landlord and save it in the database
+        // Notify the landlord
         $landlord->notify(new PropertyApplicationNotification($property, $tenant));
+
+        // Fetch admin users (assuming 'admin' is a role in your system)
+        $admins = User::role('admin')->get(); // Use appropriate method to fetch admin users based on your implementation
+
+        foreach ($admins as $admin) {
+            $admin->notify(new PropertyApplicationNotification($property, $tenant));
+        }
 
         // Retrieve the most recent notification ID for the landlord
         $notification = DB::table('notifications')
-        ->where('notifiable_id', $userId)
-        ->orderBy('created_at', 'desc')
-        ->first();
+            ->where('notifiable_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         $notificationId = $notification->id;
-        // Trigger real-time broadcast with the notification ID for the landlord
-        event(new PropertyApplicationEvent($landlord->id, 'Your property "' . $property->name . '" has been applied by ' . $tenant->name . '.', $notificationId));
+
+        // Trigger real-time broadcast for landlord
+        event(new PropertyApplicationEvent(
+            $landlord->id,
+            'Your property "' . $property->name . '" has been applied by ' . $tenant->name . '.',
+            $notificationId
+        ));
+
+        // Trigger real-time broadcast for each admin
+        foreach ($admins as $admin) {
+            event(new PropertyApplicationEvent(
+                $admin->id,
+                'A new application for property "' . $property->name . '" by ' . $tenant->name . '.',
+                $notificationId // Optional: You can create a unique notification ID for each admin
+            ));
+        }
+
         session()->flash('success', 'Application submitted successfully!');
 
-        // Redirect to messages blade
+        // Redirect to property details page
         return redirect()->route('tenant.propertiesdetails', ['id' => $property->id]);
     }
 
