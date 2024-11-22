@@ -307,12 +307,19 @@ class PropertyController extends Controller
             // Check if the property exists in any wishlist
             $wishlistItem = Wishlist::where('property_id', $id)->first();
 
+            $applyhistory = ApplyPropertyHistory::where('property_id', $id)->first();
+
             if ($wishlistItem) {
                 // If the property is found in a wishlist, prevent deletion
                 return response()->json([
                     'message' => 'Property is in a tenant\'s wishlist, so it cannot be deleted.',
                 ]);
-            } else {
+            }elseif($applyhistory){
+                return response()->json([
+                    'message' => 'Property is in a tenant\'s Apply History, so it cannot be deleted.',
+                ]);
+            }
+             else {
                 // If the property is not found in any wishlist, proceed with deletion
                 $property = Property::findOrFail($id);
                 $property->delete();
@@ -324,5 +331,3 @@ class PropertyController extends Controller
         }
 
         }
-
-

@@ -16,9 +16,9 @@
             <div class="top-listing-parent-box">
                 <div class="two-things-align">
                     <div class="box">
-                        <h6>Latest Listings Of Properties</h6>
+                        <h6>Properties For Approval</h6>
                     </div>
-                    <div class="box">
+                    {{-- <div class="box">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Apartments</a>
@@ -33,7 +33,7 @@
                                 <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">Luxury Houses</a>
                             </li>
                         </ul><!-- Tab panes -->
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 

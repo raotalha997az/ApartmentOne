@@ -6,6 +6,25 @@
     margin-bottom: 30px !important;
     flex-wrap: wrap;
 }
+
+.reports-listings-property-table .three-box-table .box.img-box-property {
+    width: 25% !important;
+}
+
+.reports-listings-property-table .three-box-table .box {
+    width: 25% !important;
+    margin-right: 20px;
+}
+
+
+.propertieslistings-page.propertiesdetails-page .three-headings-align h3 {
+    width: 25% !important;
+}
+
+.reports-listings-property-table .three-headings-align {
+    justify-content: flex-start;
+    gap: 30px;
+}
 </style>
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
@@ -144,9 +163,7 @@
 
                                         <div class="box email-box-parent">
                                             <a href="mailto:{{ $tenant->email }}">
-                                                <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <!-- SVG code for email icon -->
-                                                </svg>
+
                                                 {{ $tenant->email }}</a>
                                         </div>
                                     </span>

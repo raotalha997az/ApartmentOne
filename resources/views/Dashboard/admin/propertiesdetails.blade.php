@@ -6,6 +6,25 @@
     margin-bottom: 30px !important;
     flex-wrap: wrap;
 }
+
+.reports-listings-property-table .three-box-table .box.img-box-property {
+    width: 25% !important;
+}
+
+.reports-listings-property-table .three-box-table .box {
+    width: 25% !important;
+    margin-right: 20px;
+}
+
+
+.propertieslistings-page.propertiesdetails-page .three-headings-align h3 {
+    width: 25% !important;
+}
+
+.reports-listings-property-table .three-headings-align {
+    justify-content: flex-start;
+    gap: 30px;
+}
 </style>
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
