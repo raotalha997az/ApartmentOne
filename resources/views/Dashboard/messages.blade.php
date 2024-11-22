@@ -133,6 +133,7 @@
     border-top: 1px solid #ddd;
     position: sticky;
     bottom: 0;
+    margin: 0 !important;
 }
 
 #write-message-box input[type="text"] {
@@ -153,7 +154,7 @@
 
 #write-message-box button {
     padding: 10px 15px;
-    background-color: #007bff;
+    background-color: #0077B6;
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -162,7 +163,7 @@
 }
 
 #write-message-box button:hover {
-    background-color: #0056b3;
+    background-color: #000;
 }
 
 .parent-tabs-mesg-box .heading-form-mesg-box form {
@@ -250,12 +251,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8" id="main-mesg-box" style="position: relative">
+            <div class="col-lg-8" id="main-mesg-box" style="position: relative; overflow:hidden !important;">
                 <div class="large-mesg-box" id="large-mesg-box">
 
 
 
-                    <div class="parent-tabs-mesg-box" style="padding:0; border-radius: 0">
+                    <div class="parent-tabs-mesg-box" style="padding:0; border-radius: 0;flex-direction: column;    display: flex
+                    ;height: 100%; ">
 
                         <div class="maintop-bar-profile" id="profileBar">
                             {{-- <div class="top-profile-message-box">
