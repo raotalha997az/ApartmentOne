@@ -323,12 +323,13 @@
 
 @section('scripts')
     <script>
+        let activeConversationId;
         $(document).ready(function() {
             $("#chat-box").hide();
             $("#profileBar").hide();
             $("#write-message-box").hide();
             // Check if there is an active conversation stored in localStorage
-            const activeConversationId = localStorage.getItem('activeConversationId');
+            activeConversationId = localStorage.getItem('activeConversationId');
             if (activeConversationId) {
                 const activeElement = document.querySelector(`.mesg-person-${activeConversationId}`);
                 if (activeElement) {
@@ -342,7 +343,10 @@
             });
             const channel = pusher.subscribe(`chat.${userId}`);
             channel.bind('App\\Events\\MessageSent', function(data) {
-                getMessages(data.conversation_id, document.querySelector(`.mesg-person-${data.conversation_id}`));
+
+                if (data.conversation_id == activeConversationId) {
+                    getMessages(data.conversation_id, document.querySelector(`.mesg-person-${data.conversation_id}`));
+                }
             });
         });
 
@@ -360,6 +364,12 @@
             document.querySelectorAll('.active-mesg-person').forEach(el => el.classList.remove('active-mesg-person'));
             // Add the active class to the clicked element
             element.classList.add('active-mesg-person');
+
+            localStorage.setItem('activeConversationId', id);
+            activeConversationId = id;
+
+            console.log("activeConversationId",activeConversationId);
+
 
             $("#message").val('');
 
@@ -500,5 +510,6 @@
                 }
             });
         }
+
     </script>
 @endsection
