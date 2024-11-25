@@ -7,12 +7,12 @@
             <div class="col-md-12">
                 <div class="text">
                     <h2>Service: Seeking A Home </h2>
-                    <h1>Find You Dream Home<br> With Ease</h1>      
+                    <h1>Find You Dream Home<br> With Ease</h1>
 
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </section>
 
 <section class="home-sec-02 service-sec-01">
@@ -23,7 +23,7 @@
                     <h3>Seeking A Dream Home</h3>
                     <h2>Find your perfect Home with a single click</h2>
                     <p>Welcome to our platform that connects landlords with renters. Submit your rental application and let landowners view and evaluate them. Start your search</p>
-                    <a href="#" class="t-btn t-btn-blue">Get Started</a>
+                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">Get Started</a>
                 </div>
             </div>
             <div class="col-lg-5 col-md-12">
@@ -61,7 +61,7 @@
                         </ul>
                     </div>
                 </div>
-              
+
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
                     <h3>Rentals Notifications</h3>
                 <h2>Get Notified Before The date decided </h2>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                <a href="#" class="t-btn t-btn-blue">Get Started</a>
+                <a href="{{ route('register') }}" class="t-btn t-btn-blue">Get Started</a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
@@ -133,9 +133,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12"> 
+            <div class="col-md-12">
                 <div class="text text-center">
-                    <a href="#" class="t-btn t-btn-blue">Get Started</a>
+                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">Get Started</a>
                 </div>
             </div>
         </div>

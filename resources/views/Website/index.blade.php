@@ -31,7 +31,7 @@
                         <h3>Overview</h3>
                         <h2>Find your perfect tenant with ease</h2>
                         <p>Welcome to our platform that connects landlords with renters. Submit your rental application and let landowners view and evaluate them. Start your search</p>
-                        <a href="#" class="t-btn t-btn-blue">Learn More</a>
+                        <a href="{{ route('about') }}" class="t-btn t-btn-blue">Learn More</a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
@@ -113,7 +113,7 @@
                         <h3>Service</h3>
                         <h2>Tailored Real Estate Solutions</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <a href="#" class="t-btn t-btn-blue">Learn More</a>
+                        <a href="{{ route('services') }}" class="t-btn t-btn-blue">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                         <h3>About</h3>
                         <h2>Here Luxury Meets Lifestyle</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        <a href="#" class="t-btn t-btn-blue">Learn More</a>
+                        <a href="{{ route('about') }}" class="t-btn t-btn-blue">Learn More</a>
                     </div>
                 </div>
 

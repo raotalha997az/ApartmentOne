@@ -72,6 +72,7 @@ Route::get('blog/details/{id}', [WebController::class, 'blogDetails'])->name('bl
 
 //news latters
 Route::post('NewsLatters/store', [NewsController::class, 'store'])->name('newslatter.store');
+Route::get('NewsLatters', [NewsController::class, 'index'])->name('newslatter');
 
 
 

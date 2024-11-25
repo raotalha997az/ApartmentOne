@@ -8,11 +8,11 @@
             <div class="col-md-12">
                 <div class="text">
                     <h2>Service </h2>
-                    <h1>Find Your Perfect Tenant<br> With Ease</h1>      
+                    <h1>Find Your Perfect Tenant<br> With Ease</h1>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </section>
 
 <section class="home-sec-02 service-sec-01">
@@ -23,7 +23,7 @@
                     <h3>Seeking A Dream Home</h3>
                     <h2>Find your perfect Home with a single click</h2>
                     <p>Welcome to our platform that connects landlords with renters. Submit your rental application and let landowners view and evaluate them. Start your search</p>
-                    <a href="#" class="t-btn t-btn-blue">Get Started</a>
+                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">Get Started</a>
                 </div>
             </div>
             <div class="col-lg-5 col-md-12">
@@ -43,7 +43,7 @@
 
             <div class="col-lg-6 col-md-12">
                 <div class="img-box">
-                    <img src="{{ asset('assets/images/rent-a-home-bg-img-02.png')}}" alt="">  
+                    <img src="{{ asset('assets/images/rent-a-home-bg-img-02.png')}}" alt="">
                 </div>
 
             </div>
@@ -61,7 +61,7 @@
                         </ul>
                     </div>
                 </div>
-              
+
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text text-center">
-                    <a href="#" class="t-btn t-btn-blue">Start Listing Your Property Today</a>
+                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">Start Listing Your Property Today</a>
 
                 </div>
             </div>

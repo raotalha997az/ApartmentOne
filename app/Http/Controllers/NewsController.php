@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Validator;
 class NewsController extends Controller
 {
     public function index(){
-        $newslatter = NewsLatter::all();
+        $newslatters = NewsLatter::all();
+        // dd($newslatters);
+
+        return view('Dashboard.admin.newslatters.index',compact('newslatters'));
     }
 
 
@@ -40,25 +43,6 @@ class NewsController extends Controller
         'message' => 'Thank you for subscribing!'
     ]);
 }
-    // public function store(Request $request)
-    // {
-    //     // Validate the input
-    //     $validator = Validator::make($request->all(),[
-    //         'email' => 'required|string|email|max:255|unique:newslatters',
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
-    //     $data = $validator->validated();
-    //     // Save the email to the database
-    //     NewsLatter::create([
-    //         'email' => $data['email'], // Use the validated email,
-    //     ]);
-
-    //     // Redirect with a success message
-    //     return redirect()->back()->with('success', 'Thank you for subscribing!');
-    // }
-
 
 
 }

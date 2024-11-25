@@ -7,12 +7,12 @@
                         <h3>Rentals</h3>
                         <h2>Explore Today’s Top Listings</h2>
                         <p>Lorem Ipsum is simply dummy text</p>
-                    </div> 
+                    </div>
 
-                    <a href="#" class="t-btn t-btn-blue">See All Lisitings</a>
+                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">See All Lisitings</a>
 
                 </div>
-            </div>  
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6">
