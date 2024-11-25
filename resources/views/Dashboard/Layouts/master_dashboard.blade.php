@@ -138,6 +138,17 @@
     opacity: 1; /* Change opacity to 1 when the class is added */
 }
 
+
+.main-dashboard-header .page-detail-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+
+
     </style>
 </head>
 
@@ -609,10 +620,24 @@
                             @endif
                         </div>
 
+
+
+
                         <div class="page-detail-box">
                             <p>Welcome</p>
+                            <a href="{{ url('/') }}" class="t-btn t-btn-blue t-btn-svg">Go To Website
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.0215 17.5981L12.3834 18.9601L18.8435 12.5L12.3834 6.03992L11.0215 7.40186L15.1564 11.5368H5.92334V13.4632H15.1564L11.0215 17.5981Z" fill="white"></path>
+                                    </svg>
+
+                            </a>
                             {{-- <h6>{{ Auth::user()->name }}</h6> --}}
                         </div>
+
+
+
+
+
                         <div class="right-header-links">
                             <ul>
                                 {{-- @if (Auth::user()->hasRole('land_lord')) --}}
@@ -656,7 +681,8 @@
 
                                 @if (Auth::user()->hasRole('land_lord'))
                                 <li>
-                                    <a href="{{ route('landlord.go.chat') }}" class="messages"><svg width="30" height="31" viewBox="0 0 30 31"
+                                    <a href="{{ route('landlord.go.chat') }}" class="messages icon-notify">
+                                        <svg width="30" height="31" viewBox="0 0 30 31"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M6.25 3C4.87125 3 3.75 4.12125 3.75 5.5V20.5C3.75 21.8787 4.87125 23 6.25 23H10.7325L15 27.2675L19.2675 23H23.75C25.1287 23 26.25 21.8787 26.25 20.5V5.5C26.25 4.12125 25.1287 3 23.75 3H6.25ZM23.75 20.5H18.2325L15 23.7325L11.7675 20.5H6.25V5.5H23.75V20.5Z"
@@ -727,6 +753,14 @@
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
+
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script>
         // Mark all notifications as read
         $('#markAllAsReadBtn').click(function() {

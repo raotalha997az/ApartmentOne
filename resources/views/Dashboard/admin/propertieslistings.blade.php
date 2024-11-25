@@ -6,6 +6,7 @@
             width: 100% !important;
             /* Make Select2 full width */
         }
+        
     </style>
     <div class="add-property-form-sec">
         <div class="row">

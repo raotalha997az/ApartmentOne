@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrashProperty;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Auth\AuhController;
@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\RentToWhoController;
 use App\Http\Controllers\Auth\TenantAuthController;
 use App\Http\Controllers\Auth\LandlordAuthController;
 use App\Http\Controllers\LandLord\PropertyController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\tenant\TenantPropertiesController;
 use App\Http\Controllers\tenant\ApplyPropertyHistoryController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
@@ -68,6 +69,10 @@ Route::post('password/reset', [AuhController::class, 'reset'])->name('password.u
 // blogs
 Route::get('blog', [WebController::class, 'blog'])->name('blog');
 Route::get('blog/details/{id}', [WebController::class, 'blogDetails'])->name('blog-details');
+
+//news latters
+Route::post('NewsLatters/store', [NewsController::class, 'store'])->name('newslatter.store');
+
 
 
 

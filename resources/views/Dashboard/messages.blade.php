@@ -171,6 +171,24 @@
 }
 
 
+.message-icon-notify:after {
+    position: absolute;
+    content: "";
+    height: 10px;
+    width: 10px;
+    background: #0077b6;
+    top: 0;
+    z-index: 1;
+    border-radius: 100%;
+    left: 0;
+    opacity: 0; /* Initial opacity */
+    transition: opacity 0.3s ease;
+}
+
+.message-icon-notify.message-icon-notify-active:after {
+    opacity: 1; /* Change opacity to 1 when the class is added */
+}
+
 </style>
 @section('content')
     <meta name="user-id" content="{{ auth()->id() }}">
@@ -347,6 +365,15 @@
                 if (data.conversation_id == activeConversationId) {
                     getMessages(data.conversation_id, document.querySelector(`.mesg-person-${data.conversation_id}`));
                 }
+
+
+                if(data.length > 0) {
+                    let iconNotify = document.querySelector(".messages");
+                    if (iconNotify) {
+                        iconNotify.classList.add("icon-notify-active");
+                    }
+                    }
+
             });
         });
 

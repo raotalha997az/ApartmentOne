@@ -1,5 +1,13 @@
 @extends('Dashboard.Layouts.master_dashboard')
 @section('content')
+<style>
+    .propertieslistings-page .properties_details_main .properties-icons-details ul {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px !important;
+  flex-wrap: wrap;
+}
+</style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
 <div class="propertieslistings-page">
     <div class="row">

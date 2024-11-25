@@ -21,71 +21,73 @@
     }
 
     .box-inline {
-    display: flex;
-    width: 60%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    column-gap: 20px;
-    padding: 0px 0 20px 0;
-}
+        display: flex;
+        width: 60%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        column-gap: 20px;
+        padding: 0px 0 20px 0;
+    }
 
-a.t-btn {
-    width: 210px;
-}
+    a.t-btn {
+        width: 210px;
+    }
 
-.box-inline form {
-    margin: 0 !important;
-}
-
-
-.profile-basic-info-form .input-group button {
-    background: #0077B6;
-    transition: .3s;
-}
-
-.profile-basic-info-form .input-group button:hover {
-    background: #000;
-    transition: .3s;
-}
-
-.pagination{
-    justify-content: flex-end;
-    padding-top: 10px;
-}
+    .box-inline form {
+        margin: 0 !important;
+    }
 
 
-.pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between ul.pagination {
-    gap: 10px;
-}
+    .profile-basic-info-form .input-group button {
+        background: #0077B6;
+        transition: .3s;
+    }
 
-.pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between ul.pagination li .page-link {
-    padding: 5px 15px !important;
-    border: 1px solid #80808038 !important;
-    border-radius: 8px;
-    box-shadow: 0px 1px 1px grey;
-}
+    .profile-basic-info-form .input-group button:hover {
+        background: #000;
+        transition: .3s;
+    }
 
-.pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between div:nth-child(1) {
-    display: none !important;
-}
+    .pagination {
+        justify-content: flex-end;
+        padding-top: 10px;
+    }
 
-.table-responsive::-webkit-scrollbar{
-    height: 5px;
-}
 
-.col-lg-9 .col-lg-12::-webkit-scrollbar, .col-lg-9 .col-md-12::-webkit-scrollbar{
-    width:5px;
-}
+    .pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between ul.pagination {
+        gap: 10px;
+    }
 
-.active>.page-link, .page-link.active{
-    background-color:#0077B6 !important;
-}
-.page-link:hover{
-    background-color:#000 !important;
-    color: #fff !Important;
-}
+    .pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between ul.pagination li .page-link {
+        padding: 5px 15px !important;
+        border: 1px solid #80808038 !important;
+        border-radius: 8px;
+        box-shadow: 0px 1px 1px grey;
+    }
 
+    .pagination .d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between div:nth-child(1) {
+        display: none !important;
+    }
+
+    .table-responsive::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    .col-lg-9 .col-lg-12::-webkit-scrollbar,
+    .col-lg-9 .col-md-12::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .active>.page-link,
+    .page-link.active {
+        background-color: #0077B6 !important;
+    }
+
+    .page-link:hover {
+        background-color: #000 !important;
+        color: #fff !Important;
+    }
 </style>
 
 @section('content')
@@ -103,110 +105,155 @@ a.t-btn {
                     <h3>Users</h3>
                     <div class="box-inline">
                         <a class="t-btn t-btn-blue" href="{{ route('admin.user.create') }}">Add New User</a>
-                    <form action="{{ route('admin.user.search') }}" method="GET" class="mb-4">
+                        {{-- <form action="{{ route('admin.user.search') }}" method="GET" class="mb-4">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" placeholder="Search users..."
                                 value="{{ request('search') }}">
                             <button type="submit" class="btn btn-primary">Search</button>
                         </div>
-                    </form>
+                    </form> --}}
                     </div>
-                    {{-- <a class="t-btn t-btn-blue" href="#">Add New User</a> --}}
                 </div>
-                <!-- Search Form -->
-                {{-- <form action="#" method="GET" class="mb-4"> --}}
 
 
                 <div class="table-responsive">
-                    <table class="table table-striped ">
-                        <tr>
-
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>City</th>
-                            <th>Country</th>
-                            <th>State</th>
-                            <th>Postal Code</th>
-                            <th>Address</th>
-                            <th>Profile Image</th>
-
-                            <th>Role</th>
-                            <th>Actions</th>
-                        </tr>
-                        @foreach ($users as $user)
+                    {{-- <div class="export-buttons mb-3"></div> --}}
+                    <table id="users_list" class="table table-striped">
+                        <thead>
                             <tr>
-                                <td>{{ $user->name ?? 'N/A' }}</td>
-                                <td>{{ $user->email ?? 'N/A' }}</td>
-                                <td>{{ $user->phone ?? 'N/A' }}</td>
-                                <td>{{ $user->city ?? 'N/A' }}</td>
-                                <td>{{ $user->country ?? 'N/A' }}</td>
-                                <td>{{ $user->state ?? 'N/A' }}</td>
-                                <td>{{ $user->postal_code ?? 'N/A' }}</td>
-                                <td>{{ $user->address ?? 'N/A' }}</td>
-                                <td>
-                                    @if ($user->profile_img)
-                                        {{-- <img src="{{ asset('storage/'.$user->profile_img) }}" alt="Profile Image" width="50" height="50"> --}}
-                                        <img src="{{ Storage::url($user->profile_img ?? 'N/A') }}" alt="Profile Image"
-                                            width="50" height="50">
-
-                                        {{-- <img src="{{ asset('storage/' . $user->profiles) }}" alt="Profile Image" width="50" height="50"> --}}
-                                    @else
-                                        No Image
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($user->hasRole('land_lord'))
-                                        Landlord
-                                    @elseif ($user->hasRole('tenant'))
-                                        Tenant
-                                    @elseif ($user->hasRole('admin'))
-                                        Admin
-                                    @else
-                                        Null
-                                    @endif
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-between align-items-center gap-2" style="width: 100px">
-                                        <a class="btn btn-sm btn-success"
-                                            href="{{ route('admin.user.edit', $user->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
-                                        <form id="deleteForm{{ $user->id }}"
-                                            action="{{ route('admin.user.destroy', $user->id) }}" method="POST"
-                                            style="display:block; ">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-danger btn-del"
-                                                onclick="confirmDelete({{ $user->id }})"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th>State</th>
+                                <th>Postal Code</th>
+                                <th>Address</th>
+                                <th>Profile Image</th>
+                                <th>Role</th>
+                                <th>Actions</th>
                             </tr>
-                        @endforeach
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->name ?? 'N/A' }}</td>
+                                    <td>{{ $user->email ?? 'N/A' }}</td>
+                                    <td>{{ $user->phone ?? 'N/A' }}</td>
+                                    <td>{{ $user->city ?? 'N/A' }}</td>
+                                    <td>{{ $user->country ?? 'N/A' }}</td>
+                                    <td>{{ $user->state ?? 'N/A' }}</td>
+                                    <td>{{ $user->postal_code ?? 'N/A' }}</td>
+                                    <td>{{ $user->address ?? 'N/A' }}</td>
+                                    <td>
+                                        @if ($user->profile_img)
+                                            <img src="{{ Storage::url($user->profile_img) }}" alt="Profile Image"
+                                                width="50" height="50">
+                                        @else
+                                            No Image
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($user->hasRole('land_lord'))
+                                            Landlord
+                                        @elseif ($user->hasRole('tenant'))
+                                            Tenant
+                                        @elseif ($user->hasRole('admin'))
+                                            Admin
+                                        @else
+                                            Null
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-between align-items-center gap-2"
+                                            style="width: 100px">
+                                            <a class="btn btn-sm btn-success"
+                                                href="{{ route('admin.user.edit', $user->id) }}">
+                                                <img src="{{ asset('assets/images/bx-pencil.png') }}" width="20"
+                                                    height="20">
+                                            </a>
+                                            <form id="deleteForm{{ $user->id }}"
+                                                action="{{ route('admin.user.destroy', $user->id) }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm btn-danger btn-del"
+                                                    onclick="confirmDelete({{ $user->id }})">
+                                                    <img src="{{ asset('assets/images/delete.png') }}" width="20"
+                                                        height="20">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
-                <div class="pagination">
+                {{-- <div class="pagination">
                     {{ $users->onEachSide(1)->links('pagination::bootstrap-5') }}
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
 @endsection
 
-<script>
-    function confirmDelete(userId) {
-        console.log(userId);
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('deleteForm' + userId).submit();
-            }
-        })
-    }
-</script>
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#users_list').DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'csv',
+                        text: 'Export to CSV',
+                        className: 'btn btn-outline-primary btn-sm'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Export to PDF',
+                        className: 'btn btn-outline-danger btn-sm',
+                        orientation: 'landscape', // For wider tables
+                        pageSize: 'A4'
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Print',
+                        className: 'btn btn-outline-secondary btn-sm'
+                    }
+                ]
+            });
+        });
+
+        function confirmDelete(userId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm' + userId).submit();
+                }
+            });
+        }
+        // function confirmDelete(userId) {
+        //     console.log(userId);
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: "You won't be able to revert this!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Yes, delete it!'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             document.getElementById('deleteForm' + userId).submit();
+        //         }
+        //     })
+        // }
+    </script>
+@endsection
