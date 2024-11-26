@@ -54,18 +54,9 @@
                 <div class="profile-basic-info-form">
                     <div class="box-inline">
                         <h3> Trashed Users</h3>
-                        {{-- <form action="{{ route('admin.trash.search') }}" method="GET" class="mb-4">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Search users..."
-                                value="{{ request('search') }}">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </form> --}}
+
                     </div>
                 </div>
-                <!-- Search Form -->
-                {{-- <form action="#" method="GET" class="mb-4"> --}}
-
                 <div class="table-responsive">
                     <table id="userTable" class="table table-striped">
                         <thead>

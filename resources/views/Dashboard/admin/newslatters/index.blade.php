@@ -1,5 +1,18 @@
 @extends('Dashboard.Layouts.master_dashboard')
 
+<style>
+
+.dashboard-main .left-panel .left-panel-menu ul li a.newslatter {
+        background-color: white;
+        color: #414141;
+    }
+
+    .dashboard-main .left-panel .left-panel-menu ul li a.newslatter svg path {
+        fill: #414141 !important;
+    }
+
+</style>
+
 @section('content')
     <div class="profile-page user-page">
         <div class="row">
@@ -13,7 +26,7 @@
                 @endif
                 <div class="profile-basic-info-form">
                     <div class="box-inline">
-                        <h3> News  Latters</h3>
+                        <h3> News  Letters</h3>
                     </div>
                 </div>
                 <!-- Search Form -->
@@ -25,7 +38,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Email</th>
-                                <th>created At</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,16 +46,14 @@
                                 <tr>
                                     <td>{{ $newslatter->id ?? '' }}</td>
                                     <td>{{ $newslatter->email ?? '' }}</td>
-                                    <td>{{ $newslatter->created_at ?? '' }}</td>
+                                    <td>{{ $newslatter->created_at ? $newslatter->created_at->format('Y-m-d h:i A') : '' }}</td>
+
 
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-                        {{-- <div class="pagination justify-content-center">
-                        {{ $users->onEachSide(1)->links('pagination::bootstrap-5') }}
-                    </div> --}}
             </div>
         </div>
     </div>

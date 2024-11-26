@@ -47,54 +47,90 @@
         width: 1000px !important;
     }
 </style>
-
 @section('content')
 <div class="profile-page rooms-features-page">
     <div class="row">
         <div class="col-lg-12">
             @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <div class="profile-basic-info-form">
-
-
                 <h3>Rent To Who</h3>
-                <a  class="t-btn t-btn-blue"  href="{{ route('admin.rent-to-who.create') }}">Add New</a>
+                <a class="t-btn t-btn-blue" href="{{ route('admin.rent-to-who.create') }}">Add New</a>
             </div>
-            <table class="table table-striped mt-3">
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
 
-                @foreach ($rentToWhos as $rentToWho)
-                    <tr>
-                        <td>{{ $rentToWho->id ?? ''   }}</td>
-                        <td>{{ $rentToWho->name ?? '' }}</td>
-                        <td>
-                            <a class="btn btn-sm btn-success"
-                                href="{{ route('admin.rent-to-who.edit', $rentToWho->id) }}"><img src="{{asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
-                            <form id="deleteForm" action="{{ route('admin.rent-to-who.destroy', $rentToWho->id) }}" method="POST"
-                                style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-sm btn-danger"
-                                    onclick="confirmDelete()"> <img src="{{asset('assets/images/delete.png') }}" width="30" height="20"></button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
+            <div class="table-responsive">
+                <table id="rentToWhoTable" class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($rentToWhos as $rentToWho)
+                            <tr>
+                                <td>{{ $rentToWho->id ?? '' }}</td>
+                                <td>{{ $rentToWho->name ?? '' }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-success"
+                                        href="{{ route('admin.rent-to-who.edit', $rentToWho->id) }}">
+                                        <img src="{{ asset('assets/images/bx-pencil.png') }}" width="30" height="20">
+                                    </a>
+                                    <form id="deleteForm{{ $rentToWho->id }}"
+                                        action="{{ route('admin.rent-to-who.destroy', $rentToWho->id) }}" method="POST"
+                                        style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                            onclick="confirmDelete({{ $rentToWho->id }})">
+                                            <img src="{{ asset('assets/images/delete.png') }}" width="30" height="20">
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 @endsection
+
+@section('scripts')
 <script>
-    function confirmDelete() {
+    $(document).ready(function() {
+        $('#rentToWhoTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'csv',
+                    text: 'Export to CSV',
+                    className: 'btn btn-outline-primary btn-sm'
+                },
+                {
+                    extend: 'pdf',
+                    text: 'Export to PDF',
+                    className: 'btn btn-outline-danger btn-sm',
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print',
+                    className: 'btn btn-outline-secondary btn-sm'
+                }
+            ]
+        });
+    });
+
+    function confirmDelete(id) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -105,8 +141,9 @@
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
+                document.getElementById('deleteForm' + id).submit();
             }
-        })
+        });
     }
 </script>
+@endsection

@@ -72,7 +72,6 @@ Route::get('blog/details/{id}', [WebController::class, 'blogDetails'])->name('bl
 
 //news latters
 Route::post('NewsLatters/store', [NewsController::class, 'store'])->name('newslatter.store');
-Route::get('NewsLatters', [NewsController::class, 'index'])->name('newslatter');
 
 
 
@@ -158,6 +157,10 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
 
     Route::get('properties',[AdminPropertyController::class,'propertiesAll'])->name('properties');
+
+    //nesletter
+        Route::get('NewsLatters', [NewsController::class, 'index'])->name('newslatter');
+
 
     Route::get('/properties-for-approval',[AdminPropertyController::class,'properties'])->name(name: 'properties.approval');
     Route::get('/properties/approve/{id}',[AdminPropertyController::class,'propertyApprove'])->name('properties.approve');

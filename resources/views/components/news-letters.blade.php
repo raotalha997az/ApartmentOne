@@ -22,7 +22,7 @@
                 <div class="form-box">
                     <form id="newsletter-form">
                         @csrf
-                        <input type="email" name="email" id="email" placeholder="Enter Email Address" required>
+                        <input type="email" name="email" id="email" placeholder="Enter Email Address" >
                         <span id="error-message" style="color:red;"></span>
                         <button type="submit">Submit</button>
                     </form>
