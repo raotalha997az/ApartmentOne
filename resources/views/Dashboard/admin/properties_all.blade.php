@@ -8,6 +8,96 @@
     .dashboard-main .left-panel .left-panel-menu ul li a.properties-active svg path {
         fill: #414141 !important;
     }
+
+
+    .badge {
+    font-weight: 400;
+}
+
+td {
+    align-content: center;
+}
+
+a.Delet-btn.dan {
+    background: red;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.btn {
+    align-content: center;
+    border-radius: 10px;
+    padding: 5px 15px;
+    transition: .3s;
+}
+
+
+#propertiesTable_wrapper .dt-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#propertiesTable_wrapper .dt-search {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#propertiesTable_wrapper .dt-search input#dt-search-0 {
+    width: 50%;
+    border-radius: 10px;
+    border: 2px solid #80808075;
+    color: #000;
+}
+
+#propertiesTable_wrapper .dt-search label {
+    font-weight: 600;
+}
+
+
+#propertiesTable_info {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #00000094;
+    width: 100%;
+    text-align: end;
+}
+
+#propertiesTable_wrapper .dt-paging {
+    width: 100%;
+    text-align: end;
+    margin-top: 10px;
+}
+
+#propertiesTable_wrapper .dt-paging nav {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#propertiesTable_wrapper .dt-paging nav button {
+    border-radius: 10px;
+    color: #fff !important;
+    font-weight: 500;
+    background: #0077B6;
+}
+
+a.Delet-btn.dan img {
+    height: 25px;
+    width: 25px;
+    object-fit: contain;
+}
+
+
+
 </style>
 @section('content')
     <div class="tab-content">
@@ -48,13 +138,9 @@
                                             <a href="{{ route('admin.propertiesdetails', $property->id) }}"
                                                 class="btn btn-primary btn-sm">Details</a>
                                         @else
-                                            <a href="#" class="Delet-btn" data-id="{{ $property->id }}"
+                                            <a href="#" class="Delet-btn dan" data-id="{{ $property->id }}"
                                                 onclick="deleteProperty(this)">
-                                                <svg width="31" height="31" viewBox="0 0 31 31" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="..." fill="#FF0000" />
-                                                    <path d="..." fill="#FF0000" />
-                                                </svg>
+                                                <img src="{{ asset('assets/images/delete.png') }}" width="40" height="30" style="background-color: red;">
                                             </a>
                                             <a href="{{ route('admin.properties.approve', $property->id) }}"
                                                 class="btn btn-success btn-sm">Approve</a>

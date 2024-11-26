@@ -47,6 +47,119 @@
     .profile-page.rooms-features-page .two-hex-align input {
         width: 1000px !important;
     }
+
+
+
+
+
+
+
+
+    
+
+
+    .badge {
+    font-weight: 400;
+}
+
+td {
+    align-content: center;
+}
+
+a.Delet-btn.dan {
+    background: red;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.btn {
+    align-content: center;
+    border-radius: 10px;
+    padding: 5px 15px;
+    transition: .3s;
+}
+
+
+.dt-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.dt-search {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+ .dt-search input#dt-search-0 {
+    width: 50%;
+    border-radius: 10px;
+    border: 2px solid #80808075;
+    color: #000;
+}
+
+ .dt-search label {
+    font-weight: 600;
+}
+
+
+#roomFeaturesTable_info {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #00000094;
+    width: 100%;
+    text-align: end;
+}
+ .dt-paging {
+    width: 100%;
+    text-align: end;
+    margin-top: 10px;
+}
+
+ .dt-paging nav {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.dt-paging nav button {
+    border-radius: 10px !important;
+    color: #fff !important;
+    font-weight: 500;
+    background: #0077B6 !important;
+}
+
+a.Delet-btn.dan img {
+    height: 25px;
+    width: 25px;
+    object-fit: contain;
+}
+
+div.dt-container .dt-paging .dt-paging-button.disabled, div.dt-container .dt-paging .dt-paging-button.disabled:hover, div.dt-container .dt-paging .dt-paging-button.disabled:active {
+    color: #fff !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button {
+    color: #fff !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-paging .dt-paging-button.current:hover {
+    color: #fff !important;
+}
+
+
+
+
+
+
 </style>
 @section('content')
     <div class="profile-page rooms-features-page">
