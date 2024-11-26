@@ -7,11 +7,11 @@
             <div class="col-md-12">
                 <div class="text">
                     <h2>Contact Us </h2>
-                    <h1>Lets Collaborate With<br> Each Other</h1>      
+                    <h1>Lets Collaborate With<br> Each Other</h1>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </section>
 
 <section class="contact-us-sec-01">
@@ -27,15 +27,52 @@
                     <h2>Lets Discuss a dream<br> together</h2>
                 </div>
                 <div class="form-box">
-                    <form action="">
+                    @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+
+                    @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                    @endif
+
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf
                         <div class="two-input-align">
-                            <input type="text" placeholder="Full Name">
-                            <input type="text" placeholder="Email Address">
+
+                            <div style="width: 100%">
+                                <input type="text" placeholder="Full Name" name="name" value="{{ old('name') }}">
+
+                            @error('name')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+
+                            <div style="width: 100%">
+                                <input type="text" placeholder="Email Address" name="email" value="{{ old('email') }}">
+
+                            @error('email')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+
                         </div>
-                        <input type="tel"  placeholder="Contact Number">
-                        <textarea placeholder="Type Here"></textarea>
-                        <button>Submit </button>
+                        <input type="tel" placeholder="Contact Number" name="phone_number" value="{{ old('phone_number') }}">
+                        @error('phone_number')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+
+                        <textarea placeholder="Type Here" name="message">{{ old('message') }}</textarea>
+                        @error('message')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+
+                        <button type="submit">Submit</button>
                     </form>
+
                 </div>
             </div>
         </div>

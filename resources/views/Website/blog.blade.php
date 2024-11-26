@@ -1,8 +1,6 @@
 @extends('Website.layouts.master')
 <style>
     .main-blog-section-grid .blog-parent-box img {
-    width: 260px !important;
-    height: 200px;
     object-fit: cover;
     border-radius: 20px;
 }

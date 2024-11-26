@@ -46,6 +46,7 @@ Route::get('/help',[WebController::class,'help'])->name('help');
 Route::get('/blog',action: [WebController::class,'blog'])->name('blog');
 Route::get('/faqs',[WebController::class,'faqs'])->name('faqs');
 Route::get('/contact',[WebController::class,'contact'])->name('contact');
+Route::post('/contact/store',[WebController::class,'contact_store'])->name('contact.store');
 Route::get('/services',[WebController::class,'services'])->name('services');
 Route::get('/seekingahome',[WebController::class,'seekingahome'])->name('seekingahome');
 Route::get('/rentahome',[WebController::class,'rentahome'])->name('rentahome');
