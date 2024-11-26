@@ -48,6 +48,45 @@
     box-shadow: 0px 3px 6px 0px #00000021; */
 }
 
+/* CSS for message alignment */
+.message-box {
+    display: flex;
+    justify-content: flex-start; /* By default, align messages to left */
+    margin-bottom: 10px;
+}
+
+.message-box.you {
+    justify-content: flex-end; /* For sent messages, align to right */
+}
+
+.content-box {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+}
+
+.content-box.you {
+    background-color: #d3f8e2; /* Light green for sent messages */
+}
+
+.content-box.client {
+    background-color: #ffffff; /* White for received messages */
+}
+
+/* Profile image box */
+.img-box {
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.top-profile-message-box img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+
 .parent-tabs-mesg-box .top-profile-message-box .profile-name-messange p {
         font-size: 16px;
         font-weight: 700;
@@ -387,156 +426,148 @@
 
 
         function getMessages(id, element) {
-            // Remove the active class from all elements
-            document.querySelectorAll('.active-mesg-person').forEach(el => el.classList.remove('active-mesg-person'));
-            // Add the active class to the clicked element
-            element.classList.add('active-mesg-person');
+    // Remove the active class from all elements
+    document.querySelectorAll('.active-mesg-person').forEach(el => el.classList.remove('active-mesg-person'));
+    // Add the active class to the clicked element
+    element.classList.add('active-mesg-person');
 
-            localStorage.setItem('activeConversationId', id);
-            activeConversationId = id;
+    localStorage.setItem('activeConversationId', id);
+    activeConversationId = id;
 
-            console.log("activeConversationId",activeConversationId);
+    console.log("activeConversationId", activeConversationId);
 
+    $("#message").val('');
 
-            $("#message").val('');
+    $.ajax({
+        url: "{{ route('tenant.get.messages') }}",
+        type: "POST",
+        data: {
+            "_token": "{{ csrf_token() }}",
+            conversation_id: id
+        },
+        success: function(response) {
+            console.log(response);
 
-            $.ajax({
-                url: "{{ route('tenant.get.messages') }}",
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    conversation_id: id
-                },
-                success: function(response) {
-                    console.log(response);
-                    console.log(response.history.user.profile_img);
-                    const currentUserId = {{ auth()->id() }}; // Get the logged-in user's ID
-                    $("#chat-box").show();
-                    $("#profileBar").show();
-                    $("#profileBar").empty();
-                    $("#chat-box").empty();
-                    $("#write-message-box").show();
+            const currentUserId = {{ auth()->id() }}; // Get the logged-in user's ID
+            $("#chat-box").show();
+            $("#profileBar").show();
+            $("#profileBar").empty();
+            $("#chat-box").empty();
+            $("#write-message-box").show();
 
-                    @if (Auth::user()->hasRole('land_lord'))
-                        $("#profileBar").append(`
-                            <div class="top-profile-message-box">
-                                <div class="img-box">
-                                    <img src="{{ Storage::url('/') }}${response.history.user.profile_img}" alt="">
-                                </div>
-                                <div class="profile-name-messange">
-                                    <p>${response.history.user.name}</p>
-                                </div>
-                            </div>
-                        `);
-
-                        $("#sender_id").val(response.history.property.user.id);
-                        $("#receiver_id").val(response.history.user_id);
-                        $("#property_id").val(response.history.property_id);
-                        $("#conversation_id").val(response.history.id);
-                    @endif
-                    @if (Auth::user()->hasRole('tenant'))
-
-                        $("#profileBar").append(`
-                            <div class="top-profile-message-box">
-                                <div class="img-box">
-                                    <img src="{{ Storage::url('/') }}${response.history.property.user.profile_img}" alt="">
-                                </div>
-                                <div class="profile-name-messange">
-                                    <p>${response.history.property.user.name}</p>
-                                </div>
-                            </div>
-                        `);
-
-                        $("#sender_id").val(response.history.user_id);
-                        $("#receiver_id").val(response.history.property.user.id);
-                        $("#property_id").val(response.history.property_id);
-                        $("#conversation_id").val(response.history.id);
-                    @endif
-
-                    response.messages.forEach(message => {
-                        const isSender = message.sender_id === currentUserId;
-
-                        $("#chat-box").append(`
-                            <div class="main-person-message-box">
-                                <div class="parent-box-message-user">
-                                    <div class="content-box ${isSender ? 'you' : 'client'}">
-                                        <div class="name-and-date">
-                                            <h6>${isSender ? 'You' : message.sender.name}</h6>
-                                            <h5>${new Date(message.created_at).toLocaleDateString()} ${new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</h5>
-                                        </div>
-                                        <p>${message.message}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    });
-
-                    if (response.messages.length >= 5) {
-                        // Scroll chat box to the bottom
-                        console.log("scroll to bottom");
-                        const chatBox = document.getElementById("main-mesg-box");
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                    } else {
-                        // Scroll chat box to the top
-                        console.log("scroll to top");
-                        const chatBox = document.getElementById("main-mesg-box");
-                        chatBox.scrollTop = 0;
-                    }
-
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseJSON.message);
-                }
-            });
-        }
-
-
-        function sendMessage() {
-            var message = $('#message').val();
-            var receiverId = $('#receiver_id').val();
-            var senderId = $('#sender_id').val();
-            var propertyId = $('#property_id').val();
-            var conversationId = $('#conversation_id').val();
-
-            if (message.trim() === '') {
-                alert('Please enter a message before sending.');
-                return;
-            }
-
-            $.ajax({
-                url: '/tenant/send-message',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    message: message,
-                    receiver_id: receiverId,
-                    sender_id: senderId,
-                    property_id: propertyId,
-                    conversation_id: conversationId
-                },
-                success: function(data) {
-                    $('#message').val(''); // Clear input
-                    $("#chat-box").append(`
-                        <div class="main-person-message-box">
-                            <div class="parent-box-message-user">
-                                <div class="content-box you">
-                                    <div class="name-and-date">
-                                        <h6>You</h6>
-                                        <h5>${new Date(data.data.created_at).toLocaleDateString()} ${new Date(data.data.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</h5>
-                                    </div>
-                                    <p>${data.data.message}</p>
-                                </div>
-                            </div>
+            @if (Auth::user()->hasRole('land_lord'))
+                $("#profileBar").append(`
+                    <div class="top-profile-message-box">
+                        <div class="img-box">
+                            <img src="{{ Storage::url('/') }}${response.history.user.profile_img}" alt="">
                         </div>
-                    `);
-                },
-                error: function(error) {
-                    console.error('Error sending message:', error);
-                }
+                        <div class="profile-name-messange">
+                            <p>${response.history.user.name}</p>
+                        </div>
+                    </div>
+                `);
+
+                $("#sender_id").val(response.history.property.user.id);
+                $("#receiver_id").val(response.history.user_id);
+                $("#property_id").val(response.history.property_id);
+                $("#conversation_id").val(response.history.id);
+            @endif
+            @if (Auth::user()->hasRole('tenant'))
+                $("#profileBar").append(`
+                    <div class="top-profile-message-box">
+                        <div class="img-box">
+                            <img src="{{ Storage::url('/') }}${response.history.property.user.profile_img}" alt="">
+                        </div>
+                        <div class="profile-name-messange">
+                            <p>${response.history.property.user.name}</p>
+                        </div>
+                    </div>
+                `);
+
+                $("#sender_id").val(response.history.user_id);
+                $("#receiver_id").val(response.history.property.user.id);
+                $("#property_id").val(response.history.property_id);
+                $("#conversation_id").val(response.history.id);
+            @endif
+
+            response.messages.forEach(message => {
+                const isSender = message.sender_id === currentUserId;
+
+                $("#chat-box").append(`
+                    <div class="message-box ${isSender ? 'you' : 'client'}">
+                        <div class="content-box ${isSender ? 'you' : 'client'}">
+                            <div class="name-and-date">
+                                <h6>${isSender ? 'You' : message.sender.name}</h6>
+                                <h5>${new Date(message.created_at).toLocaleDateString()} ${new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</h5>
+                            </div>
+                            <p>${message.message}</p>
+                        </div>
+                    </div>
+                `);
             });
+
+            // Scroll to bottom if there are messages
+            const chatBox = document.getElementById("main-mesg-box");
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+        },
+        error: function(xhr) {
+            console.log(xhr.responseJSON.message);
         }
+    });
+}
+
+function sendMessage() {
+    var message = $('#message').val();
+    var receiverId = $('#receiver_id').val();
+    var senderId = $('#sender_id').val();
+    var propertyId = $('#property_id').val();
+    var conversationId = $('#conversation_id').val();
+
+    if (message.trim() === '') {
+        alert('Please enter a message before sending.');
+        return;
+    }
+
+    $.ajax({
+        url: '/tenant/send-message',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            message: message,
+            receiver_id: receiverId,
+            sender_id: senderId,
+            property_id: propertyId,
+            conversation_id: conversationId
+        },
+        success: function(data) {
+            $('#message').val(''); // Clear input
+
+            // Append the sent message to the chat box (right-side)
+            $("#chat-box").append(`
+                <div class="message-box you">
+                    <div class="content-box you">
+                        <div class="name-and-date">
+                            <h6>You</h6>
+                            <h5>${new Date(data.data.created_at).toLocaleDateString()} ${new Date(data.data.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</h5>
+                        </div>
+                        <p>${data.data.message}</p>
+                    </div>
+                </div>
+            `);
+
+            // Scroll to bottom after sending the message
+            const chatBox = document.getElementById("main-mesg-box");
+            chatBox.scrollTop = chatBox.scrollHeight;
+        },
+        error: function(error) {
+            console.error('Error sending message:', error);
+        }
+    });
+}
+
 
     </script>
 @endsection
