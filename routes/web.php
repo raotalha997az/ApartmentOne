@@ -52,6 +52,7 @@ Route::get('/seekingahome',[WebController::class,'seekingahome'])->name('seeking
 Route::get('/rentahome',[WebController::class,'rentahome'])->name('rentahome');
 Route::get('/info',[WebController::class,'info'])->name('info');
 // guest
+Route::middleware('guest')->group(function () {
 Route::get('/login',[WebController::class,'login'])->name('login');
 Route::get('/register',[WebController::class,'register'])->name('register');
 Route::post('/register/store',[AuhController::class,'register'])->name('register.store');
@@ -66,6 +67,7 @@ Route::get('password/reset', [AuhController::class, 'showLinkRequestForm'])->nam
 Route::post('password/email', [AuhController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [AuhController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [AuhController::class, 'reset'])->name('password.update');
+});
 
 // blogs
 Route::get('blog', [WebController::class, 'blog'])->name('blog');
@@ -73,8 +75,6 @@ Route::get('blog/details/{id}', [WebController::class, 'blogDetails'])->name('bl
 
 //news latters
 Route::post('NewsLatters/store', [NewsController::class, 'store'])->name('newslatter.store');
-
-
 
 
 // Dashboard Routes
