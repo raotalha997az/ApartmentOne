@@ -32,12 +32,24 @@
 
                             <div class="many-forms-fields-box">
                                 <div class="input-box">
-                                    <label for="">Name</label>
+                                    <label for="">Property Name</label>
                                     <input type="text" placeholder="Type Here" name="name">
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+                                @error('eviction')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                                <div class="many-forms-fields-box">
+                                    <div class="paren-check-box">
+                                        <label for="eviction">Eviction</label>
+                                        <input type="checkbox" name="eviction" id="eviction">
+                                    </div>
+                                </div>
+                                
+
                                 <div class="input-box">
                                     <label for="address">Address</label>
                                     <input type="text" placeholder="address" name="address" required>
@@ -480,6 +492,12 @@
 
                         // Create a new FormData object
                         var formData = new FormData($('#uploadForm')[0]);
+
+                        if ($('#eviction').is(':checked')) {
+                            formData.append('eviction', 1);
+                        } else {
+                            formData.append('eviction', 0);
+                        }
 
                         // Send the AJAX request
                         $.ajax({

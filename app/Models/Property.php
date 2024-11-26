@@ -19,6 +19,7 @@ class Property extends Model
         'available_status',
         'approve',
         'price_rent',
+        'eviction',
         'address'
     ];
     public function category()

@@ -72,13 +72,28 @@
 
                     <div class="many-forms-fields-box">
                         <div class="input-box">
-                            <label for="">Name</label>
+                            <label for="">Property Name</label>
                             <input type="text" placeholder="Type Here" name="name"
                                 value="{{ old('name', $property->name) }}">
                             @error('name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
+                        @error('eviction')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="many-forms-fields-box">
+                        <div class="paren-check-box">
+                            <label for="eviction">Eviction</label>
+                            <!-- Hidden input to send 0 when unchecked -->
+                            <input type="hidden" name="eviction" value="0">
+                            <input type="checkbox" name="eviction" id="eviction" value="1" 
+                                {{ old('eviction', $property->eviction) == 1 ? 'checked' : '' }}>
+                        </div>
+                    </div>
+                    
+                        
                         <div class="input-box">
                             <label for="address">Address</label>
                             <input type="text" placeholder="address" name="address"

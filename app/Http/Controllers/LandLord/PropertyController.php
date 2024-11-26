@@ -85,6 +85,7 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
+
         $id = Auth::user()->id;
         // Validate the request data
         $validated = $request->validate([
@@ -101,8 +102,8 @@ class PropertyController extends Controller
             'rent_whos' => 'required|array',
             'other_details' => 'nullable|string',
             'price' => 'required|numeric',
+            'eviction' => 'nullable|boolean',
         ]);
-
         // Create the new property
         $property = Property::create([
             'user_id' => $id,
@@ -113,6 +114,7 @@ class PropertyController extends Controller
             'other_details' => $validated['other_details'],
             'available_status' => 1,
             'price_rent' => $validated['price'],
+            'eviction' => $validated['eviction'] ,
         ]);
 
         // Handle image upload and store paths in the Media model
@@ -215,6 +217,7 @@ class PropertyController extends Controller
 
         public function properties_update(Request $request, $id)
 {
+
         $property = Property::findOrFail($id);
 
         $validated = $request->validate([
@@ -233,6 +236,7 @@ class PropertyController extends Controller
             'other_details' => 'nullable|string',
             'availability' => 'required|boolean',
             'price' => 'required|numeric',
+            'eviction' => 'nullable|boolean',
         ]);
 
         $property->update([
@@ -243,6 +247,7 @@ class PropertyController extends Controller
             'other_details' => $validated['other_details'],
             'available_status' => $validated['availability'],
             'price_rent' => $validated['price'],
+            'eviction' => $validated['eviction'],
         ]);
 
         if ($request->has('deleted_images')) {
