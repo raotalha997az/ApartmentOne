@@ -193,7 +193,8 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: response.errors.email[0] // Show the first validation error
+                        text: 'you are already subscribed',
+                        // text: response.errors.email[0] // Show the first validation error
                     });
                 }
             },

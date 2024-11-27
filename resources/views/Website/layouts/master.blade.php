@@ -225,8 +225,8 @@
                         <ul>
                             <li><a href="{{ route('info') }}"><i class="fa-solid fa-chevron-right"></i>Privacy
                                     Policy</a></li>
-                            <li><a href="{{ route('info') }}"><i class="fa-solid fa-chevron-right"></i>Terms Of
-                                    Use</a></li>
+                            {{-- <li><a href="{{ route('info') }}"><i class="fa-solid fa-chevron-right"></i>Terms Of
+                                    Use</a></li> --}}
                             <li><a href="{{ route('contact') }}"><i class="fa-solid fa-chevron-right"></i>Contact
                                     Us</a></li>
                         </ul>
