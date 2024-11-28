@@ -54,7 +54,7 @@ Route::get('/info',[WebController::class,'info'])->name('info');
 // guest
 Route::post('/logout',[AuhController::class,'logout'])->name('logout');
 Route::get('/verify-code', [AuhController::class, 'verifyCodeView'])->name('verify.code');
-Route::middleware('guest')->group(function () {
+// Route::middleware('guest')->group(function () {
 Route::get('/login',[WebController::class,'login'])->name('login');
 Route::get('/register',[WebController::class,'register'])->name('register');
 Route::post('/register/store',[AuhController::class,'register'])->name('register.store');
@@ -67,7 +67,7 @@ Route::get('password/reset', [AuhController::class, 'showLinkRequestForm'])->nam
 Route::post('password/email', [AuhController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [AuhController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [AuhController::class, 'reset'])->name('password.update');
-});
+// });
 
 // blogs
 Route::get('blog', [WebController::class, 'blog'])->name('blog');
@@ -79,7 +79,7 @@ Route::post('NewsLatters/store', [NewsController::class, 'store'])->name('newsla
 
 // Dashboard Routes
 Route::prefix('tenant')->name('tenant.')->group(function () {
-    Route::middleware(['auth', 'verified','role:tenant'])->group(function () {
+    Route::middleware(['auth', 'twofactor', 'verified','role:tenant'])->group(function () {
     Route::get('/dashboard',[TenantAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/screening', [TenantPropertiesController::class, 'screening'])->name('screening');
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
@@ -114,7 +114,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
 
 // Landlord Routes
 Route::prefix('landlord')->name('landlord.')->group(function () {
-    Route::middleware(['auth', 'verified', 'role:land_lord|admin'])->group(function () {
+    Route::middleware(['auth', 'twofactor', 'verified', 'role:land_lord|admin'])->group(function () {
     Route::get('/dashboard',[LandlordAuthController::class,'dashboard'])->name('dashboard');
     // properties
     Route::get('property',[PropertyController::class,'properties'])->name('properties');
@@ -154,7 +154,7 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications')->middleware('auth');
     //Admin Dashboard Routes
     Route::prefix('admin')->name('admin.')->group(function () {
-    Route::middleware(['auth', 'verified','role:admin|land_lord'])->group(function () {
+    Route::middleware(['auth', 'twofactor', 'verified','role:admin|land_lord'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
 
     Route::get('properties',[AdminPropertyController::class,'propertiesAll'])->name('properties');

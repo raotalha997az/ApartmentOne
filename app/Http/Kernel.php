@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'twofactor' => \App\Http\Middleware\TwoFactorMiddleware::class,
+
     ];
     protected $routeMiddleware = [
         // Other middlewares...

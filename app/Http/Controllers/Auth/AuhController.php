@@ -69,47 +69,47 @@ class AuhController extends Controller
 
 
 
-public function login(Request $request)
+    public function login(Request $request)
 {
-    // Validate the request
     $request->validate([
         'email' => 'required|email',
         'password' => 'required|string|min:6',
     ]);
 
-    // Attempt to log the user in
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-        $user = Auth::user();
+    $credentials = $request->only('email', 'password');
 
-       // Check if email is verified
-       if (!$user->hasVerifiedEmail()) {
-        Auth::logout();
-        return back()->withErrors(['email' => 'Your email is not verified. Please verify your email first.']);
+    if (Auth::validate($credentials)) {
+        // Get the user
+        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+        if (!$user->hasVerifiedEmail()) {
+            return back()->withErrors(['email' => 'Your email is not verified.']);
         }
 
-        // Generate a 6-digit verification code
+        // Generate and store verification code
         $verificationCode = rand(100000, 999999);
-
-        // Store the code in the session or database (optional for persistence)
         session(['verification_code' => $verificationCode]);
+        session(['temp_user_id' => $user->id]); // Store user ID temporarily
 
-        // Dispatch the job to send the email
+        // Dispatch job to send the verification code
         SendVerificationCodeJob::dispatch($user, $verificationCode);
 
-        // Redirect to dashboard or intended route
-        return redirect()->route('verify.code')->with('message', 'A verification code has been sent to your email.');
+        return redirect()->route('verify.code')
+            ->with('message', 'A verification code has been sent to your email.');
     }
 
-    // If authentication fails, redirect back with an error message
     return back()->withErrors(['email' => 'Invalid credentials.']);
 }
 
 
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');
-    }
+public function logout(Request $request)
+{
+    // Clear two-factor verification session data
+    $request->session()->forget('two_factor_verified');
+    Auth::logout();
+
+    return redirect('/login');
+}
 
 
     public function showLinkRequestForm()
@@ -188,14 +188,18 @@ public function login(Request $request)
             'verification_code' => 'required|numeric',
         ]);
 
-        // Check the code from the session
         $storedCode = session('verification_code');
+        $tempUserId = session('temp_user_id');
 
-        if ($request->verification_code == $storedCode) {
-            // Clear the session code
+        if ($request->verification_code == $storedCode && $tempUserId) {
+            // Log in the user fully
+            Auth::loginUsingId($tempUserId);
+
+            // Clear temporary session data
             session()->forget('verification_code');
+            session()->forget('temp_user_id');
 
-            // Redirect to the appropriate dashboard
+            // Redirect based on user role
             $user = Auth::user();
             if ($user->hasRole('admin')) {
                 return redirect()->route('admin.dashboard');
@@ -205,32 +209,41 @@ public function login(Request $request)
                 return redirect()->route('landlord.dashboard');
             }
 
-            return redirect()->route('login')->withErrors('Unauthorized access.');
+            return redirect()->route('dashboard');
         }
 
         return back()->withErrors(['verification_code' => 'Invalid verification code.']);
     }
 
-    public function resentVerifyCode(Request $request)
-{
-    $user = Auth::user();
 
-    // Ensure the user is authenticated
-    if (!$user) {
-        return response()->json(['message' => 'Unauthorized'], 401);
+    public function resentVerifyCode(Request $request)
+    {
+        // Retrieve the temporary user ID from the session
+        $tempUserId = session('temp_user_id');
+
+        if (!$tempUserId) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        // Retrieve the user based on the temporary user ID
+        $user = User::find($tempUserId);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found.'], 404);
+        }
+
+        // Generate a new verification code
+        $verificationCode = rand(100000, 999999);
+
+        // Store the code in the session
+        session(['verification_code' => $verificationCode]);
+
+        // Dispatch the job to send the verification code
+        SendVerificationCodeJob::dispatch($user, $verificationCode);
+
+        return response()->json(['message' => 'Verification code has been resent.'], 200);
     }
 
-    // Generate a new verification code
-    $verificationCode = rand(100000, 999999);
-
-    // Store the code in the session or database
-    session(['verification_code' => $verificationCode]);
-
-    // Dispatch the job to send the email
-    SendVerificationCodeJob::dispatch($user, $verificationCode);
-
-    return response()->json(['message' => 'Verification code has been resent.'], 200);
-}
 
 
 }
