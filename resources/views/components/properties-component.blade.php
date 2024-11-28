@@ -8,8 +8,17 @@
                         <h2>Explore Today’s Top Listings</h2>
                         <p>Lorem Ipsum is simply dummy text</p>
                     </div>
-
-                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+                    @if (Auth::user())
+                    @if (Auth::user()->hasRole('tenant'))
+                        <a href="{{ route('tenant.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+                    @elseif(Auth::user()->hasRole('land_lord'))
+                        <a href="{{ route('landlord.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+                    @elseif(Auth::user()->hasRole('admin'))
+                        <a href="{{ route('admin.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+                    @endif
+        @else
+            <a href="{{ route('register') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+        @endif
 
                 </div>
             </div>

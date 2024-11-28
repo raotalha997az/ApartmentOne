@@ -26,7 +26,17 @@
                       <h3>Rental Management</h3>
                       <h2>Global Rental<br> management </h2>
                       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                      <a href="{{ route('register') }}" class="t-btn t-btn-blue">Create A Free Account</a>
+                      @if (Auth::user())
+                                            @if (Auth::user()->hasRole('tenant'))
+                                                <a href="{{ route('tenant.dashboard') }}" class="t-btn t-btn-blue">Create A Free Account</a>
+                                            @elseif(Auth::user()->hasRole('land_lord'))
+                                                <a href="{{ route('landlord.dashboard') }}" class="t-btn t-btn-blue">Create A Free Account</a>
+                                            @elseif(Auth::user()->hasRole('admin'))
+                                                <a href="{{ route('admin.dashboard') }}" class="t-btn t-btn-blue">Create A Free Account</a>
+                                            @endif
+                                @else
+                                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">Create A Free Account</a>
+                                @endif
                   </div>
               </div>
               <div class="col-lg-6 col-md-12">

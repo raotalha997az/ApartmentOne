@@ -23,7 +23,17 @@
                     <h3>Seeking A Dream Home</h3>
                     <h2>Find your perfect Home with a single click</h2>
                     <p>Welcome to our platform that connects landlords with renters. Submit your rental application and let landowners view and evaluate them. Start your search</p>
-                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">Get Started</a>
+                    @if (Auth::user())
+                    @if (Auth::user()->hasRole('tenant'))
+                        <a href="{{ route('tenant.dashboard') }}" class="t-btn t-btn-blue">Get Started</a>
+                    @elseif(Auth::user()->hasRole('land_lord'))
+                        <a href="{{ route('landlord.dashboard') }}" class="t-btn t-btn-blue">Get Started</a>
+                    @elseif(Auth::user()->hasRole('admin'))
+                        <a href="{{ route('admin.dashboard') }}" class="t-btn t-btn-blue">Get Started</a>
+                    @endif
+        @else
+            <a href="{{ route('register') }}" class="t-btn t-btn-blue">Get Started</a>
+        @endif
                 </div>
             </div>
             <div class="col-lg-5 col-md-12">
@@ -105,7 +115,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text text-center">
-                    <a href="{{ route('register') }}" class="t-btn t-btn-blue">Start Listing Your Property Today</a>
+                    @if (Auth::user())
+                    @if (Auth::user()->hasRole('tenant'))
+                        <a href="{{ route('tenant.dashboard') }}" class="t-btn t-btn-blue">Start Listing Your Property Today</a>
+                    @elseif(Auth::user()->hasRole('land_lord'))
+                        <a href="{{ route('landlord.dashboard') }}" class="t-btn t-btn-blue">Start Listing Your Property Today</a>
+                    @elseif(Auth::user()->hasRole('admin'))
+                        <a href="{{ route('admin.dashboard') }}" class="t-btn t-btn-blue">Start Listing Your Property Today</a>
+                    @endif
+        @else
+            <a href="{{ route('register') }}" class="t-btn t-btn-blue">Start Listing Your Property Today</a>
+        @endif
 
                 </div>
             </div>
