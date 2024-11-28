@@ -54,7 +54,7 @@
             @csrf
             <div class="form-group w-100">
                 <label for="verification_code">Verification Code</label>
-                <input type="text" name="verification_code" id="verification_code" class="form-control w-100 mt-1" required>
+                <input type="text" name="verification_code" id="verification_code" class="form-control w-100 mt-1">
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
