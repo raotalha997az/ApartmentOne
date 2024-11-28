@@ -1,4 +1,20 @@
 @extends('Website.layouts.master')
+<style>
+    .apartment-about-active::after {
+content: "";
+width: 8px;
+height: 5px;
+position: absolute;
+background-color: #0077B6;
+bottom: -5px;
+left: 45%;
+border-radius: 20px;
+}
+
+.header-menu li {
+position: relative;
+}
+</style>
 @section('content')
 
       <section class="home-sec-01" style="background-image: url({{ asset('assets/images/about-us-banner.png') }})">

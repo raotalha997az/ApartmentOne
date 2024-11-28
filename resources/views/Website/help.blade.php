@@ -1,4 +1,20 @@
 @extends('Website.layouts.master')
+<style>
+    .apartment-help-active::after {
+content: "";
+width: 8px;
+height: 5px;
+position: absolute;
+background-color: #0077B6;
+bottom: -5px;
+left: 45%;
+border-radius: 20px;
+}
+
+.header-menu li {
+position: relative;
+}
+</style>
       @section('content')
 
       <section class="home-sec-01" style="background-image: url({{ asset('assets/images/help-banner.png')}}">
@@ -7,7 +23,7 @@
                 <div class="col-md-12">
                     <div class="text">
                         <h2>Help Center </h2>
-                        <h1>Apartment One</h1>      
+                        <h1>Apartment One</h1>
                     </div>
                 </div>
             </div>
@@ -58,7 +74,7 @@
                         </div>
                       </div>
                     </div>
-              
+
                     <!-- Second Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTwo">
@@ -73,7 +89,7 @@
                         </div>
                       </div>
                     </div>
-              
+
                     <!-- Third Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingThree">
@@ -88,7 +104,7 @@
                         </div>
                       </div>
                     </div>
-              
+
                     <!-- Fourth Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingFour">
@@ -103,11 +119,11 @@
                         </div>
                       </div>
                     </div>
-              
+
                   </div>
             </div>
             <div class="col-lg-6 col-md-12">
-                
+
                 <div class="accordion" id="faqAccordion1">
 
                     <!-- First Accordion Item (Active by default) -->
@@ -124,7 +140,7 @@
                         </div>
                       </div>
                     </div>
-                
+
                     <!-- Second Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTwo1">
@@ -139,7 +155,7 @@
                         </div>
                       </div>
                     </div>
-                
+
                     <!-- Third Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingThree1">
@@ -154,7 +170,7 @@
                         </div>
                       </div>
                     </div>
-                
+
                     <!-- Fourth Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingFour1">
@@ -169,9 +185,9 @@
                         </div>
                       </div>
                     </div>
-                
+
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -200,7 +216,7 @@
 
 </section>
 
-<x-properties-component />  
+<x-properties-component />
 
 <x-testimonials-component />
 

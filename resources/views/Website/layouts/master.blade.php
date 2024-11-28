@@ -88,18 +88,18 @@
                 <div class="col-lg-10">
                     <div class="header-menu">
                         <ul>
-                            <li><a href="{{ route('index') }}">Home</a></li>
-                            <li><a href="{{ route('about') }}">About</a></li>
-                            <li class="drop-down-menu"><a href="{{ route('services') }}">Services <i
+                            <li><a href="{{ route('index') }}" class="apartment-active">Home</a></li>
+                            <li><a href="{{ route('about') }}" class="apartment-about-active">About</a></li>
+                            <li class="drop-down-menu"><a href="{{ route('services') }}" class="apartment-sevices-active">Services <i
                                         class="fa-solid fa-chevron-down"></i></a>
                                 <ul>
                                     <li><a href="{{ route('rentahome') }}">Rentals Management</a></li>
                                     <li><a href="{{ route('seekingahome') }}">Seeking A Dream Home</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ route('blog') }}">Blogs</a></li>
-                            <li><a href="{{ route('help') }}">Help</a></li>
-                            <li><a href="{{ route('contact') }}">Contact</a></li>
+                            <li><a href="{{ route('blog') }}" class="apartment-blog-active">Blogs</a></li>
+                            <li><a href="{{ route('help') }}" class="apartment-help-active">Help</a></li>
+                            <li><a href="{{ route('contact') }}" class="apartment-contact-active">Contact</a></li>
 
                             <li class="user-login-dropdown">
 
