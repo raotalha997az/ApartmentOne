@@ -7,6 +7,7 @@ use Throwable;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -60,6 +61,11 @@ class Handler extends ExceptionHandler
             return response()->view('errors.404', [], 404);
         }
 
+         // Handle 403 Forbidden Exception (Unauthorized Action)
+         if ($exception instanceof AccessDeniedHttpException) {
+            Log::warning('403 error encountered', ['url' => $request->url()]);
+            return response()->view('errors.403', [], 403);
+        }
         // Handle Other HTTP Exceptions (e.g., 403, 500, etc.)
         if ($exception instanceof HttpException) {
             $status = $exception->getStatusCode();
