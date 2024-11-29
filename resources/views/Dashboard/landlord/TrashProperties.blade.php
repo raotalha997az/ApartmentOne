@@ -87,7 +87,7 @@
                             <div class="reports-listings-property-table">
                                 <div class="three-headings-align">
                                     <h3>Property</h3>
-                                    <h3>Tenants Applied</h3>
+                                    <h3></h3>
                                     <h3>Action</h3>
                                 </div>
 
