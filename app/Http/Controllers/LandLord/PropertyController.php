@@ -188,7 +188,7 @@ class PropertyController extends Controller
     {
         // Retrieve the specific property with its media, pets, and related features and feature details
         $property = Property::with(['media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category'])->findOrFail($id);
-
+        $this->authorize('show', $property);
         $tenants = ApplyPropertyHistory::with('user')  // Assuming user is the tenant
         ->where('property_id', $id)
         ->get()
@@ -197,20 +197,36 @@ class PropertyController extends Controller
         return view('Dashboard.landlord.propertiesdetails', compact('tenants','property'));
     }
 
-        public function properties_edit($id) {
+        // public function properties_edit($id) {
 
-            // Retrieve the property with the given ID, including features and related data
+        //     // Retrieve the property with the given ID, including features and related data
+        //     $property = Property::with(['category', 'media', 'pets', 'features', 'RentToWhoDetails.rentToWho'])->findOrFail($id);
+
+        //     // Fetch all the features for the checkboxes
+        //     $allFeatures = Feature::all();
+
+        //     // Fetch the categories, pets, and rentWhos for the dropdowns
+        //     $categories = Category::all();
+        //     $pets = Pet::all();
+        //     $rentWhos = RentToWho::all();
+
+        //     // Pass the property and its media to the view
+        //     return view('Dashboard.landlord.properties_edit', compact('property', 'categories', 'pets', 'rentWhos', 'allFeatures'));
+        // }
+
+        public function properties_edit($id)
+        {
             $property = Property::with(['category', 'media', 'pets', 'features', 'RentToWhoDetails.rentToWho'])->findOrFail($id);
 
-            // Fetch all the features for the checkboxes
-            $allFeatures = Feature::all();
+            // Ensure that the user is authorized to edit this property
+            $this->authorize('edit', $property);
 
-            // Fetch the categories, pets, and rentWhos for the dropdowns
+            // Continue with fetching other data
+            $allFeatures = Feature::all();
             $categories = Category::all();
             $pets = Pet::all();
             $rentWhos = RentToWho::all();
 
-            // Pass the property and its media to the view
             return view('Dashboard.landlord.properties_edit', compact('property', 'categories', 'pets', 'rentWhos', 'allFeatures'));
         }
 
@@ -219,7 +235,7 @@ class PropertyController extends Controller
 {
 
         $property = Property::findOrFail($id);
-
+        $this->authorize('update', $property);
         $validated = $request->validate([
             'images' => 'sometimes|array|max:50', // 'sometimes' means it's optional, unlike 'required'
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4048',
@@ -327,6 +343,7 @@ class PropertyController extends Controller
              else {
                 // If the property is not found in any wishlist, proceed with deletion
                 $property = Property::findOrFail($id);
+                $this->authorize('delete', $property);
                 $property->delete();
 
                 return response()->json([
