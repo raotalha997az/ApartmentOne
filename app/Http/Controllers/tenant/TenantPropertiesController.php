@@ -125,6 +125,12 @@ class TenantPropertiesController extends Controller
                 $notificationId // Optional: You can create a unique notification ID for each admin
             ));
         }
+    // Ensure the user is authenticated
+    $userid = Auth::id();
+
+    // Check if the property exists in the wishlist
+         $wishlist = Wishlist::where('user_id', $userid)->where('property_id', $propertyId)->first();
+         $wishlist->delete();
 
         session()->flash('success', 'Application submitted successfully!');
 
