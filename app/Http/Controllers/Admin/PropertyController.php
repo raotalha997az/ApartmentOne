@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Property;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -87,6 +88,36 @@ public function propertiesAll()
     $categories = Category::all();
 
     return view('Dashboard.admin.properties_all',compact('properties', 'categories'));
+}
+
+
+
+public function properties_delete($id)
+{
+    // Check if the property exists in any wishlist
+    $wishlistItem = Wishlist::where('property_id', $id)->first();
+
+    $applyhistory = ApplyPropertyHistory::where('property_id', $id)->first();
+
+    if ($wishlistItem) {
+        // If the property is found in a wishlist, prevent deletion
+        return response()->json([
+            'message' => 'Property is in a tenant\'s wishlist, so it cannot be deleted.',
+        ]);
+    }elseif($applyhistory){
+        return response()->json([
+            'message' => 'Property is in a tenant\'s Apply History, so it cannot be deleted.',
+        ]);
+    }
+     else {
+        // If the property is not found in any wishlist, proceed with deletion
+        $property = Property::findOrFail($id);
+        $property->delete();
+
+        return response()->json([
+            'message' => 'Property deleted successfully.',
+        ]);
+    }
 }
 
 

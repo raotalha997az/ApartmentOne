@@ -112,7 +112,7 @@
                                             </div>
 
                                             <div class="box gallery-box-imges">
-                                                <img src="{{ asset('assets/images/Tenants-Applied-img-01.png') }}"
+                                                {{-- <img src="{{ asset('assets/images/Tenants-Applied-img-01.png') }}"
                                                     alt="">
                                                 <img src="{{ asset('assets/images/Tenants-Applied-img-02.png') }}"
                                                     alt="">
@@ -121,7 +121,7 @@
                                                 <img src="{{ asset('assets/images/Tenants-Applied-img-04.png') }}"
                                                     alt="">
                                                 <img src="{{ asset('assets/images/Tenants-Applied-img-05.png') }}"
-                                                    alt="">
+                                                    alt=""> --}}
 
                                             </div>
                                         {{-- </a> --}}

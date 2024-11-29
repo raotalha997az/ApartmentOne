@@ -201,7 +201,7 @@ a.Delet-btn.dan img {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Proceed with deletion
-                    fetch(`{{ route('landlord.properties.delete', '') }}/${propertyId}`, { // Adjusted route
+                    fetch(`{{ route('admin.properties.delete', '') }}/${propertyId}`, { // Adjusted route
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

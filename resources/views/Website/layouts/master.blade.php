@@ -105,8 +105,7 @@
 
                                 @if (Auth::user())
                                     <a href="http://127.0.0.1:8000/landlord/profile" class="user-profile-link">
-                                        <img src="/storage/profile_images/profile_a12mQZAJv6UTkdZGe5X0bRt9j6DkvK8FaKHsT1In.png"
-                                            alt="">{{ Auth::user()->name }}
+                                        <img src="{{ Storage::url(Auth::user()->profile_img ?? '') }}" alt="">{{ Auth::user()->name }}
                                     </a>
                                     <ul>
                                         <li>

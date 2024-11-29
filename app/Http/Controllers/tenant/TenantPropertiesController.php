@@ -126,11 +126,13 @@ class TenantPropertiesController extends Controller
             ));
         }
     // Ensure the user is authenticated
-    $userid = Auth::id();
+        $userid = Auth::id();
 
     // Check if the property exists in the wishlist
          $wishlist = Wishlist::where('user_id', $userid)->where('property_id', $propertyId)->first();
-         $wishlist->delete();
+         if ($wishlist) {
+            $wishlist->delete();
+         }
 
         session()->flash('success', 'Application submitted successfully!');
 

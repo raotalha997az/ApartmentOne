@@ -114,7 +114,7 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
 
 // Landlord Routes
 Route::prefix('landlord')->name('landlord.')->group(function () {
-    Route::middleware(['auth', 'twofactor', 'verified', 'role:land_lord|admin'])->group(function () {
+    Route::middleware(['auth', 'twofactor', 'verified', 'role:land_lord'])->group(function () {
     Route::get('/dashboard',[LandlordAuthController::class,'dashboard'])->name('dashboard');
     // properties
     Route::get('property',[PropertyController::class,'properties'])->name('properties');
@@ -125,6 +125,10 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::put('update/property/{id}', [PropertyController::class, 'properties_update'])->name('properties.update');
     Route::post('delete/property/{id}', [PropertyController::class, 'properties_delete'])->name('properties.delete');
     Route::post('store/category',[PropertyController::class,'category_store'])->name('category.store');
+
+
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
+    Route::post('/notifications/{id}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
       // Trash Properties
       Route::prefix('trash')->name('trash.')->group(function () {
@@ -154,10 +158,12 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications')->middleware('auth');
     //Admin Dashboard Routes
     Route::prefix('admin')->name('admin.')->group(function () {
-    Route::middleware(['auth', 'twofactor', 'verified','role:admin|land_lord'])->group(function () {
+    Route::middleware(['auth', 'twofactor', 'verified','role:admin'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
 
     Route::get('properties',[AdminPropertyController::class,'propertiesAll'])->name('properties');
+
+    Route::post('delete/property/{id}', [AdminPropertyController::class, 'properties_delete'])->name('properties.delete');
 
     //nesletter
         Route::get('NewsLatters', [NewsController::class, 'index'])->name('newslatter');
