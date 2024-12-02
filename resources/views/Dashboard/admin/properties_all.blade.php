@@ -18,12 +18,6 @@ td {
     align-content: center;
 }
 
-a.Delet-btn.dan {
-    background: red;
-    border-radius: 10px;
-    padding: 5px;
-}
-
 .btn {
     align-content: center;
     border-radius: 10px;
@@ -98,6 +92,54 @@ a.Delet-btn.dan img {
 
 
 
+
+.drop_down_hover .drop_down_hover_content {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 10px;
+    background: #fff;
+    padding: 20px 15px;
+    border-radius: 5px;
+    border: 1px solid #80808030;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    min-width: 150px;
+    transition: .3s;
+    left: 0;
+}
+
+.drop_down_hover {
+    position: relative;
+    transition: .3s;
+    cursor: pointer;
+    width: max-content;
+}
+
+.drop_down_hover:hover .drop_down_hover_content{
+    display: flex;
+    transition: .3s
+}
+
+.drop_down_hover:hover{
+    width: 100%
+}
+
+.drop_down_hover_content .Delet-btn{
+    background: red;
+    color: #fff
+
+}
+
+.drop_down_hover_content .Delet-btn:hover{
+    background: rgb(221, 0, 0);
+    color:#fff;
+}
+
+
+
 </style>
 @section('content')
     <div class="tab-content">
@@ -122,6 +164,7 @@ a.Delet-btn.dan img {
                     </thead>
                     <tbody>
                         @foreach ($properties as $property)
+
                             <tr>
                                 <td>{{ $property->name }}</td>
                                 <td>{{ $property->user->name }}</td>
@@ -133,21 +176,27 @@ a.Delet-btn.dan img {
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="d-flex gap-2">
-                                        @if ($property->approve)
-                                            <a href="{{ route('admin.propertiesdetails', $property->id) }}"
-                                                class="btn btn-primary btn-sm">Details</a>
-                                        @else
-                                            <a href="#" class="Delet-btn dan" data-id="{{ $property->id }}"
-                                                onclick="deleteProperty(this)">
-                                                <img src="{{ asset('assets/images/delete.png') }}" width="40" height="30" style="background-color: red;">
-                                            </a>
-                                            <a href="{{ route('admin.properties.approve', $property->id) }}"
-                                                class="btn btn-success btn-sm">Approve</a>
-                                            <a href="{{ route('admin.propertiesdetails', $property->id) }}"
-                                                class="btn btn-primary btn-sm">Details</a>
-                                        @endif
+                                    <div class="drop_down_hover" >
+                                        <svg width="5" height="19" viewBox="0 0 5 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="2.5" cy="2.5" r="2.5" fill="#000" />
+                                            <circle cx="2.5" cy="9.5" r="2.5" fill="#000" />
+                                            <circle cx="2.5" cy="16.5" r="2.5" fill="#000" />
+                                        </svg>
+
+                                        <div class="drop_down_hover_content" >
+                                            @if ($property->approve == 1)
+                                                <a href="{{ route('admin.propertiesdetails', $property->id) }}" class="btn btn-primary btn-sm">Details</a>
+                                            @else
+                                                <a href="#" class="Delet-btn btn-sm btn" data-id="{{ $property->id }}" onclick="deleteProperty(this)">
+                                                    Delete
+                                                </a>
+                                                <a href="{{ route('admin.properties.approve', $property->id) }}" class="btn btn-success btn-sm">Approve</a>
+                                                <a href="{{ route('admin.propertiesdetails', $property->id) }}" class="btn btn-primary btn-sm">Details</a>
+                                            @endif
+
+                                        </div>
                                     </div>
+
                                 </td>
                             </tr>
                         @endforeach
