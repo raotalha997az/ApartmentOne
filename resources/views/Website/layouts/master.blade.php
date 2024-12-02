@@ -186,7 +186,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-4">
                     <div class="footer-logo">
-                        <a href="{{ route('index') }}"><img src="{{ asset('assets/images/footer-logo.png') }}"
+                        <a href="{{ url('/') }}"><img src="{{ asset('assets/images/footer-logo.png') }}"
                                 alt=""></a>
                     </div>
                     <div class="text">
@@ -235,7 +235,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer-copy-right">
-                        <p>Copyright © 2024 | All Rights Reserved By <a href="#">Apartment One</a> </p>
+                        <p>Copyright © 2024 | All Rights Reserved By <a href="{{ url('/') }}">Apartment One</a> </p>
                     </div>
                 </div>
             </div>
