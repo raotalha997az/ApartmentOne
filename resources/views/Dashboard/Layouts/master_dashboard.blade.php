@@ -402,6 +402,18 @@
                                                 </svg>
 
                                                 News Letters</a></li>
+                                        <li><a href="{{ route('admin.testimonial') }}" class="testimonial-active">
+
+                                                <svg width="30" height="30" viewBox="0 0 30 30"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M15 2.5C8.1075 2.5 2.5 6.98625 2.5 12.5C2.5 16.135 4.8725 19.3937 8.75 21.1675V27.5L15.425 22.4938C22.1213 22.315 27.5 17.9 27.5 12.5C27.5 6.98625 21.8925 2.5 15 2.5ZM15 20H14.5837L11.25 22.5V19.4788L10.4488 19.17C7.0875 17.8763 5 15.32 5 12.5C5 8.36375 9.48625 5 15 5C20.5137 5 25 8.36375 25 12.5C25 16.6363 20.5137 20 15 20Z"
+                                                        fill="white" />
+                                                    <path
+                                                        d="M8.75 8.75H21.25V11.25H8.75V8.75ZM8.75 13.75H17.5V16.25H8.75V13.75Z"
+                                                        fill="white" />
+                                                </svg>
+                                                Testimonials</a></li>
                                     </ul>
                                 @endif
                             </div>
@@ -783,7 +795,7 @@
         // Mark all notifications as read
         $('#markAllAsReadBtn').click(function() {
             let role =
-            '{{ Auth::user()->hasRole('admin') ? 'admin' : 'land_lord' }}'; // Ensure this variable is passed from the server
+                '{{ Auth::user()->hasRole('admin') ? 'admin' : 'land_lord' }}'; // Ensure this variable is passed from the server
 
             // Set the URL conditionally based on the role
             let url = (role === 'admin') ?

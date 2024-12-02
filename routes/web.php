@@ -18,6 +18,7 @@ use App\Http\Controllers\TrashPropertyController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\RentToWhoController;
 use App\Http\Controllers\Auth\TenantAuthController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Auth\LandlordAuthController;
 use App\Http\Controllers\LandLord\PropertyController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -166,7 +167,9 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::post('delete/property/{id}', [AdminPropertyController::class, 'properties_delete'])->name('properties.delete');
 
     //nesletter
-        Route::get('NewsLatters', [NewsController::class, 'index'])->name('newslatter');
+    Route::get('NewsLatters', [NewsController::class, 'index'])->name('newslatter');
+    //testimonial
+    Route::get('testimonials', [TestimonialController::class, 'index'])->name('testimonial');
 
 
     Route::get('/properties-for-approval',[AdminPropertyController::class,'properties'])->name(name: 'properties.approval');
