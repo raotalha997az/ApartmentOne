@@ -4,27 +4,75 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Contact;
+use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Mail\ContactFormMail;
 use App\Jobs\ContactFormMailJob;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class WebController extends Controller
 {
     public function index()
-    {
-        return view('Website.index');
-    }
+{
+    $properties = Property::with(['user', 'media'])
+        ->orderBy('id', 'desc')
+        ->get();
+
+    $properties_new = Property::with(['user', 'media'])
+        ->whereDate('created_at', Carbon::today())
+        ->orderBy('id', 'desc')
+        ->get();
+
+        $properties_sold = Property::with(['user', 'media'])
+        ->where('available_status', 0) // Add the condition here
+        ->orderBy('id', 'desc')
+        ->get();
+
+
+    $counterData = [
+        'counterValue' => $properties->count(),
+        'propertiesTodayCount' => $properties_new->count(),
+        'properties_sold' => $properties_sold->count(),
+    ];
+
+    return view('Website.index', compact( 'counterData', 'properties'));
+}
+
+
 
     public function about()
     {
-        return view('Website.about');
+        $properties = Property::with(['user', 'media'])
+        ->orderBy('id', 'desc')
+        ->get();
+
+    $properties_new = Property::with(['user', 'media'])
+        ->whereDate('created_at', Carbon::today())
+        ->orderBy('id', 'desc')
+        ->get();
+
+        $properties_sold = Property::with(['user', 'media'])
+        ->where('available_status', 0) // Add the condition here
+        ->orderBy('id', 'desc')
+        ->get();
+
+
+    $counterData = [
+        'counterValue' => $properties->count(),
+        'propertiesTodayCount' => $properties_new->count(),
+        'properties_sold' => $properties_sold->count(),
+    ];
+        return view('Website.about',compact('counterData', 'properties'));
     }
 
     public function help()
     {
-        return view('Website.help');
+        $properties = Property::with(['user', 'media'])
+        ->orderBy('id', 'desc')
+        ->get();
+        return view('Website.help', compact('properties'));
     }
 
 
@@ -81,7 +129,11 @@ class WebController extends Controller
 
     public function seekingahome()
     {
-        return view('Website.seekingahome');
+        $properties = Property::with(['user', 'media'])
+        ->orderBy('id', 'desc')
+        ->get();
+
+        return view('Website.seekingahome', compact('properties'));
     }
 
     public function rentahome()

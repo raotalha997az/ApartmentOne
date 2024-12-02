@@ -1,4 +1,19 @@
+<style>
+
+.properties-main-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.properties-main-box a.properties-main-box-child {
+    width: 300px;
+}
+</style>
 <section class="home-sec-07">
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -9,87 +24,57 @@
                         <p>Lorem Ipsum is simply dummy text</p>
                     </div>
                     @if (Auth::user())
-                    @if (Auth::user()->hasRole('tenant'))
-                        <a href="{{ route('tenant.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
-                    @elseif(Auth::user()->hasRole('land_lord'))
-                        <a href="{{ route('landlord.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
-                    @elseif(Auth::user()->hasRole('admin'))
-                        <a href="{{ route('admin.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+                        @if (Auth::user()->hasRole('tenant'))
+                            <a href="{{ route('tenant.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+                        @elseif(Auth::user()->hasRole('land_lord'))
+                            <a href="{{ route('landlord.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+                        @elseif(Auth::user()->hasRole('admin'))
+                            <a href="{{ route('admin.dashboard') }}" class="t-btn t-btn-blue">See All Lisitings</a>
+                        @endif
+                    @else
+                        <a href="{{ route('register') }}" class="t-btn t-btn-blue">See All Lisitings</a>
                     @endif
-        @else
-            <a href="{{ route('register') }}" class="t-btn t-btn-blue">See All Lisitings</a>
-        @endif
 
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-6">
+
+
+            <div class="col-lg-12">
                 <div class="properties-main-box">
-                    <a href="#">
-                        <div class="img-box">
-                            <img src="{{ asset('assets/images/Properties-img-01.png')}}" alt="">
-                            <div class="arrow-box">
-                            <img src="{{ asset('assets/images/right-arrow.png')}}" alt="">
-                            </div>
+                    {{-- {{ dd($value) }} --}}
+                    @foreach ($value->take(4) as $property)
+                        {{-- {{ dd($property) }} --}}
+                        @php
+                            $dashboardUrl = route('register'); // Default route
+
+                            if (Auth::user()) {
+                                if (Auth::user()->hasRole('tenant')) {
+                                    $dashboardUrl = route('landlord.dashboard');
+                                } elseif (Auth::user()->hasRole('land_lord')) {
+                                    $dashboardUrl = route('landlord.dashboard');
+                                } elseif (Auth::user()->hasRole('admin')) {
+                                    $dashboardUrl = route('admin.dashboard');
+                                }
+                            }
+                        @endphp
+
+                        <a href="{{ $dashboardUrl }}" class="properties-main-box-child">
+                            <div class="img-box">
+                                <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}" alt="">
+                                <div class="arrow-box">
+                                    <img src="{{ asset('assets/images/right-arrow.png') }}" alt="">
+                                </div>
                             </div>
                             <div class="content-box">
-                                <h6>Apartments In Chicago</h6>
-                                <p>$1200.00</p>
+                                <h6>{{ $property->name ?? 'Property Name' }}</h6> {{-- Use property data --}}
+                                <p>${{ $property->price_rent ?? '0.00' }}</p>
                             </div>
+                        </a>
+                    @endforeach
 
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="properties-main-box">
-                    <a href="#">
-                        <div class="img-box">
-                            <img src="{{ asset('assets/images/Properties-img-02.png')}}" alt="">
-                            <div class="arrow-box">
-                            <img src="{{ asset('assets/images/right-arrow.png')}}" alt="">
-                            </div>
-                            </div>
-                            <div class="content-box">
-                                <h6>Apartments In San Fransisco</h6>
-                                <p>$500,000.00</p>
-                            </div>
 
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="properties-main-box">
-                    <a href="#">
-                        <div class="img-box">
-                            <img src="{{ asset('assets/images/Properties-img-03.png')}}" alt="">
-                            <div class="arrow-box">
-                            <img src="{{ asset('assets/images/right-arrow.png')}}" alt="">
-                            </div>
-                            </div>
-                            <div class="content-box">
-                                <h6>Apartments In Washington</h6>
-                                <p>$10200.00</p>
-                            </div>
-
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="properties-main-box">
-                    <a href="#">
-                        <div class="img-box">
-                            <img src="{{ asset('assets/images/Properties-img-04.png')}}" alt="">
-                            <div class="arrow-box">
-                            <img src="{{ asset('assets/images/right-arrow.png')}}" alt="">
-                            </div>
-                            </div>
-                            <div class="content-box">
-                                <h6>Apartments In Los Angeles</h6>
-                                <p>$2200.00</p>
-                            </div>
-
-                    </a>
                 </div>
             </div>
         </div>

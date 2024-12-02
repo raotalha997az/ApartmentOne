@@ -137,9 +137,12 @@
 
     </section>
 
-    <x-counter-component />
+    {{-- {{ dd($counterData) }} --}}
+    <x-counter-component :counterData="$counterData" />
 
-    <section class="home-sec-02 home-sec-04 home-sec-06 ">
+
+
+    <section class="home-sec-02 home-sec-04 home-sec-06 ">`
         <div class="container">
             <div class="row align-items-center">
 
@@ -164,8 +167,8 @@
         </div>
 
     </section>
-
-    <x-properties-component />
+        {{-- {{ dd($properties) }} --}}
+    <x-properties-component :value="$properties" />
 
 
     <x-news-letters/>

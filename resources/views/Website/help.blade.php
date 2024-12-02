@@ -216,7 +216,7 @@ position: relative;
 
 </section>
 
-<x-properties-component />
+<x-properties-component :value="$properties" />
 
 <x-testimonials-component />
 

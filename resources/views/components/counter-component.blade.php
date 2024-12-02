@@ -4,34 +4,27 @@
             <div class="col-lg-3 col-md-6">
                 <div class="item">
                   <div class="align-plus">
-                    <h1 class="count" data-number="1200" ></h1>
+                    {{-- {{ dd($counterData) }} --}}
+                    <h1 class="count" data-number="{{  $counterData['counterValue'] ?? '' }}" ></h1>
                     <h1>+</h1>
                   </div>
-                    <h3 class="text">Apartments</h3>
+                    <h3 class="text">Properties</h3>
                  </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="item">
                     <div class="align-plus">
-                        <h1 class="count" data-number="50" ></h1>
+                    <h1 class="count" data-number="{{$counterData['propertiesTodayCount']  }}"></h1>
                         <h1>+</h1>
                       </div>
                     <h3 class="text">New Listings</h3>
                  </div>
             </div>
+
             <div class="col-lg-3 col-md-6">
                 <div class="item">
                     <div class="align-plus">
-                        <h1 class="count" data-number="10" ></h1>
-                        <h1>k</h1>
-                      </div>
-                    <h3 class="text">Team Members</h3>
-                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="item">
-                    <div class="align-plus">
-                        <h1 class="count" data-number="1000" ></h1>
+                        <h1 class="count" data-number="{{ $counterData['properties_sold'] }}" ></h1>
                         <h1>+</h1>
                       </div>
                     <h3 class="text">Sold Properties</h3>

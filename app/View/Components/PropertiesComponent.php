@@ -11,8 +11,15 @@ class PropertiesComponent extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+     public $value;
+
+    /**
+     * Create a new component instance.
+     */
+    public function __construct($value = null)
     {
+        $this->value = $value; // Assign the value passed to the component
     }
 
     /**

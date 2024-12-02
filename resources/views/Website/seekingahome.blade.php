@@ -94,7 +94,7 @@ position: relative;
 
 </section>
 
-<x-properties-component />
+<x-properties-component :value="$properties" />
 
 <section class="seeking-ahome-sec-01">
     <div class="container">

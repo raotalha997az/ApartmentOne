@@ -8,18 +8,27 @@ use Illuminate\View\Component;
 
 class counterComponent extends Component
 {
+    public $counterData;
+
     /**
      * Create a new component instance.
+     *
+     * @param array|null $counterData
      */
-    public function __construct()
+    public function __construct($counterData = null)
     {
-        //
+        $this->counterData = $counterData;
+
+        // Uncomment for debugging:
+        // dd($counterData);
     }
 
     /**
-     * Get the view / contents that represent the component.
+     * Get the view or contents that represent the component.
+     *
+     * @return \Illuminate\Contracts\View\View
      */
-    public function render(): View|Closure|string
+    public function render()
     {
         return view('components.counter-component');
     }

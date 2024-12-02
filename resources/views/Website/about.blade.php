@@ -31,7 +31,7 @@ position: relative;
   </section>
 
   <div class="about-counter">
-      <x-counter-component />
+    <x-counter-component :counterData="$counterData" />
   </div>
 
   <section   ion class="home-sec-02 about-sec-01">
@@ -95,7 +95,7 @@ position: relative;
   <x-easiest-way-to-commute />
 
 
-  <x-properties-component />
+  <x-properties-component :value="$properties" />
 
 
 
