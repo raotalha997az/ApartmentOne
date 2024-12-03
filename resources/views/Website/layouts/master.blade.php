@@ -216,7 +216,6 @@
                                         class="fa-solid fa-chevron-right"></i>Services</a></li>
                             <li><a href="{{ route('blog') }}"><i class="fa-solid fa-chevron-right"></i>Blogs</a></li>
                             <li><a href="{{ route('faqs') }}"><i class="fa-solid fa-chevron-right"></i>FAQs</a></li>
-                            <li><a href="{{ route('contact') }}"><i class="fa-solid fa-chevron-right"></i>Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -227,12 +226,9 @@
                         <ul>
                             <li><a href="{{ route('privacy.policy') }}"><i
                                         class="fa-solid fa-chevron-right"></i>Privacy
-                                    Policy</a></li>
-                            {{-- <li><a href="{{ route('info') }}"><i class="fa-solid fa-chevron-right"></i>Terms Of
-                                    Use</a></li> --}}
                             <li><a href="{{ route('contact') }}"><i class="fa-solid fa-chevron-right"></i>Contact
                                     Us</a></li>
-                            <li><a href="{{ route('terms_and_conditions') }}"><i
+                            <li><a href="{{ route('terms.and.conditions') }}"><i
                                         class="fa-solid fa-chevron-right"></i>Terms
                                     And Conditions</a></li>
                             <li><a href="{{ route('info') }}"><i
