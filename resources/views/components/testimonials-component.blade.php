@@ -1,3 +1,26 @@
+<style>
+
+.properties-main-box .img-box img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.properties-main-box .img-box .arrow-box img {
+    height: auto;
+    width: auto;
+}
+
+.properties-main-box .img-box .arrow-box {
+    height: 50px;
+    width: 50px;
+}
+
+.properties-main-box .img-box {
+    width: 100%;
+}
+</style>
 <section class="home-sec-07">
     <div class="container">
         <div class="row">
