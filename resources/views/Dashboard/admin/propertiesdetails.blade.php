@@ -138,7 +138,7 @@
 
                          </div>
                          <div class="img-box">
-                             <img src="{{ Storage::url($media->profile_img ?? '') }}" alt="owner">
+                             <img src="{{ Storage::url($property->user->profile_img ?? '') }}" alt="owner">
                          </div>
                         </div>
                         <div class="owner-details-links">

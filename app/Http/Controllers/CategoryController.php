@@ -63,17 +63,19 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
-        $properties = Property::where('cat_id', $id)->get();
-        if($properties){
-            return response()->json(['error' => ' You can not delete this category because it include in properties!'], 200);
-        }
+$properties = Property::where('cat_id', $id)->get();
 
-        if (!$category) {
-            return response()->json(['message' => 'Category not found'], 404);
-        }
+// Check if there are any properties associated with the category
+if ($properties->isNotEmpty()) {
+    return response()->json(['error' => 'You cannot delete this category because it includes properties!'], 200);
+}
 
-        $category->delete();
+if (!$category) {
+    return response()->json(['message' => 'Category not found'], 404);
+}
 
-        return response()->json(['message' => 'Category deleted successfully'], 200);
+$category->delete();
+
+return response()->json(['message' => 'Category deleted successfully'], 200);
     }
 }
