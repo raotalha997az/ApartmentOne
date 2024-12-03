@@ -182,7 +182,6 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('/properties/approve/{id}',[AdminPropertyController::class,'propertyApprove'])->name('properties.approve');
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
     Route::post('/notifications/{id}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-    Route::get('/properties/Bylandlord',[PropertyController::class,'Bylandlord'])->name('properties.bylandlord');
     Route::get('/income_reports',[AdminAuthController::class,'income_reports'])->name('income_reports');
     Route::get('/user_reports',[AdminAuthController::class,'user_reports'])->name('user_reports');
     Route::get('/pricing',[AdminAuthController::class,'pricing'])->name('pricing');

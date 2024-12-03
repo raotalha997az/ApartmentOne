@@ -58,14 +58,6 @@ class PropertyController extends Controller
         return view('Dashboard.landlord.properties', compact('properties', 'totalApplications'));
     }
 
-    public function Bylandlord(){
-    $properties = Property::where('approve', 1)
-    ->with('user', 'media')
-    ->get();
-    dd($properties);
-        return view('Dashboard.admin.properties',compact('properties'));
-    }
-
     public function add_property()
     {
         $categories = Category::select('name','id')->get();
