@@ -30,7 +30,7 @@
                     </div>
                     <form action="{{ route('login.store') }}" method="POST">
                         @csrf
-                        <input type="email" placeholder="Email Address"  name="email">
+                        <input type="email" placeholder="Email Address"  name="email" value="{{ old('email') }}">
                         <input type="password" placeholder="Password"  name="password" id="password">
 
                         <div class="input-check-box">

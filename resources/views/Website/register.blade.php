@@ -24,16 +24,16 @@
                     <div class="form-box">
                         <form action="{{ route('register.store') }}" method="POST">
                             @csrf
-                            <input type="text" placeholder="Full Name"  name="name">
-                            <input type="email" placeholder="Email Address" name="email">
-                            <input type="tel" placeholder="Contact Number" name="phone">
-                            <textarea placeholder="Address" name="address"></textarea>
+                            <input type="text" placeholder="Full Name"  name="name" value="{{ old('name') }}">
+                            <input type="email" placeholder="Email Address" name="email" value="{{ old('email') }}">
+                            <input type="tel" placeholder="Contact Number" name="phone" value="{{ old('phone') }}">
+                            <textarea placeholder="Address" name="address">{{ old('address') }}</textarea>
                             <input type="password" id="password" placeholder="Password" name="password">
                             <input type="password" id="c_password" placeholder="Confirm Password" name="c_password">
                             <select name="role">
-                                <option disabled>Select Role</option>
-                                <option value="tenant">Tenant</option>
-                                <option value="land_lord">Landlord</option>
+                                <option disabled {{ old('role') ? '' : 'selected' }}>Select Role</option>
+                                <option value="tenant" {{ old('role') == 'tenant' ? 'selected' : '' }}>Tenant</option>
+                                <option value="land_lord" {{ old('role') == 'land_lord' ? 'selected' : '' }}>Landlord</option>
                             </select>
                             {{-- <input type="text" placeholder="Social Security Number" required name="ssn"> --}}
 
