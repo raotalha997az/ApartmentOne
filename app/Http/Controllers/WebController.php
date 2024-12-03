@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\Property;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use App\Mail\ContactFormMail;
 use App\Jobs\ContactFormMailJob;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
 
 class WebController extends Controller
 {
@@ -30,6 +31,8 @@ class WebController extends Controller
         ->orderBy('id', 'desc')
         ->get();
 
+        $testimonials = Testimonial::orderBy('id', 'desc')->get();
+
 
     $counterData = [
         'counterValue' => $properties->count(),
@@ -37,7 +40,7 @@ class WebController extends Controller
         'properties_sold' => $properties_sold->count(),
     ];
 
-    return view('Website.index', compact( 'counterData', 'properties'));
+    return view('Website.index', compact( 'counterData', 'properties', 'testimonials'));
 }
 
 
@@ -57,14 +60,14 @@ class WebController extends Controller
         ->where('available_status', 0) // Add the condition here
         ->orderBy('id', 'desc')
         ->get();
-
+        $testimonials = Testimonial::orderBy('id', 'desc')->get();
 
     $counterData = [
         'counterValue' => $properties->count(),
         'propertiesTodayCount' => $properties_new->count(),
         'properties_sold' => $properties_sold->count(),
     ];
-        return view('Website.about',compact('counterData', 'properties'));
+        return view('Website.about',compact('counterData', 'properties', 'testimonials'));
     }
 
     public function help()
@@ -72,14 +75,16 @@ class WebController extends Controller
         $properties = Property::with(['user', 'media'])
         ->orderBy('id', 'desc')
         ->get();
-        return view('Website.help', compact('properties'));
+        $testimonials = Testimonial::orderBy('id', 'desc')->get();
+        return view('Website.help', compact('properties', 'testimonials'));
     }
 
 
     public function blog()
     {
         $blogs = Blog::orderBy('id', 'DESC')->paginate(10);
-        return view('Website.blog')->with(compact('blogs'));
+        $testimonials = Testimonial::orderBy('id', 'desc')->get();
+        return view('Website.blog')->with(compact('blogs', 'testimonials'));
     }
 
     public function faqs()

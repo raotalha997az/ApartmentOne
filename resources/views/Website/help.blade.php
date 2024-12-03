@@ -218,6 +218,6 @@ position: relative;
 
 <x-properties-component :value="$properties" />
 
-<x-testimonials-component />
+<x-testimonials-component :value="$testimonials" />
 
       @endsection

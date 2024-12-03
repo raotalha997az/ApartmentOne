@@ -13,36 +13,13 @@
 
                 </div>
                 <div class="main-testi-box-flex">
+                    @foreach ($value->slice(0, 6) as $testimonial)
                     <div class="parent-box-testi">
                         <img src="assets/images/testi-img.png" alt="">
-                        <h5>Robert Bravo</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                        <h5>{{ $testimonial->name }}</h5>
+                        <p>{{ $testimonial->testimonial }}</p>
                     </div>
-                    <div class="parent-box-testi">
-                        <img src="assets/images/testi-img.png" alt="">
-                        <h5>Elbert Abraham</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    </div>
-                    <div class="parent-box-testi">
-                        <img src="assets/images/testi-img.png" alt="">
-                        <h5>Elbert Abraham</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                    </div>
-                    <div class="parent-box-testi">
-                        <img src="assets/images/testi-img.png" alt="">
-                        <h5>Robert Bravo</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                    </div>
-                    <div class="parent-box-testi">
-                        <img src="assets/images/testi-img.png" alt="">
-                        <h5>Robert Bravo</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                    <div class="parent-box-testi">
-                        <img src="assets/images/testi-img.png" alt="">
-                        <h5>Robert Bravo</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.</p>
-                    </div>
+                    @endforeach
 
                 </div>
             </div>

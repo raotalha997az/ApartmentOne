@@ -200,6 +200,6 @@ position: relative;
 
   </section>
 
-  <x-testimonials-component />
+  <x-testimonials-component :value="$testimonials" />
 
       @endsection

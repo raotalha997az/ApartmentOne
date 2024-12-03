@@ -265,21 +265,5 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                 }
             });
         }
-        // function undo(userId) {
-        // console.log(userId);
-        //     Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert User!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, revert User!'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             document.getElementById('deleteForm' + userId).submit();
-        //         }
-        //     })
-        // }
     </script>
 @endsection

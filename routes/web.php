@@ -170,6 +170,12 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::get('NewsLatters', [NewsController::class, 'index'])->name('newslatter');
     //testimonial
     Route::get('testimonials', [TestimonialController::class, 'index'])->name('testimonial');
+    Route::post('testimonials/store', [TestimonialController::class, 'store'])->name('testimonial.store');
+    Route::get('testimonials/{id}/edit', [TestimonialController::class, 'edit'])->name('testimonial.edit');
+    Route::put('testimonials/{id}', [TestimonialController::class, 'update'])->name('testimonial.update');
+    Route::delete('testimonials/{id}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
+
+
 
 
     Route::get('/properties-for-approval',[AdminPropertyController::class,'properties'])->name(name: 'properties.approval');
