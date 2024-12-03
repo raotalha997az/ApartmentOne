@@ -151,6 +151,16 @@ class WebController extends Controller
         return view('Website.info');
     }
 
+    public function privacy_policy()
+    {
+        return view('Website.privacy_policy');
+    }
+
+    public function terms_and_conditions()
+    {
+        return view('Website.terms_and_conditions');
+    }
+
     public function login()
     {
         return view('Website.login');

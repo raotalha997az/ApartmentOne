@@ -86,7 +86,7 @@
 
     function resendVerification() {
             $.ajax({
-                url: "{{ route('reset.verify.code') }}",
+                url: "{{ route('rentset.verify.code') }}",
                 type: "POST",
                 data: {
                     "_token": "{{ csrf_token() }}"

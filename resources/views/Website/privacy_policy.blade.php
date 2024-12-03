@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text">
-                    <h2>Privacy Policy /  Terms & Conditions </h2>
+                    <h2>Privacy Policy </h2>
                     <h1>Privacy Policies + Terms<br> & Conditions</h1>
                 </div>
             </div>

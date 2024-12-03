@@ -12,7 +12,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    {!!htmlScriptTagJsApi()!!}
+    {!! htmlScriptTagJsApi() !!}
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -70,8 +70,8 @@
         }
 
         header .header-menu ul {
-    align-items: center;
-}
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -91,7 +91,8 @@
                         <ul>
                             <li><a href="{{ route('index') }}" class="apartment-active">Home</a></li>
                             <li><a href="{{ route('about') }}" class="apartment-about-active">About</a></li>
-                            <li class="drop-down-menu"><a href="{{ route('services') }}" class="apartment-sevices-active">Services <i
+                            <li class="drop-down-menu"><a href="{{ route('services') }}"
+                                    class="apartment-sevices-active">Services <i
                                         class="fa-solid fa-chevron-down"></i></a>
                                 <ul>
                                     <li><a href="{{ route('rentahome') }}">Rentals Management</a></li>
@@ -106,7 +107,8 @@
 
                                 @if (Auth::user())
                                     <a href="http://127.0.0.1:8000/landlord/profile" class="user-profile-link">
-                                        <img src="{{ Storage::url(Auth::user()->profile_img ?? '') }}" alt="">{{ Auth::user()->name }}
+                                        <img src="{{ Storage::url(Auth::user()->profile_img ?? '') }}"
+                                            alt="">{{ Auth::user()->name }}
                                     </a>
                                     <ul>
                                         <li>
@@ -223,12 +225,18 @@
                     <div class="footer-links">
                         <h5>Company</h5>
                         <ul>
-                            <li><a href="{{ route('info') }}"><i class="fa-solid fa-chevron-right"></i>Privacy
+                            <li><a href="{{ route('privacy.policy') }}"><i
+                                        class="fa-solid fa-chevron-right"></i>Privacy
                                     Policy</a></li>
                             {{-- <li><a href="{{ route('info') }}"><i class="fa-solid fa-chevron-right"></i>Terms Of
                                     Use</a></li> --}}
                             <li><a href="{{ route('contact') }}"><i class="fa-solid fa-chevron-right"></i>Contact
                                     Us</a></li>
+                            <li><a href="{{ route('terms.and.conditions') }}"><i
+                                        class="fa-solid fa-chevron-right"></i>Terms
+                                    And Conditions</a></li>
+                            <li><a href="{{ route('info') }}"><i
+                                        class="fa-solid fa-chevron-right"></i>Info</a></li>
                         </ul>
                     </div>
                 </div>
@@ -236,7 +244,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer-copy-right">
-                        <p>Copyright © 2024 | All Rights Reserved By <a href="{{ url('/') }}">Apartment One</a> </p>
+                        <p>Copyright © 2024 | All Rights Reserved By <a href="{{ url('/') }}">Apartment One</a>
+                        </p>
                     </div>
                 </div>
             </div>

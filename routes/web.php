@@ -52,6 +52,8 @@ Route::get('/services',[WebController::class,'services'])->name('services');
 Route::get('/seekingahome',[WebController::class,'seekingahome'])->name('seekingahome');
 Route::get('/rentahome',[WebController::class,'rentahome'])->name('rentahome');
 Route::get('/info',[WebController::class,'info'])->name('info');
+Route::get('/privacy_policy',[WebController::class,'privacy_policy'])->name('privacy.policy');
+Route::get('/terms_and_conditions',[WebController::class,'terms_and_conditions'])->name('terms.and.conditions');
 // guest
 Route::post('/logout',[AuhController::class,'logout'])->name('logout');
 Route::get('/verify-code', [AuhController::class, 'verifyCodeView'])->name('verify.code');
@@ -61,7 +63,7 @@ Route::get('/register',[WebController::class,'register'])->name('register');
 Route::post('/register/store',[AuhController::class,'register'])->name('register.store');
 Route::post('/login/store',[AuhController::class,'login'])->name('login.store');
 Route::post('/verify-code', [AuhController::class, 'CodeVerify'])->name('verify.code.check');
-Route::post('/reset-verify-code', [AuhController::class, 'resentVerifyCode'])->name('reset.verify.code');
+Route::post('/reset-verify-code', [AuhController::class, 'resentVerifyCode'])->name('rentset.verify.code');
 Route::get('verify-email/{token}', [AuhController::class, 'verify'])->name('verify.email');
 
 Route::get('password/reset', [AuhController::class, 'showLinkRequestForm'])->name('password.request');
@@ -86,9 +88,9 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
     Route::get('/fluter/property/{id}',[TenantPropertiesController::class,'fluterproperty'])->name('fluter.property');
     Route::get('/propertiesdetails/{id}', [TenantPropertiesController::class, 'propertiesdetails'])->name('propertiesdetails');
-    Route::get('/propertieslistings',[TenantPropertiesController::class,'propertieslistings'])->name('propertieslistings');
-    Route::get('/profile',[DashboardController::class,'profile'])->name('profile');
-    Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist');
+    Route::get('/propertieslistings',[TenantPropertiesController::class,'propertieslistings'])->name('propertieslistings'); //extra
+    Route::get('/profile',[DashboardController::class,'profile'])->name('profile'); //extra
+    Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist'); //extra
     // profile
     Route::get('/profile',[TenantAuthController::class,'profile'])->name('profile');
     Route::post('/profile/update', [TenantAuthController::class, 'updateProfile'])->name('profile.update');

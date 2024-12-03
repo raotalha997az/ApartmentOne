@@ -7,11 +7,11 @@
             <div class="col-md-12">
                 <div class="text">
                     <h2>FAQs </h2>
-                    <h1>People frequently Asks</h1>      
+                    <h1>People frequently Asks</h1>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </section>
 
 <section class="about-sec-04 help-sec-02 faqs-sec-01">
@@ -34,7 +34,7 @@
                         </div>
                       </div>
                     </div>
-              
+
                     <!-- Second Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTwo">
@@ -49,7 +49,7 @@
                         </div>
                       </div>
                     </div>
-              
+
                     <!-- Third Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingThree">
@@ -64,7 +64,7 @@
                         </div>
                       </div>
                     </div>
-              
+
                     <!-- Fourth Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingFour">
@@ -79,11 +79,11 @@
                         </div>
                       </div>
                     </div>
-              
+
                   </div>
             </div>
             <div class="col-lg-6 col-md-12">
-                
+
                 <div class="accordion" id="faqAccordion1">
 
                     <!-- First Accordion Item (Active by default) -->
@@ -100,7 +100,7 @@
                         </div>
                       </div>
                     </div>
-                
+
                     <!-- Second Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTwo1">
@@ -115,7 +115,7 @@
                         </div>
                       </div>
                     </div>
-                
+
                     <!-- Third Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingThree1">
@@ -130,7 +130,7 @@
                         </div>
                       </div>
                     </div>
-                
+
                     <!-- Fourth Accordion Item -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingFour1">
@@ -145,9 +145,9 @@
                         </div>
                       </div>
                     </div>
-                
+
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -165,7 +165,7 @@
                     <h3>About</h3>
                     <h2>Here Luxury Meets Lifestyle</h2>
                     <p>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    <a href="#" class="t-btn t-btn-blue">Learn More</a>
+                    <a href="{{ route('about') }}" class="t-btn t-btn-blue">Learn More</a>
                 </div>
             </div>
 
