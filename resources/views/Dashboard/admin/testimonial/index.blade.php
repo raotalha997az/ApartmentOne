@@ -11,103 +11,105 @@
 
 
         .badge {
-    font-weight: 400;
-}
+            font-weight: 400;
+        }
 
-td {
-    align-content: center;
-}
+        td {
+            align-content: center;
+        }
 
-a.Delet-btn.dan {
-    background: red;
-    border-radius: 10px;
-    padding: 5px;
-}
+        a.Delet-btn.dan {
+            background: red;
+            border-radius: 10px;
+            padding: 5px;
+        }
 
-.btn {
-    align-content: center;
-    border-radius: 10px;
-    padding: 5px 15px;
-    transition: .3s;
-}
-
-
-.dt-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.dt-search {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
-
- .dt-search input#dt-search-0 {
-    width: 50%;
-    border-radius: 10px;
-    border: 2px solid #80808075;
-    color: #000;
-}
-
- .dt-search label {
-    font-weight: 600;
-}
+        .btn {
+            align-content: center;
+            border-radius: 10px;
+            padding: 5px 15px;
+            transition: .3s;
+        }
 
 
-#roomFeaturesTable_info {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #00000094;
-    width: 100%;
-    text-align: end;
-}
- .dt-paging {
-    width: 100%;
-    text-align: end;
-    margin-top: 10px;
-}
+        .dt-buttons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
 
- .dt-paging nav {
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
+        .dt-search {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
 
-.dt-paging nav button {
-    border-radius: 10px !important;
-    color: #fff !important;
-    font-weight: 500;
-    background: #0077B6 !important;
-}
+        .dt-search input#dt-search-0 {
+            width: 50%;
+            border-radius: 10px;
+            border: 2px solid #80808075;
+            color: #000;
+        }
 
-a.Delet-btn.dan img {
-    height: 25px;
-    width: 25px;
-    object-fit: contain;
-}
-
-div.dt-container .dt-paging .dt-paging-button.disabled, div.dt-container .dt-paging .dt-paging-button.disabled:hover, div.dt-container .dt-paging .dt-paging-button.disabled:active {
-    color: #fff !important;
-}
-
-div.dt-container .dt-paging .dt-paging-button {
-    color: #fff !important;
-}
-
-div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-paging .dt-paging-button.current:hover {
-    color: #fff !important;
-}
+        .dt-search label {
+            font-weight: 600;
+        }
 
 
+        #roomFeaturesTable_info {
+            margin-top: 10px;
+            font-weight: 600;
+            color: #00000094;
+            width: 100%;
+            text-align: end;
+        }
+
+        .dt-paging {
+            width: 100%;
+            text-align: end;
+            margin-top: 10px;
+        }
+
+        .dt-paging nav {
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dt-paging nav button {
+            border-radius: 10px !important;
+            color: #fff !important;
+            font-weight: 500;
+            background: #0077B6 !important;
+        }
+
+        a.Delet-btn.dan img {
+            height: 25px;
+            width: 25px;
+            object-fit: contain;
+        }
+
+        div.dt-container .dt-paging .dt-paging-button.disabled,
+        div.dt-container .dt-paging .dt-paging-button.disabled:hover,
+        div.dt-container .dt-paging .dt-paging-button.disabled:active {
+            color: #fff !important;
+        }
+
+        div.dt-container .dt-paging .dt-paging-button {
+            color: #fff !important;
+        }
+
+        div.dt-container .dt-paging .dt-paging-button.current,
+        div.dt-container .dt-paging .dt-paging-button.current:hover {
+            color: #fff !important;
+        }
     </style>
     @section('content')
         <div class="profile-page rooms-features-page">
@@ -148,13 +150,17 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                                             <a href="#" class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                 data-bs-target="#TestimonialModal1" data-id="{{ $testimonial->id }}"
                                                 data-name="{{ $testimonial->name }}"
-                                                data-testimonial="{{ $testimonial->testimonial }}" id="editButton"> <img src="{{ asset('assets/images/bx-pencil.png') }}" width="30" height="20"></a>
+                                                data-testimonial="{{ $testimonial->testimonial }}" id="editButton"> <img
+                                                    src="{{ asset('assets/images/bx-pencil.png') }}" width="30"
+                                                    height="20"></a>
                                             <form action="{{ route('admin.testimonial.destroy', $testimonial->id) }}"
                                                 method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-danger"
-                                                    onclick="confirmDelete(event, this)">  <img src="{{ asset('assets/images/delete.png') }}" width="30" height="20"></button>
+                                                    onclick="confirmDelete(event, this)"> <img
+                                                        src="{{ asset('assets/images/delete.png') }}" width="30"
+                                                        height="20"></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -248,47 +254,75 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                     // Initialize DataTable with buttons
                     $('#TestimonialTable').DataTable({
                         dom: 'Bfrtip',
-                        buttons: [
-                {
-                    extend: 'csv',
-                    text: 'Export to CSV',
-                    className: 'btn btn-outline-primary btn-sm'
-                },
-                {
-                    extend: 'pdf',
-                    text: 'Export to PDF',
-                    className: 'btn btn-outline-danger btn-sm',
-                    orientation: 'landscape', // For wider tables
-                    pageSize: 'A4'
-                },
-                {
-                    extend: 'print',
-                    text: 'Print',
-                    className: 'btn btn-outline-secondary btn-sm'
-                }
-            ]
+                        buttons: [{
+                                extend: 'csv',
+                                text: 'Export to CSV',
+                                className: 'btn btn-outline-primary btn-sm'
+                            },
+                            {
+                                extend: 'pdf',
+                                text: 'Export to PDF',
+                                className: 'btn btn-outline-danger btn-sm',
+                                orientation: 'landscape', // For wider tables
+                                pageSize: 'A4'
+                            },
+                            {
+                                extend: 'print',
+                                text: 'Print',
+                                className: 'btn btn-outline-secondary btn-sm'
+                            }
+                        ]
                     });
                 });
 
                 function confirmDelete(event, button) {
-                    event.preventDefault(); // Prevent form submission
+    event.preventDefault(); // Prevent default form submission
 
-                    // Show SweetAlert confirmation dialog
+    // Show SweetAlert confirmation dialog
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If confirmed, use AJAX to handle the delete operation
+            let form = button.closest('form');
+            let action = form.getAttribute('action'); // Get the form action URL
+
+            $.ajax({
+                url: action,
+                type: 'POST',
+                data: $(form).serialize(), // Serialize form data
+                success: function(response) {
+                    // Show success SweetAlert after deletion
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'No, cancel!',
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // If confirmed, submit the form
-                            button.closest('form').submit();
-                        }
+                        title: 'Deleted!',
+                        text: 'The testimonial has been deleted.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        // Reload the page to update the table
+                        location.reload();
+                    });
+                },
+                error: function(xhr) {
+                    // Show error SweetAlert if something goes wrong
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Something went wrong while deleting the testimonial.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
                     });
                 }
+            });
+        }
+    });
+}
+
 
 
                 var testimonialModal = document.getElementById('TestimonialModal1');
@@ -317,5 +351,80 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                             console.error('Error fetching testimonial data:', error);
                         });
                 });
+
+                $(document).ready(function () {
+    // Handle Add Testimonial Form Submission
+    $('#testimonialForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                // Show success notification
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Testimonial added successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Close modal and reload table
+                    $('#TestimonialModal').modal('hide');
+                    location.reload();
+                });
+            },
+            error: function (response) {
+                // Display validation errors in the modal
+                const errors = response.responseJSON.errors;
+                displayErrors('#TestimonialModal', errors);
+            }
+        });
+    });
+
+    // Handle Edit Testimonial Form Submission
+    $('#testimonialForm_edit').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                // Show success notification
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Testimonial updated successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Close modal and reload table
+                    $('#TestimonialModal1').modal('hide');
+                    location.reload();
+                });
+            },
+            error: function (response) {
+                // Display validation errors in the modal
+                const errors = response.responseJSON.errors;
+                displayErrors('#TestimonialModal1', errors);
+            }
+        });
+    });
+
+    // Helper function to display errors in the modal
+    function displayErrors(modalSelector, errors) {
+        $(modalSelector + ' .alert-danger').remove(); // Remove any existing error messages
+        for (const field in errors) {
+            errors[field].forEach(message => {
+                const errorElement = `
+                    <div class="alert alert-danger">${message}</div>
+                `;
+                $(`${modalSelector} [name=${field}]`).closest('.mb-3').append(errorElement);
+            });
+        }
+    }
+});
+
+
             </script>
         @endsection

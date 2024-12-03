@@ -16,29 +16,24 @@ class TestimonialController extends Controller
 
 
     public function store(Request $request)
-    {
-        // Define validation rules
-        $validator = Validator::make($request->all(), [
-            'client_name' => 'required|string|max:255',
-            'testimonial' => 'required|string',
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'client_name' => 'required|string|max:255',
+        'testimonial' => 'required|string',
+    ]);
 
-        // Check if validation fails
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        // Save the testimonial to the database
-        Testimonial::create([
-            'name' => $request->input('client_name'),
-            'testimonial' => $request->input('testimonial'),
-        ]);
-
-        // Redirect back with success message
-        return back()->with('success', 'Testimonial added successfully!');
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
     }
+
+    Testimonial::create([
+        'name' => $request->input('client_name'),
+        'testimonial' => $request->input('testimonial'),
+    ]);
+
+    return response()->json(['success' => 'Testimonial added successfully!']);
+}
+
 
 
 
@@ -57,32 +52,23 @@ class TestimonialController extends Controller
 // Update Method
 public function update(Request $request, $id)
 {
-    // Define validation rules
     $validator = Validator::make($request->all(), [
         'client_name' => 'required|string|max:255',
         'testimonial' => 'required|string',
     ]);
 
-    // Check if validation fails
     if ($validator->fails()) {
-        return back()
-            ->withErrors($validator)
-            ->withInput();
+        return response()->json(['errors' => $validator->errors()], 422);
     }
 
-    // Find the testimonial by id
     $testimonial = Testimonial::findOrFail($id);
-
-    // Update the testimonial data
     $testimonial->update([
         'name' => $request->input('client_name'),
         'testimonial' => $request->input('testimonial'),
     ]);
 
-    // Redirect back with success message
-    return redirect()->route('admin.testimonial')->with('success', 'Testimonial updated successfully!');
+    return response()->json(['success' => 'Testimonial updated successfully!']);
 }
-
 
     public function destroy($id)
 {
