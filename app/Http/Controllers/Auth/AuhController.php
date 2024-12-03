@@ -34,6 +34,7 @@ class AuhController extends Controller
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'role' => 'required|in:tenant,land_lord',
+            'g-recaptcha-response' => 'required|recaptcha',
         ]);
 
         if ($validator->fails()) {

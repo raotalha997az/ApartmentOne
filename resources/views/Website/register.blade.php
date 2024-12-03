@@ -42,6 +42,16 @@
                                 <label for="show-password">Show Password</label>
                             </div>
 
+                            {!!htmlFormSnippet()!!}
+                            @if ($errors->has('g-recaptcha-response'))
+
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('g-recaptcha-response') }}
+                                </div>
+
+                            @endif
+
+
                             <div class="forms-btns-inline">
                                 <button type="submit" class="mt-5">Create An Account</button>
                                 <a href="{{ route('login') }}">Back To Login</a>
