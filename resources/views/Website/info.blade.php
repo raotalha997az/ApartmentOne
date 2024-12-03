@@ -6,8 +6,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text">
-                    <h2>Privacy Policy /  Terms & Conditions </h2>
-                    <h1>Privacy Policies + Terms<br> & Conditions</h1>
+                    <h2>Information</h2>
+                    <h1>All You Need to Know About Our Information</h1>
                 </div>
             </div>
         </div>
@@ -19,8 +19,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text">
-                    <h2>How to Avail Apartment One’s Management Services </h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <h2>Understanding Apartment One’s Management Services</h2>
+                    <p>Apartment One’s management services offer comprehensive solutions to meet your property management needs. From streamlined operations to tenant communication, our services are designed to enhance efficiency and ensure satisfaction. With decades of experience and cutting-edge technology, we bring professionalism and reliability to the forefront, making your property management experience seamless and worry-free.</p>
                     <h2>What Is The Main Criteria to get paid for rentals</h2>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>

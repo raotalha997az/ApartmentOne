@@ -53,7 +53,7 @@ Route::get('/seekingahome',[WebController::class,'seekingahome'])->name('seeking
 Route::get('/rentahome',[WebController::class,'rentahome'])->name('rentahome');
 Route::get('/info',[WebController::class,'info'])->name('info');
 Route::get('/privacy_policy',[WebController::class,'privacy_policy'])->name('privacy.policy');
-Route::get('/terms_and_conditions',[WebController::class,'terms_and_conditions'])->name('terms.and.conditions');
+Route::get('/terms_and_conditions',[WebController::class,'terms_and_conditions'])->name('terms_and_conditions');
 // guest
 Route::post('/logout',[AuhController::class,'logout'])->name('logout');
 Route::get('/verify-code', [AuhController::class, 'verifyCodeView'])->name('verify.code');

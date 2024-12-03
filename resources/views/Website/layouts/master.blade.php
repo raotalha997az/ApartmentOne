@@ -232,7 +232,7 @@
                                     Use</a></li> --}}
                             <li><a href="{{ route('contact') }}"><i class="fa-solid fa-chevron-right"></i>Contact
                                     Us</a></li>
-                            <li><a href="{{ route('terms.and.conditions') }}"><i
+                            <li><a href="{{ route('terms_and_conditions') }}"><i
                                         class="fa-solid fa-chevron-right"></i>Terms
                                     And Conditions</a></li>
                             <li><a href="{{ route('info') }}"><i
