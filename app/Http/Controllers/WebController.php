@@ -166,7 +166,8 @@ class WebController extends Controller
     {
 
         $blog = Blog::where('id', $id)->first();
-        return view('Website.blogdescription')->with(compact('blog'));
+        $blogs_all = Blog::orderBy('id', 'DESC')->get();
+        return view('Website.blogdescription')->with(compact('blog', 'blogs_all'));
 
     }
 

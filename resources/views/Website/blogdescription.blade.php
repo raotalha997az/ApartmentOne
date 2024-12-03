@@ -63,46 +63,21 @@
             </div>
         </div>
         <div class="row">
+            @foreach ($blogs_all->take(4) as $blog)
             <div class="col-lg-3 col-md-6">
                 <div class="blog-parent-box">
                    <div class="img-box">
-                    <img src="{{ asset('assets/images/blog-parent-img.png')}}" alt="">
+                    <img src="{{ Storage::url('blog/' . $blog->image) }}" alt="">
                     <h6>Latest</h6>
                    </div>
                     <div class="text">
-                        <h5>Real estate and property management</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
+                        <h5>{{ $blog->title }}</h5>
+                        <p title="{{ $blog->short_description }}">{{ \Illuminate\Support\Str::words($blog->short_description, 5, '...') }}</p>
                         {{-- <a href="{{ route('blogdescription') }}" class="t-btn t-btn-blue">Read More</a> --}}
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="blog-parent-box">
-                   <div class="img-box">
-                    <img src="{{ asset('assets/images/blog-parent-img.png')}}" alt="">
-                    <h6>Latest</h6>
-                   </div>
-                    <div class="text">
-                        <h5>Real estate and property management</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
-                        {{-- <a href="{{ route('blogdescription') }}" class="t-btn t-btn-blue">Read More</a> --}}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="blog-parent-box">
-                   <div class="img-box">
-                    <img src="{{ asset('assets/images/blog-parent-img.png')}}" alt="">
-                    <h6>Latest</h6>
-                   </div>
-                    <div class="text">
-                        <h5>Real estate and property management</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
-                        {{-- <a href="{{ route('blogdescription') }}" class="t-btn t-btn-blue">Read More</a> --}}
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
     </div>
