@@ -26,13 +26,15 @@ class AuhController extends Controller
     public function register(Request $request)
     {
         // Validate the form data
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'c_password' => 'required|string|min:8|same:password',
-            'phone' => 'nullable|string|max:255',
+            'phone' => 'nullable|digits:10',
             'address' => 'nullable|string|max:255',
+            'house_number' => 'nullable|integer|digits_between:1,5',
             'role' => 'required|in:tenant,land_lord',
             'g-recaptcha-response' => 'required|recaptcha',
         ]);
@@ -54,6 +56,7 @@ class AuhController extends Controller
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
             'address' => $data['address'],
+            'house_number' => $data['house_number'],
             'verification_token' => $verificationToken,
         ]);
 

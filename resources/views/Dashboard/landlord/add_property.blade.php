@@ -48,7 +48,14 @@
                                         <input type="checkbox" name="eviction" id="eviction">
                                     </div>
                                 </div>
-                                
+
+                                <div class="many-forms-fields-box">
+                                    <div class="paren-check-box">
+                                        <label for="criminal_records">Crimanal report</label>
+                                        <input type="checkbox" name="criminal_records" id="criminal_records">
+                                    </div>
+                                </div>
+
 
                                 <div class="input-box">
                                     <label for="address">Address</label>
@@ -497,6 +504,12 @@
                             formData.append('eviction', 1);
                         } else {
                             formData.append('eviction', 0);
+                        }
+
+                        if ($('#criminal_records').is(':checked')) {
+                            formData.append('criminal_records', 1);
+                        } else {
+                            formData.append('criminal_records', 0);
                         }
 
                         // Send the AJAX request

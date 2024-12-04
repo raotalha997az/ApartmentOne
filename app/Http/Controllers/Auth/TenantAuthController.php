@@ -82,6 +82,45 @@ class TenantAuthController extends Controller
 
         return redirect()->route('tenant.profile')->with('success', 'Profile updated successfully!');
     }
+    public function updateScreening(Request $request)
+    {
+        $user = auth()->user();
+        // Validate the incoming request
+        $validator = Validator::make($request->all(), [
+            'firstName' => 'required|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'postal_code' => 'nullable|digits_between:2,5',
+            'date_of_birth' => 'nullable|date|before_or_equal:today',
+            'house_number' => 'nullable|integer|digits_between:1,5',
+            'identity_card' => 'nullable|digits:9',
+            'street_name' => 'nullable|string|max:255',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        // Update user fields
+        $validatedData = $validator->validated();
+
+    $user->name = $validatedData['firstName'];
+    $user->date_of_birth = $validatedData['date_of_birth'] ?? $user->date_of_birth;
+    $user->city = $validatedData['city'] ?? $user->city;
+    $user->country = $validatedData['country'] ?? $user->country;
+    $user->state = $validatedData['state'] ?? $user->state;
+    $user->postal_code = $validatedData['postal_code'] ?? $user->postal_code;
+    $user->house_number = $validatedData['house_number'] ?? $user->house_number;
+    $user->address = $validatedData['street_name'] ?? $user->address;
+    $user->save();
+
+    // Update or create bank record
+    $bank = Bank::firstOrNew(['user_id' => $user->id]);
+    $bank->identity_card = $validatedData['identity_card'] ?? $bank->identity_card;
+    $bank->save();
+
+
+        return redirect()->route('tenant.screening')->with('success', 'Screening updated successfully!');
+    }
 
     public function dashboard()
     {
@@ -95,7 +134,7 @@ class TenantAuthController extends Controller
 
         // Validation
         $validator = Validator::make($request->all(), [
-            'bank_name' => 'nullable|string|max:255',
+            'bank_name' => 'nullable|string|min:5|max:50|regex:/^[a-zA-Z\s]+$/',
             'branch_code' => 'nullable|string|min:3|max:5',
             'account_number' => 'nullable|digits_between:9,12',
             'identity_card' => 'nullable|digits:9',

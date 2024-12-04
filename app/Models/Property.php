@@ -20,6 +20,7 @@ class Property extends Model
         'approve',
         'price_rent',
         'eviction',
+        'criminal_records',
         'address'
     ];
     public function category()

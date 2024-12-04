@@ -247,7 +247,7 @@
                     </div>
                 </div>
             </div>
-        @endsection
+            @endsection
         @section('scripts')
             <script>
                 $(document).ready(function() {
@@ -276,52 +276,52 @@
                 });
 
                 function confirmDelete(event, button) {
-    event.preventDefault(); // Prevent default form submission
+                    event.preventDefault(); // Prevent default form submission
 
-    // Show SweetAlert confirmation dialog
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // If confirmed, use AJAX to handle the delete operation
-            let form = button.closest('form');
-            let action = form.getAttribute('action'); // Get the form action URL
+                    // Show SweetAlert confirmation dialog
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If confirmed, use AJAX to handle the delete operation
+                            let form = button.closest('form');
+                            let action = form.getAttribute('action'); // Get the form action URL
 
-            $.ajax({
-                url: action,
-                type: 'POST',
-                data: $(form).serialize(), // Serialize form data
-                success: function(response) {
-                    // Show success SweetAlert after deletion
-                    Swal.fire({
-                        title: 'Deleted!',
-                        text: 'The testimonial has been deleted.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        // Reload the page to update the table
-                        location.reload();
-                    });
-                },
-                error: function(xhr) {
-                    // Show error SweetAlert if something goes wrong
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Something went wrong while deleting the testimonial.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
+                            $.ajax({
+                                url: action,
+                                type: 'POST',
+                                data: $(form).serialize(), // Serialize form data
+                                success: function(response) {
+                                    // Show success SweetAlert after deletion
+                                    Swal.fire({
+                                        title: 'Deleted!',
+                                        text: 'The testimonial has been deleted.',
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                    }).then(() => {
+                                        // Reload the page to update the table
+                                        location.reload();
+                                    });
+                                },
+                                error: function(xhr) {
+                                    // Show error SweetAlert if something goes wrong
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'Something went wrong while deleting the testimonial.',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            });
+                        }
                     });
                 }
-            });
-        }
-    });
-}
 
 
 
@@ -352,79 +352,77 @@
                         });
                 });
 
-                $(document).ready(function () {
-    // Handle Add Testimonial Form Submission
-    $('#testimonialForm').on('submit', function (e) {
-        e.preventDefault();
+                $(document).ready(function() {
+                    // Handle Add Testimonial Form Submission
+                    $('#testimonialForm').on('submit', function(e) {
+                        e.preventDefault();
 
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function (response) {
-                // Show success notification
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Testimonial added successfully.',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    // Close modal and reload table
-                    $('#TestimonialModal').modal('hide');
-                    location.reload();
-                });
-            },
-            error: function (response) {
-                // Display validation errors in the modal
-                const errors = response.responseJSON.errors;
-                displayErrors('#TestimonialModal', errors);
-            }
-        });
-    });
+                        $.ajax({
+                            url: $(this).attr('action'),
+                            type: 'POST',
+                            data: $(this).serialize(),
+                            success: function(response) {
+                                // Show success notification
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'Testimonial added successfully.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    // Close modal and reload table
+                                    $('#TestimonialModal').modal('hide');
+                                    location.reload();
+                                });
+                            },
+                            error: function(response) {
+                                // Display validation errors in the modal
+                                const errors = response.responseJSON.errors;
+                                displayErrors('#TestimonialModal', errors);
+                            }
+                        });
+                    });
 
-    // Handle Edit Testimonial Form Submission
-    $('#testimonialForm_edit').on('submit', function (e) {
-        e.preventDefault();
+                    // Handle Edit Testimonial Form Submission
+                    $('#testimonialForm_edit').on('submit', function(e) {
+                        e.preventDefault();
 
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function (response) {
-                // Show success notification
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Testimonial updated successfully.',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    // Close modal and reload table
-                    $('#TestimonialModal1').modal('hide');
-                    location.reload();
-                });
-            },
-            error: function (response) {
-                // Display validation errors in the modal
-                const errors = response.responseJSON.errors;
-                displayErrors('#TestimonialModal1', errors);
-            }
-        });
-    });
+                        $.ajax({
+                            url: $(this).attr('action'),
+                            type: 'POST',
+                            data: $(this).serialize(),
+                            success: function(response) {
+                                // Show success notification
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'Testimonial updated successfully.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    // Close modal and reload table
+                                    $('#TestimonialModal1').modal('hide');
+                                    location.reload();
+                                });
+                            },
+                            error: function(response) {
+                                // Display validation errors in the modal
+                                const errors = response.responseJSON.errors;
+                                displayErrors('#TestimonialModal1', errors);
+                            }
+                        });
+                    });
 
-    // Helper function to display errors in the modal
-    function displayErrors(modalSelector, errors) {
-        $(modalSelector + ' .alert-danger').remove(); // Remove any existing error messages
-        for (const field in errors) {
-            errors[field].forEach(message => {
-                const errorElement = `
+                    // Helper function to display errors in the modal
+                    function displayErrors(modalSelector, errors) {
+                        $(modalSelector + ' .alert-danger').remove(); // Remove any existing error messages
+                        for (const field in errors) {
+                            errors[field].forEach(message => {
+                                const errorElement = `
                     <div class="alert alert-danger">${message}</div>
                 `;
-                $(`${modalSelector} [name=${field}]`).closest('.mb-3').append(errorElement);
-            });
-        }
-    }
-});
-
-
+                                $(`${modalSelector} [name=${field}]`).closest('.mb-3').append(errorElement);
+                            });
+                        }
+                    }
+                });
             </script>
         @endsection

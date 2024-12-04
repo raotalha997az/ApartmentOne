@@ -88,12 +88,21 @@
                             <label for="eviction">Eviction</label>
                             <!-- Hidden input to send 0 when unchecked -->
                             <input type="hidden" name="eviction" value="0">
-                            <input type="checkbox" name="eviction" id="eviction" value="1" 
+                            <input type="checkbox" name="eviction" id="eviction" value="1"
                                 {{ old('eviction', $property->eviction) == 1 ? 'checked' : '' }}>
                         </div>
+
+                        <div class="many-forms-fields-box">
+                            <div class="paren-check-box">
+                                <label for="criminal_records">Crimanal report</label>
+                                <input type="hidden" name="criminal_records" value="0">
+                            <input type="checkbox" name="criminal_records" id="criminal_records" value="1"
+                                {{ old('criminal_records', $property->criminal_records) == 1 ? 'checked' : '' }}>
+                            </div>
+                        </div>
                     </div>
-                    
-                        
+
+
                         <div class="input-box">
                             <label for="address">Address</label>
                             <input type="text" placeholder="address" name="address"

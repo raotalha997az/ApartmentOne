@@ -92,8 +92,9 @@ Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::get('/profile',[DashboardController::class,'profile'])->name('profile'); //extra
     Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist'); //extra
     // profile
-    Route::get('/profile',[TenantAuthController::class,'profile'])->name('profile');
+    // Route::get('/profile',[TenantAuthController::class,'profile'])->name('profile');
     Route::post('/profile/update', [TenantAuthController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/screening/update', [TenantAuthController::class, 'updateScreening'])->name('screening.update');
         // wishlist
     Route::post('/wishlistadd', [TenantAuthController::class, 'addToWishlist'])->name('wishlist.add');
      Route::post('/wishlistremove', [TenantAuthController::class, 'removeFromWishlist'])->name('wishlist.remove');

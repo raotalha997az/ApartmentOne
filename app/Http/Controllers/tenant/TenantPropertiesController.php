@@ -16,6 +16,7 @@ use App\Notifications\PropertyApplicationNotification;
 
 class TenantPropertiesController extends Controller
 {
+
     public function screening()
     {
         $user = Auth::user()->load('bank');

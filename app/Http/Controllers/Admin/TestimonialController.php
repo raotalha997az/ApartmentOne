@@ -38,14 +38,14 @@ class TestimonialController extends Controller
 
 
             // Edit Method
-            public function edit($id)
-            {
+ public function edit($id)
+    {
                 // Find the testimonial by id
-                $testimonial = Testimonial::findOrFail($id);
+    $testimonial = Testimonial::findOrFail($id);
                 // dd($testimonial);
                 // Return the testimonial data as JSON
-                return response()->json($testimonial);
-            }
+     return response()->json($testimonial);
+    }
 
 
 

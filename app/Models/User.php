@@ -31,6 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'state',
         'postal_code',
         'address',
+        'house_number',
         'profile_img',   // Profile image
         'date_of_birth', // Date of birth
         'password',
