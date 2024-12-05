@@ -172,18 +172,22 @@
                                 @if ($property->features && $feature)
                                     <!-- Ensure both property features and current feature exist -->
                                     <div class="paren-check-box">
+                                       <div>
                                         <input type="checkbox" id="feature-{{ $feature->id }}" name="features[]"
-                                            value="{{ $feature->id }}"
-                                            {{ $property->features->pluck('feature_id')->contains($feature->id) ? 'checked' : '' }}
-                                            onchange="toggleQuantityInput(this, '{{ $feature->id }}')">
-                                        <label for="feature-{{ $feature->id }}">{{ $feature->name }}</label>
-                                    </div>
-                                    <div class="row quantity-input" id="quantity-container-{{ $feature->id }}"
-                                        style="display: {{ $property->features->pluck('feature_id')->contains($feature->id) ? 'block' : 'none' }};">
-                                        <input type="number" id="quantity-{{ $feature->id }}"
+                                        value="{{ $feature->id }}"
+                                        {{ $property->features->pluck('feature_id')->contains($feature->id) ? 'checked' : '' }}
+                                        onchange="toggleQuantityInput(this, '{{ $feature->id }}')">
+                                    <label for="feature-{{ $feature->id }}">{{ $feature->name }}</label>
+                                       </div>
+
+                                            <div class="quantity-input" id="quantity-container-{{ $feature->id }}"
+                                                style="display: {{ $property->features->pluck('feature_id')->contains($feature->id) ? 'block' : 'none' }};">
+                                                <input type="number" id="quantity-{{ $feature->id }}"
                                             name="quantities[{{ $feature->id }}]" placeholder="Quantity" min="1"
                                             value="{{ optional($property->features->where('feature_id', $feature->id)->first())->quantity ?? '' }}">
+                                            </div>
                                     </div>
+
                                 @endif
                             @endforeach
                         </div>

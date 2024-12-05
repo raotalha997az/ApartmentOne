@@ -121,15 +121,17 @@
 
                                     @foreach ($features as $feature)
                                         <div class="paren-check-box">
+                                           <div>
                                             <input type="checkbox" id="feature-{{ $feature->id }}" name="features[]"
-                                                value="{{ $feature->id }}"
-                                                onchange="toggleQuantityInput(this, '{{ $feature->id }}')">
-                                            <label for="feature-{{ $feature->id }}">{{ $feature->name }}</label>
+                                            value="{{ $feature->id }}"
+                                            onchange="toggleQuantityInput(this, '{{ $feature->id }}')">
+                                        <label for="feature-{{ $feature->id }}">{{ $feature->name }}</label>
+                                           </div>
+                                           <input type="number" id="quantity-{{ $feature->id }}"
+                                                name="quantities[{{ $feature->id }}]" style="display: none;"
+                                                placeholder="Quantity" min="1">
 
                                         </div>
-                                        <div class="row"><input type="number" id="quantity-{{ $feature->id }}"
-                                                name="quantities[{{ $feature->id }}]" style="display: none;"
-                                                placeholder="Quantity" min="1"></div>
                                     @endforeach
                                     @error('features')
                                         <div class="text-danger">{{ $message }}</div>

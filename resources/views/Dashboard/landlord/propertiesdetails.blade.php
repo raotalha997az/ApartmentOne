@@ -120,6 +120,14 @@
                         @endforeach
                     </div>
                     <div class="properties-content-style properties-other-details">
+                        <h6>Eviction</h6>
+                        <p>{{ $property->eviction ? 'Required' : 'Not Required' }}</p>
+                    </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Crimanal Report</h6>
+                        <p>{{ $property->criminal_records ? 'Required' : 'Not Required' }}</p>
+                    </div>
+                    <div class="properties-content-style properties-other-details">
                         <h6>Rent to Who</h6>
                         @foreach ($property->RentToWhoDetails as $Details)
                             <p>{{ $Details->rentToWho->name ?? '' }}</p>
