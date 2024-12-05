@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Auth\LandlordAuthController;
 use App\Http\Controllers\LandLord\PropertyController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Payment\StripePaymentController;
 use App\Http\Controllers\tenant\TenantPropertiesController;
 use App\Http\Controllers\tenant\ApplyPropertyHistoryController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
@@ -83,31 +84,40 @@ Route::post('NewsLatters/store', [NewsController::class, 'store'])->name('newsla
 // Dashboard Routes
 Route::prefix('tenant')->name('tenant.')->group(function () {
     Route::middleware(['auth', 'twofactor', 'verified','role:tenant'])->group(function () {
+
+// Payment
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe', 'stripe')->name('stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
+
     Route::get('/dashboard',[TenantAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/screening', [TenantPropertiesController::class, 'screening'])->name('screening');
+    Route::middleware(['auth', 'check.payment'])->group(function () {
+        Route::get('/applyhistory',action: [ApplyPropertyHistoryController::class,'applyhistory'])->name('applyhistory');
+        });
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
     Route::get('/fluter/property/{id}',[TenantPropertiesController::class,'fluterproperty'])->name('fluter.property');
     Route::get('/propertiesdetails/{id}', [TenantPropertiesController::class, 'propertiesdetails'])->name('propertiesdetails');
-    Route::get('/propertieslistings',[TenantPropertiesController::class,'propertieslistings'])->name('propertieslistings'); //extra
-    Route::get('/profile',[DashboardController::class,'profile'])->name('profile'); //extra
-    Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist'); //extra
-    // profile
-    // Route::get('/profile',[TenantAuthController::class,'profile'])->name('profile');
-    Route::post('/profile/update', [TenantAuthController::class, 'updateProfile'])->name('profile.update');
-    Route::post('/screening/update', [TenantAuthController::class, 'updateScreening'])->name('screening.update');
-        // wishlist
+
     Route::post('/wishlistadd', [TenantAuthController::class, 'addToWishlist'])->name('wishlist.add');
      Route::post('/wishlistremove', [TenantAuthController::class, 'removeFromWishlist'])->name('wishlist.remove');
      Route::get('/wishlist/show',[TenantAuthController::class,'showWishlist'])->name('wishlist.show');
     //  Bank Info
-    Route::post('/bank', [TenantAuthController::class, 'bank'])->name('bank');
 
     Route::get('/applyforproperty/{property}/{user}', action: [TenantPropertiesController::class, 'applyForProperty'])->name('applyForProperty');
-    Route::get('/applyhistory',action: [ApplyPropertyHistoryController::class,'applyhistory'])->name('applyhistory');
 
+    // profile
+    // Route::get('/profile',[TenantAuthController::class,'profile'])->name('profile');
+    Route::post('/profile/update', [TenantAuthController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/propertieslistings',[TenantPropertiesController::class,'propertieslistings'])->name('propertieslistings'); //extra
+    Route::post('/screening/update', [TenantAuthController::class, 'updateScreening'])->name('screening.update');
+        // wishlist
+    Route::post('/bank', [TenantAuthController::class, 'bank'])->name('bank');
     //chat
      Route::get('chat', [MessageControllerEvent::class, 'go_to_chat'])->name('go.chat');
-
+     Route::get('/profile',[DashboardController::class,'profile'])->name('profile'); //extra
+     Route::get('/wishlist',[DashboardController::class,'wishlist'])->name('wishlist'); //extra
 
     Route::get('/fetch-messages', [MessageControllerEvent::class, 'fetchMessages'])->name('fetch.messages');
 

@@ -36,6 +36,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'date_of_birth', // Date of birth
         'password',
         'verification_token',
+        'payment_status',
+        'payment_expires_at',
     ];
 
     public function getAgeAttribute()

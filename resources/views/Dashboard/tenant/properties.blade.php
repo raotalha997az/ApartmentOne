@@ -172,16 +172,21 @@
 
             </div>
 
-            {{-- <div class="lock-access-box-top" style="background-image: url({{asset('assets/images/Rectangle-400.png')}})">
-            <div class="box">
-                <h6>Apply For Screening To Get Full Access</h6>
-            <a href="{{route('tenant.screening')}}" class="t-btn t-btn-blue t-btn-svg">Apply Now<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.0215 17.5981L12.3834 18.9601L18.8435 12.5L12.3834 6.03992L11.0215 7.40186L15.1564 11.5368H5.92334V13.4632H15.1564L11.0215 17.5981Z" fill="white"></path>
-                </svg></a>
+            @if (auth()->user()->payment_status == 0)
+
+            <div class="lock-access-box-top" style="background-image: url({{asset('assets/images/Rectangle-400.png')}})">
+                <div class="box">
+                    <h6>Apply For Screening To Get Full Access</h6>
+                    <a href="{{route('tenant.screening')}}" class="t-btn t-btn-blue t-btn-svg">Apply Now<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.0215 17.5981L12.3834 18.9601L18.8435 12.5L12.3834 6.03992L11.0215 7.40186L15.1564 11.5368H5.92334V13.4632H15.1564L11.0215 17.5981Z" fill="white"></path>
+                    </svg></a>
+                </div>
             </div>
-        </div> --}}
+        @endif
+
         </div>
 
+    </div>
     </div>
     @endsection
 

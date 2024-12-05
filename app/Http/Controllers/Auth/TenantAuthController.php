@@ -119,7 +119,7 @@ class TenantAuthController extends Controller
     $bank->save();
 
 
-        return redirect()->route('tenant.screening')->with('success', 'Screening updated successfully!');
+        return redirect()->route('tenant.stripe')->with('success', 'Screening updated successfully!');
     }
 
     public function dashboard()
