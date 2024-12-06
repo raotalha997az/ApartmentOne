@@ -22,6 +22,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css">
+
 
     <style>
         .dashboard-main .left-panel {
@@ -402,6 +405,19 @@
                                                 </svg>
 
                                                 News Letters</a></li>
+                                                <li><a href="{{ route('admin.payment') }}" class="payment">
+
+                                                    <svg width="30" height="30" viewBox="0 0 30 30"
+                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                        d="M15 18.75C12.7 18.75 12.5 17.675 12.5 17.5H10C10 18.65 10.825 20.6875 13.75 21.15V22.5H16.25V21.15C18.75 20.725 20 19.1125 20 17.5C20 16.1 19.35 13.75 15 13.75C12.5 13.75 12.5 12.9625 12.5 12.5C12.5 12.0375 13.375 11.25 15 11.25C16.625 11.25 16.7375 12.05 16.75 12.5H19.25C19.2331 11.6484 18.9268 10.828 18.3816 10.1737C17.8363 9.51938 17.0845 9.07018 16.25 8.9V7.5H13.75V8.8625C11.25 9.275 10 10.8875 10 12.5C10 13.9 10.65 16.25 15 16.25C17.5 16.25 17.5 17.1 17.5 17.5C17.5 17.9 16.725 18.75 15 18.75Z"
+                                                        fill="white"/>
+                                                        <path
+                                                        d="M6.25 2.5H2.5V5H5V26.25C5 26.5815 5.1317 26.8995 5.36612 27.1339C5.60054 27.3683 5.91848 27.5 6.25 27.5H23.75C24.0815 27.5 24.3995 27.3683 24.6339 27.1339C24.8683 26.8995 25 26.5815 25 26.25V5H27.5V2.5H6.25ZM22.5 25H7.5V5H22.5V25Z"
+                                                        fill="white"/>
+                                                        </svg>
+
+                                                 Payments Paid</a></li>
                                         <li><a href="{{ route('admin.testimonial') }}" class="testimonial-active">
 
                                                 <svg width="30" height="30" viewBox="0 0 30 30"
@@ -793,6 +809,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
     <script>
         // Mark all notifications as read
         $('#markAllAsReadBtn').click(function() {

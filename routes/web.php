@@ -42,6 +42,7 @@ use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 //     return view('welcome');
 // });
 // WEBSITE ROUTES
+Route::get('/otp', [WebController::class, 'getOtp'])->name('get.otp'); //get otp route fot testimg perpose
 Route::get('/',[WebController::class,'index'])->name('index');
 Route::get('/about',[WebController::class,'about'])->name('about');
 Route::get('/help',[WebController::class,'help'])->name('help');
@@ -181,6 +182,8 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
 
     //nesletter
     Route::get('NewsLatters', [NewsController::class, 'index'])->name('newslatter');
+    //payment
+    Route::get('payments', [NewsController::class, 'payments'])->name('payment');
     //testimonial
     Route::get('testimonials', [TestimonialController::class, 'index'])->name('testimonial');
     Route::post('testimonials/store', [TestimonialController::class, 'store'])->name('testimonial.store');

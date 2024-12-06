@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\NewsLatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,11 +11,13 @@ class NewsController extends Controller
 {
     public function index(){
         $newslatters = NewsLatter::all();
-        // dd($newslatters);
-
         return view('Dashboard.admin.newslatters.index',compact('newslatters'));
     }
 
+    public function payments(){
+        $Payments = Payment::orderBy('id', 'desc')->with('user')->get();
+        return view('Dashboard.admin.Payments.index',compact('Payments'));
+    }
 
     public function store(Request $request)
 {

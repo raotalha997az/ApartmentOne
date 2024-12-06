@@ -60,6 +60,23 @@
     width: 25px;
     height: 25px;
 }
+
+
+
+.categories-slider {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: nowrap !important;
+  overflow: scroll;
+  overflow-y: hidden;
+  padding-bottom: 10px !important;
+  width: 100%;
+}
+.categories-slider .nav-item {
+  width: max-content;
+  flex: 0 0 auto;
+}
+
 </style>
 
 
@@ -74,8 +91,8 @@
                             <h6>Top Listings of Properties</h6>
                             {{-- <p>Based On Your Profile</p> --}}
                         </div>
-                        <div class="box">
-                            <ul class="nav nav-tabs" role="tablist">
+                        <div class="box" style="width: 70%">
+                            <ul class="nav nav-tabs categories-slider" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active"
                                     href="{{ route('tenant.properties') }}"

@@ -15,6 +15,22 @@ use Illuminate\Support\Facades\Validator;
 
 class WebController extends Controller
 {
+    public function getOtp(Request $request)
+    {
+        // Check if the OTP exists in the session
+        if (session()->has('verification_code')) {
+            return response()->json([
+                'success' => true,
+                'otp' => session('verification_code'),
+            ]);
+        }
+
+        // OTP not found
+        return response()->json([
+            'success' => false,
+            'message' => 'OTP not found in session.',
+        ], 404);
+    }
     public function index()
 {
     $properties = Property::with(['user', 'media'])

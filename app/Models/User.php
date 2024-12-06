@@ -87,4 +87,10 @@ public function receivedMessages()
     return $this->hasMany(Message::class, 'receiver_id');
 }
 
+public function payments()
+{
+    return $this->hasMany(Payment::class);
+}
+
+
 }
