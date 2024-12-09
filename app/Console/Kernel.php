@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Services\LoginService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,6 +14,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('payments:expire')->daily();
+        $schedule->call(function () {
+            app(LoginService::class)->refreshToken();
+        })->everyMinute();
     }
 
     /**

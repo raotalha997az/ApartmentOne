@@ -6,6 +6,7 @@ use Mail;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Services\LoginService;
 use App\Mail\VerificationCodeMail;
 use Spatie\Permission\Models\Role;
 use App\Jobs\SendVerificationEmail;
@@ -21,7 +22,12 @@ class AuhController extends Controller
 {
 
 
+    protected $apiService;
 
+    public function __construct(LoginService $apiService)
+    {
+        $this->apiService = $apiService;
+    }
 
     public function register(Request $request)
     {
@@ -75,6 +81,7 @@ class AuhController extends Controller
 
     public function login(Request $request)
 {
+
     $request->validate([
         'email' => 'required|email',
         'password' => 'required|string|min:6',
@@ -97,6 +104,8 @@ class AuhController extends Controller
 
         // Dispatch job to send the verification code
         SendVerificationCodeJob::dispatch($user, $verificationCode);
+        // Call the API service for login
+        $response = $this->apiService->login($request->email, $request->password);
 
         return redirect()->route('verify.code')
             ->with('message', 'A verification code has been sent to your email.');
