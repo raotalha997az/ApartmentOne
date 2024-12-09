@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Payment;
 
-use Stripe\Stripe;
 use Stripe\Charge;
+use Stripe\Stripe;
 use App\Models\Payment;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Models\ExpTenantFico9Model;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendPaymentSuccessEmail;
 use Illuminate\Http\RedirectResponse;
-use App\Models\ExpTenantVantage4 as ExpTenantVantage4Model;
 use App\Services\Experian\ExpTenantVantage4;
+use App\Services\Experian\ExpTenantFico9Service;
+use App\Models\ExpTenantVantage4 as ExpTenantVantage4Model;
 
 
 
@@ -78,7 +80,7 @@ class StripePaymentController extends Controller
     // }
 
 
-    public function stripePost(Request $request,ExpTenantVantage4 $experianApiService,): RedirectResponse
+    public function stripePost(Request $request,ExpTenantVantage4 $experianApiService,ExpTenantFico9Service $expTenantFico9Service ): RedirectResponse
 {
     // Set Stripe API Key
     Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -129,6 +131,7 @@ class StripePaymentController extends Controller
             "phone" => "0000000000",
         ]);
 
+
         if ($experianData) {
             // Save the API response in the database
             ExpTenantVantage4Model::create([
@@ -139,6 +142,29 @@ class StripePaymentController extends Controller
             throw new \Exception('Failed to fetch Experian Credit Report');
         }
 
+        $experianfico9Data = $expTenantFico9Service->fetchCreditReport([
+            "firstName" => "ANDERSON",
+            "lastName" => "LAURIE",
+            "nameSuffix" => "SR",
+            "street1" => "9817 LOOP BLVD",
+            "street2" => "APT G",
+            "city" => "CALIFORNIA CITY",
+            "state" => "CA",
+            "zip" => "935051352",
+            "ssn" => "666455730",
+            "dob" => "1998-08-01",
+            "phone" => "0000000000",
+        ]);
+
+        if ($experianfico9Data) {
+            // Save the API response in the database
+            ExpTenantFico9Model::create([
+                'user_id' => $user->id,
+                'data' => json_encode($experianfico9Data), // Save response as JSON
+            ]);
+        } else {
+            throw new \Exception('Failed to fetch Experian Credit Report');
+        }
         // Dispatch success email job
         SendPaymentSuccessEmail::dispatch($user);
 

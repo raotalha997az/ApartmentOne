@@ -142,6 +142,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                                 <th>Currency</th>
                                 <th>Description</th>
                                 <th>Paid At</th>
+                                <th>Payment Expiry Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -156,6 +157,11 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                                     <td>{{ $Payment->currency ?? '' }}</td>
                                     <td>{{ $Payment->description ?? '' }}</td>
                                     <td>{{ $Payment->created_at ? $Payment->created_at->format('Y-m-d h:i A') : '' }}</td>
+                                        {{-- @if($Payment->created_at === $Payment->user->updated_at) --}}
+                                        <td>
+                                            {{ $Payment->user->payment_expires_at ? \Carbon\Carbon::parse($Payment->user->payment_expires_at)->format('Y-m-d h:i A') : '' }}
+                                        </td>
+                                        {{-- @endif --}}
 
 
                                 </tr>
