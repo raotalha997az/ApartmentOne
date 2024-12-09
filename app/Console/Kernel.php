@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
                 $loginService->login(env('CLIENT_ID'), env('CLIENT_SECRET'));
             }
             $loginService->refreshToken();
-        })->everyMinute();
+        })->hourly();
     }
 
     /**
