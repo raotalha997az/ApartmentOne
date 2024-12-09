@@ -90,11 +90,6 @@ class StripePaymentController extends Controller
     Stripe::setApiKey(env('STRIPE_SECRET'));
     try {
         $user = auth()->user()->load('bank');
-        dd($user);
-
-        dd($user);
-
-
         // Count user payments
         $paymentCount = Payment::where('user_id', $user->id)->count();
         $paymentDescription = 'Paid ' . ($paymentCount + 1) . ' time' . ($paymentCount + 1 > 1 ? 's' : '');
@@ -222,6 +217,24 @@ class StripePaymentController extends Controller
             "zip" => "91502"
         ],
     ]);
+        //     $fullName = $user->name;
+        //  $nameParts = explode(' ', $fullName, 2);
+        //     $CrimnalRecordData = $CrimnalRecordService->fetchCreditReport([
+        //         "reference" => "",
+        //         "subjectInfo" => [
+        //         "last" => $nameParts[0],
+        //         "first" => $nameParts[1] ?? '',
+        //         "middle" => "",
+        //         "dob" => $user->date_of_birth,
+        //         "ssn" =>  $user->bank->identity_card,
+        //         "houseNumber" => $user->house_number,
+        //         "streetName" => $user->address,
+        //         "city" => $user->city,
+        //         "state" => $user->state,
+        //         "zip" => $user->postal_code,
+        //     ],
+        // ]);
+
     if ($CrimnalRecordData) {
         // Save the API response in the database
         CrimnalRecordModel::create([
@@ -247,6 +260,26 @@ class StripePaymentController extends Controller
                 "zip" => "91502",
             ],
         ]);
+
+    //     $fullName = $user->name;
+    //     $nameParts = explode(' ', $fullName, 2);
+    //        $CrimnalRecordData = $CrimnalRecordService->fetchCreditReport([
+    //            "reference" => "",
+    //            "subjectInfo" => [
+    //            "last" => $nameParts[0],
+    //            "first" => $nameParts[1] ?? '',
+    //            "middle" => "",
+    //            "dob" => $user->date_of_birth,
+    //            "ssn" =>  $user->bank->identity_card,
+    //            "houseNumber" => $user->house_number,
+    //            "streetName" => $user->address,
+    //            "city" => $user->city,
+    //            "state" => $user->state,
+    //            "zip" => $user->postal_code,
+    //        ],
+    //    ]);
+
+
         if ($fetchEvictionReportData) {
             // Save the API response in the database
             EvictionReportModel::create([
