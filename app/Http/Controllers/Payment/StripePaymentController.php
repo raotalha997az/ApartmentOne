@@ -7,6 +7,7 @@ use Stripe\Stripe;
 use App\Models\Payment;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Models\CrimnalRecordModel;
 use App\Models\EvictionReportModel;
 use App\Models\ExpTenantFico9Model;
 use App\Http\Controllers\Controller;
@@ -14,6 +15,7 @@ use App\Jobs\SendPaymentSuccessEmail;
 use Illuminate\Http\RedirectResponse;
 use App\Services\Experian\ExpTenantVantage4;
 use App\Services\Experian\ExpTenantFico9Service;
+use App\Services\CrimnalRecords\CrimnalRecordService;
 use App\Services\EvictionReport\EvictionReportService;
 use App\Models\ExpTenantVantage4 as ExpTenantVantage4Model;
 
@@ -82,12 +84,16 @@ class StripePaymentController extends Controller
     // }
 
 
-    public function stripePost(Request $request,ExpTenantVantage4 $experianApiService,ExpTenantFico9Service $expTenantFico9Service,EvictionReportService $fetchEvictionReport): RedirectResponse
+    public function stripePost(Request $request,ExpTenantVantage4 $experianApiService,ExpTenantFico9Service $expTenantFico9Service,EvictionReportService $fetchEvictionReport,CrimnalRecordService $CrimnalRecordService): RedirectResponse
     {
     // Set Stripe API Key
     Stripe::setApiKey(env('STRIPE_SECRET'));
     try {
-        $user = auth()->user();
+        $user = auth()->user()->load('bank');
+        dd($user);
+
+        dd($user);
+
 
         // Count user payments
         $paymentCount = Payment::where('user_id', $user->id)->count();
@@ -134,6 +140,24 @@ class StripePaymentController extends Controller
         ]);
 
 
+        // $fullName = $user->name;
+        // $nameParts = explode(' ', $fullName, 2);
+
+        // $experianData = $experianApiService->fetchCreditReport([
+        //     "firstName" => $nameParts[0],
+        //     "lastName" =>$nameParts[1] ?? '',
+        //     "nameSuffix" => '',
+        //     "street1" => $user->address,
+        //     "street2" =>'',
+        //     "city" => $user->city,
+        //     "state" => $user->state,
+        //     "zip" => $user->postal_code,
+        //     "ssn" => $user->bank->identity_card,
+        //     "dob" => $user->date_of_birth,
+        //     "phone" => $user->phone,
+        // ]);
+
+
         if ($experianData) {
             // Save the API response in the database
             ExpTenantVantage4Model::create([
@@ -157,6 +181,22 @@ class StripePaymentController extends Controller
             "dob" => "1998-08-01",
             "phone" => "0000000000",
         ]);
+        // $fullName = $user->name;
+        // $nameParts = explode(' ', $fullName, 2);
+
+        // $experianData = $experianApiService->fetchCreditReport([
+        //     "firstName" => $nameParts[0],
+        //     "lastName" =>$nameParts[1] ?? '',
+        //     "nameSuffix" => '',
+        //     "street1" => $user->address,
+        //     "street2" =>'',
+        //     "city" => $user->city,
+        //     "state" => $user->state,
+        //     "zip" => $user->postal_code,
+        //     "ssn" => $user->bank->identity_card,
+        //     "dob" => $user->date_of_birth,
+        //     "phone" => $user->phone,
+        // ]);
         if ($experianfico9Data) {
             // Save the API response in the database
             ExpTenantFico9Model::create([
@@ -166,6 +206,31 @@ class StripePaymentController extends Controller
         } else {
             throw new \Exception('Failed to fetch Experian Fico9 Report');
         }
+
+        $CrimnalRecordData = $CrimnalRecordService->fetchCreditReport([
+            "reference" => "myRef123",
+            "subjectInfo" => [
+            "last" => "Consumer",
+            "first" => "Jonathan",
+            "middle" => "",
+            "dob" => "01-01-1982",
+            "ssn" => "666-44-3321",
+            "houseNumber" => "1803",
+            "streetName" => "Norma",
+            "city" => "Cottonwood",
+            "state" => "CA",
+            "zip" => "91502"
+        ],
+    ]);
+    if ($CrimnalRecordData) {
+        // Save the API response in the database
+        CrimnalRecordModel::create([
+            'user_id' => $user->id,
+            'data' => json_encode($CrimnalRecordData), // Save response as JSON
+        ]);
+    } else {
+        throw new \Exception('Failed to fetch Experian Credit Report');
+    }
 
         $fetchEvictionReportData = $fetchEvictionReport->fetchEvictionReport([
             "reference" => "myRef123",
