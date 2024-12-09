@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendPaymentSuccessEmail;
 use Illuminate\Http\RedirectResponse;
+use App\Models\ExpTenantVantage4 as ExpTenantVantage4Model;
+use App\Services\Experian\ExpTenantVantage4;
+
 
 
 
@@ -75,16 +78,14 @@ class StripePaymentController extends Controller
     // }
 
 
-    public function stripePost(Request $request): RedirectResponse
+    public function stripePost(Request $request,ExpTenantVantage4 $experianApiService,): RedirectResponse
 {
     // Set Stripe API Key
     Stripe::setApiKey(env('STRIPE_SECRET'));
-
     try {
+        $user = auth()->user();
 
-            $user = auth()->user();
-
-        // Count the number of payments the user has made
+        // Count user payments
         $paymentCount = Payment::where('user_id', $user->id)->count();
         $paymentDescription = 'Paid ' . ($paymentCount + 1) . ' time' . ($paymentCount + 1 > 1 ? 's' : '');
 
@@ -95,9 +96,6 @@ class StripePaymentController extends Controller
             "source" => $request->stripeToken,
             "description" => $paymentDescription,
         ]);
-
-        // Get the authenticated user
-        $user = auth()->user();
 
         // Save payment record
         Payment::create([
@@ -116,14 +114,38 @@ class StripePaymentController extends Controller
             'payment_expires_at' => now()->addDays(90),
         ]);
 
+        // Fetch Experian Credit Report
+        $experianData = $experianApiService->fetchCreditReport([
+            "firstName" => "ANDERSON",
+            "lastName" => "LAURIE",
+            "nameSuffix" => "SR",
+            "street1" => "9817 LOOP BLVD",
+            "street2" => "APT G",
+            "city" => "CALIFORNIA CITY",
+            "state" => "CA",
+            "zip" => "935051352",
+            "ssn" => "666455730",
+            "dob" => "1998-08-01",
+            "phone" => "0000000000",
+        ]);
+
+        if ($experianData) {
+            // Save the API response in the database
+            ExpTenantVantage4Model::create([
+                'user_id' => $user->id,
+                'data' => json_encode($experianData), // Save response as JSON
+            ]);
+        } else {
+            throw new \Exception('Failed to fetch Experian Credit Report');
+        }
+
         // Dispatch success email job
         SendPaymentSuccessEmail::dispatch($user);
 
         // Redirect with success message
-        return redirect()->route('tenant.properties')->with('success', 'Payment successful!');
+        return redirect()->route('tenant.properties')->with('success', 'Payment and credit report retrieval successful!');
     } catch (\Exception $e) {
-        // Handle exceptions and return an error message
-        return redirect()->back()->with('error', 'Payment failed! Please try again.');
+        return redirect()->back()->with('error', 'Payment or API error: ' . $e->getMessage());
     }
 
 }
