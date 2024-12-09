@@ -7,12 +7,14 @@ use Stripe\Stripe;
 use App\Models\Payment;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Models\EvictionReportModel;
 use App\Models\ExpTenantFico9Model;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendPaymentSuccessEmail;
 use Illuminate\Http\RedirectResponse;
 use App\Services\Experian\ExpTenantVantage4;
 use App\Services\Experian\ExpTenantFico9Service;
+use App\Services\EvictionReport\EvictionReportService;
 use App\Models\ExpTenantVantage4 as ExpTenantVantage4Model;
 
 
@@ -80,8 +82,8 @@ class StripePaymentController extends Controller
     // }
 
 
-    public function stripePost(Request $request,ExpTenantVantage4 $experianApiService,ExpTenantFico9Service $expTenantFico9Service ): RedirectResponse
-{
+    public function stripePost(Request $request,ExpTenantVantage4 $experianApiService,ExpTenantFico9Service $expTenantFico9Service,EvictionReportService $fetchEvictionReport): RedirectResponse
+    {
     // Set Stripe API Key
     Stripe::setApiKey(env('STRIPE_SECRET'));
     try {
@@ -155,12 +157,36 @@ class StripePaymentController extends Controller
             "dob" => "1998-08-01",
             "phone" => "0000000000",
         ]);
-
         if ($experianfico9Data) {
             // Save the API response in the database
             ExpTenantFico9Model::create([
                 'user_id' => $user->id,
                 'data' => json_encode($experianfico9Data), // Save response as JSON
+            ]);
+        } else {
+            throw new \Exception('Failed to fetch Experian Fico9 Report');
+        }
+
+        $fetchEvictionReportData = $fetchEvictionReport->fetchEvictionReport([
+            "reference" => "myRef123",
+            "subjectInfo" => [
+                "last" => "Chuang",
+                "first" => "Harold",
+                "middle" => "",
+                "dob" => "01-01-1982",
+                "ssn" => "666-44-3321",
+                "houseNumber" => "1803",
+                "streetName" => "Norma",
+                "city" => "Cottonwood",
+                "state" => "CA",
+                "zip" => "91502",
+            ],
+        ]);
+        if ($fetchEvictionReportData) {
+            // Save the API response in the database
+            EvictionReportModel::create([
+                'user_id' => $user->id,
+                'data' => json_encode($fetchEvictionReportData), // Save response as JSON
             ]);
         } else {
             throw new \Exception('Failed to fetch Experian Credit Report');
