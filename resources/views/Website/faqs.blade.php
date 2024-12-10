@@ -185,3 +185,53 @@
 <x-news-letters/>
 
 @endsection
+@section('scripts')
+<!-- Include SweetAlert2 CDN -->
+<script>
+    $(document).ready(function() {
+        $('#newsletter-form').on('submit', function(event) {
+            event.preventDefault(); // Prevent page reload
+
+            var email = $('#email').val();
+
+            $.ajax({
+                url: '{{ route('newslatter.store') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    email: email
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Display SweetAlert success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thank you!',
+                            text: response.message
+                        });
+
+                        // Clear the input field
+                        $('#email').val('');
+                    } else {
+                        // Display SweetAlert error message for validation errors
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'you are already subscribed',
+                            // text: response.errors.email[0] // Show the first validation error
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    // Handle unexpected errors
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something went wrong. Please try again.'
+                    });
+                }
+            });
+        });
+    });
+</script>
+@endsection

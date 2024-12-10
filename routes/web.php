@@ -95,6 +95,7 @@ Route::controller(StripePaymentController::class)->group(function(){
     Route::get('/dashboard',[TenantAuthController::class,'dashboard'])->name('dashboard');
     Route::get('/screening', [TenantPropertiesController::class, 'screening'])->name('screening');
     Route::middleware(['auth', 'check.payment'])->group(function () {
+        Route::get('/wishlist/show',[TenantAuthController::class,'showWishlist'])->name('wishlist.show');
         Route::get('/applyhistory',action: [ApplyPropertyHistoryController::class,'applyhistory'])->name('applyhistory');
         });
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
@@ -103,7 +104,6 @@ Route::controller(StripePaymentController::class)->group(function(){
 
     Route::post('/wishlistadd', [TenantAuthController::class, 'addToWishlist'])->name('wishlist.add');
      Route::post('/wishlistremove', [TenantAuthController::class, 'removeFromWishlist'])->name('wishlist.remove');
-     Route::get('/wishlist/show',[TenantAuthController::class,'showWishlist'])->name('wishlist.show');
     //  Bank Info
 
     Route::get('/applyforproperty/{property}/{user}', action: [TenantPropertiesController::class, 'applyForProperty'])->name('applyForProperty');
