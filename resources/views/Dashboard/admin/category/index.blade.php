@@ -149,6 +149,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>Image</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -157,6 +158,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                                 <tr>
                                     <td>{{ $category->id ?? '' }}</td>
                                     <td>{{ $category->name ?? '' }}</td>
+                                    <td><img src="{{ Storage::url($category->image ?? '') }}" alt="" height="50px" width="50px"></td>
                                     <td>
                                         <a class="btn btn-sm btn-success" href="{{ route('admin.category.edit', $category->id) }}">
                                             <img src="{{ asset('assets/images/bx-pencil.png') }}" width="30" height="20">
@@ -187,7 +189,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="categoryForm">
+                    <form id="categoryForm" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="new-category" class="form-label">Category Name</label>
                             <input type="text" name="name" class="form-control" id="new-category"
@@ -196,12 +198,22 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
+                        <div class="mb-3">
+                            <label for="category-image" class="form-label">Category Image</label>
+                            <input type="file" name="image" class="form-control" id="category-image">
+                            @error('image')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Add Category</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -210,7 +222,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="itemForm">
+                    <form id="itemForm" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="new-item" class="form-label">Category Name</label>
                             <input type="text" class="form-control" id="new-item" placeholder="Enter Category name"
@@ -219,6 +231,19 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                         </div>
                         @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+
+                        <div class="mb-3">
+                            <label for="old-image" class="form-label">Old Category Image</label>
+                            <img src="" alt="Old Category Image" id="old-image" height="50px" width="50px">
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Category Image</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
+
+                        @error('image')
+                        <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <button type="submit" class="btn btn-primary">Update Category</button>
                     </form>
@@ -257,65 +282,42 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                 $('#categoryModal').modal('show');
             });
             $('#categoryForm').on('submit', function(event) {
-                event.preventDefault(); // Prevent the form from submitting traditionally
+                event.preventDefault(); // Prevent the default form submission
 
-                let categoryName = $('#new-category').val();
+                // Create FormData object
+                let formData = new FormData(this);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Get CSRF token from meta tag
+                    }
+                });
 
                 $.ajax({
-                    url: "{{ route('admin.category.store') }}", // Laravel route URL
+                    url: "{{ route('admin.category.store') }}", // Adjust this to your actual route
                     method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}', // CSRF token for security
-                        name: categoryName
-                    },
+                    data: formData,
+                    contentType: false, // Required for file uploads
+                    processData: false, // Prevent jQuery from automatically processing data
                     success: function(response) {
-                        // alert(response.message); // Show success
-                        toastr.success(response.message);
+                        toastr.success(response.message); // Show success message
                         $('#categoryModal').modal('hide'); // Hide the modal
                         $('#categoryForm')[0].reset(); // Reset the form
-                        location.reload();
-                        // Optionally, refresh the list of categories on the page
+                        location.reload(); // Reload the page (or update the category list dynamically)
                     },
                     error: function(xhr) {
-                        // alert('An error occurred: ' + xhr.responseJSON.message);
-                        toastr.error('An error occurred: ' + xhr.responseJSON
-                            .message); // Show error toast
+                        // Handle validation errors
+                        if (xhr.responseJSON.errors) {
+                            toastr.error(Object.values(xhr.responseJSON.errors).join('<br>'));
+                        } else {
+                            toastr.error('An error occurred: ' + xhr.responseJSON.message); // Show error toast
+                        }
                     }
                 });
             });
-        });
 
-        // function confirmDelete(categoryId) {
-        //     Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, delete it!'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             $.ajax({
-        //                 url: `/admin/category/${categoryId}`, // URL to delete the category
-        //                 type: 'DELETE',
-        //                 data: {
-        //                     _token: '{{ csrf_token() }}' // CSRF token for Laravel
-        //                 },
-        //                 success: function(response) {
-        //                     toastr.success(response.message); // Display success message
-        //                     // Remove the row from the table
-        //                     $(`#deleteForm-${categoryId}`).closest('tr').remove();
-        //                     location.reload();
-        //                 },
-        //                 error: function(xhr) {
-        //                     toastr.error(xhr.responseJSON.message ||
-        //                         'Failed to delete category'); // Display error message
-        //                 }
-        //             });
-        //         }
-        //     });
-        // }
+
+        });
         function confirmDelete(categoryId) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -364,59 +366,86 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
 
 
         $(document).ready(function() {
-            // When the "Edit" button is clicked
-            $('.btn-success').on('click', function(event) {
-                event.preventDefault(); // Prevent the default link behavior
+    // When the "Edit" button is clicked
+    $('.btn-success').on('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
 
-                // Get the URL from the link's href attribute
-                var url = $(this).attr('href');
+        // Get the URL from the link's href attribute
+        var url = $(this).attr('href');
 
-                // Make an AJAX request to fetch the category data
-                $.ajax({
-                    url: url,
-                    method: 'GET',
-                    success: function(response) {
-                        // Check if the category data is received
-                        if (response.category) {
-                            // Populate the input field in the modal with the category name
-                            $('#new-item').val(response.category.name);
-                            $('#catId').val(response.category.id);
+        // Make an AJAX request to fetch the category data
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function(response) {
+                // Check if the category data is received
+                if (response.category) {
+                    console.log(response.category);
 
-                            // Show the modal
-                            $('#itemModal').modal('show');
-                        } else {
-                            toastr.error('Category not found');
-                        }
-                    },
-                    error: function() {
-                        toastr.error('Failed to fetch category data');
+                    // Populate the input field in the modal with the category name
+                    $('#new-item').val(response.category.name);
+                    $('#catId').val(response.category.id);
+
+                    // Update the image source in the modal
+                    if (response.category.image_url) {
+                        $('#old-image').attr('src', response.category.image_url);
+                    } else {
+                        $('#old-image').attr('src', ''); // Clear image if none exists
                     }
-                });
-            });
-        });
 
-        function saveCategory() {
-            const id = $('#catId').val(); // Get the category ID from the modal
-            const name = $('#new-item').val(); // Get the category name from the input
-
-            $.ajax({
-                url: `/admin/category/${id}`, // Use the category ID in the URL
-                method: 'POST', // Use PUT method for updates
-                data: {
-                    name: name,
-                    '_token': '{{ csrf_token() }}' // Include CSRF token for security
-                },
-                success: function(response) {
-                    toastr.success(response.message); // Show success message
-                    $('#itemModal').modal('hide'); // Hide the modal
-                    location.reload();
-                    // Optionally, refresh the list of categories on the page
-                },
-                error: function(xhr) {
-                    toastr.error('An error occurred: ' + xhr.responseJSON.message); // Show error toast
+                    // Show the modal
+                    $('#itemModal').modal('show');
+                } else {
+                    toastr.error('Category not found');
                 }
-            });
+            },
+            error: function() {
+                toastr.error('Failed to fetch category data');
+            }
+        });
+    });
+});
+
+
+
+function saveCategory() {
+    const formData = new FormData();
+    const id = $('#catId').val(); // Get the category ID from the modal
+    const name = $('#new-item').val(); // Get the category name from the input
+    const image = $('#image')[0].files[0]; // Use the correct id for the file input
+
+    formData.append('name', name);
+    if (image) {
+        formData.append('image', image); // Only append if an image is selected
+    }
+    formData.append('_token', '{{ csrf_token() }}'); // Include CSRF token
+    formData.append('_method', 'PUT'); // Laravel requires this for PUT requests via AJAX
+
+    $.ajax({
+        url: `/admin/category/${id}`, // Use the category ID in the URL
+        method: 'POST', // Send as POST with `_method` set to `PUT`
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            toastr.success(response.message); // Show success message
+            $('#itemModal').modal('hide'); // Hide the modal
+            location.reload(); // Reload the page to reflect changes
+        },
+        error: function(xhr) {
+            const errors = xhr.responseJSON.errors;
+            if (errors) {
+                for (let key in errors) {
+                    toastr.error(errors[key][0]); // Display each validation error
+                }
+            } else {
+                toastr.error('An error occurred: ' + xhr.responseJSON.message); // Show error toast
+            }
         }
+    });
+}
+
+
 
         // Update the event handler for the item form submission
         $(document).ready(function() {

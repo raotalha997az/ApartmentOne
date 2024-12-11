@@ -234,7 +234,7 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
         Route::get('create', [CategoryController::class, 'create'])->name('create');
         Route::post('/', [CategoryController::class, 'store'])->name('store');
         Route::get('{category}/edit', [CategoryController::class, 'edit'])->name('edit');
-        Route::post('{category}', [CategoryController::class, 'update'])->name('update');
+        Route::match(['put', 'patch'],'{category}', [CategoryController::class, 'update'])->name('update');
         Route::delete('{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
 
