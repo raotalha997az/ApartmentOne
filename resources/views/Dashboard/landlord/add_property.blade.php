@@ -385,64 +385,7 @@
                 }
             </script>
 
-            <script>
-                const fileInput = document.getElementById('fileInput');
-                const imageContainer = document.getElementById('imageContainer');
-                let selectedImages = [];
 
-                fileInput.addEventListener('change', (event) => {
-                    const files = Array.from(event.target.files);
-
-                    if (selectedImages.length + files.length > 50) {
-                        toastr.error('You can only upload a maximum of 50 images.');
-                        return;
-                    }
-
-                    files.forEach(file => {
-                        if (file.type.startsWith('image/')) {
-                            if (selectedImages.length < 50) {
-                                selectedImages.push(file);
-                                displayImage(file);
-                            }
-                        } else {
-                            alert("Only image files are allowed.");
-                        }
-                    });
-
-                    checkImageCount();
-                });
-
-                function displayImage(file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const imagePreview = document.createElement('div');
-                        imagePreview.classList.add('image-preview');
-
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-
-                        const closeButton = document.createElement('button');
-                        closeButton.classList.add('close-btn');
-                        closeButton.innerHTML = 'X';
-                        closeButton.onclick = function() {
-                            imageContainer.removeChild(imagePreview);
-                            selectedImages = selectedImages.filter(img => img !== file);
-                            checkImageCount();
-                        };
-
-                        imagePreview.appendChild(img);
-                        imagePreview.appendChild(closeButton);
-                        imageContainer.appendChild(imagePreview);
-                    };
-                    reader.readAsDataURL(file);
-                }
-
-                function checkImageCount() {
-                    if (selectedImages.length < 3) {
-                        alert('You need to upload at least 3 images.');
-                    }
-                }
-            </script>
             <script>
                 $(document).ready(function() {
                     // Handle form submission inside the modal

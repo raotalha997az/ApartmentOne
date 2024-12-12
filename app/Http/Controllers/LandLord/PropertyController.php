@@ -60,12 +60,11 @@ class PropertyController extends Controller
 
     public function add_property()
     {
-        $categories = Category::select('name','id')->get();
+        $categories = Category::select('name','id','image')->get();
        $features = Feature::select('name','id')->get();
        $pets = Pet::select('name','id')->get();
        $rentWhos = RentToWho::select('name','id')->get();
-
-        return view('Dashboard.landlord.add_property' ,compact('features','pets','rentWhos','categories'));
+        return view('Dashboard.landlord.addProperty' ,compact('features','pets','rentWhos','categories'));
     }
 
     public function profile()
@@ -77,6 +76,7 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
+            // dd($request->all());
         $id = Auth::user()->id;
         // Validate the request data
         $validated = $request->validate([
@@ -85,15 +85,24 @@ class PropertyController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'category' => 'required|integer',
+            'country' => 'required|string|max:255',
             'credit_point' => 'required|integer|min:10|max:2500',
             'features' => 'required|array',
-            'features.*' => 'integer', // Ensure each feature ID is an integer
+            'features.*' => 'integer',
             'quantities' => 'required|array',
-            'pets' => 'required|array',
+            'pets' => 'nullable|array',
             'rent_whos' => 'required|array',
             'other_details' => 'nullable|string',
+            'many_time_evicted' => 'nullable|string',
+            'contact_name' => 'required|string',
+            'contact_phone_number' => 'required|digits:10',
+            'contact_email' => 'required|email',
+            'when_evicted' => 'nullable|string',
             'price' => 'required|numeric',
             'eviction' => 'nullable|boolean',
+            'smoking' => 'nullable|boolean',
+            'bankruptcy' => 'nullable|boolean',
+            'credit_history_check' => 'nullable|boolean',
             'criminal_records' => 'nullable|boolean',
         ]);
         // Create the new property
@@ -103,11 +112,21 @@ class PropertyController extends Controller
             'address' => $validated['address'],
             'cat_id' => $validated['category'],
             'credit_point' => $validated['credit_point'],
-            'other_details' => $validated['other_details'],
+            'other_details' => $validated['other_details'] ?? null,
             'available_status' => 1,
             'price_rent' => $validated['price'],
-            'eviction' => $validated['eviction'] ,
-            'criminal_records' => $validated['criminal_records'] ,
+            'many_time_evicted' => $validated['many_time_evicted'] ?? null,
+            'when_evicted' => $validated['when_evicted'] ?? null,
+            'contact_name' => $validated['contact_name'] ?? null,
+            'contact_phone_number' => $validated['contact_phone_number'] ?? null,
+            'contact_email' => $validated['contact_email'] ?? null,
+            'eviction' => $validated['eviction'] ?? false,
+            'criminal_records' => $validated['criminal_records'] ?? false,
+            'country' => $validated['country'],
+            'smoking' => $validated['smoking'] ?? false,
+            'bankruptcy' => $validated['bankruptcy'] ?? false,
+            'credit_history_check' => $validated['credit_history_check'] ?? false,
+
         ]);
 
         // Handle image upload and store paths in the Media model
@@ -156,7 +175,7 @@ class PropertyController extends Controller
 
 
         // Return a success response
-        return response()->json(['message' => 'Property created successfully!'], 201);
+        return redirect()->route('landlord.properties')->with(['message' => 'Property created successfully!'], 201);
     }
 
     public function category_store(Request $request)

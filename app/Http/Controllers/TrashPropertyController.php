@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pet;
+use App\Models\Feature;
+use App\Models\Category;
 use App\Models\Property;
+use App\Models\RentToWho;
 use Illuminate\Http\Request;
 
 class TrashPropertyController extends Controller
-{ public function index(){
+{
+    public function index(){
     // $users = User::onlyTrashed()->orderBy('id', 'updated_at')->paginate(10);
     $properties = Property::onlyTrashed()
                     ->orderByDesc('updated_at')
@@ -22,5 +27,6 @@ class TrashPropertyController extends Controller
     return redirect()->route('landlord.trash.index')->with('success', 'Prorety Reverted successfully!');
 
 }
-/******  51c7b581-c8b7-4a1e-8ebe-d18ca9886bfc  *******/
+
+
 }

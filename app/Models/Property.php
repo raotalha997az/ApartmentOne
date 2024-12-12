@@ -21,7 +21,16 @@ class Property extends Model
         'price_rent',
         'eviction',
         'criminal_records',
-        'address'
+        'address',
+        'country',
+        'smoking',
+        'credit_history_check',
+        'bankruptcy',
+        'many_time_evicted',
+        'when_evicted',
+        'contact_name',
+        'contact_phone_number',
+        'contact_email'
     ];
     public function category()
     {
