@@ -1,30 +1,30 @@
 @extends('Dashboard.Layouts.master_dashboard')
 <style>
     .propertieslistings-page .properties_details_main .properties-icons-details ul {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 30px !important;
-    flex-wrap: wrap;
-}
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px !important;
+        flex-wrap: wrap;
+    }
 
-.reports-listings-property-table .three-box-table .box.img-box-property {
-    width: 25% !important;
-}
+    .reports-listings-property-table .three-box-table .box.img-box-property {
+        width: 25% !important;
+    }
 
-.reports-listings-property-table .three-box-table .box {
-    width: 25% !important;
-    margin-right: 20px;
-}
+    .reports-listings-property-table .three-box-table .box {
+        width: 25% !important;
+        margin-right: 20px;
+    }
 
 
-.propertieslistings-page.propertiesdetails-page .three-headings-align h3 {
-    width: 25% !important;
-}
+    .propertieslistings-page.propertiesdetails-page .three-headings-align h3 {
+        width: 25% !important;
+    }
 
-.reports-listings-property-table .three-headings-align {
-    justify-content: flex-start;
-    gap: 30px;
-}
+    .reports-listings-property-table .three-headings-align {
+        justify-content: flex-start;
+        gap: 30px;
+    }
 </style>
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
@@ -34,18 +34,18 @@
                 <div class="place-gallery-box">
                     <div class="large-gallery-box">
                         @if ($property->media->isNotEmpty())
-                        <a href="{{ Storage::url($property->media[0]->img_path ?? '') }}" data-fancybox="gallery"
-                            data-caption="Caption Images 1">
-                            <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}" alt="Image Gallery">
-                        </a>
+                            <a href="{{ Storage::url($property->media[0]->img_path ?? '') }}" data-fancybox="gallery"
+                                data-caption="Caption Images 1">
+                                <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}" alt="Image Gallery">
+                            </a>
                         @endif
                     </div>
                     <div class="small-gallery-box">
                         {{-- Check if the property has media --}}
                         @if ($property->media->isNotEmpty())
                             @foreach ($property->media->skip(1) as $media)
-                                <a href="{{ Storage::url($media->img_path) }}" style="box-shadow: 0px 0px 11px 0px black;" data-fancybox="gallery"
-                                    data-caption="Property Image {{ $loop->iteration }}">
+                                <a href="{{ Storage::url($media->img_path) }}" style="box-shadow: 0px 0px 11px 0px black;"
+                                    data-fancybox="gallery" data-caption="Property Image {{ $loop->iteration }}">
                                     <img src="{{ Storage::url($media->img_path) }}" alt="Image Gallery">
                                 </a>
                             @endforeach
@@ -78,16 +78,22 @@
 
                             </a>
 
-                            <a href="#" class="Delet-btn" data-id="{{ $property->id }}" onclick="deleteProperty(this)">
-                                <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.00806 25.5818C7.00806 26.2448 7.27145 26.8807 7.74029 27.3496C8.20913 27.8184 8.84502 28.0818 9.50806 28.0818H22.0081C22.6711 28.0818 23.307 27.8184 23.7758 27.3496C24.2447 26.8807 24.5081 26.2448 24.5081 25.5818V10.5818H27.0081V8.08179H22.0081V5.58179C22.0081 4.91875 21.7447 4.28286 21.2758 3.81402C20.807 3.34518 20.1711 3.08179 19.5081 3.08179H12.0081C11.345 3.08179 10.7091 3.34518 10.2403 3.81402C9.77145 4.28286 9.50806 4.91875 9.50806 5.58179V8.08179H4.50806V10.5818H7.00806V25.5818ZM12.0081 5.58179H19.5081V8.08179H12.0081V5.58179ZM10.7581 10.5818H22.0081V25.5818H9.50806V10.5818H10.7581Z" fill="white" />
-                                    <path d="M12.0081 13.0818H14.5081V23.0818H12.0081V13.0818ZM17.0081 13.0818H19.5081V23.0818H17.0081V13.0818Z" fill="white" />
+                            <a href="#" class="Delet-btn" data-id="{{ $property->id }}"
+                                onclick="deleteProperty(this)">
+                                <svg width="31" height="31" viewBox="0 0 31 31" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M7.00806 25.5818C7.00806 26.2448 7.27145 26.8807 7.74029 27.3496C8.20913 27.8184 8.84502 28.0818 9.50806 28.0818H22.0081C22.6711 28.0818 23.307 27.8184 23.7758 27.3496C24.2447 26.8807 24.5081 26.2448 24.5081 25.5818V10.5818H27.0081V8.08179H22.0081V5.58179C22.0081 4.91875 21.7447 4.28286 21.2758 3.81402C20.807 3.34518 20.1711 3.08179 19.5081 3.08179H12.0081C11.345 3.08179 10.7091 3.34518 10.2403 3.81402C9.77145 4.28286 9.50806 4.91875 9.50806 5.58179V8.08179H4.50806V10.5818H7.00806V25.5818ZM12.0081 5.58179H19.5081V8.08179H12.0081V5.58179ZM10.7581 10.5818H22.0081V25.5818H9.50806V10.5818H10.7581Z"
+                                        fill="white" />
+                                    <path
+                                        d="M12.0081 13.0818H14.5081V23.0818H12.0081V13.0818ZM17.0081 13.0818H19.5081V23.0818H17.0081V13.0818Z"
+                                        fill="white" />
                                 </svg>
                             </a>
                         </div>
                     </div>
                     <div class="properties-icons-details">
-                        <strong class="">Features :  </strong>
+                        <strong class="">Features : </strong>
                         <ul>
                             @foreach ($property->features as $featureDetail)
                                 <li>
@@ -100,13 +106,16 @@
                                     {{ $featureDetail->feature->name ?? '' }} <!-- Accessing the feature name here -->
                                     <div class="quantity">{{ $featureDetail->quantity ?? '' }}</div>
                                 </li>
-
                             @endforeach
                         </ul>
 
                     </div>
                     <div class="properties-content-style properties-street-address">
-                        <h6>Street Address</h6>
+                        <h6> Country</h6>
+                        <p>{{ $property->country ?? '' }}</p>
+                    </div>
+                    <div class="properties-content-style properties-street-address">
+                        <h6> Address</h6>
                         <p>{{ $property->address ?? '' }}</p>
                     </div>
                     <div class="properties-content-style properties-street-address">
@@ -115,18 +124,44 @@
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Pets</h6>
-                        @foreach ($property->pets as $petDetail)
-                            <p>{{ $petDetail->pet->name ?? '' }}</p>
-                        @endforeach
+                        @if ($property->pets && $property->pets->count())
+                            @foreach ($property->pets as $petDetail)
+                                <p>{{ $petDetail->pet->name ?? '' }}</p>
+                            @endforeach
+                        @else
+                            <p>Not Allowed</p>
+                        @endif
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Eviction</h6>
                         <p>{{ $property->eviction ? 'Required' : 'Not Required' }}</p>
+                        @if ($property->eviction)
+                            <p>Numer of Times {{ $property->many_time_evicted }}</p>
+                            <p>Eviction last Time: {{ $property->when_evicted }}</p>
+                        @endif
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Crimanal Report</h6>
                         <p>{{ $property->criminal_records ? 'Required' : 'Not Required' }}</p>
                     </div>
+
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Amoking Allowed</h6>
+                        <p>{{ $property->smoking ? 'Yes Allowed' : 'Not Allowed' }}</p>
+                    </div>
+
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6> Credit history check</h6>
+                        <p>{{ $property->credit_history_check ? 'Yes check' : 'Not check' }}</p>
+                    </div>
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6> Bankruptcy check</h6>
+                        <p>{{ $property->bankruptcy ? 'Yes check' : 'Not check' }}</p>
+                    </div>
+
                     <div class="properties-content-style properties-other-details">
                         <h6>Rent to Who</h6>
                         @foreach ($property->RentToWhoDetails as $Details)
@@ -135,7 +170,44 @@
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Other Details</h6>
-                        <p>{{ $property->other_details }}</p>
+                        <p>{{ $property->other_details ?? '' }}</p>
+                    </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Cotact Details</h6>
+                        <div class="reports-listings-property-table">
+                            <div class="three-headings-align">
+                                <h3>Contact Name</h3>
+                                <h3>Contact Number</h3>
+                                <h3>Email Address</h3>
+                            </div>
+
+                            <div class="three-box-table">
+                                <span>
+
+                                    <div class="box date-box">
+                                        <p>{{ $property->contact_name ?? '' }}</p>
+                                        <!-- Tenant's application date -->
+                                    </div>
+
+                                    <div class="box number-box">
+                                        <a href="tel:{{ $property->contact_phone_number ?? '' }}">
+                                            <!-- Assuming tenant has a phone number field -->
+                                            <svg width="21" height="22" viewBox="0 0 21 22" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <!-- SVG code for phone icon -->
+                                            </svg>
+                                            {{ $property->contact_phone_number ?? '' }}</a>
+                                    </div>
+
+                                    <div class="box email-box-parent">
+                                        <a href="mailto:{{ $property->contact_email ?? '' }}">
+
+                                            {{ $property->contact_email ?? '' }}</a>
+                                    </div>
+                                </span>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Tenant</h6>
@@ -151,22 +223,27 @@
                                 @foreach ($tenants as $tenant)
                                     <span>
                                         <div class="box img-box-property">
-                                            <img src="{{ Storage::url($tenant->profile_img) }}" alt="{{ $tenant->name }}" class="tenant-image" width="60" height="60" style="border-radius: 50%;">
+                                            <img src="{{ Storage::url($tenant->profile_img) }}" alt="{{ $tenant->name }}"
+                                                class="tenant-image" width="60" height="60"
+                                                style="border-radius: 50%;">
                                             <div class="content">
                                                 <h4>{{ $tenant->name }}</h4> <!-- Tenant's name -->
                                             </div>
                                         </div>
 
                                         <div class="box date-box">
-                                            <p>{{ $tenant->created_at->format('d M Y') }}</p> <!-- Tenant's application date -->
+                                            <p>{{ $tenant->created_at->format('d M Y') }}</p>
+                                            <!-- Tenant's application date -->
                                         </div>
 
                                         <div class="box number-box">
-                                            <a href="tel:{{ $tenant->phone}}"> <!-- Assuming tenant has a phone number field -->
-                                                <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <a href="tel:{{ $tenant->phone }}">
+                                                <!-- Assuming tenant has a phone number field -->
+                                                <svg width="21" height="22" viewBox="0 0 21 22" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
                                                     <!-- SVG code for phone icon -->
                                                 </svg>
-                                                {{ $tenant->phone}}</a>
+                                                {{ $tenant->phone }}</a>
                                         </div>
 
                                         <div class="box email-box-parent">
@@ -201,34 +278,34 @@
                 if (result.isConfirmed) {
                     // Proceed with deletion
                     fetch(`{{ route('landlord.properties.delete', '') }}/${propertyId}`, { // Adjusted route
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Ensure CSRF token is included
-                        },
-                        body: JSON.stringify({}) // If you need to send any data
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Show success message
-                        Swal.fire(
-                            'Deleted!',
-                            data.message,
-                            'success'
-                        ).then(() => {
-                            // Redirect to the properties route after the alert is closed
-                            window.location.href = '{{ route('landlord.properties') }}';
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Ensure CSRF token is included
+                            },
+                            body: JSON.stringify({}) // If you need to send any data
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Show success message
+                            Swal.fire(
+                                'Deleted!',
+                                data.message,
+                                'success'
+                            ).then(() => {
+                                // Redirect to the properties route after the alert is closed
+                                window.location.href = '{{ route('landlord.properties') }}';
+                            });
+                        })
+                        .catch(error => {
+                            // Handle error response
+                            Swal.fire(
+                                'Error!',
+                                'There was an error deleting the property.',
+                                'error'
+                            );
+                            console.error('Error:', error);
                         });
-                    })
-                    .catch(error => {
-                        // Handle error response
-                        Swal.fire(
-                            'Error!',
-                            'There was an error deleting the property.',
-                            'error'
-                        );
-                        console.error('Error:', error);
-                    });
                 }
             });
         }

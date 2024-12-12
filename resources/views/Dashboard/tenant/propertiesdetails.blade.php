@@ -148,7 +148,11 @@
 
                     </div>
                     <div class="properties-content-style properties-street-address">
-                        <h6>Street Address</h6>
+                        <h6> Country</h6>
+                        <p>{{ $property->country ?? '' }}</p>
+                    </div>
+                    <div class="properties-content-style properties-street-address">
+                        <h6> Address</h6>
                         <p>{{ $property->address ?? '' }}</p>
                     </div>
                     <div class="properties-content-style properties-street-address">
@@ -157,17 +161,40 @@
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Pets</h6>
+                        @if ($property->pets && $property->pets->count())
                         @foreach ($property->pets as $petDetail)
                             <p>{{ $petDetail->pet->name ?? '' }}</p>
                         @endforeach
+                    @else
+                        <p>Not Allowed</p>
+                    @endif
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Eviction</h6>
                         <p>{{ $property->eviction ? 'Required' : 'Not Required' }}</p>
+                        @if ($property->eviction)
+                        <p>Numer of Times {{ $property->many_time_evicted }}</p>
+                        <p>Eviction last Time: {{ $property->when_evicted }}</p>
+                    @endif
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Crimanal Report</h6>
                         <p>{{ $property->criminal_records ? 'Required' : 'Not Required' }}</p>
+                    </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Amoking Allowed</h6>
+                        <p>{{ $property->smoking ? 'Yes Allowed' : 'Not Allowed' }}</p>
+                    </div>
+
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6> Credit history check</h6>
+                        <p>{{ $property->credit_history_check ? 'Yes check' : 'Not check' }}</p>
+                    </div>
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6> Bankruptcy check</h6>
+                        <p>{{ $property->bankruptcy ? 'Yes check' : 'Not check' }}</p>
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Rent to Who</h6>
@@ -179,7 +206,43 @@
                         <h6>Other Details</h6>
                         <p>{{ $property->other_details }}</p>
                     </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Cotact Details</h6>
+                        <div class="reports-listings-property-table">
+                            <div class="three-headings-align">
+                                <h3>Contact Name</h3>
+                                <h3>Contact Number</h3>
+                                <h3>Email Address</h3>
+                            </div>
 
+                            <div class="three-box-table">
+                                <span>
+
+                                    <div class="box date-box">
+                                        <p>{{ $property->contact_name ?? '' }}</p>
+                                        <!-- Tenant's application date -->
+                                    </div>
+
+                                    <div class="box number-box">
+                                        <a href="tel:{{ $property->contact_phone_number ?? '' }}">
+                                            <!-- Assuming tenant has a phone number field -->
+                                            <svg width="21" height="22" viewBox="0 0 21 22" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <!-- SVG code for phone icon -->
+                                            </svg>
+                                            {{ $property->contact_phone_number ?? '' }}</a>
+                                    </div>
+
+                                    <div class="box email-box-parent">
+                                        <a href="mailto:{{ $property->contact_email ?? '' }}">
+
+                                            {{ $property->contact_email ?? '' }}</a>
+                                    </div>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
