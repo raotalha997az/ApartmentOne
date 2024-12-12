@@ -100,8 +100,57 @@
                                 {{ old('criminal_records', $property->criminal_records) == 1 ? 'checked' : '' }}>
                             </div>
                         </div>
+
+
+                        <div class="many-forms-fields-box">
+                            <div class="paren-check-box">
+                                <label for="smoking">Smoking Allowed</label>
+                                <input type="hidden" name="smoking" value="0">
+                            <input type="checkbox" name="smoking" id="smoking" value="1"
+                                {{ old('smoking', $property->smoking) == 1 ? 'checked' : '' }}>
+                            </div>
+                        </div>
+
+                        <div class="many-forms-fields-box">
+                            <div class="paren-check-box">
+                                <label for="credit_history_check">Credit history check</label>
+                                <input type="hidden" name="credit_history_check" value="0">
+                            <input type="checkbox" name="credit_history_check" id="credit_history_check" value="1"
+                                {{ old('credit_history_check', $property->credit_history_check) == 1 ? 'checked' : '' }}>
+                            </div>
+                        </div>
+
+                        <div class="many-forms-fields-box">
+                            <div class="paren-check-box">
+                                <label for="bankruptcy">Bank Currepcy</label>
+                                <input type="hidden" name="bankruptcy" value="0">
+                            <input type="checkbox" name="bankruptcy" id="bankruptcy" value="1"
+                                {{ old('bankruptcy', $property->bankruptcy) == 1 ? 'checked' : '' }}>
+                            </div>
+                        </div>
+
                     </div>
 
+
+                    <div class="input-box simple-select mt-3">
+                        <label for="country">Country</label>
+                        <select name="country" id="country" >
+                            <option disabled>Select Country</option>
+                            <option value="USA">USA</option>
+                                <option value="Canada">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Germany">Germany</option>
+                                <option value="France">France</option>
+                                <option value="India">India</option>
+                                <option value="Japan">Japan</option>
+                                <option value="China">China</option>
+
+                        </select>
+                        @error('country')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                         <div class="input-box">
                             <label for="address">Address</label>
@@ -111,6 +160,32 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="input-box">
+                            <label for="contact_name">Cotact Name</label>
+                            <input type="text" placeholder="contact name" name="contact_name"
+                                value="{{ old('contact_name', $property->contact_name) }}" >
+                            @error('contact_name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="input-box">
+                            <label for="address">Cotact Phone</label>
+                            <input type="text" placeholder="contact phone number" name="contact_phone_number"
+                                value="{{ old('contact_phone_number', $property->contact_phone_number) }}" >
+                            @error('contact_phone_number')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-box">
+                            <label for="address">Cotact Email</label>
+                            <input type="text" placeholder="contact_ mail" name="contact_email"
+                                value="{{ old('contact_email', $property->contact_email) }}" >
+                            @error('contact_email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="input-box simple-select">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <label for="category">Category</label>

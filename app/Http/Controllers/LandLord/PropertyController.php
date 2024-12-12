@@ -209,23 +209,6 @@ class PropertyController extends Controller
         return view('Dashboard.landlord.propertiesdetails', compact('tenants','property'));
     }
 
-        // public function properties_edit($id) {
-
-        //     // Retrieve the property with the given ID, including features and related data
-        //     $property = Property::with(['category', 'media', 'pets', 'features', 'RentToWhoDetails.rentToWho'])->findOrFail($id);
-
-        //     // Fetch all the features for the checkboxes
-        //     $allFeatures = Feature::all();
-
-        //     // Fetch the categories, pets, and rentWhos for the dropdowns
-        //     $categories = Category::all();
-        //     $pets = Pet::all();
-        //     $rentWhos = RentToWho::all();
-
-        //     // Pass the property and its media to the view
-        //     return view('Dashboard.landlord.properties_edit', compact('property', 'categories', 'pets', 'rentWhos', 'allFeatures'));
-        // }
-
         public function properties_edit($id)
         {
             $property = Property::with(['category', 'media', 'pets', 'features', 'RentToWhoDetails.rentToWho'])->findOrFail($id);
@@ -258,13 +241,21 @@ class PropertyController extends Controller
             'progress_points' =>'required',
             'features' => 'required|array',
             'quantities' => 'required|array',
-            'pets' => 'required|array',
+            'pets' => 'nullable|array',
             'rent_whos' => 'required|array',
             'other_details' => 'nullable|string',
             'availability' => 'required|boolean',
             'price' => 'required|numeric',
             'eviction' => 'nullable|boolean',
             'criminal_records' => 'nullable|boolean',
+            'smoking' => 'nullable|boolean',
+            'credit_history_check' => 'nullable|boolean',
+            'bankruptcy' => 'nullable|boolean',
+            'contact_name' => 'required|string',
+            'contact_phone_number' => 'required|digits:10',
+            'contact_email' => 'required|email',
+            'country' => 'required|string|max:255',
+
         ]);
 
         $property->update([
@@ -275,8 +266,15 @@ class PropertyController extends Controller
             'other_details' => $validated['other_details'],
             'available_status' => $validated['availability'],
             'price_rent' => $validated['price'],
-            'eviction' => $validated['eviction'],
-            'criminal_records' => $validated['criminal_records'],
+            'eviction' => $validated['eviction'] ?? false,
+            'criminal_records' => $validated['criminal_records'] ?? false,
+            'smoking' => $validated['smoking'] ?? false,
+            'credit_history_check' => $validated['credit_history_check'] ?? false,
+            'bankruptcy' => $validated['bankruptcy'] ?? false,
+            'contact_name' => $validated['contact_name'] ?? null,
+            'contact_phone_number' => $validated['contact_phone_number'] ?? null,
+            'contact_email' => $validated['contact_email'] ?? null,
+            'country' => $validated['country'],
         ]);
 
         if ($request->has('deleted_images')) {

@@ -675,8 +675,9 @@
 
             <div class="active-non-active" id="activeNonActive3">
                 <div class="input-box mt-3">
-                    <label for="select pets">select pets</label>
+                    <label for="select pets"></label>
                     <select class="js-example-basic-multiple" multiple="multiple" style="width: 300px;" name="pets[]">
+                        <option disabled>Select pets</option>
                         @foreach ($pets as $pet)
                             <option value="{{ $pet->id }}">{{ $pet->name }}</option>
                         @endforeach
