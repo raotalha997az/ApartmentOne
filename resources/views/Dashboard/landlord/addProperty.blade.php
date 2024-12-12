@@ -342,20 +342,20 @@
         margin: 20px 0;
     }
 
-    form#uploadForm div#imageContainer {
+    div#imageContainer {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 20px;
     }
 
-    form#uploadForm input#fileInput {
+    input#fileInput {
         -webkit-appearance: none;
         box-shadow: none !important;
         display: none;
     }
 
-    form#uploadForm div#imageContainer .image-preview {
+    div#imageContainer .image-preview {
         background-color: #fafafa;
         border: 1px solid #0000001c;
         width: 135px;
@@ -368,7 +368,7 @@
         border-radius: 15px;
     }
 
-    form#uploadForm div#imageContainer .image-preview img {
+    div#imageContainer .image-preview img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -378,7 +378,7 @@
         border: 1px solid #00000038;
     }
 
-    form#uploadForm div#imageContainer .image-preview button.close-btn {
+    div#imageContainer .image-preview button.close-btn {
         position: absolute;
         top: -10px;
         right: -10px;
@@ -675,9 +675,9 @@
 
             <div class="active-non-active" id="activeNonActive3">
                 <div class="input-box mt-3">
-                    <label for="select pets"></label>
+                    <label for="select pets">Select pets</label>
                     <select class="js-example-basic-multiple" multiple="multiple" style="width: 300px;" name="pets[]">
-                        <option disabled>Select pets</option>
+                        {{-- <option disabled>Select pets</option> --}}
                         @foreach ($pets as $pet)
                             <option value="{{ $pet->id }}">{{ $pet->name }}</option>
                         @endforeach
@@ -795,7 +795,7 @@
                 <div class="box">
                     <p>When You Are Evicted?</p>
                     <div class="flex-input">
-                        <input type="month" placeholder="MY" name="when_evicted">
+                         <input type="date" placeholder="YYYY-MM-DD" name="when_evicted" value="{{ old('when_evicted') }}">
                     </div>
                 </div>
                 @error('when_evicted')
@@ -1075,10 +1075,11 @@
 
         // Initially hide the active-non-active div
         document.getElementById('activeNonActive').style.display = 'none';
+    </script>
 
 
 
-
+    <script>
 
         // Function to display the active-non-active div
         function boxActive1() {

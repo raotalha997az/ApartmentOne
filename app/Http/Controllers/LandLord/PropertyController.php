@@ -255,6 +255,8 @@ class PropertyController extends Controller
             'contact_phone_number' => 'required|digits:10',
             'contact_email' => 'required|email',
             'country' => 'required|string|max:255',
+            'many_time_evicted' => 'nullable|string',
+            'when_evicted' => 'nullable|string',
 
         ]);
 
@@ -275,6 +277,8 @@ class PropertyController extends Controller
             'contact_phone_number' => $validated['contact_phone_number'] ?? null,
             'contact_email' => $validated['contact_email'] ?? null,
             'country' => $validated['country'],
+            'many_time_evicted' => $validated['many_time_evicted'] ?? null,
+            'when_evicted' => $validated['when_evicted'] ?? null,
         ]);
 
         if ($request->has('deleted_images')) {

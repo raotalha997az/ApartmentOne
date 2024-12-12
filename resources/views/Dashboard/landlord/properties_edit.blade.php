@@ -33,6 +33,12 @@
             padding: 2px 5px;
         }
 
+        .paren-check-box.eviction-custom-style {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 
         div#existingImagesContainer {
     display: flex;
@@ -84,12 +90,40 @@
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                     <div class="many-forms-fields-box">
-                        <div class="paren-check-box">
+                        <div class="paren-check-box eviction-custom-style">
+                           <div class="eviction-custom-one">
                             <label for="eviction">Eviction</label>
                             <!-- Hidden input to send 0 when unchecked -->
                             <input type="hidden" name="eviction" value="0">
                             <input type="checkbox" name="eviction" id="eviction" value="1"
-                                {{ old('eviction', $property->eviction) == 1 ? 'checked' : '' }}>
+                                {{ old('eviction', $property->eviction) == 1 ? 'checked' : '' }} onclick="toggleEvictionBox()">
+
+                           </div>
+
+                                <div class="eviction-box-1" id="eviction-box-1" style="{{ old('eviction', $property->eviction) == 1 ? 'display: block;' : 'display: none;' }}     margin-bottom: 20px;">
+
+                                    <div class="box">
+                                        <p>How Many Times You Are Evicted?</p>
+                                        <input type="number" placeholder="00" name="many_time_evicted" value="{{$property->many_time_evicted }}">
+                                    </div>
+                                    @error('many_time_evicted')
+                                    <div class="error-message">
+                                        <span class="text-danger">{{ $message }}</span>
+                                    </div>
+                                     @enderror
+
+                                    <div class="box">
+                                        <p>When You Are Evicted?</p>
+                                        <div class="flex-input">
+                                            <input type="date" placeholder="YYYY-MM-DD" name="when_evicted" value="{{ $property->when_evicted }}">
+                                        </div>
+                                    </div>
+                                    @error('when_evicted')
+                                    <div class="error-message">
+                                        <span class="text-danger">{{ $message }}</span>
+                                    </div>
+                                @enderror
+                                </div>
                         </div>
 
                         <div class="many-forms-fields-box">
@@ -368,7 +402,29 @@
         </div>
 
         <!-- Load jQuery -->
+
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+        <script>
+            function toggleEvictionBox() {
+                const evictionCheckbox = document.getElementById('eviction');
+                const evictionBox = document.getElementById('eviction-box-1');
+                if (evictionCheckbox.checked) {
+                    evictionBox.style.display = 'block';
+                } else {
+                    evictionBox.style.display = 'none';
+                }
+            }
+
+            // Call the function on page load in case the checkbox is pre-checked
+            document.addEventListener('DOMContentLoaded', toggleEvictionBox);
+        </script>
+
+
+
         <script>
             $(document).ready(function() {
                 $('.js-example-basic-multiple').select2({

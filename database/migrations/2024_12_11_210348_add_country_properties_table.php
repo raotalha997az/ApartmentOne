@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean('credit_history_check')->default(false)->after('smoking');
             $table->boolean('bankruptcy')->default(false)->after('credit_history_check');
             $table->integer('many_time_evicted')->nullable()->after('bankruptcy');
-            $table->string('when_evicted')->nullable()->after('many_time_evicted');
+            $table->date('when_evicted')->nullable()->after('many_time_evicted');
             $table->string('contact_name')->nullable()->after('when_evicted');
             $table->string('contact_phone_number')->nullable()->after('contact_name');
             $table->string('contact_email')->nullable()->after('contact_phone_number');
