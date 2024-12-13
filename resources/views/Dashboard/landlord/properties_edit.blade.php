@@ -45,6 +45,47 @@
     flex-wrap: wrap;
     gap: 20px;
 }
+
+
+.selection-boxex-true {
+    display: flex
+;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.radio-item {
+    position: relative;
+    display: block;
+}
+
+.radio-item input {
+    /* display: none; */
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+.selection-boxex-true .selection-content-true, .selection-boxex-true .radio-item label {
+    display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 20px 40px;
+    border: 5px solid #CCCCCC;
+    border-radius: 20px;
+    transition: .3s;
+}
+
+.selection-boxex-true .selection-content-true span, .selection-boxex-true .radio-item label {
+    color: #777777;
+    font-size: 20px;
+}
     </style>
     <div class="add-property-form-sec">
         <div class="row">
@@ -90,7 +131,7 @@
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                     <div class="many-forms-fields-box">
-                        <div class="paren-check-box eviction-custom-style">
+                        {{-- <div class="paren-check-box eviction-custom-style">
                            <div class="eviction-custom-one">
                             <label for="eviction">Eviction</label>
                             <!-- Hidden input to send 0 when unchecked -->
@@ -124,6 +165,68 @@
                                     </div>
                                 @enderror
                                 </div>
+                        </div> --}}
+                        <div class="tab" id="tab-3">
+
+                            <h6>Eviction Terms</h6>
+                            <p>What background check will you do to screen your applicant?</p>
+
+                            <p style="margin-top: 30px !important;">Have you ever been evicted?</p>
+
+                            <div class="selection-boxex-true">
+
+                                <div class="radio-item" onclick="boxActive1()" id="boxactive1">
+                                    <input type="radio" id="eviction" name="eviction" value="1">
+                                    <label class="evction" for="yes" onclick="setEvction(this)">
+                                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                        Yes
+                                    </label>
+                                </div>
+
+
+                                <div class="radio-item" onclick="boxNonActive1()" id="boxnunactive1">
+                                    <input type="radio" id="eviction" name="eviction" value="0">
+                                    <label class="evction" for="no" onclick="setEvction(this)">
+                                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                        No
+                                    </label>
+                                </div>
+
+                                @error('eviction')
+                                    <div class="error-message">
+                                        <span class="text-danger">{{ $message }}</span>
+                                    </div>
+                                @enderror
+
+                            </div>
+
+                            <div class="active-non-active" id="activeNonActive1">
+
+                                <div class="box">
+                                    <p>How Many Times You Are Evicted?</p>
+                                    <input type="number" placeholder="00" name="many_time_evicted"
+                                        value="{{ old('many_time_evicted') }}">
+                                </div>
+                                @error('many_time_evicted')
+                                    <div class="error-message">
+                                        <span class="text-danger">{{ $message }}</span>
+                                    </div>
+                                @enderror
+
+                                <div class="box">
+                                    <p>When You Are Evicted?</p>
+                                    <div class="flex-input">
+                                        <input type="date" placeholder="YYYY-MM-DD" name="when_evicted"
+                                            value="{{ old('when_evicted') }}">
+                                    </div>
+                                </div>
+                                @error('when_evicted')
+                                    <div class="error-message">
+                                        <span class="text-danger">{{ $message }}</span>
+                                    </div>
+                                @enderror
+                            </div>
+
                         </div>
 
                         <div class="many-forms-fields-box">
@@ -406,7 +509,20 @@
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+        <script>
+            // Function to display the active-non-active div
+            function boxActive1() {
+                document.getElementById('activeNonActive1').style.display = 'block';
+            }
 
+            // Function to hide the active-non-active div
+            function boxNonActive1() {
+                document.getElementById('activeNonActive1').style.display = 'none';
+            }
+
+            // Initially hide the active-non-active div
+            document.getElementById('activeNonActive1').style.display = 'none';
+        </script>
 
         <script>
             function toggleEvictionBox() {

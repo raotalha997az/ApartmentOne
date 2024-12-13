@@ -218,19 +218,18 @@
         margin-left: 20px;
     }
 
-    h6 {
+    #regForm h6 {
         font-size: 40px !important;
         color: #3A3A3A !important;
     }
 
 
-    p,
-    .box label {
+    p,#regForm .box label {
         color: #777777 !important;
         font-size: 20px !important;
     }
 
-    .box input[type="checkbox"] {
+    #regForm .box input[type="checkbox"] {
         width: 20px;
         margin-right: 5px;
     }
@@ -248,7 +247,7 @@
         font-size: 20px;
     }
 
-    .box {
+    #regForm .box {
         margin-top: 25px;
     }
 
@@ -450,9 +449,8 @@
         margin-bottom: 50px
     }
 
-    button {
+    /* button {
         background-color: #04AA6D;
-        color: #ffffff;
         border: none;
         padding: 10px 20px;
         font-size: 17px;
@@ -462,7 +460,7 @@
 
     button:hover {
         opacity: 0.8;
-    }
+    } */
 
     #prevBtn {
         background-color: #bbbbbb;
