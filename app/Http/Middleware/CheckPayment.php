@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
 
 class CheckPayment
 {
@@ -16,7 +17,8 @@ class CheckPayment
      */
     public function handle($request, Closure $next)
     {
-        $user = Auth::user();
+        $userAuth = Auth::user();
+        $user = User::find($userAuth->id, ['id','name', 'payment_status', 'payment_expires_at']);
 
         if (!$user->payment_status || now()->greaterThan($user->payment_expires_at)) {
             return redirect()->route('tenant.stripe')->with('error', 'You need to complete payment to access properties.');
