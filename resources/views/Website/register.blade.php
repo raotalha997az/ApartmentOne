@@ -28,7 +28,7 @@
                             <input type="email" placeholder="Email Address" name="email" value="{{ old('email') }}">
                             <input type="tel" placeholder="Contact Number" name="phone" value="{{ old('phone') }}">
                             <textarea placeholder="Street Name" name="address">{{ old('address') }}</textarea>
-                            <input type="number" placeholder="Huse Number" name="house_number" value="{{ old('house_number') }}">
+                            <input type="number" placeholder="House Number" name="house_number" value="{{ old('house_number') }}">
                             <input type="password" id="password" placeholder="Password" name="password">
                             <input type="password" id="c_password" placeholder="Confirm Password" name="c_password">
                             <select name="role">

@@ -104,14 +104,14 @@
                                 <div class="input-box">
                                     <label for="">Full Name</label>
                                     <input type="text" placeholder="Full Name" name="name"
-                                        value="{{ $user->name ?? '' }}">
+                                        value="{{ old('name', $user->name ?? '') }}">
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                 </div>
                                 <div class="input-box">
                                     <label for="">Email Address</label>
-                                    <input type="email" placeholder="Email Address" value="{{ $user->email ?? '' }}"
+                                    <input type="email" placeholder="Email Address" value="{{ old('email', $user->email ?? '') }}"
                                         name="email">
                                         @error('email')
                                         <div class="text-danger">{{ $message }}</div>
@@ -122,14 +122,14 @@
                                 <div class="input-box">
                                     <label for="">City</label>
                                     <input type="text" placeholder="Chicago" name="city"
-                                        value="{{ $user->city ?? '' }}">
+                                        value="{{ old('city', $user->city ?? '') }}">
                                         @error('city')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="input-box">
                                     <label for="">Country</label>
-                                    <input type="text" placeholder="USA" value="{{ $user->country ?? '' }}"
+                                    <input type="text" placeholder="USA" value="{{ old('country', $user->country ?? '') }}"
                                         name="country">
                                         @error('country')
                                         <div class="text-danger">{{ $message }}</div>
@@ -140,14 +140,14 @@
                                 <div class="input-box">
                                     <label for="">State</label>
                                     <input type="text" placeholder="New York" name="state"
-                                        value="{{ $user->state ?? '' }}">
+                                        value="{{ old('state', $user->state ?? '') }}">
                                         @error('state')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="input-box">
                                     <label for="">Postal Code</label>
-                                    <input type="tel" placeholder="1001" value="{{ $user->postal_code ?? '' }}"
+                                    <input type="tel" placeholder="1001" value="{{ old('postal_code', $user->postal_code ?? '') }}"
                                         name="postal_code">
                                         @error('postal_code')
                                         <div class="text-danger">{{ $message }}</div>
@@ -157,7 +157,7 @@
                             <div class="two-inputs-boxes-align">
                                 <div class="input-box">
                                     <label for="">Phone Number</label>
-                                    <input type="tel" placeholder="+1 123 456 789" value="{{ $user->phone ?? '' }}"
+                                    <input type="tel" placeholder="+1 123 456 789" value="{{ old('phone', $user->phone ?? '') }}"
                                         name="phone">
                                         @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
@@ -166,7 +166,7 @@
                                 <div class="input-box">
                                     <label for="">Date Of Birth</label>
                                     {{-- <input type="date" value="{{ $user->date_of_birth ?? '' }}" name="date_of_birth"> --}}
-                                    <input type="date" value="{{ $user->date_of_birth ?? '' }}" name="date_of_birth"
+                                    <input type="date" value="{{ old('date_of_birth', $user->date_of_birth ?? '') }}" name="date_of_birth"
                                         max="{{ \Carbon\Carbon::today()->toDateString() }}">
                                     @error('date_of_birth')
                                         <div class="text-danger">{{ $message }}</div>
@@ -191,7 +191,7 @@
                                         {{-- {{ dd($user->bank) }} --}}
                                         <label for="">Bank Name</label>
                                         <input type="text" placeholder="ABC Bank" name="bank_name"
-                                            value="{{ $user->bank->bank_name ?? '' }} ">
+                                            value="{{ old('bank_name', $user->bank->bank_name ?? '') }} ">
                                             @error('bank_name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror

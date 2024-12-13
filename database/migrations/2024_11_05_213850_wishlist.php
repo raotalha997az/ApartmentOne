@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('property_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

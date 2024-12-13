@@ -24,118 +24,124 @@ class TenantPropertiesController extends Controller
     public function screening()
     {
         $user = Auth::user()->load('bank');
-        return view('Dashboard.tenant.screening',compact('user'));
+        return view('Dashboard.tenant.screening', compact('user'));
     }
 
     public function properties()
     {
         $userId = Auth::id();
+        $user = User::find($userId, 'payment_status');
 
-        // Credit Point
-        $scoreApi = ExpTenantFico9Model::where('user_id', $userId)->first();
-        $scoreApiJson = json_decode($scoreApi->data);
-        $score = $scoreApiJson->riskModel[0]->score;
-        // Credit Point
+        if ($user->payment_status == 1) {
+            // Credit Point
+            $scoreApi = ExpTenantFico9Model::where('user_id', $userId)->select('data')->latest()->first();
+            $scoreApiJson = json_decode($scoreApi->data);
+            $score = $scoreApiJson->riskModel[0]->score;
+            // Credit Point
 
-        // Eviction
-        $eviction = EvictionReportModel::where('user_id', $userId)->first();
-        $evictionApi = json_decode($eviction->data);
-        $evictionCount = 0;
-        $recentEvictionDate = null;
+            // Eviction
+            $eviction = EvictionReportModel::where('user_id', $userId)->select('data')->latest()->first();
+            $evictionApi = json_decode($eviction->data);
+            $evictionCount = 0;
+            $recentEvictionDate = null;
 
-        // Loop through candidates
-        if (isset($evictionApi->response->candidate)) {
-            foreach ($evictionApi->response->candidate as $candidate) {
-                $activity = $candidate->activity;
-                if (!empty($activity->judgement)) {
-                    $evictionCount++;
-                    $currentDate = $activity->judgementDate;
-                    // Update recent eviction date if it's later
-                    if ($recentEvictionDate === null || $currentDate > $recentEvictionDate) {
-                        $recentEvictionDate = $currentDate;
+            // Loop through candidates
+            if (isset($evictionApi->response->candidate)) {
+                foreach ($evictionApi->response->candidate as $candidate) {
+                    $activity = $candidate->activity;
+                    if (!empty($activity->judgement)) {
+                        $evictionCount++;
+                        $currentDate = $activity->judgementDate;
+                        // Update recent eviction date if it's later
+                        if ($recentEvictionDate === null || $currentDate > $recentEvictionDate) {
+                            $recentEvictionDate = $currentDate;
+                        }
                     }
                 }
             }
-        }
-        $formattedApiDate = \DateTime::createFromFormat('m-d-Y', $recentEvictionDate);
-        // Format the date to 'Y-m-d' (Database format)
-        $formattedApiDate = $formattedApiDate->format('Y-m-d');
-        // Eviction
-        
-        // Crimnal
-        $crimnal_record = CrimnalRecordModel::where('user_id', $userId)->first();
-        $crimnalApi = json_decode($crimnal_record->data);
+            $formattedApiDate = \DateTime::createFromFormat('m-d-Y', $recentEvictionDate);
+            // Format the date to 'Y-m-d' (Database format)
+            $formattedApiDate = $formattedApiDate->format('Y-m-d');
+            // Eviction
 
-        // Check if there are any criminal records
-        if (isset($crimnalApi->cicCriminal->candidates->count) && $crimnalApi->cicCriminal->candidates->count > 0) {
-            $criminalCount = $crimnalApi->cicCriminal->candidates->count;
-        } else {
-            $criminalCount = 0;
-        }
-        // Crimnal
+            // Crimnal
+            $crimnal_record = CrimnalRecordModel::where('user_id', $userId)->select('data')->latest()->first();
+            $crimnalApi = json_decode($crimnal_record->data);
 
-        //old data
+            // Check if there are any criminal records
+            if (isset($crimnalApi->cicCriminal->candidates->count) && $crimnalApi->cicCriminal->candidates->count > 0) {
+                $criminalCount = $crimnalApi->cicCriminal->candidates->count;
+            } else {
+                $criminalCount = 0;
+            }
+            // Crimnal
 
-        $properties = Property::where('approve', 1)->with('category')->get();
+            //old data
 
-        foreach ($properties as $property) {
-            $property->hide = 0;  // Set the default value to not hide
+            $properties = Property::where('approve', 1)->with('category')->get();
 
-            // // Eviction condition
-            if ($property->eviction == 1) {
-                // if condition true prperty hide
-                if ($property->many_time_evicted < $evictionCount) {
-                    $property->hide = 1;  // Hide if eviction conditions match
+            foreach ($properties as $property) {
+                $property->hide = 0;  // Set the default value to not hide
+
+                // // Eviction condition
+                if ($property->eviction == 1) {
+                    // if condition true prperty hide
+                    if ($property->many_time_evicted < $evictionCount) {
+                        $property->hide = 1;  // Hide if eviction conditions match
+                    }
+
+                    // if condition true prperty hide
+                    if ($property->when_evicted < $formattedApiDate) {
+                        $property->hide = 1;
+                    }
                 }
 
-                // if condition true prperty hide
-                if($property->when_evicted < $formattedApiDate){
-                    $property->hide = 1;
+                // // Credit score condition
+                if ($score < $property->credit_point) {
+                    $property->hide = 1;  // Hide if credit score is insufficient
+                }
+
+                // // Criminal record condition
+                if ($property->criminal_records == 1) {
+                    if ($criminalCount > 0) {
+                        $property->hide = 1;  // Hide if criminal count is greater than 0
+                    }
                 }
             }
 
-            // // Credit score condition
-            if ($score < $property->credit_point) {
-                $property->hide = 1;  // Hide if credit score is insufficient
-            }
-
-            // // Criminal record condition
-            if ($property->criminal_records == 1) {
-                if ($criminalCount > 0) {
-                    $property->hide = 1;  // Hide if criminal count is greater than 0
-                }
-            }
+            $properties = $properties->filter(function ($property) {
+                return $property->hide == 0;
+            });
+        }else{
+            $properties = [];
         }
 
-        // dd($properties);
 
-        $properties = $properties->filter(function($property) {
-            return $property->hide == 0;
-        });
-
-        $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();$wishlist = Wishlist::where('user_id', Auth::user()->id)
-        ->pluck('property_id')
-        ->toArray();
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)
+            ->pluck('property_id')
+            ->toArray();
 
         $categories = Category::all();
-        return view('Dashboard.tenant.properties', compact('properties','wishlist', 'categories'));
+        return view('Dashboard.tenant.properties', compact('properties', 'wishlist', 'categories'));
     }
 
-        public function fluterproperty($id)
-        {
-            // dd($id);
-            $properties = Property::where('approve', 1)
+    public function fluterproperty($id)
+    {
+        // dd($id);
+        $properties = Property::where('approve', 1)
             ->with('category')
             ->where('cat_id', $id)
             ->get();
 
-            $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();$wishlist = Wishlist::where('user_id', Auth::user()->id)
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)
             ->pluck('property_id')
             ->toArray();
 
-            $categories = Category::all();
-            return view('Dashboard.tenant.properties', compact('properties','wishlist', 'categories'));
-        }
+        $categories = Category::all();
+        return view('Dashboard.tenant.properties', compact('properties', 'wishlist', 'categories'));
+    }
 
     public function propertieslistings()
     {
@@ -145,11 +151,11 @@ class TenantPropertiesController extends Controller
     public function propertiesdetails($id)
     {
         // Retrieve the specific property with its media, pets, and related features and feature details
-        $property = Property::with(['user','media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category'])->findOrFail($id);
+        $property = Property::with(['user', 'media', 'pets.pet', 'features.feature', 'RentToWhoDetails.rentToWho', 'category'])->findOrFail($id);
 
         $AppliedProperies = ApplyPropertyHistory::where('user_id', Auth::user()->id)
-        ->pluck('property_id')
-        ->toArray();
+            ->pluck('property_id')
+            ->toArray();
 
         return view('Dashboard.tenant.propertiesdetails', compact('property', 'AppliedProperies'));
     }
@@ -212,14 +218,14 @@ class TenantPropertiesController extends Controller
                 $notificationId // Optional: You can create a unique notification ID for each admin
             ));
         }
-    // Ensure the user is authenticated
+        // Ensure the user is authenticated
         $userid = Auth::id();
 
-    // Check if the property exists in the wishlist
-         $wishlist = Wishlist::where('user_id', $userid)->where('property_id', $propertyId)->first();
-         if ($wishlist) {
+        // Check if the property exists in the wishlist
+        $wishlist = Wishlist::where('user_id', $userid)->where('property_id', $propertyId)->first();
+        if ($wishlist) {
             $wishlist->delete();
-         }
+        }
 
         session()->flash('success', 'Application submitted successfully!');
 

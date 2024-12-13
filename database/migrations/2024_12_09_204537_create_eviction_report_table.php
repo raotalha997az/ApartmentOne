@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('eviction_report', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->text('data');
+            $table->text('data')->default('')->invisible();
             $table->timestamps();
         });
     }

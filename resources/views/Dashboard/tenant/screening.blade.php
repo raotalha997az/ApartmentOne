@@ -101,6 +101,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="row p-3">
                                             <div class="form-group">
                                                 <label for="dateOfBirth">Date of Birth</label>

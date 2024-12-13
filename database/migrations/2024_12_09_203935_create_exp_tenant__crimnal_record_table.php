@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('exp_tenant_CrimnalRecord', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Foreign key to reference the user
-            $table->text('data'); // Stores API response data
+            $table->text('data')->default('')->invisible(); // Stores API response data
             $table->timestamps();
         });
     }
