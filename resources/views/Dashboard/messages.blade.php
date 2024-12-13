@@ -40,54 +40,58 @@
     }
 
     .parent-tabs-mesg-box .top-profile-message-box {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    /* background: #E5E5E5;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        /* background: #E5E5E5;
     border-radius: 10px 10px 0 0;
     box-shadow: 0px 3px 6px 0px #00000021; */
-}
+    }
 
-/* CSS for message alignment */
-.message-box {
-    display: flex;
-    justify-content: flex-start; /* By default, align messages to left */
-    margin-bottom: 10px;
-}
+    /* CSS for message alignment */
+    .message-box {
+        display: flex;
+        justify-content: flex-start;
+        /* By default, align messages to left */
+        margin-bottom: 10px;
+    }
 
-.message-box.you {
-    justify-content: flex-end; /* For sent messages, align to right */
-}
+    .message-box.you {
+        justify-content: flex-end;
+        /* For sent messages, align to right */
+    }
 
-.content-box {
-    max-width: 70%;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #f1f1f1;
-}
+    .content-box {
+        max-width: 70%;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #f1f1f1;
+    }
 
-.content-box.you {
-    background-color: #d3f8e2; /* Light green for sent messages */
-}
+    .content-box.you {
+        background-color: #d3f8e2;
+        /* Light green for sent messages */
+    }
 
-.content-box.client {
-    background-color: #ffffff; /* White for received messages */
-}
+    .content-box.client {
+        background-color: #ffffff;
+        /* White for received messages */
+    }
 
-/* Profile image box */
-.img-box {
-    margin-right: 10px;
-    border-radius: 50%;
-}
+    /* Profile image box */
+    .img-box {
+        margin-right: 10px;
+        border-radius: 50%;
+    }
 
-.top-profile-message-box img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-}
+    .top-profile-message-box img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+    }
 
 
-.parent-tabs-mesg-box .top-profile-message-box .profile-name-messange p {
+    .parent-tabs-mesg-box .top-profile-message-box .profile-name-messange p {
         font-size: 16px;
         font-weight: 700;
         text-transform: capitalize;
@@ -101,133 +105,143 @@
     }
 
 
-/* Parent container for the chat box */
-#main-mesg-box {
-    display: flex;
-    flex-direction: column; /* Arrange items vertically */
-    height: 100vh; /* Full viewport height */
-    position: relative;
-    overflow: hidden;
+    /* Parent container for the chat box */
+    #main-mesg-box {
+        display: flex;
+        flex-direction: column;
+        /* Arrange items vertically */
+        height: 100vh;
+        /* Full viewport height */
+        position: relative;
+        overflow: hidden;
 
-}
+    }
 
-/* Top profile bar (fix at the top) */
-.maintop-bar-profile {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: #f5f5f5; /* Light background color */
-    border-bottom: 1px solid #ddd;
-    position: sticky; /* Stick to top */
-    top: 0;
-    z-index: 10; /* Ensure it stays above the chat content */
-    background: #E5E5E5;
-    border-radius: 10px 10px 0 0;
-    box-shadow: 0px 3px 6px 0px #00000021;
-}
+    /* Top profile bar (fix at the top) */
+    .maintop-bar-profile {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #f5f5f5;
+        /* Light background color */
+        border-bottom: 1px solid #ddd;
+        position: sticky;
+        /* Stick to top */
+        top: 0;
+        z-index: 10;
+        /* Ensure it stays above the chat content */
+        background: #E5E5E5;
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0px 3px 6px 0px #00000021;
+    }
 
-/* Profile image box */
-.top-profile-message-box .img-box img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%; /* Make the image circular */
-    object-fit: cover; /* Maintain image aspect ratio */
-}
+    /* Profile image box */
+    .top-profile-message-box .img-box img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        /* Make the image circular */
+        object-fit: cover;
+        /* Maintain image aspect ratio */
+    }
 
-/* Chat messages container (scrollable) */
-#chat-box {
-    flex: 1; /* Take remaining space */
-    overflow-y: auto; /* Enable vertical scroll */
-    padding: 10px;
-}
+    /* Chat messages container (scrollable) */
+    #chat-box {
+        flex: 1;
+        /* Take remaining space */
+        overflow-y: auto;
+        /* Enable vertical scroll */
+        padding: 10px;
+    }
 
-/* Message box styles */
-.main-person-message-box {
-    margin-bottom: 10px;
-}
+    /* Message box styles */
+    .main-person-message-box {
+        margin-bottom: 10px;
+    }
 
-.content-box {
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 70%;
-    word-wrap: break-word;
-}
+    .content-box {
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 70%;
+        word-wrap: break-word;
+    }
 
-.content-box.client {
-    background-color: #f1f1f1;
-    align-self: flex-start;
-}
+    .content-box.client {
+        background-color: #f1f1f1;
+        align-self: flex-start;
+    }
 
-.content-box.you {
-    background-color: #d1e7dd;
-    align-self: flex-end;
-}
+    .content-box.you {
+        background-color: #d1e7dd;
+        align-self: flex-end;
+    }
 
-/* Input form (stick to bottom) */
-#write-message-box {
-    display: flex;
-    align-items: center;
-    padding: 0;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    position: sticky;
-    bottom: 0;
-    margin: 0 !important;
-}
+    /* Input form (stick to bottom) */
+    #write-message-box {
+        display: flex;
+        align-items: center;
+        padding: 0;
+        background-color: #f5f5f5;
+        border-top: 1px solid #ddd;
+        position: sticky;
+        bottom: 0;
+        margin: 0 !important;
+    }
 
-#write-message-box input[type="text"] {
-    flex: 1;
-    padding: 0 !important;
-    margin-right: 0 !important;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    height: 50px;
-
-
-}
-
-.large-mesg-box .parent-tabs-mesg-box .heading-form-mesg-box form button{
-    top: 10% !important;
-}
-
-#write-message-box button {
-    padding: 10px 15px;
-    background-color: #0077B6;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-#write-message-box button:hover {
-    background-color: #000;
-}
-
-.parent-tabs-mesg-box .heading-form-mesg-box form {
-    width: 100%;
-}
+    #write-message-box input[type="text"] {
+        flex: 1;
+        padding: 0 !important;
+        margin-right: 0 !important;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        height: 50px;
 
 
-.message-icon-notify:after {
-    position: absolute;
-    content: "";
-    height: 10px;
-    width: 10px;
-    background: #0077b6;
-    top: 0;
-    z-index: 1;
-    border-radius: 100%;
-    left: 0;
-    opacity: 0; /* Initial opacity */
-    transition: opacity 0.3s ease;
-}
+    }
 
-.message-icon-notify.message-icon-notify-active:after {
-    opacity: 1; /* Change opacity to 1 when the class is added */
-}
+    .large-mesg-box .parent-tabs-mesg-box .heading-form-mesg-box form button {
+        top: 10% !important;
+    }
 
+    #write-message-box button {
+        padding: 10px 15px;
+        background-color: #0077B6;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    #write-message-box button:hover {
+        background-color: #000;
+    }
+
+    .parent-tabs-mesg-box .heading-form-mesg-box form {
+        width: 100%;
+    }
+
+
+    .message-icon-notify:after {
+        position: absolute;
+        content: "";
+        height: 10px;
+        width: 10px;
+        background: #0077b6;
+        top: 0;
+        z-index: 1;
+        border-radius: 100%;
+        left: 0;
+        opacity: 0;
+        /* Initial opacity */
+        transition: opacity 0.3s ease;
+    }
+
+    .message-icon-notify.message-icon-notify-active:after {
+        opacity: 1;
+        /* Change opacity to 1 when the class is added */
+    }
 </style>
 @section('content')
     <meta name="user-id" content="{{ auth()->id() }}">
@@ -247,7 +261,8 @@
                         @if (Auth::user()->hasRole('tenant'))
                             @foreach ($conversations as $conversation)
                                 {{-- {{ dd($conversation) }} --}}
-                                <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person-{{ $conversation->id }}">
+                                <a onclick="getMessages({{ $conversation->id }}, this)"
+                                    class="mesg-person-{{ $conversation->id }}">
                                     <div class="parent-box-message-user">
                                         <div class="img-box">
                                             <img src="{{ Storage::url($conversation->property->user->profile_img) }}"
@@ -278,7 +293,8 @@
 
                         @if (Auth::user()->hasRole('land_lord'))
                             @foreach ($conversations as $conversation)
-                                <a onclick="getMessages({{ $conversation->id }}, this)" class="mesg-person-{{ $conversation->id }}">
+                                <a onclick="getMessages({{ $conversation->id }}, this)"
+                                    class="mesg-person-{{ $conversation->id }}">
                                     <div class="parent-box-message-user">
                                         <div class="img-box">
                                             <img src="{{ Storage::url($conversation->user->profile_img) }}" alt="">
@@ -313,7 +329,8 @@
 
 
 
-                    <div class="parent-tabs-mesg-box" style="padding:0; border-radius: 0;flex-direction: column;    display: flex
+                    <div class="parent-tabs-mesg-box"
+                        style="padding:0; border-radius: 0;flex-direction: column;    display: flex
                     ;height: 100%; ">
 
                         <div class="maintop-bar-profile" id="profileBar">
@@ -402,16 +419,17 @@
             channel.bind('App\\Events\\MessageSent', function(data) {
 
                 if (data.conversation_id == activeConversationId) {
-                    getMessages(data.conversation_id, document.querySelector(`.mesg-person-${data.conversation_id}`));
+                    getMessages(data.conversation_id, document.querySelector(
+                        `.mesg-person-${data.conversation_id}`));
                 }
 
 
-                if(data.length > 0) {
+                if (data.length > 0) {
                     let iconNotify = document.querySelector(".messages");
                     if (iconNotify) {
                         iconNotify.classList.add("icon-notify-active");
                     }
-                    }
+                }
 
             });
         });
@@ -426,37 +444,35 @@
 
 
         function getMessages(id, element) {
-    // Remove the active class from all elements
-    document.querySelectorAll('.active-mesg-person').forEach(el => el.classList.remove('active-mesg-person'));
-    // Add the active class to the clicked element
-    element.classList.add('active-mesg-person');
+            // Remove the active class from all elements
+            document.querySelectorAll('.active-mesg-person').forEach(el => el.classList.remove('active-mesg-person'));
+            // Add the active class to the clicked element
+            element.classList.add('active-mesg-person');
 
-    localStorage.setItem('activeConversationId', id);
-    activeConversationId = id;
+            localStorage.setItem('activeConversationId', id);
+            activeConversationId = id;
 
-    console.log("activeConversationId", activeConversationId);
 
-    $("#message").val('');
+            $("#message").val('');
 
-    $.ajax({
-        url: "{{ route('tenant.get.messages') }}",
-        type: "POST",
-        data: {
-            "_token": "{{ csrf_token() }}",
-            conversation_id: id
-        },
-        success: function(response) {
-            console.log(response);
+            $.ajax({
+                url: "{{ route('tenant.get.messages') }}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    conversation_id: id
+                },
+                success: function(response) {
 
-            const currentUserId = {{ auth()->id() }}; // Get the logged-in user's ID
-            $("#chat-box").show();
-            $("#profileBar").show();
-            $("#profileBar").empty();
-            $("#chat-box").empty();
-            $("#write-message-box").show();
+                    const currentUserId = {{ auth()->id() }}; // Get the logged-in user's ID
+                    $("#chat-box").show();
+                    $("#profileBar").show();
+                    $("#profileBar").empty();
+                    $("#chat-box").empty();
+                    $("#write-message-box").show();
 
-            @if (Auth::user()->hasRole('land_lord'))
-                $("#profileBar").append(`
+                    @if (Auth::user()->hasRole('land_lord'))
+                        $("#profileBar").append(`
                     <div class="top-profile-message-box">
                         <div class="img-box">
                             <img src="{{ Storage::url('/') }}${response.history.user.profile_img}" alt="">
@@ -467,13 +483,13 @@
                     </div>
                 `);
 
-                $("#sender_id").val(response.history.property.user.id);
-                $("#receiver_id").val(response.history.user_id);
-                $("#property_id").val(response.history.property_id);
-                $("#conversation_id").val(response.history.id);
-            @endif
-            @if (Auth::user()->hasRole('tenant'))
-                $("#profileBar").append(`
+                        $("#sender_id").val(response.history.property.user.id);
+                        $("#receiver_id").val(response.history.user_id);
+                        $("#property_id").val(response.history.property_id);
+                        $("#conversation_id").val(response.history.id);
+                    @endif
+                    @if (Auth::user()->hasRole('tenant'))
+                        $("#profileBar").append(`
                     <div class="top-profile-message-box">
                         <div class="img-box">
                             <img src="{{ Storage::url('/') }}${response.history.property.user.profile_img}" alt="">
@@ -484,16 +500,16 @@
                     </div>
                 `);
 
-                $("#sender_id").val(response.history.user_id);
-                $("#receiver_id").val(response.history.property.user.id);
-                $("#property_id").val(response.history.property_id);
-                $("#conversation_id").val(response.history.id);
-            @endif
+                        $("#sender_id").val(response.history.user_id);
+                        $("#receiver_id").val(response.history.property.user.id);
+                        $("#property_id").val(response.history.property_id);
+                        $("#conversation_id").val(response.history.id);
+                    @endif
 
-            response.messages.forEach(message => {
-                const isSender = message.sender_id === currentUserId;
+                    response.messages.forEach(message => {
+                        const isSender = message.sender_id === currentUserId;
 
-                $("#chat-box").append(`
+                        $("#chat-box").append(`
                     <div class="message-box ${isSender ? 'you' : 'client'}">
                         <div class="content-box ${isSender ? 'you' : 'client'}">
                             <div class="name-and-date">
@@ -504,49 +520,53 @@
                         </div>
                     </div>
                 `);
+                    });
+
+                    // Scroll to bottom if there are messages
+                    const lastMessage = document.querySelector(`#chat-box .message-box:last-child`);
+                    if (lastMessage) {
+                        lastMessage.scrollIntoView({
+                            behavior: "smooth"
+                        });
+                    }
+
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseJSON.message);
+                }
             });
-
-            // Scroll to bottom if there are messages
-            const chatBox = document.getElementById("main-mesg-box");
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-        },
-        error: function(xhr) {
-            console.log(xhr.responseJSON.message);
         }
-    });
-}
 
-function sendMessage() {
-    var message = $('#message').val();
-    var receiverId = $('#receiver_id').val();
-    var senderId = $('#sender_id').val();
-    var propertyId = $('#property_id').val();
-    var conversationId = $('#conversation_id').val();
+        function sendMessage() {
+            var message = $('#message').val();
+            var receiverId = $('#receiver_id').val();
+            var senderId = $('#sender_id').val();
+            var propertyId = $('#property_id').val();
+            var conversationId = $('#conversation_id').val();
 
-    if (message.trim() === '') {
-        alert('Please enter a message before sending.');
-        return;
-    }
+            if (message.trim() === '') {
+                alert('Please enter a message before sending.');
+                return;
+            }
 
-    $.ajax({
-        url: '/tenant/send-message',
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            message: message,
-            receiver_id: receiverId,
-            sender_id: senderId,
-            property_id: propertyId,
-            conversation_id: conversationId
-        },
-        success: function(data) {
-            $('#message').val(''); // Clear input
+            $.ajax({
+                url: '/tenant/send-message',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    message: message,
+                    receiver_id: receiverId,
+                    sender_id: senderId,
+                    property_id: propertyId,
+                    conversation_id: conversationId
+                },
+                success: function(data) {
+                    $('#message').val(''); // Clear input
 
-            // Append the sent message to the chat box (right-side)
-            $("#chat-box").append(`
+                    // Append the sent message to the chat box (right-side)
+                    $("#chat-box").append(`
                 <div class="message-box you">
                     <div class="content-box you">
                         <div class="name-and-date">
@@ -558,16 +578,18 @@ function sendMessage() {
                 </div>
             `);
 
-            // Scroll to bottom after sending the message
-            const chatBox = document.getElementById("main-mesg-box");
-            chatBox.scrollTop = chatBox.scrollHeight;
-        },
-        error: function(error) {
-            console.error('Error sending message:', error);
+                    // Scroll to bottom if there are messages
+                    const lastMessage = document.querySelector(`#chat-box .message-box:last-child`);
+                    if (lastMessage) {
+                        lastMessage.scrollIntoView({
+                            behavior: "smooth"
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.error('Error sending message:', error);
+                }
+            });
         }
-    });
-}
-
-
     </script>
 @endsection
