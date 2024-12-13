@@ -212,7 +212,7 @@
         border-radius: 20px;
         cursor: pointer;
         font-size: 14px;
-        height: 95%;
+        height: 40px;
         top: 2.5% !important;
     }
 
