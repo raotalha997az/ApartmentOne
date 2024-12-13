@@ -574,12 +574,12 @@
 
             <div class="get-started-content">
                 <div class="picture-tabs">
-
                     @foreach ($categories as $category)
                         <div class="radio-item">
-                            <input type="radio" id="category" name="category" value="{{ $category->id }}">
-                            <label for="category" class="select_box" onclick="selectCategory(this)">
-                                <img src="{{ Storage::url($category->image ?? '') }}" alt="House">
+                            <input type="radio" id="category-{{ $category->id }}" name="category"
+                                value="{{ $category->id }}" onclick="selectCategory(this)">
+                            <label for="category-{{ $category->id }}" class="select_box">
+                                <img src="{{ Storage::url($category->image ?? '') }}" alt="{{ $category->name }}">
                                 <span>{{ $category->name }}</span>
                             </label>
                         </div>
@@ -591,6 +591,7 @@
                         </div>
                     @enderror
                 </div>
+
             </div>
 
         </div>
@@ -607,7 +608,7 @@
             <p>Where is the rental property located?</p>
             <div class="select-box">
                 <span>Country</span>
-                <select name="country" id="">
+                <select name="country" id="" value="{{ old('country') }}">
                     <option value="USA">USA</option>
                     <option value="Canada">Canada</option>
                     <option value="UK">United Kingdom</option>
@@ -635,15 +636,9 @@
             <p>Where is the rental property located?</p>
             <div class="select-box">
                 <span>Address</span>
-                <textarea name="address" id="" cols="100" rows="10" placeholder="Type Here"></textarea>
+                <textarea name="address" id="" cols="100" rows="10" placeholder="Type Here">{{ old('address') }}</textarea>
             </div>
 
-            {{-- <div class="form-action-btns">
-                    <button class="cancel-btn ">Go Back</button>
-                    <button class="next-btn ">Next<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11.0215 17.5981L12.3834 18.9601L18.8435 12.5L12.3834 6.03992L11.0215 7.40186L15.1564 11.5368H5.92334V13.4632H15.1564L11.0215 17.5981Z" fill="white"></path>
-                    </svg></button>
-                </div> --}}
         </div>
 
 
@@ -773,10 +768,10 @@
                 </div>
 
                 @error('eviction')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
-            @enderror
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
 
             </div>
 
@@ -784,25 +779,26 @@
 
                 <div class="box">
                     <p>How Many Times You Are Evicted?</p>
-                    <input type="number" placeholder="00" name="many_time_evicted">
+                    <input type="number" placeholder="00" name="many_time_evicted" value="{{ old('many_time_evicted') }}">
                 </div>
                 @error('many_time_evicted')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
-                 @enderror
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
 
                 <div class="box">
                     <p>When You Are Evicted?</p>
                     <div class="flex-input">
-                         <input type="date" placeholder="YYYY-MM-DD" name="when_evicted" value="{{ old('when_evicted') }}">
+                        <input type="date" placeholder="YYYY-MM-DD" name="when_evicted"
+                            value="{{ old('when_evicted') }}">
                     </div>
                 </div>
                 @error('when_evicted')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
-            @enderror
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
 
         </div>
@@ -818,28 +814,28 @@
 
             <div class="selection-boxex-true">
                 <div class="radio-item">
-                    <input type="radio" id="bankruptcy" name="bankruptcy" value="1">
-                    <label for="house">
+                    <input type="radio" class="bankruptcyYes" id="bankruptcyYes" name="bankruptcy" value="1" onclick="setActiveBank(this)">
+                    <label class="bankruptcyYesLabel" for="bankruptcyYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
-
                 <div class="radio-item">
-                    <input type="radio" id="bankruptcy" name="bankruptcy" value="0">
-                    <label for="house">
+                    <input type="radio" class="bankruptcyNo" id="bankruptcyNo" name="bankruptcy" value="0" onclick="setActiveBank(this)">
+                    <label class="bankruptcyNoLabel" for="bankruptcyNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
                 </div>
 
                 @error('bankruptcy')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
-            @enderror
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
+
 
         </div>
 
@@ -856,32 +852,32 @@
 
             <div class="box">
                 <p>Full Name</p>
-                <input type="text" name="contact_name" placeholder="Full Name">
+                <input type="text" name="contact_name" placeholder="Full Name" value="{{ old('contact_name') }}" >
                 @error('contact_name')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
-            @enderror
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
 
             <div class="box">
                 <p>Phone Number</p>
-                <input type="number" name="contact_phone_number" placeholder="00 000 000000">
+                <input type="number" name="contact_phone_number" placeholder="00 000 000000" value="{{ old('contact_phone_number') }}">
                 @error('contact_phone_number')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
-            @enderror
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
 
             <div class="box">
                 <p>Email</p>
-                <input type="email" name="contact_email" placeholder="jhon@example.com">
+                <input type="email" name="contact_email" placeholder="jhon@example.com" value="{{ old('contact_email') }}">
                 @error('contact_email')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
-            @enderror
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
         </div>
 
@@ -910,7 +906,7 @@
             <div class="many-forms-fields-box">
                 <div class="input-box">
                     <label for="">Name</label>
-                    <input type="text" placeholder="Type Here" name="name">
+                    <input type="text" placeholder="Type Here" name="name" value="{{ old('name') }}">
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -924,7 +920,7 @@
 
                 <div class="progress-container">
                     <input type="range" id="progressInput" min="10" max="2500" value="10"
-                        step="10">
+                        step="10" >
                 </div>
                 <div class="numbers-main-bb">
                     <input type="number" id="numberInput1" class="number-input" value="10" min="10"
@@ -995,7 +991,7 @@
 
             <div class="input-box textarea">
                 <label for="other_details">Other Details</label>
-                <textarea placeholder="Type Here" name="other_details"></textarea>
+                <textarea placeholder="Type Here" name="other_details">{{ old('other_details') }}</textarea>
             </div>
 
             <div class="input-box simple-select">
@@ -1011,7 +1007,7 @@
 
             <div class="input-box simple-select">
                 <label for="price">Price/Rent</label>
-                <input type="text" placeholder="price" name="price" id="price">
+                <input type="text" placeholder="price" name="price" id="price" value="{{ old('price') }}">
                 @error('price')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -1080,7 +1076,6 @@
 
 
     <script>
-
         // Function to display the active-non-active div
         function boxActive1() {
             document.getElementById('activeNonActive1').style.display = 'block';
@@ -1193,19 +1188,48 @@
             $('.js-example-basic-multiple').select2();
         });
 
-        function selectCategory(element) {
-            // Remove 'active' class from all elements
-            document.querySelectorAll('.select_box').forEach(item => {
-                item.classList.remove('active');
-            });
+function selectCategory(element) {
+    // Remove 'active' class from all labels
+    document.querySelectorAll('.select_box').forEach(label => {
+        label.classList.remove('active');
+    });
 
-            // Add 'active' class to the clicked element
-            element.classList.add('active');
+    // Add 'active' class to the corresponding label of the clicked radio button
+    const label = element.closest('.radio-item').querySelector('.select_box');
+    if (label) {
+        label.classList.add('active');
+    }
 
-            // Optionally, you can log or store the selected category
-            const selectedCategory = element.querySelector('span').innerText;
-            console.log('Selected category:', selectedCategory);
-        }
+    // Optionally, log or store the selected category value
+    const selectedCategory = element.value;
+    console.log('Selected category ID:', selectedCategory);
+}
+function setActiveBank(element) {
+    // Remove 'active' class from all bankruptcy items
+    if (element.classList.contains('bankruptcyYes')) {
+        document.querySelectorAll('.bankruptcyYesLabel').forEach(item => {
+            item.classList.add('active');
+        });
+        document.querySelectorAll('.bankruptcyNoLabel').forEach(item => {
+            item.classList.remove('active');
+        });
+    }
+    if (element.classList.contains('bankruptcyNo')) {
+        document.querySelectorAll('.bankruptcyNoLabel').forEach(item => {
+            item.classList.add('active');
+        });
+        document.querySelectorAll('.bankruptcyYesLabel').forEach(item => {
+            item.classList.remove('active');
+        });
+    }
+
+    // Ensure the radio input within the clicked item is checked
+    const radioInput = element.querySelector('input[type="radio"]');
+    if (radioInput) {
+        radioInput.checked = true;
+    }
+}
+
 
         function setActive(element) {
             // Remove 'active' class from all radio items
