@@ -563,21 +563,7 @@
 
 
     {{-- main step form  --}}
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
-    @if ($errors->any())
-        <div class="error-messages">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li class="text-danger">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     <form id="regForm" action="{{ route('landlord.store_property') }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -591,8 +577,10 @@
                     @foreach ($categories as $category)
                         <div class="radio-item">
                             <input type="radio" id="category-{{ $category->id }}" name="category"
-                                value="{{ $category->id }}" onclick="selectCategory(this)">
-                            <label for="category-{{ $category->id }}" class="select_box">
+                                value="{{ $category->id }}" onclick="selectCategory(this)"
+                                {{ old('category', $selectedCategory ?? '') == $category->id ? 'checked' : '' }}>
+                            <label for="category-{{ $category->id }}"
+                                class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
                                 <img src="{{ Storage::url($category->image ?? '') }}" alt="{{ $category->name }}">
                                 <span>{{ $category->name }}</span>
                             </label>
@@ -706,23 +694,29 @@
 
             <div class="selection-boxex-true">
                 <div class="radio-item">
-                    <input type="radio"class="somkingYes" id="somkingYes" name="smoking" value="1"
-                        onclick="setActive(this)">
-                    <label class="somkingYesLabel" for="somkingYes">
+                    <input type="radio" class="smokingYes" id="smokingYes" name="smoking" value="1"
+                        onclick="setActiveSmoking(this)"
+                        {{ old('smoking', $selectedSmoking ?? '') == 1 ? 'checked' : '' }}>
+                    <label class="smokingYesLabel {{ old('smoking', $selectedSmoking ?? '') == 1 ? 'active' : '' }}"
+                        for="smokingYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
-                <div class="radio-item" onclick="setActive(this)">
-                    <input type="radio" class="somkingNo" id="somkingNo" name="smoking" value="0"
-                        onclick="setActive(this)">
-                    <label class="somkingNoLabel" for="somkingNo">
+                <div class="radio-item">
+                    <input type="radio" class="smokingNo" id="smokingNo" name="smoking" value="0"
+                        onclick="setActiveSmoking(this)"
+                        {{ old('smoking', $selectedSmoking ?? '') == 0 ? 'checked' : '' }}>
+                    <label class="smokingNoLabel {{ old('smoking', $selectedSmoking ?? '') == 0 ? 'active' : '' }}"
+                        for="smokingNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
                 </div>
             </div>
+
+
             @error('smoking')
                 <div class="error-message">
                     <span class="text-danger">{{ $message }}</span>
@@ -837,8 +831,11 @@
             <div class="selection-boxex-true">
                 <div class="radio-item">
                     <input type="radio" class="bankruptcyYes" id="bankruptcyYes" name="bankruptcy" value="1"
-                        onclick="setActiveBank(this)">
-                    <label class="bankruptcyYesLabel" for="bankruptcyYes">
+                        onclick="setActiveBank(this)"
+                        {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'checked' : '' }}>
+                    <label
+                        class="bankruptcyYesLabel {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'active' : '' }}"
+                        for="bankruptcyYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
@@ -846,8 +843,11 @@
 
                 <div class="radio-item">
                     <input type="radio" class="bankruptcyNo" id="bankruptcyNo" name="bankruptcy" value="0"
-                        onclick="setActiveBank(this)">
-                    <label class="bankruptcyNoLabel" for="bankruptcyNo">
+                        onclick="setActiveBank(this)"
+                        {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'checked' : '' }}>
+                    <label
+                        class="bankruptcyNoLabel {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'active' : '' }}"
+                        for="bankruptcyNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -859,6 +859,7 @@
                     </div>
                 @enderror
             </div>
+
 
 
         </div>
@@ -1090,6 +1091,7 @@
 
 
 
+
     <script>
         // Function to display the active-non-active div
         function boxActive() {
@@ -1238,58 +1240,44 @@
         }
 
         function setActiveBank(element) {
-            // Remove 'active' class from all bankruptcy items
+            // Reset active classes
+            document.querySelectorAll('.bankruptcyYesLabel, .bankruptcyNoLabel').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add active class to the clicked item's label
             if (element.classList.contains('bankruptcyYes')) {
-                document.querySelectorAll('.bankruptcyYesLabel').forEach(item => {
-                    item.classList.add('active');
-                });
-                document.querySelectorAll('.bankruptcyNoLabel').forEach(item => {
-                    item.classList.remove('active');
-                });
-            }
-            if (element.classList.contains('bankruptcyNo')) {
-                document.querySelectorAll('.bankruptcyNoLabel').forEach(item => {
-                    item.classList.add('active');
-                });
-                document.querySelectorAll('.bankruptcyYesLabel').forEach(item => {
-                    item.classList.remove('active');
-                });
+                document.querySelector('.bankruptcyYesLabel').classList.add('active');
+            } else if (element.classList.contains('bankruptcyNo')) {
+                document.querySelector('.bankruptcyNoLabel').classList.add('active');
             }
 
-            // Ensure the radio input within the clicked item is checked
-            const radioInput = element.querySelector('input[type="radio"]');
-            if (radioInput) {
-                radioInput.checked = true;
-            }
+            // Mark the radio button as checked
+            element.checked = true;
         }
 
 
-        function setActive(element) {
-            // Remove 'active' class from all radio items
-            if (element.classList.value == 'somkingYes') {
-                document.querySelectorAll('.somkingYesLabel').forEach(item => {
-                    item.classList.add('active');
-                });
-                document.querySelectorAll('.somkingNoLabel').forEach(item => {
-                    item.classList.remove('active');
-                });
-            }
-            if (element.classList.value == 'somkingNo') {
-                console.log(element.classList.value);
-                document.querySelectorAll('.somkingNoLabel').forEach(item => {
-                    item.classList.add('active');
-                });
-                document.querySelectorAll('.somkingYesLabel').forEach(item => {
-                    item.classList.remove('active');
-                });
+
+        function setActiveSmoking(element) {
+            console.log('Clicked element:', element);
+
+            // Reset all labels
+            document.querySelectorAll('.smokingYesLabel, .smokingNoLabel').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add 'active' to the corresponding label
+            if (element.classList.contains('smokingYes')) {
+                document.querySelector('.smokingYesLabel').classList.add('active');
+            } else if (element.classList.contains('smokingNo')) {
+                document.querySelector('.smokingNoLabel').classList.add('active');
             }
 
-            // Ensure the radio input within the clicked item is checked
-            const radioInput = element.querySelector('input[type="radio"]');
-            if (radioInput) {
-                radioInput.checked = true;
-            }
+            // Check the radio button
+            element.checked = true;
         }
+
+
 
         function setEvction(element) {
             // Remove 'active' class from all radio items
@@ -1647,8 +1635,7 @@
             }
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/toastr.js/latest/toastr.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
