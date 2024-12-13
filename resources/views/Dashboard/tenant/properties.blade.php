@@ -189,7 +189,7 @@
 
             </div>
 
-            @if (auth()->user()->payment_status == 0)
+            @if ($user->payment_status == 0)
 
             <div class="lock-access-box-top" style="background-image: url({{asset('assets/images/Rectangle-400.png')}})">
                 <div class="box">

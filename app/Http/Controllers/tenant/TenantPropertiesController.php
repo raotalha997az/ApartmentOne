@@ -30,7 +30,7 @@ class TenantPropertiesController extends Controller
     public function properties()
     {
         $userId = Auth::id();
-        $user = User::find($userId, 'payment_status');
+        $user = User::find($userId, ['*','payment_status']);
 
         if ($user->payment_status == 1) {
             // Credit Point
@@ -79,7 +79,7 @@ class TenantPropertiesController extends Controller
             //old data
 
             $properties = Property::where('approve', 1)->with('category')->get();
-
+            
             foreach ($properties as $property) {
                 $property->hide = 0;  // Set the default value to not hide
 
@@ -95,12 +95,12 @@ class TenantPropertiesController extends Controller
                         $property->hide = 1;
                     }
                 }
-
+                
                 // // Credit score condition
                 if ($score < $property->credit_point) {
                     $property->hide = 1;  // Hide if credit score is insufficient
                 }
-
+                
                 // // Criminal record condition
                 if ($property->criminal_records == 1) {
                     if ($criminalCount > 0) {
@@ -123,7 +123,7 @@ class TenantPropertiesController extends Controller
             ->toArray();
 
         $categories = Category::all();
-        return view('Dashboard.tenant.properties', compact('properties', 'wishlist', 'categories'));
+        return view('Dashboard.tenant.properties', compact('properties','user', 'wishlist', 'categories'));
     }
 
     public function fluterproperty($id)
