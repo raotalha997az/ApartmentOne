@@ -69,7 +69,7 @@
     }
 
     .content-box.you {
-        background-color: #d3f8e2;
+        background-color: #accada;
         /* Light green for sent messages */
     }
 
@@ -152,7 +152,7 @@
         overflow-y: auto;
         /* Enable vertical scroll */
         padding: 10px;
-    }
+        margin-top: 160px;   }
 
     /* Message box styles */
     .main-person-message-box {
@@ -172,7 +172,7 @@
     }
 
     .content-box.you {
-        background-color: #d1e7dd;
+        background-color: #accada;
         align-self: flex-end;
     }
 
@@ -204,14 +204,16 @@
         top: 10% !important;
     }
 
-    #write-message-box button {
-        padding: 10px 15px;
+    #write-message-box button { 
+        padding: 7px 20px;
         background-color: #0077B6;
         color: #fff;
         border: none;
-        border-radius: 10px;
+        border-radius: 20px;
         cursor: pointer;
         font-size: 14px;
+        height: 95%;
+        top: 2.5% !important;
     }
 
     #write-message-box button:hover {
@@ -242,6 +244,20 @@
         opacity: 1;
         /* Change opacity to 1 when the class is added */
     }
+
+    #message {
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 20px;    
+    padding: 10px;
+    font-size: 14px;
+    resize: none; /* Disable manual resizing */
+    overflow: hidden; /* Ensure it looks clean */
+    outline: none; /* Remove focus outline */
+    line-height: 1.5; /* Add proper line height */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
 </style>
 @section('content')
     <meta name="user-id" content="{{ auth()->id() }}">
@@ -378,7 +394,8 @@
                                 <input type="hidden" id="receiver_id">
                                 <input type="hidden" id="property_id">
                                 <input type="hidden" id="conversation_id">
-                                <input type="text" id="message" placeholder="Type Here">
+                                <textarea id="message" rows="1" placeholder="Type a message..."></textarea>
+                                {{-- <input type="text" id="message" placeholder="Type Here"> --}}
                                 <button type="button" onclick="sendMessage()">Send</button>
                             </form>
                         </div>
@@ -537,8 +554,27 @@
             });
         }
 
+
+        const messageInput = document.getElementById("message");
+
+        messageInput.addEventListener("input", function () {
+            this.style.height = "auto";
+            this.style.height = this.scrollHeight + "px";
+        });
+
+        messageInput.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage(); // Replace with your send message logic
+                this.value = "";
+                this.style.height = "auto";
+            }
+        });
+
+
         function sendMessage() {
-            var message = $('#message').val();
+            // var message = $('#message').val();
+            var message = messageInput.value.trim();
             var receiverId = $('#receiver_id').val();
             var senderId = $('#sender_id').val();
             var propertyId = $('#property_id').val();
