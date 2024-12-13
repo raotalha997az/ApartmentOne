@@ -175,7 +175,7 @@ class PropertyController extends Controller
 
 
         // Return a success response
-        return redirect()->route('landlord.properties')->with(['message' => 'Property created successfully!'], 201);
+        return redirect()->route('landlord.properties')->with(['success' => 'Property created successfully!'], 201);
     }
 
     public function category_store(Request $request)
@@ -336,7 +336,7 @@ class PropertyController extends Controller
         }
         }
 
-        return response()->json(['message' => 'Property updated successfully!'], 200);
+        return response()->json(['success' => 'Property updated successfully!'], 200);
         }
         public function properties_delete($id)
         {

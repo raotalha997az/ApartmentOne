@@ -58,6 +58,11 @@
                             <h6>All Your Properties</h6>
                         </div>
                     </div>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
 
                     <div class="tab-content">
@@ -79,12 +84,14 @@
 
                                         <a href="{{ route('landlord.propertiesdetails', $property->id) }}">
                                             <div class="box img-box-property">
-                                                <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}" alt="">
+                                                <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}"
+                                                    alt="">
                                                 <div class="content">
                                                     <h4>{{ $property->name ?? '' }}</h4>
                                                     <p>
                                                         @if (strlen($property->other_details) > 20)
-                                                            <abbr title="{{ $property->other_details ?? '' }}">{{ substr($property->other_details, 0, 20) }}...</abbr>
+                                                            <abbr
+                                                                title="{{ $property->other_details ?? '' }}">{{ substr($property->other_details, 0, 20) }}...</abbr>
                                                         @else
                                                             {{ $property->other_details ?? '' }}
                                                         @endif
@@ -95,14 +102,16 @@
                                             @if ($tenants->isNotEmpty())
                                                 <div class="box gallery-box-imges">
                                                     @foreach ($tenants as $tenant)
-                                                        <img src="{{ Storage::url($tenant->profile_img ?? '') }}" alt="">
+                                                        <img src="{{ Storage::url($tenant->profile_img ?? '') }}"
+                                                            alt="">
                                                     @endforeach
                                                 </div>
                                             @endif
 
                                             <div class="box numbers-of-applications">
                                                 <p>
-                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
                                                         <path d="..." fill="#414141" />
                                                     </svg>
                                                     {{ $tenants->count() }} Applicants
