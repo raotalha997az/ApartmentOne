@@ -99,7 +99,7 @@ Route::controller(StripePaymentController::class)->group(function(){
         Route::get('/applyhistory',action: [ApplyPropertyHistoryController::class,'applyhistory'])->name('applyhistory');
         });
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
-    Route::get('/fluter/property/{id}',[TenantPropertiesController::class,'fluterproperty'])->name('fluter.property');
+    Route::get('property/{id}',[TenantPropertiesController::class,'fluterproperty'])->name('fluter.property');
     Route::get('/propertiesdetails/{id}', [TenantPropertiesController::class, 'propertiesdetails'])->name('propertiesdetails');
 
     Route::post('/wishlistadd', [TenantAuthController::class, 'addToWishlist'])->name('wishlist.add');
