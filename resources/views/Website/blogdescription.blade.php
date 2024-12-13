@@ -1,4 +1,33 @@
 @extends('Website.layouts.master')
+<style>
+    .main-blog-section-grid .blog-parent-box img {
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.main-blog-section-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 20px;
+    row-gap: 20px;
+    flex-wrap: wrap;
+}
+        .apartment-blog-active::after {
+    content: "";
+    width: 8px;
+    height: 5px;
+    position: absolute;
+    background-color: #0077B6;
+    bottom: -5px;
+    left: 45%;
+    border-radius: 20px;
+}
+
+.header-menu li {
+    position: relative;
+}
+</style>
 @section('content')
 
 <section class="home-sec-01" style="background-image: url({{ asset('assets/images/blog-details-banner.png')}}">

@@ -34,58 +34,58 @@
         }
 
         .paren-check-box.eviction-custom-style {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
 
         div#existingImagesContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
 
-.selection-boxex-true {
-    display: flex
-;
-    align-items: center;
-    flex-direction: row;
-    gap: 20px;
-    margin: 20px 0;
-}
+        .selection-boxex-true {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 20px;
+            margin: 20px 0;
+        }
 
-.radio-item {
-    position: relative;
-    display: block;
-}
+        .radio-item {
+            position: relative;
+            display: block;
+        }
 
-.radio-item input {
-    /* display: none; */
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-}
+        .radio-item input {
+            /* display: none; */
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+        }
 
-.selection-boxex-true .selection-content-true, .selection-boxex-true .radio-item label {
-    display: flex
-;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    padding: 20px 40px;
-    border: 5px solid #CCCCCC;
-    border-radius: 20px;
-    transition: .3s;
-}
+        .selection-boxex-true .selection-content-true,
+        .selection-boxex-true .radio-item label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 20px 40px;
+            border: 5px solid #CCCCCC;
+            border-radius: 20px;
+            transition: .3s;
+        }
 
-.selection-boxex-true .selection-content-true span, .selection-boxex-true .radio-item label {
-    color: #777777;
-    font-size: 20px;
-}
+        .selection-boxex-true .selection-content-true span,
+        .selection-boxex-true .radio-item label {
+            color: #777777;
+            font-size: 20px;
+        }
     </style>
     <div class="add-property-form-sec">
         <div class="row">
@@ -128,10 +128,10 @@
                         </div>
 
                         @error('eviction')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                    <div class="many-forms-fields-box">
-                        {{-- <div class="paren-check-box eviction-custom-style">
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                        <div class="many-forms-fields-box">
+                            {{-- <div class="paren-check-box eviction-custom-style">
                            <div class="eviction-custom-one">
                             <label for="eviction">Eviction</label>
                             <!-- Hidden input to send 0 when unchecked -->
@@ -166,114 +166,115 @@
                                 @enderror
                                 </div>
                         </div> --}}
-                        <div class="tab" id="tab-3">
+                            <div class="tab" id="tab-3">
 
-                            <h6>Eviction Terms</h6>
-                            <p>What background check will you do to screen your applicant?</p>
+                                <h6>Eviction Terms</h6>
+                                <p>What background check will you do to screen your applicant?</p>
 
-                            <p style="margin-top: 30px !important;">Have you ever been evicted?</p>
+                                <p style="margin-top: 30px !important;">Have you ever been evicted?</p>
 
-                            <div class="selection-boxex-true">
+                                <div class="selection-boxex-true">
 
-                                <div class="radio-item" onclick="boxActive1()" id="boxactive1">
-                                    <input type="radio" id="eviction" name="eviction" value="1">
-                                    <label class="evction" for="yes" onclick="setEvction(this)">
-                                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
-                                        Yes
-                                    </label>
+                                    <div class="radio-item" onclick="boxActive1()" id="boxactive1">
+                                        <input type="radio" id="eviction" name="eviction" value="1">
+                                        <label class="evction" for="yes" onclick="setEvction(this)">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+
+                                    <div class="radio-item" onclick="boxNonActive1()" id="boxnunactive1">
+                                        <input type="radio" id="eviction" name="eviction" value="0">
+                                        <label class="evction" for="no" onclick="setEvction(this)">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    @error('eviction')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
                                 </div>
 
+                                <div class="active-non-active" id="activeNonActive1">
 
-                                <div class="radio-item" onclick="boxNonActive1()" id="boxnunactive1">
-                                    <input type="radio" id="eviction" name="eviction" value="0">
-                                    <label class="evction" for="no" onclick="setEvction(this)">
-                                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
-                                        No
-                                    </label>
+                                    <div class="input-box">
+                                        <p>How Many Times You Are Evicted?</p>
+                                        <input type="number" placeholder="00" name="many_time_evicted"
+                                            value="{{ $property->many_time_evicted }}">
+                                    </div>
+                                    @error('many_time_evicted')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+                                    <div class="input-box">
+                                        <p>When You Are Evicted?</p>
+                                        <div class="flex-input">
+                                            <input type="date" placeholder="YYYY-MM-DD" name="when_evicted"
+                                                value="{{ $property->when_evicted }}">
+                                        </div>
+                                    </div>
+                                    @error('when_evicted')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
                                 </div>
 
-                                @error('eviction')
-                                    <div class="error-message">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                @enderror
-
                             </div>
 
-                            <div class="active-non-active" id="activeNonActive1">
-
-                                <div class="box">
-                                    <p>How Many Times You Are Evicted?</p>
-                                    <input type="number" placeholder="00" name="many_time_evicted"
-                                        value="{{ old('many_time_evicted') }}">
+                            <div class="many-forms-fields-box">
+                                <div class="paren-check-box">
+                                    <input type="hidden" name="criminal_records" value="0">
+                                    <input type="checkbox" name="criminal_records" id="criminal_records" value="1"
+                                    {{ old('criminal_records', $property->criminal_records) == 1 ? 'checked' : '' }}>
+                                    <label for="criminal_records">Crimanal report</label>
                                 </div>
-                                @error('many_time_evicted')
-                                    <div class="error-message">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                @enderror
+                            </div>
 
-                                <div class="box">
-                                    <p>When You Are Evicted?</p>
-                                    <div class="flex-input">
-                                        <input type="date" placeholder="YYYY-MM-DD" name="when_evicted"
-                                            value="{{ old('when_evicted') }}">
-                                    </div>
+
+                            <div class="many-forms-fields-box">
+                                <div class="paren-check-box">
+                                    <input type="hidden" name="smoking" value="0">
+                                    <input type="checkbox" name="smoking" id="smoking" value="1"
+                                    {{ old('smoking', $property->smoking) == 1 ? 'checked' : '' }}>
+                                    <label for="smoking">Smoking Allowed</label>
                                 </div>
-                                @error('when_evicted')
-                                    <div class="error-message">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                @enderror
+                            </div>
+
+                            <div class="many-forms-fields-box">
+                                <div class="paren-check-box">
+                                    <input type="hidden" name="credit_history_check" value="0">
+                                    <input type="checkbox" name="credit_history_check" id="credit_history_check"
+                                    value="1"
+                                    {{ old('credit_history_check', $property->credit_history_check) == 1 ? 'checked' : '' }}>
+                                    <label for="credit_history_check">Credit history check</label>
+                                </div>
+                            </div>
+
+                            <div class="many-forms-fields-box">
+                                <div class="paren-check-box">
+                                    <input type="hidden" name="bankruptcy" value="0">
+                                    <input type="checkbox" name="bankruptcy" id="bankruptcy" value="1"
+                                    {{ old('bankruptcy', $property->bankruptcy) == 1 ? 'checked' : '' }}>
+                                    <label for="bankruptcy">Bank Currepcy</label>
+                                </div>
                             </div>
 
                         </div>
 
-                        <div class="many-forms-fields-box">
-                            <div class="paren-check-box">
-                                <label for="criminal_records">Crimanal report</label>
-                                <input type="hidden" name="criminal_records" value="0">
-                            <input type="checkbox" name="criminal_records" id="criminal_records" value="1"
-                                {{ old('criminal_records', $property->criminal_records) == 1 ? 'checked' : '' }}>
-                            </div>
-                        </div>
 
-
-                        <div class="many-forms-fields-box">
-                            <div class="paren-check-box">
-                                <label for="smoking">Smoking Allowed</label>
-                                <input type="hidden" name="smoking" value="0">
-                            <input type="checkbox" name="smoking" id="smoking" value="1"
-                                {{ old('smoking', $property->smoking) == 1 ? 'checked' : '' }}>
-                            </div>
-                        </div>
-
-                        <div class="many-forms-fields-box">
-                            <div class="paren-check-box">
-                                <label for="credit_history_check">Credit history check</label>
-                                <input type="hidden" name="credit_history_check" value="0">
-                            <input type="checkbox" name="credit_history_check" id="credit_history_check" value="1"
-                                {{ old('credit_history_check', $property->credit_history_check) == 1 ? 'checked' : '' }}>
-                            </div>
-                        </div>
-
-                        <div class="many-forms-fields-box">
-                            <div class="paren-check-box">
-                                <label for="bankruptcy">Bank Currepcy</label>
-                                <input type="hidden" name="bankruptcy" value="0">
-                            <input type="checkbox" name="bankruptcy" id="bankruptcy" value="1"
-                                {{ old('bankruptcy', $property->bankruptcy) == 1 ? 'checked' : '' }}>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="input-box simple-select mt-3">
-                        <label for="country">Country</label>
-                        <select name="country" id="country" >
-                            <option disabled>Select Country</option>
-                            <option value="USA">USA</option>
+                        <div class="input-box simple-select mt-3">
+                            <label for="country">Country</label>
+                            <select name="country" id="country">
+                                <option disabled>Select Country</option>
+                                <option value="USA">USA</option>
                                 <option value="Canada">Canada</option>
                                 <option value="UK">United Kingdom</option>
                                 <option value="Australia">Australia</option>
@@ -283,11 +284,11 @@
                                 <option value="Japan">Japan</option>
                                 <option value="China">China</option>
 
-                        </select>
-                        @error('country')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
+                            </select>
+                            @error('country')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="input-box">
                             <label for="address">Address</label>
@@ -300,7 +301,7 @@
                         <div class="input-box">
                             <label for="contact_name">Cotact Name</label>
                             <input type="text" placeholder="contact name" name="contact_name"
-                                value="{{ old('contact_name', $property->contact_name) }}" >
+                                value="{{ old('contact_name', $property->contact_name) }}">
                             @error('contact_name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -308,7 +309,7 @@
                         <div class="input-box">
                             <label for="address">Cotact Phone</label>
                             <input type="text" placeholder="contact phone number" name="contact_phone_number"
-                                value="{{ old('contact_phone_number', $property->contact_phone_number) }}" >
+                                value="{{ old('contact_phone_number', $property->contact_phone_number) }}">
                             @error('contact_phone_number')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -317,7 +318,7 @@
                         <div class="input-box">
                             <label for="address">Cotact Email</label>
                             <input type="text" placeholder="contact_ mail" name="contact_email"
-                                value="{{ old('contact_email', $property->contact_email) }}" >
+                                value="{{ old('contact_email', $property->contact_email) }}">
                             @error('contact_email')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -384,22 +385,22 @@
                                 @if ($property->features && $feature)
                                     <!-- Ensure both property features and current feature exist -->
                                     <div class="paren-check-box">
-                                       <div>
-                                        <input type="checkbox" id="feature-{{ $feature->id }}" name="features[]"
-                                        value="{{ $feature->id }}"
-                                        {{ $property->features->pluck('feature_id')->contains($feature->id) ? 'checked' : '' }}
-                                        onchange="toggleQuantityInput(this, '{{ $feature->id }}')">
-                                    <label for="feature-{{ $feature->id }}">{{ $feature->name }}</label>
-                                       </div>
+                                        <div>
+                                            <input type="checkbox" id="feature-{{ $feature->id }}" name="features[]"
+                                                value="{{ $feature->id }}"
+                                                {{ $property->features->pluck('feature_id')->contains($feature->id) ? 'checked' : '' }}
+                                                onchange="toggleQuantityInput(this, '{{ $feature->id }}')">
+                                            <label for="feature-{{ $feature->id }}">{{ $feature->name }}</label>
+                                        </div>
 
-                                            <div class="quantity-input" id="quantity-container-{{ $feature->id }}"
-                                                style="display: {{ $property->features->pluck('feature_id')->contains($feature->id) ? 'block' : 'none' }};">
-                                                <input type="number" id="quantity-{{ $feature->id }}"
-                                            name="quantities[{{ $feature->id }}]" placeholder="Quantity" min="1"
-                                            value="{{ optional($property->features->where('feature_id', $feature->id)->first())->quantity ?? '' }}">
-                                            </div>
+                                        <div class="quantity-input" id="quantity-container-{{ $feature->id }}"
+                                            style="display: {{ $property->features->pluck('feature_id')->contains($feature->id) ? 'block' : 'none' }};">
+                                            <input type="number" id="quantity-{{ $feature->id }}"
+                                                name="quantities[{{ $feature->id }}]" placeholder="Quantity"
+                                                min="1"
+                                                value="{{ optional($property->features->where('feature_id', $feature->id)->first())->quantity ?? '' }}">
+                                        </div>
                                     </div>
-
                                 @endif
                             @endforeach
                         </div>
@@ -437,392 +438,393 @@
                                 @endforeach
                                 @error('rent_whos')
                                     <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="input-box textarea">
-                                <label for="other_details">Other Details</label>
-                                <textarea placeholder="Type Here" name="other_details">{{ old('other_details', $property->other_details) }}</textarea>
-                            </div>
-
-                            <div class="input-box simple-select">
-                                <label for="availability">Availability</label>
-                                <select name="availability" id="availability" placeholder="Type Here">
-                                    <option value="0" {{ $property->available_status == 0 ? 'selected' : '' }}>Booked
-                                    </option>
-                                    <option value="1" {{ $property->available_status == 1 ? 'selected' : '' }}>Available
-                                    </option>
-                                </select>
-                                @error('availability')
-                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <div class="input-box simple-select">
-                                <label for="price">Price/Rent</label>
-                                <input type="text" placeholder="price" name="price" id="price"
-                                    value="{{ old('price', $property->price_rent) }}">
-                                @error('price')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="two-btn-inline">
-                                <button id="saveChangesBtn" type="button" class="t-btn">Save Changes</button>
-                                {{-- <button type="button" class="t-btn t-btn-gray"
-                                    onclick="window.history.back();">Discard</button> --}}
-                            </div>
-
                         </div>
-                    </form>
 
-                    <!-- Modal for adding a new category -->
-                    <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="categoryModalLabel">Add New Category</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="categoryForm">
-                                        <div class="mb-3">
-                                            <label for="new-category" class="form-label">Category Name</label>
-                                            <input type="text" class="form-control" id="new-category"
-                                                placeholder="Enter category name" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Add Category</button>
-                                    </form>
-                                </div>
+                        <div class="input-box textarea">
+                            <label for="other_details">Other Details</label>
+                            <textarea placeholder="Type Here" name="other_details">{{ old('other_details', $property->other_details) }}</textarea>
+                        </div>
+
+                        <div class="input-box simple-select">
+                            <label for="availability">Availability</label>
+                            <select name="availability" id="availability" placeholder="Type Here">
+                                <option value="0" {{ $property->available_status == 0 ? 'selected' : '' }}>Booked
+                                </option>
+                                <option value="1" {{ $property->available_status == 1 ? 'selected' : '' }}>Available
+                                </option>
+                            </select>
+                            @error('availability')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-box simple-select">
+                            <label for="price">Price/Rent</label>
+                            <input type="text" placeholder="price" name="price" id="price"
+                                value="{{ old('price', $property->price_rent) }}">
+                            @error('price')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="two-btn-inline">
+                            <button id="saveChangesBtn" type="button" class="t-btn">Save Changes</button>
+                            {{-- <button type="button" class="t-btn t-btn-gray"
+                                    onclick="window.history.back();">Discard</button> --}}
+                        </div>
+
+                    </div>
+                </form>
+
+                <!-- Modal for adding a new category -->
+                <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="categoryModalLabel">Add New Category</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="categoryForm">
+                                    <div class="mb-3">
+                                        <label for="new-category" class="form-label">Category Name</label>
+                                        <input type="text" class="form-control" id="new-category"
+                                            placeholder="Enter category name" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add Category</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Load jQuery -->
+    <!-- Load jQuery -->
 
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <script>
-            // Function to display the active-non-active div
-            function boxActive1() {
-                document.getElementById('activeNonActive1').style.display = 'block';
-            }
+    <script>
+        // Function to display the active-non-active div
+        function boxActive1() {
+            document.getElementById('activeNonActive1').style.display = 'block';
+        }
 
-            // Function to hide the active-non-active div
-            function boxNonActive1() {
-                document.getElementById('activeNonActive1').style.display = 'none';
-            }
-
-            // Initially hide the active-non-active div
+        // Function to hide the active-non-active div
+        function boxNonActive1() {
             document.getElementById('activeNonActive1').style.display = 'none';
-        </script>
+        }
 
-        <script>
-            function toggleEvictionBox() {
-                const evictionCheckbox = document.getElementById('eviction');
-                const evictionBox = document.getElementById('eviction-box-1');
-                if (evictionCheckbox.checked) {
-                    evictionBox.style.display = 'block';
-                } else {
-                    evictionBox.style.display = 'none';
-                }
+        // Initially hide the active-non-active div
+        document.getElementById('activeNonActive1').style.display = 'none';
+    </script>
+
+    <script>
+        function toggleEvictionBox() {
+            const evictionCheckbox = document.getElementById('eviction');
+            const evictionBox = document.getElementById('eviction-box-1');
+            if (evictionCheckbox.checked) {
+                evictionBox.style.display = 'block';
+            } else {
+                evictionBox.style.display = 'none';
             }
+        }
 
-            // Call the function on page load in case the checkbox is pre-checked
-            document.addEventListener('DOMContentLoaded', toggleEvictionBox);
-        </script>
+        // Call the function on page load in case the checkbox is pre-checked
+        document.addEventListener('DOMContentLoaded', toggleEvictionBox);
+    </script>
 
 
 
-        <script>
-            $(document).ready(function() {
-                $('.js-example-basic-multiple').select2({
-                    placeholder: "Select Allowed Pets",
-                    allowClear: true
-                });
-
-                var progressInput = document.getElementById('progress_points');
-                const progress = parseInt(progressInput.value);
-                updateProgress(progress);
-                changeBarColor(progressInput.value);
-                changeInputColors(progress);
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+                placeholder: "Select Allowed Pets",
+                allowClear: true
             });
-        </script>
-        <script>
-            // check work feature
-            function toggleQuantityInput(checkbox, featureId) {
-                const quantityContainer = document.getElementById('quantity-container-' + featureId);
-                quantityContainer.style.display = checkbox.checked ? 'block' : 'none';
+
+            var progressInput = document.getElementById('progress_points');
+            const progress = parseInt(progressInput.value);
+            updateProgress(progress);
+            changeBarColor(progressInput.value);
+            changeInputColors(progress);
+        });
+    </script>
+    <script>
+        // check work feature
+        function toggleQuantityInput(checkbox, featureId) {
+            const quantityContainer = document.getElementById('quantity-container-' + featureId);
+            quantityContainer.style.display = checkbox.checked ? 'block' : 'none';
+        }
+        const fileInput = document.getElementById('fileInput');
+        const imageContainer = document.getElementById('imageContainer');
+        const existingImagesContainer = document.getElementById('existingImagesContainer');
+        let selectedImages = [];
+
+        // Function to handle file input change
+        fileInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+
+            // Check for max images
+            if (selectedImages.length + files.length > 50) {
+                alert("You can only upload a maximum of 50 images.");
+                return;
             }
-            const fileInput = document.getElementById('fileInput');
-            const imageContainer = document.getElementById('imageContainer');
-            const existingImagesContainer = document.getElementById('existingImagesContainer');
-            let selectedImages = [];
 
-            // Function to handle file input change
-            fileInput.addEventListener('change', (event) => {
-                const files = Array.from(event.target.files);
-
-                // Check for max images
-                if (selectedImages.length + files.length > 50) {
-                    alert("You can only upload a maximum of 50 images.");
-                    return;
-                }
-
-                files.forEach(file => {
-                    if (file.type.startsWith('image/')) {
-                        if (selectedImages.length < 50) {
-                            selectedImages.push(file);
-                            displayImage(file);
-                        }
-                    } else {
-                        alert("Only image files are allowed.");
+            files.forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    if (selectedImages.length < 50) {
+                        selectedImages.push(file);
+                        displayImage(file);
                     }
-                });
-
-                checkImageCount();
+                } else {
+                    alert("Only image files are allowed.");
+                }
             });
 
-            // Function to display uploaded images
-            function displayImage(file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imagePreview = document.createElement('div');
-                    imagePreview.classList.add('image-preview');
+            checkImageCount();
+        });
 
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
+        // Function to display uploaded images
+        function displayImage(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imagePreview = document.createElement('div');
+                imagePreview.classList.add('image-preview');
 
-                    const closeButton = document.createElement('button');
-                    closeButton.classList.add('close-btn');
-                    closeButton.innerHTML = 'X';
-                    closeButton.onclick = function() {
-                        imageContainer.removeChild(imagePreview);
-                        selectedImages = selectedImages.filter(img => img !== file);
-                        checkImageCount();
-                    };
+                const img = document.createElement('img');
+                img.src = e.target.result;
 
-                    imagePreview.appendChild(img);
-                    imagePreview.appendChild(closeButton);
-                    imageContainer.appendChild(imagePreview);
+                const closeButton = document.createElement('button');
+                closeButton.classList.add('close-btn');
+                closeButton.innerHTML = 'X';
+                closeButton.onclick = function() {
+                    imageContainer.removeChild(imagePreview);
+                    selectedImages = selectedImages.filter(img => img !== file);
+                    checkImageCount();
                 };
-                reader.readAsDataURL(file);
+
+                imagePreview.appendChild(img);
+                imagePreview.appendChild(closeButton);
+                imageContainer.appendChild(imagePreview);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Function to check the number of images
+        function checkImageCount() {
+            const totalImages = selectedImages.length + existingImagesContainer.children.length;
+            if (totalImages < 3) {
+                alert('You need to upload at least 3 images.');
             }
+        }
 
-            // Function to check the number of images
-            function checkImageCount() {
-                const totalImages = selectedImages.length + existingImagesContainer.children.length;
-                if (totalImages < 3) {
-                    alert('You need to upload at least 3 images.');
-                }
-            }
+        // Function to remove existing images
+        function removeImage(button, imagePath) {
+            const imagePreview = button.parentElement; // Get the parent div
+            existingImagesContainer.removeChild(imagePreview);
 
-            // Function to remove existing images
-            function removeImage(button, imagePath) {
-                const imagePreview = button.parentElement; // Get the parent div
-                existingImagesContainer.removeChild(imagePreview);
+            // You may also want to handle the removal from the server-side or store the path for deletion
+            // For example, you might send an AJAX request to delete the image from the server here
+            // e.g. deleteImageFromServer(imagePath);
 
-                // You may also want to handle the removal from the server-side or store the path for deletion
-                // For example, you might send an AJAX request to delete the image from the server here
-                // e.g. deleteImageFromServer(imagePath);
+            checkImageCount(); // Check the image count after removal
+        }
+    </script>
+    <script>
+        var deletedImages = [];
 
-                checkImageCount(); // Check the image count after removal
-            }
-        </script>
-        <script>
-            var deletedImages = [];
+        function removeImage(button, imgPath) {
+            $(button).closest('.image-preview').remove();
+            deletedImages.push(imgPath);
+        }
 
-            function removeImage(button, imgPath) {
-                $(button).closest('.image-preview').remove();
-                deletedImages.push(imgPath);
-            }
+        $('#saveChangesBtn').click(function(e) {
+            e.preventDefault();
 
-            $('#saveChangesBtn').click(function(e) {
-                e.preventDefault();
+            var formData = new FormData($('#uploadForm')[0]);
 
-                var formData = new FormData($('#uploadForm')[0]);
-
-                // Append deleted images to the FormData
-                deletedImages.forEach(function(image) {
-                    formData.append('deleted_images[]', image);
-                });
-
-                // Proceed with the AJAX request as before
-                $.ajax({
-                    url: "{{ route('landlord.properties.update', $property->id) }}",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        $('#uploadForm')[0].reset();
-                        toastr.success('Property updated successfully!');
-                        window.location.href = "{{ route('landlord.properties') }}";
-                    },
-                    error: function(xhr, status, error) {
-                        var errors = xhr.responseJSON.errors;
-                        if (errors) {
-                            $.each(errors, function(key, value) {
-                                var input = $('[name="' + key + '"]');
-                                input.addClass('is-invalid');
-                                input.after('<span class="error-message text-danger">' + value[0] +'</span>');
-                            });
-                            toastr.error('Error occurred while updating property.');
-                        } else {
-                            alert('Error occurred while updating property.');
-                        }
-                    }
-                });
-            });
-        </script>
-        <script>
-            const progressInput = document.getElementById('progressInput');
-            const progressNumber = document.getElementById('progressNumber');
-            const progress_points = document.getElementById('progress_points');
-
-            // Individual input boxes
-            const numberInput1 = document.getElementById('numberInput1');
-            const numberInput2 = document.getElementById('numberInput2');
-            const numberInput3 = document.getElementById('numberInput3');
-            const numberInput4 = document.getElementById('numberInput4');
-            const numberInput5 = document.getElementById('numberInput5');
-
-            // Listen to slider changes and update corresponding number inputs
-            progressInput.addEventListener('input', function() {
-                const progress = parseInt(progressInput.value);
-                updateProgress(progress);
-                changeBarColor(progressInput.value);
-                changeInputColors(progress); // Change input box colors
+            // Append deleted images to the FormData
+            deletedImages.forEach(function(image) {
+                formData.append('deleted_images[]', image);
             });
 
-            // Listen to number input changes to update progress bar
-            numberInput1.addEventListener('input', function() {
-                const value = parseInt(this.value);
-                if (value >= 10 && value < 500) {
-                    progressInput.value = value;
-                    updateProgress(value);
-                }
-            });
-
-            numberInput2.addEventListener('input', function() {
-                const value = parseInt(this.value);
-                if (value >= 500 && value < 1000) {
-                    progressInput.value = value;
-                    updateProgress(value);
-                }
-            });
-
-            numberInput3.addEventListener('input', function() {
-                const value = parseInt(this.value);
-                if (value >= 1000 && value < 1500) {
-                    progressInput.value = value;
-                    updateProgress(value);
-                }
-            });
-
-            numberInput4.addEventListener('input', function() {
-                const value = parseInt(this.value);
-                if (value >= 1500 && value < 2000) {
-                    progressInput.value = value;
-                    updateProgress(value);
-                }
-            });
-
-            numberInput5.addEventListener('input', function() {
-                const value = parseInt(this.value);
-                if (value >= 2000) {
-                    progressInput.value = value;
-                    updateProgress(value);
-                }
-            });
-
-            // Function to update the progress and which number input is active
-            function updateProgress(value) {
-                progressNumber.innerText = value;
-                progress_points.value = value;
-
-                // Update number inputs based on the current progress value
-                if (value >= 10 && value < 500) {
-                    numberInput1.value = value;
-                } else if (value >= 500 && value < 1000) {
-                    numberInput2.value = value;
-                } else if (value >= 1000 && value < 1500) {
-                    numberInput3.value = value;
-                } else if (value >= 1500 && value < 2000) {
-                    numberInput4.value = value;
-                } else if (value >= 2000) {
-                    numberInput5.value = value;
-                }
-            }
-
-            // Change the color of the progress bar based on the value
-            function changeBarColor(value) {
-                const maxValue = parseInt(progressInput.max);
-                const percentage = (value / maxValue) * 100;
-
-                // Set a color based on the percentage
-                if (percentage <= 50) {
-                    progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
-                } else {
-                    progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
-                }
-            }
-
-            // Change the background color of the input box corresponding to the progress value
-            function changeInputColors(value) {
-                // Reset background color of all input boxes
-                resetInputs();
-
-                // Change color based on the progress value
-                if (value >= 10 && value < 500) {
-                    numberInput1.style.backgroundColor = '#0077B6'; // Change color for 10-500 range
-                } else if (value >= 500 && value < 1000) {
-                    numberInput2.style.backgroundColor = '#0077B6'; // Change color for 500-1000 range
-                } else if (value >= 1000 && value < 1500) {
-                    numberInput3.style.backgroundColor = '#0077B6'; // Change color for 1000-1500 range
-                } else if (value >= 1500 && value < 2000) {
-                    numberInput4.style.backgroundColor = '#0077B6'; // Change color for 1500-2000 range
-                } else if (value >= 2000) {
-                    numberInput5.style.backgroundColor = '#0077B6'; // Change color for 2000+ range
-                }
-            }
-
-            // Reset all number inputs to avoid multiple updates
-            function resetInputs() {
-                numberInput1.style.backgroundColor = '';
-                numberInput2.style.backgroundColor = '';
-                numberInput3.style.backgroundColor = '';
-                numberInput4.style.backgroundColor = '';
-                numberInput5.style.backgroundColor = '';
-            }
-
-            // Start progress on click (demo)
-            function startProgress() {
-                const intervals = [10, 500, 1000, 1500, 2000]; // The progress increments
-                let index = 0;
-
-                const progressInterval = setInterval(() => {
-                    if (index < intervals.length) {
-                        const progress = intervals[index];
-                        progressInput.value = progress;
-                        updateProgress(progress);
-                        changeBarColor(progress);
-                        changeInputColors(progress); // Update input box colors
-                        index++;
+            // Proceed with the AJAX request as before
+            $.ajax({
+                url: "{{ route('landlord.properties.update', $property->id) }}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $('#uploadForm')[0].reset();
+                    toastr.success('Property updated successfully!');
+                    window.location.href = "{{ route('landlord.properties') }}";
+                },
+                error: function(xhr, status, error) {
+                    var errors = xhr.responseJSON.errors;
+                    if (errors) {
+                        $.each(errors, function(key, value) {
+                            var input = $('[name="' + key + '"]');
+                            input.addClass('is-invalid');
+                            input.after('<span class="error-message text-danger">' + value[0] +
+                                '</span>');
+                        });
+                        toastr.error('Error occurred while updating property.');
                     } else {
-                        clearInterval(progressInterval); // Stop when all increments are done
+                        alert('Error occurred while updating property.');
                     }
-                }, 1000); // Update every second
+                }
+            });
+        });
+    </script>
+    <script>
+        const progressInput = document.getElementById('progressInput');
+        const progressNumber = document.getElementById('progressNumber');
+        const progress_points = document.getElementById('progress_points');
+
+        // Individual input boxes
+        const numberInput1 = document.getElementById('numberInput1');
+        const numberInput2 = document.getElementById('numberInput2');
+        const numberInput3 = document.getElementById('numberInput3');
+        const numberInput4 = document.getElementById('numberInput4');
+        const numberInput5 = document.getElementById('numberInput5');
+
+        // Listen to slider changes and update corresponding number inputs
+        progressInput.addEventListener('input', function() {
+            const progress = parseInt(progressInput.value);
+            updateProgress(progress);
+            changeBarColor(progressInput.value);
+            changeInputColors(progress); // Change input box colors
+        });
+
+        // Listen to number input changes to update progress bar
+        numberInput1.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            if (value >= 10 && value < 500) {
+                progressInput.value = value;
+                updateProgress(value);
             }
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    @endsection
+        });
+
+        numberInput2.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            if (value >= 500 && value < 1000) {
+                progressInput.value = value;
+                updateProgress(value);
+            }
+        });
+
+        numberInput3.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            if (value >= 1000 && value < 1500) {
+                progressInput.value = value;
+                updateProgress(value);
+            }
+        });
+
+        numberInput4.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            if (value >= 1500 && value < 2000) {
+                progressInput.value = value;
+                updateProgress(value);
+            }
+        });
+
+        numberInput5.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            if (value >= 2000) {
+                progressInput.value = value;
+                updateProgress(value);
+            }
+        });
+
+        // Function to update the progress and which number input is active
+        function updateProgress(value) {
+            progressNumber.innerText = value;
+            progress_points.value = value;
+
+            // Update number inputs based on the current progress value
+            if (value >= 10 && value < 500) {
+                numberInput1.value = value;
+            } else if (value >= 500 && value < 1000) {
+                numberInput2.value = value;
+            } else if (value >= 1000 && value < 1500) {
+                numberInput3.value = value;
+            } else if (value >= 1500 && value < 2000) {
+                numberInput4.value = value;
+            } else if (value >= 2000) {
+                numberInput5.value = value;
+            }
+        }
+
+        // Change the color of the progress bar based on the value
+        function changeBarColor(value) {
+            const maxValue = parseInt(progressInput.max);
+            const percentage = (value / maxValue) * 100;
+
+            // Set a color based on the percentage
+            if (percentage <= 50) {
+                progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
+            } else {
+                progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
+            }
+        }
+
+        // Change the background color of the input box corresponding to the progress value
+        function changeInputColors(value) {
+            // Reset background color of all input boxes
+            resetInputs();
+
+            // Change color based on the progress value
+            if (value >= 10 && value < 500) {
+                numberInput1.style.backgroundColor = '#0077B6'; // Change color for 10-500 range
+            } else if (value >= 500 && value < 1000) {
+                numberInput2.style.backgroundColor = '#0077B6'; // Change color for 500-1000 range
+            } else if (value >= 1000 && value < 1500) {
+                numberInput3.style.backgroundColor = '#0077B6'; // Change color for 1000-1500 range
+            } else if (value >= 1500 && value < 2000) {
+                numberInput4.style.backgroundColor = '#0077B6'; // Change color for 1500-2000 range
+            } else if (value >= 2000) {
+                numberInput5.style.backgroundColor = '#0077B6'; // Change color for 2000+ range
+            }
+        }
+
+        // Reset all number inputs to avoid multiple updates
+        function resetInputs() {
+            numberInput1.style.backgroundColor = '';
+            numberInput2.style.backgroundColor = '';
+            numberInput3.style.backgroundColor = '';
+            numberInput4.style.backgroundColor = '';
+            numberInput5.style.backgroundColor = '';
+        }
+
+        // Start progress on click (demo)
+        function startProgress() {
+            const intervals = [10, 500, 1000, 1500, 2000]; // The progress increments
+            let index = 0;
+
+            const progressInterval = setInterval(() => {
+                if (index < intervals.length) {
+                    const progress = intervals[index];
+                    progressInput.value = progress;
+                    updateProgress(progress);
+                    changeBarColor(progress);
+                    changeInputColors(progress); // Update input box colors
+                    index++;
+                } else {
+                    clearInterval(progressInterval); // Stop when all increments are done
+                }
+            }, 1000); // Update every second
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+@endsection

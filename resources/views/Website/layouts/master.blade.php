@@ -12,7 +12,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    {!!htmlScriptTagJsApi()!!}
+    {!! htmlScriptTagJsApi() !!}
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -104,9 +104,24 @@
                             <li><a href="{{ route('contact') }}" class="apartment-contact-active">Contact</a></li>
 
                             <li class="user-login-dropdown">
+                                @php
+                                    $dashboardUrl = route('index'); // Default route
+
+                                    if (Auth::user()) {
+                                        if (Auth::user()->hasRole('tenant')) {
+                                            $dashboardUrl = route('landlord.dashboard');
+                                        } elseif (Auth::user()->hasRole('land_lord')) {
+                                            $dashboardUrl = route('landlord.dashboard');
+                                        } elseif (Auth::user()->hasRole('admin')) {
+                                            $dashboardUrl = route('admin.dashboard');
+                                        }
+                                    }
+                                @endphp
 
                                 @if (Auth::user())
-                                    <a href="http://127.0.0.1:8000/landlord/profile" class="user-profile-link">
+
+
+                                    <a href="{{ $dashboardUrl }}" class="user-profile-link">
                                         <img src="{{ Storage::url(Auth::user()->profile_img ?? '') }}"
                                             alt="">{{ Auth::user()->name }}
                                     </a>
@@ -231,8 +246,7 @@
                             <li><a href="{{ route('terms.and.conditions') }}"><i
                                         class="fa-solid fa-chevron-right"></i>Terms
                                     And Conditions</a></li>
-                            <li><a href="{{ route('info') }}"><i
-                                        class="fa-solid fa-chevron-right"></i>Info</a></li>
+                            <li><a href="{{ route('info') }}"><i class="fa-solid fa-chevron-right"></i>Info</a></li>
                         </ul>
                     </div>
                 </div>
