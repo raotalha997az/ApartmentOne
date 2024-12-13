@@ -608,16 +608,16 @@
             <p>Where is the rental property located?</p>
             <div class="select-box">
                 <span>Country</span>
-                <select name="country" id="" value="{{ old('country') }}">
-                    <option value="USA">USA</option>
-                    <option value="Canada">Canada</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Germany">Germany</option>
-                    <option value="France">France</option>
-                    <option value="India">India</option>
-                    <option value="Japan">Japan</option>
-                    <option value="China">China</option>
+                <select name="country" id="">
+                    <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
+                    <option value="Canada" {{ old('country') == 'Canada' ? 'selected' : '' }}>Canada</option>
+                    <option value="UK" {{ old('country') == 'UK' ? 'selected' : '' }}>United Kingdom</option>
+                    <option value="Australia" {{ old('country') == 'Australia' ? 'selected' : '' }}>Australia</option>
+                    <option value="Germany" {{ old('country') == 'Germany' ? 'selected' : '' }}>Germany</option>
+                    <option value="France" {{ old('country') == 'France' ? 'selected' : '' }}>France</option>
+                    <option value="India" {{ old('country') == 'India' ? 'selected' : '' }}>India</option>
+                    <option value="Japan" {{ old('country') == 'Japan' ? 'selected' : '' }}>Japan</option>
+                    <option value="China" {{ old('country') == 'China' ? 'selected' : '' }}>China</option>
                 </select>
                 <!-- Display validation error for country -->
                 @error('country')
@@ -627,6 +627,7 @@
                 @enderror
             </div>
         </div>
+
 
 
         {{-- second tab form part 2 --}}
@@ -672,15 +673,18 @@
                 <div class="input-box mt-3">
                     <label for="select pets">Select pets</label>
                     <select class="js-example-basic-multiple" multiple="multiple" style="width: 300px;" name="pets[]">
-                        {{-- <option disabled>Select pets</option> --}}
                         @foreach ($pets as $pet)
-                            <option value="{{ $pet->id }}">{{ $pet->name }}</option>
+                            <option value="{{ $pet->id }}"
+                                {{ in_array($pet->id, old('pets', [])) ? 'selected' : '' }}>
+                                {{ $pet->name }}
+                            </option>
                         @endforeach
                     </select>
                     @error('pets')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+
 
             </div>
 
@@ -722,14 +726,17 @@
 
 
             <div class="box">
-                <input type="checkbox" name="credit_history_check" value="1">
+                <input type="checkbox" name="credit_history_check" value="1"
+                    {{ old('credit_history_check') ? 'checked' : '' }}>
                 <label for="">Credit history check</label>
             </div>
 
             <div class="box">
-                <input type="checkbox" name="criminal_records" value="1">
+                <input type="checkbox" name="criminal_records" value="1"
+                    {{ old('criminal_records') ? 'checked' : '' }}>
                 <label for="">Criminal background check</label>
             </div>
+
 
             @error('criminal_records')
                 <div class="error-message">
@@ -779,7 +786,8 @@
 
                 <div class="box">
                     <p>How Many Times You Are Evicted?</p>
-                    <input type="number" placeholder="00" name="many_time_evicted" value="{{ old('many_time_evicted') }}">
+                    <input type="number" placeholder="00" name="many_time_evicted"
+                        value="{{ old('many_time_evicted') }}">
                 </div>
                 @error('many_time_evicted')
                     <div class="error-message">
@@ -814,7 +822,8 @@
 
             <div class="selection-boxex-true">
                 <div class="radio-item">
-                    <input type="radio" class="bankruptcyYes" id="bankruptcyYes" name="bankruptcy" value="1" onclick="setActiveBank(this)">
+                    <input type="radio" class="bankruptcyYes" id="bankruptcyYes" name="bankruptcy" value="1"
+                        onclick="setActiveBank(this)">
                     <label class="bankruptcyYesLabel" for="bankruptcyYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
@@ -822,7 +831,8 @@
                 </div>
 
                 <div class="radio-item">
-                    <input type="radio" class="bankruptcyNo" id="bankruptcyNo" name="bankruptcy" value="0" onclick="setActiveBank(this)">
+                    <input type="radio" class="bankruptcyNo" id="bankruptcyNo" name="bankruptcy" value="0"
+                        onclick="setActiveBank(this)">
                     <label class="bankruptcyNoLabel" for="bankruptcyNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
@@ -852,7 +862,7 @@
 
             <div class="box">
                 <p>Full Name</p>
-                <input type="text" name="contact_name" placeholder="Full Name" value="{{ old('contact_name') }}" >
+                <input type="text" name="contact_name" placeholder="Full Name" value="{{ old('contact_name') }}">
                 @error('contact_name')
                     <div class="error-message">
                         <span class="text-danger">{{ $message }}</span>
@@ -862,7 +872,8 @@
 
             <div class="box">
                 <p>Phone Number</p>
-                <input type="number" name="contact_phone_number" placeholder="00 000 000000" value="{{ old('contact_phone_number') }}">
+                <input type="number" name="contact_phone_number" placeholder="00 000 000000"
+                    value="{{ old('contact_phone_number') }}">
                 @error('contact_phone_number')
                     <div class="error-message">
                         <span class="text-danger">{{ $message }}</span>
@@ -872,7 +883,8 @@
 
             <div class="box">
                 <p>Email</p>
-                <input type="email" name="contact_email" placeholder="jhon@example.com" value="{{ old('contact_email') }}">
+                <input type="email" name="contact_email" placeholder="jhon@example.com"
+                    value="{{ old('contact_email') }}">
                 @error('contact_email')
                     <div class="error-message">
                         <span class="text-danger">{{ $message }}</span>
@@ -920,7 +932,7 @@
 
                 <div class="progress-container">
                     <input type="range" id="progressInput" min="10" max="2500" value="10"
-                        step="10" >
+                        step="10">
                 </div>
                 <div class="numbers-main-bb">
                     <input type="number" id="numberInput1" class="number-input" value="10" min="10"
@@ -936,7 +948,7 @@
                 </div>
                 <div class="progress-number" id="progressNumber"></div>
                 <!-- Hidden input to hold the credit_point value -->
-                <input type="hidden" name="credit_point" id="progressNumberForDB">
+                <input type="hidden" name="credit_point" id="progressNumberForDB" value="{{ old('credit_point') }}">
 
                 @error('credit_point')
                     <div class="text-danger">{{ $message }}</div>
@@ -955,15 +967,19 @@
                             <div>
                                 <input type="checkbox" id="feature-{{ $feature->id }}" name="features[]"
                                     value="{{ $feature->id }}"
+                                    {{ in_array($feature->id, old('features', [])) ? 'checked' : '' }}
                                     onchange="toggleQuantityInput(this, '{{ $feature->id }}')">
                                 <label for="feature-{{ $feature->id }}">{{ $feature->name }}</label>
                             </div>
+
                             <input type="number" id="quantity-{{ $feature->id }}"
-                                name="quantities[{{ $feature->id }}]" style="display: none;" placeholder="Quantity"
-                                min="1">
+                                name="quantities[{{ $feature->id }}]"
+                                style="display: {{ in_array($feature->id, old('features', [])) ? 'block' : 'none' }};"
+                                placeholder="Quantity" min="1" value="{{ old('quantities.' . $feature->id) }}">
 
                         </div>
                     @endforeach
+
                     @error('features')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -980,13 +996,15 @@
                 <div class="paren-check-box">
                     @foreach ($rentWhos as $rentWho)
                         <input type="checkbox" id="rentWho-{{ $rentWho->id }}" name="rent_whos[]"
-                            value="{{ $rentWho->id }}" class="mt-3">
+                            value="{{ $rentWho->id }}" class="mt-3"
+                            {{ in_array($rentWho->id, old('rent_whos', [])) ? 'checked' : '' }}>
                         <label for="rentWho-{{ $rentWho->id }}" class="mt-3">{{ $rentWho->name }}</label>
                     @endforeach
                     @error('rent_whos')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+
             </div>
 
             <div class="input-box textarea">
@@ -1188,47 +1206,48 @@
             $('.js-example-basic-multiple').select2();
         });
 
-function selectCategory(element) {
-    // Remove 'active' class from all labels
-    document.querySelectorAll('.select_box').forEach(label => {
-        label.classList.remove('active');
-    });
+        function selectCategory(element) {
+            // Remove 'active' class from all labels
+            document.querySelectorAll('.select_box').forEach(label => {
+                label.classList.remove('active');
+            });
 
-    // Add 'active' class to the corresponding label of the clicked radio button
-    const label = element.closest('.radio-item').querySelector('.select_box');
-    if (label) {
-        label.classList.add('active');
-    }
+            // Add 'active' class to the corresponding label of the clicked radio button
+            const label = element.closest('.radio-item').querySelector('.select_box');
+            if (label) {
+                label.classList.add('active');
+            }
 
-    // Optionally, log or store the selected category value
-    const selectedCategory = element.value;
-    console.log('Selected category ID:', selectedCategory);
-}
-function setActiveBank(element) {
-    // Remove 'active' class from all bankruptcy items
-    if (element.classList.contains('bankruptcyYes')) {
-        document.querySelectorAll('.bankruptcyYesLabel').forEach(item => {
-            item.classList.add('active');
-        });
-        document.querySelectorAll('.bankruptcyNoLabel').forEach(item => {
-            item.classList.remove('active');
-        });
-    }
-    if (element.classList.contains('bankruptcyNo')) {
-        document.querySelectorAll('.bankruptcyNoLabel').forEach(item => {
-            item.classList.add('active');
-        });
-        document.querySelectorAll('.bankruptcyYesLabel').forEach(item => {
-            item.classList.remove('active');
-        });
-    }
+            // Optionally, log or store the selected category value
+            const selectedCategory = element.value;
+            console.log('Selected category ID:', selectedCategory);
+        }
 
-    // Ensure the radio input within the clicked item is checked
-    const radioInput = element.querySelector('input[type="radio"]');
-    if (radioInput) {
-        radioInput.checked = true;
-    }
-}
+        function setActiveBank(element) {
+            // Remove 'active' class from all bankruptcy items
+            if (element.classList.contains('bankruptcyYes')) {
+                document.querySelectorAll('.bankruptcyYesLabel').forEach(item => {
+                    item.classList.add('active');
+                });
+                document.querySelectorAll('.bankruptcyNoLabel').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+            if (element.classList.contains('bankruptcyNo')) {
+                document.querySelectorAll('.bankruptcyNoLabel').forEach(item => {
+                    item.classList.add('active');
+                });
+                document.querySelectorAll('.bankruptcyYesLabel').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+
+            // Ensure the radio input within the clicked item is checked
+            const radioInput = element.querySelector('input[type="radio"]');
+            if (radioInput) {
+                radioInput.checked = true;
+            }
+        }
 
 
         function setActive(element) {
