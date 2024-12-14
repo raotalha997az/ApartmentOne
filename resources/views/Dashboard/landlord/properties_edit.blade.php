@@ -174,31 +174,34 @@
                                 <p style="margin-top: 30px !important;">Have you ever been evicted?</p>
 
                                 <div class="selection-boxex-true">
-
-                                    <div class="radio-item" onclick="boxActive1()" id="boxactive1">
-                                        <input type="radio" id="eviction" name="eviction" value="1">
-                                        <label class="evction" for="yes" onclick="setEvction(this)">
+                                    <!-- Yes Radio Button -->
+                                    <div class="radio-item {{ $property->eviction == 1 ? 'active' : '' }}" onclick="boxActive1()" id="boxactive1">
+                                        <input type="radio" id="eviction_yes" name="eviction" value="1"
+                                               {{ $property->eviction == 1 ? 'checked' : '' }}>
+                                        <label class="evction" for="eviction_yes" onclick="setEvction(this)">
                                             <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                                             Yes
                                         </label>
                                     </div>
 
-
-                                    <div class="radio-item" onclick="boxNonActive1()" id="boxnunactive1">
-                                        <input type="radio" id="eviction" name="eviction" value="0">
-                                        <label class="evction" for="no" onclick="setEvction(this)">
+                                    <!-- No Radio Button -->
+                                    <div class="radio-item {{ $property->eviction == 0 ? 'active' : '' }}" onclick="boxNonActive1()" id="boxnunactive1">
+                                        <input type="radio" id="eviction_no" name="eviction" value="0"
+                                               {{ $property->eviction == 0 ? 'checked' : '' }}>
+                                        <label class="evction" for="eviction_no" onclick="setEvction(this)">
                                             <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                                             No
                                         </label>
                                     </div>
 
+                                    <!-- Error Message -->
                                     @error('eviction')
                                         <div class="error-message">
                                             <span class="text-danger">{{ $message }}</span>
                                         </div>
                                     @enderror
-
                                 </div>
+
 
                                 <div class="active-non-active" id="activeNonActive1">
 

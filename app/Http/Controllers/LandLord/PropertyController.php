@@ -259,6 +259,10 @@ class PropertyController extends Controller
             'when_evicted' => 'nullable|string',
 
         ]);
+        if($validated['eviction']==0){
+            $validated['many_time_evicted'] = null;
+            $validated['when_evicted'] = null;
+        }
 
         $property->update([
             'name' => $validated['name'],
