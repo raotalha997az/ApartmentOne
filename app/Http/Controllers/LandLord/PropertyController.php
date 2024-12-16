@@ -76,7 +76,7 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
-            // dd($request->all());
+            dd($request->all());
         $id = Auth::user()->id;
         // Validate the request data
         $validated = $request->validate([

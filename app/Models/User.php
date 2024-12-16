@@ -92,5 +92,11 @@ public function payments()
     return $this->hasMany(Payment::class);
 }
 
+public function applyPropertyHistory()
+{
+    return $this->hasMany(ApplyPropertyHistory::class, 'user_id');
+}
+
+
 
 }

@@ -251,10 +251,7 @@
         margin-top: 25px;
     }
 
-    select,
-    textarea,
-    textarea,
-    input {
+    select,textarea,textarea,input, #activeNonActive12 .activeNonActive12 label, #activeNonActive180 .activeNonActive18 label {
         background-color: #E5E5E5;
         border-radius: 10px;
         padding: 15px 20px;
@@ -262,6 +259,27 @@
         border: 1px solid #999999;
         width: 100%;
     }
+
+
+    #activeNonActive12 .activeNonActive12 label.active, #activeNonActive180 .activeNonActive18 label.active{
+    border-color: #414141;
+    color: #414141 !important;
+}
+
+
+
+    #activeNonActive12 .activeNonActive12, #activeNonActive180 .activeNonActive18 {
+    position: relative;
+}
+
+#activeNonActive12 .activeNonActive12 input, #activeNonActive180 .activeNonActive18 input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
 
     /* .section-content{
     display: none
@@ -607,7 +625,7 @@
             <h6>Property Location</h6>
             <p>Where is the rental property located?</p>
             <div class="select-box">
-                <span>Country</span>
+                <span>State</span>
                 <select name="country" id="">
                     <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                     <option value="Canada" {{ old('country') == 'Canada' ? 'selected' : '' }}>Canada</option>
@@ -636,7 +654,7 @@
             <h6>Property Location</h6>
             <p>Where is the rental property located?</p>
             <div class="select-box">
-                <span>Address</span>
+                <span>Street Address</span>
                 <textarea name="address" id="" cols="100" rows="10" placeholder="Type Here">{{ old('address') }}</textarea>
             </div>
 
@@ -651,6 +669,60 @@
 
 
         {{-- third tab form part 2 --}}
+
+
+
+
+        <div class="tab" id="tab-3">
+
+            <h6>Parking</h6>
+            <p>Does the property have designated parking?</p>
+
+            <div class="selection-boxex-true">
+
+                <div class="radio-item" onclick="boxActive10()" id="boxactive10">
+                    <input type="radio" id="eviction" name="eviction" value="1">
+                    <label class="evction" for="yes" onclick="setEvction(this)">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                        Yes
+                    </label>
+                </div>
+
+
+                <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
+                    <input type="radio" id="eviction" name="eviction" value="0">
+                    <label class="evction" for="no" onclick="setEvction(this)">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                        No
+                    </label>
+                </div>
+
+                @error('eviction')
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
+
+            </div>
+
+            <div class="active-non-active" id="activeNonActive10">
+
+                <div class="box">
+                    <label>What kind of parking is offered?</label>
+                    <input type="text" placeholder="Type here">
+                </div>
+
+
+                <div class="box">
+                    <label>How many vehicles can be accommodated?</label>
+                    <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>
+                </div>
+
+
+
+            </div>
+
+        </div>
 
         <div class="tab" id="tab-3">
 
@@ -721,6 +793,37 @@
                 </div>
             @enderror
 
+
+
+
+            <p>Are waterbeds allowed in the property?</p>
+
+            <div class="selection-boxex-true">
+                <div class="radio-item">
+                    <input type="radio" class="smokingYes" id="smokingYes" name="smoking" value="1"
+                        onclick="setActiveSmoking(this)"
+                        {{ old('smoking', $selectedSmoking ?? '') == 1 ? 'checked' : '' }}>
+                    <label class="smokingYesLabel {{ old('smoking', $selectedSmoking ?? '') == 1 ? 'active' : '' }}"
+                        for="smokingYes">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                        Yes
+                    </label>
+                </div>
+
+                <div class="radio-item">
+                    <input type="radio" class="smokingNo" id="smokingNo" name="smoking" value="0"
+                        onclick="setActiveSmoking(this)"
+                        {{ old('smoking', $selectedSmoking ?? '') == 0 ? 'checked' : '' }}>
+                    <label class="smokingNoLabel {{ old('smoking', $selectedSmoking ?? '') == 0 ? 'active' : '' }}"
+                        for="smokingNo">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                        No
+                    </label>
+                </div>
+            </div>
+
+
+
         </div>
 
         {{-- third tab form part 3 --}}
@@ -752,6 +855,222 @@
 
         </div>
 
+
+
+        <div class="tab" id="availability_date">
+
+            <h6>Availability Date</h6>
+            <p>Are waterbeds allowed in the property?</p>
+
+            <div class="selection-boxex-true">
+
+                <div class="radio-item" onclick="boxActive11()" id="boxactive11">
+                    <input type="radio" id="eviction" name="eviction" value="1">
+                    <label class="evction" for="yes" onclick="setEvction(this)">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                        Yes
+                    </label>
+                </div>
+
+
+                <div class="radio-item" onclick="boxNonActive11()" id="boxnunactive11">
+                    <input type="radio" id="eviction" name="eviction" value="0">
+                    <label class="evction" for="no" onclick="setEvction(this)">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                        No
+                    </label>
+                </div>
+
+
+            </div>
+
+
+            <div class="box">
+                <p>When will the property be available?</p>
+                <input type="date" name="" id="" placeholder="DD MM YYYY">
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="tab" id="lease_details">
+
+            <h6>Lease Details</h6>
+            <p>Would you like to include details about the lease term, rent, and security deposit? </p>
+
+            <div class="selection-boxex-true">
+
+                <div class="radio-item" onclick="boxActive12()" id="boxactive12">
+                    <input type="radio" id="eviction" name="eviction" value="1">
+                    <label class="evction" for="yes" onclick="setEvction(this)">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                        Yes
+                    </label>
+                </div>
+
+
+                <div class="radio-item" onclick="boxNonActive12()" id="boxnunactive12">
+                    <input type="radio" id="eviction" name="eviction" value="0">
+                    <label class="evction" for="no" onclick="setEvction(this)">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                        No
+                    </label>
+                </div>
+
+
+            </div>
+
+
+            <div class="active-non-active" id="activeNonActive12">
+
+                <div class="box activeNonActive12">
+                    <label for="">Short Term</label>
+                    <input type="radio" name="lease-terms" placeholder="Short Term" onclick="boxNonActive13()">
+                </div>
+
+                <div class="box activeNonActive12">
+                    <label for="" class="active">Fixed Term</label>
+                    <input type="radio" name="lease-terms" placeholder="Fixed Term" onclick="boxActive13()">
+                </div>
+
+                <div class="box activeNonActive12">
+                    <label for="">Month-to-Month</label>
+                    <input type="radio" name="lease-terms" placeholder="Month-to-Month" onclick="boxNonActive13()">
+                </div>
+
+                <div class="box activeNonActive12">
+                    <label for="">Year-to-Year</label>
+                    <input type="radio" name="lease-terms" placeholder="Year-to-Year" onclick="boxNonActive13()">
+                </div>
+
+
+
+                <div class="box active-non-active" id="activeNonActive13">
+                    <label for="">What is the minimum length of the lease?</label>
+                    <input type="text" placeholder="Minimum Length  (6 mon , 1 yr)">
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="tab" id="rent_detail">
+
+            <h6>Rent</h6>
+            <div id="activeNonActive180">
+                <div class="box activeNonActive18">
+                    <label for="">Weekly</label>
+                    <input type="radio" name="Rent" value="Weekly" onclick="handleRentSelection('Weekly')">
+                </div>
+                <div class="box activeNonActive18">
+                    <label for="" class="active">Monthly</label>
+                    <input type="radio" name="Rent" value="Monthly" onclick="handleRentSelection('Monthly')">
+                </div>
+                <div class="box activeNonActive18">
+                    <label for="">Yearly</label>
+                    <input type="radio" name="Rent" value="Yearly" onclick="handleRentSelection('Yearly')">
+                </div>
+                <div class="box activeNonActive18">
+                    <label for="">Specific Terms</label>
+                    <input type="radio" name="Rent" value="Specific Terms" onclick="handleRentSelection('Specific Terms')">
+                </div>
+
+                <div class="box active-non-active" id="activeNonActive18">
+                    <label for="">Amount</label>
+                    <input type="number" placeholder="Monthly Amount">
+                </div>
+                <div class="box active-non-active" id="Weekly">
+                    <label for="">Amount</label>
+                    <input type="number" placeholder="Weekly Amount">
+                </div>
+                <div class="box active-non-active" id="Yearly">
+                    <label for="">Amount</label>
+                    <input type="number" placeholder="Yearly Amount">
+                </div>
+                <div class="box active-non-active" id="payment_frequency">
+                    <label for="">Payment Frequency</label>
+                    <input type="number" placeholder="Payment Frequency Amount">
+                </div>
+                <div class="box active-non-active" id="specificTerm">
+                    <label for="">Amount</label>
+                    <input type="number" placeholder="Specific Term Amount">
+                </div>
+            </div>
+
+
+            <div class="many-check-box mt-3">
+                <div class="box">
+                    <label for="rent_whos">Rent to Who</label>
+                <div class="paren-check-box">
+                    @foreach ($rentWhos as $rentWho)
+                        <input type="checkbox" id="rentWho-{{ $rentWho->id }}" name="rent_whos[]"
+                            value="{{ $rentWho->id }}" class="mt-3"
+                            {{ in_array($rentWho->id, old('rent_whos', [])) ? 'checked' : '' }}>
+                        <label for="rentWho-{{ $rentWho->id }}" class="mt-3">{{ $rentWho->name }}</label>
+                    @endforeach
+                    @error('rent_whos')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="tab" id="security_deposit">
+
+            <h6>Security Deposit</h6>
+            <p>What background check will you do to screen your applicant?</p>
+
+            <div class="selection-boxex-true">
+
+                <div class="radio-item" onclick="boxActive20()" id="boxactive20">
+                    <input type="radio" id="eviction" name="eviction" value="1">
+                    <label class="evction" for="yes" onclick="setEvction(this)">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                        Yes
+                    </label>
+                </div>
+
+
+                <div class="radio-item" onclick="boxNonActive20()" id="boxnunactive20">
+                    <input type="radio" id="eviction" name="eviction" value="0">
+                    <label class="evction" for="no" onclick="setEvction(this)">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                        No
+                    </label>
+                </div>
+
+
+            </div>
+
+            <div class="active-non-active" id="activeNonActive20">
+
+                <div class="box">
+                    <p>Security Deposit</p>
+                    <input type="number" placeholder="$1500">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
         {{-- third tab form part 4 --}}
 
         <div class="tab" id="tab-3">
@@ -759,7 +1078,7 @@
             <h6>Eviction Terms</h6>
             <p>What background check will you do to screen your applicant?</p>
 
-            <p style="margin-top: 30px !important;">Have you ever been evicted?</p>
+            <p style="margin-top: 20px !important;">Would you like to accept applicants with a history of eviction?</p>
 
             <div class="selection-boxex-true">
 
@@ -791,7 +1110,7 @@
             <div class="active-non-active" id="activeNonActive1">
 
                 <div class="box">
-                    <p>How Many Times You Are Evicted?</p>
+                    <p>How many are allowed?</p>
                     <input type="number" placeholder="00" name="many_time_evicted"
                         value="{{ old('many_time_evicted') }}">
                 </div>
@@ -802,9 +1121,9 @@
                 @enderror
 
                 <div class="box">
-                    <p>When You Are Evicted?</p>
+                    <p>How far back should the eviction be considered?</p>
                     <div class="flex-input">
-                        <input type="date" placeholder="YYYY-MM-DD" name="when_evicted"
+                        <input type="year" placeholder="YYYY" name="when_evicted"
                             value="{{ old('when_evicted') }}">
                     </div>
                 </div>
@@ -819,15 +1138,15 @@
 
         {{-- third tab form part 5 --}}
 
-        <div class="tab" id="tab-3">
+        <div class="tab" id="conviction">
 
-            <h6>Bank Currepcy</h6>
+            <h6>Convictions</h6>
             <p>What background check will you do to screen your applicant?</p>
 
-            <p style="margin-top: 30px !important;">Have you ever declared bankruptcy?</p>
+            <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony conviction in their past?</p>
 
             <div class="selection-boxex-true">
-                <div class="radio-item">
+                <div class="radio-item" onclick="boxActive100()" id="boxactive100">
                     <input type="radio" class="bankruptcyYes" id="bankruptcyYes" name="bankruptcy" value="1"
                         onclick="setActiveBank(this)"
                         {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'checked' : '' }}>
@@ -839,7 +1158,7 @@
                     </label>
                 </div>
 
-                <div class="radio-item">
+                <div class="radio-item" onclick="boxNonActive100()" id="boxnunactive100">
                     <input type="radio" class="bankruptcyNo" id="bankruptcyNo" name="bankruptcy" value="0"
                         onclick="setActiveBank(this)"
                         {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'checked' : '' }}>
@@ -858,6 +1177,69 @@
                 @enderror
             </div>
 
+            <div class="active-non-active" id="activeNonActive100">
+
+                <div class="box">
+                    <p>Specify</p>
+                    <textarea name="" placeholder="Type Here" id="" cols="30" rows="10"></textarea>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="tab" id="credit_score">
+
+            <h6>Credit Score</h6>
+            <p>Do you require applicants to meet a minimum credit score threshold?</p>
+
+            <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony conviction in their past?</p>
+
+            <div class="selection-boxex-true">
+                <div class="radio-item" onclick="boxActive110()" id="boxactive110">
+                    <input type="radio" class="bankruptcyYes" id="bankruptcyYes" name="bankruptcy" value="1"
+                        onclick="setActiveBank(this)"
+                        {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'checked' : '' }}>
+                    <label
+                        class="bankruptcyYesLabel {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'active' : '' }}"
+                        for="bankruptcyYes">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                        Yes
+                    </label>
+                </div>
+
+                <div class="radio-item" onclick="boxNonActive110()" id="boxnunactive110">
+                    <input type="radio" class="bankruptcyNo" id="bankruptcyNo" name="bankruptcy" value="0"
+                        onclick="setActiveBank(this)"
+                        {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'checked' : '' }}>
+                    <label
+                        class="bankruptcyNoLabel {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'active' : '' }}"
+                        for="bankruptcyNo">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                        No
+                    </label>
+                </div>
+
+                @error('bankruptcy')
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
+            </div>
+
+            <div class="active-non-active" id="activeNonActive110">
+
+                <div class="box">
+                    <p>What is the minimum required FICO credit score?</p>
+                   <input type="number" placeholder="Enter Credit Score">
+                </div>
+
+            </div>
+
 
 
         </div>
@@ -870,7 +1252,7 @@
         {{-- forth tab form part 1 --}}
 
         <div class="tab" id="tab-4">
-            <h6>Contact Details</h6>
+            <h6>Your Contact Details</h6>
             <p>Lorem ipsum is simply a dummy text for printing.</p>
 
             <div class="box">
@@ -895,7 +1277,7 @@
             </div>
 
             <div class="box">
-                <p>Email</p>
+                <p>Email(Optional)</p>
                 <input type="email" name="contact_email" placeholder="jhon@example.com"
                     value="{{ old('contact_email') }}">
                 @error('contact_email')
@@ -911,7 +1293,6 @@
         <div class="tab">
 
 
-            <p>Minimum 10 images, Maximum 50 images</p>
             <div class="main-file-upload-box">
 
                 <div id="imageContainer"><label for="fileInput">
@@ -931,7 +1312,7 @@
             <div class="many-forms-fields-box">
                 <div class="input-box">
                     <label for="">Name</label>
-                    <input type="text" placeholder="Type Here" name="name" value="{{ old('name') }}">
+                    <input type="text" placeholder="2nd floor Apartment in Las Vegas USA" name="name" value="{{ old('name') }}">
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -941,37 +1322,14 @@
             </div>
 
 
-            <div class="input-box progress-bar">
+            <!-- Rooms & Features Section -->
 
-                <div class="progress-container">
-                    <input type="range" id="progressInput" min="10" max="2500" value="10"
-                        step="10">
-                </div>
-                <div class="numbers-main-bb">
-                    <input type="number" id="numberInput1" class="number-input" value="10" min="10"
-                        max="500" step="10">
-                    <input type="number" id="numberInput2" class="number-input" value="500" min="500"
-                        max="1000" step="10">
-                    <input type="number" id="numberInput3" class="number-input" value="1000" min="1000"
-                        max="1500" step="10">
-                    <input type="number" id="numberInput4" class="number-input" value="1500" min="1500"
-                        max="2000" step="10">
-                    <input type="number" id="numberInput5" class="number-input" value="2000" min="2000"
-                        max="2500" step="10">
-                </div>
-                <div class="progress-number" id="progressNumber"></div>
-                <!-- Hidden input to hold the credit_point value -->
-                <input type="hidden" name="credit_point" id="progressNumberForDB" value="{{ old('credit_point') }}">
-
-                @error('credit_point')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-
-
+            <div class="input-box textarea">
+                <label for="other_details">Other Details</label>
+                <textarea placeholder="Type Here" name="other_details">{{ old('other_details') }}</textarea>
             </div>
 
-            <!-- Rooms & Features Section -->
-            <div class="many-check-box">
+            <div class="input-box many-check-box">
                 <p>Rooms & Features</p>
 
                 <div class="display-room-feature">
@@ -1002,49 +1360,6 @@
 
 
             </div>
-
-            <!-- Rent To Who Section -->
-            <div class="many-check-box mt-3">
-                <label for="rent_whos">Rent to Who</label>
-                <div class="paren-check-box">
-                    @foreach ($rentWhos as $rentWho)
-                        <input type="checkbox" id="rentWho-{{ $rentWho->id }}" name="rent_whos[]"
-                            value="{{ $rentWho->id }}" class="mt-3"
-                            {{ in_array($rentWho->id, old('rent_whos', [])) ? 'checked' : '' }}>
-                        <label for="rentWho-{{ $rentWho->id }}" class="mt-3">{{ $rentWho->name }}</label>
-                    @endforeach
-                    @error('rent_whos')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-            </div>
-
-            <div class="input-box textarea">
-                <label for="other_details">Other Details</label>
-                <textarea placeholder="Type Here" name="other_details">{{ old('other_details') }}</textarea>
-            </div>
-
-            <div class="input-box simple-select">
-                <label for="availability">Availability</label>
-                <select name="availability" id="availability" placeholder="Type Here">
-                    <option value="0">Booked</option>
-                    <option value="1">Available</option>
-                </select>
-                @error('availability')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="input-box simple-select">
-                <label for="price">Price/Rent</label>
-                <input type="text" placeholder="price" name="price" id="price" value="{{ old('price') }}">
-                @error('price')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-
 
         </div>
         {{-- </form> --}}
@@ -1077,11 +1392,111 @@
             <span class="step"></span>
             <span class="step"></span>
             <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
         </div>
 
     </form>
 
 
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script>
+        // Function to display the active-non-active div
+        function boxActive10() {
+            document.getElementById('activeNonActive10').style.display = 'block';
+        }
+
+        // Function to hide the active-non-active div
+        function boxNonActive10() {
+            document.getElementById('activeNonActive10').style.display = 'none';
+        }
+
+        // Initially hide the active-non-active div
+        document.getElementById('activeNonActive10').style.display = 'none';
+    </script>
+
+
+    <script>
+        // Function to display the active-non-active div
+        function boxActive110() {
+            document.getElementById('activeNonActive110').style.display = 'block';
+        }
+
+        // Function to hide the active-non-active div
+        function boxNonActive110() {
+            document.getElementById('activeNonActive110').style.display = 'none';
+        }
+
+        // Initially hide the active-non-active div
+        document.getElementById('activeNonActive110').style.display = 'none';
+    </script>
+
+    <script>
+        // Function to display the active-non-active div
+        function boxActive20() {
+            document.getElementById('activeNonActive20').style.display = 'block';
+        }
+
+        // Function to hide the active-non-active div
+        function boxNonActive20() {
+            document.getElementById('activeNonActive20').style.display = 'none';
+        }
+
+        // Initially hide the active-non-active div
+        document.getElementById('activeNonActive20').style.display = 'none';
+    </script>
+
+
+
+    <script>
+        // Function to display the active-non-active div
+        function boxActive100() {
+            document.getElementById('activeNonActive100').style.display = 'block';
+        }
+
+        // Function to hide the active-non-active div
+        function boxNonActive100() {
+            document.getElementById('activeNonActive100').style.display = 'none';
+        }
+
+        // Initially hide the active-non-active div
+        document.getElementById('activeNonActive100').style.display = 'none';
+    </script>
+
+
+    <script>
+                // Function to display the active-non-active div
+                window.onload = function () {
+            const fields = document.querySelectorAll('.active-non-active');
+            fields.forEach(field => field.style.display = 'none');
+        };
+
+        // Show and hide fields based on selection
+        function handleRentSelection(selection) {
+            // Hide all fields
+            const fields = document.querySelectorAll('.active-non-active');
+            fields.forEach(field => field.style.display = 'none');
+
+            // Show the relevant fields based on the selected radio button
+            if (selection === 'Monthly') {
+                document.getElementById('activeNonActive18').style.display = 'block';
+            } else if (selection === 'Weekly') {
+                document.getElementById('Weekly').style.display = 'block';
+            } else if (selection === 'Yearly') {
+                document.getElementById('Yearly').style.display = 'block';
+            } else if (selection === 'Specific Terms') {
+                document.getElementById('payment_frequency').style.display = 'block';
+                document.getElementById('specificTerm').style.display = 'block';
+            }
+        }
+    </script>
 
 
 
@@ -1120,6 +1535,54 @@
 
         // Initially hide the active-non-active div
         document.getElementById('activeNonActive1').style.display = 'none';
+    </script>
+
+
+    <script>
+        // Function to display the active-non-active div
+        function boxActive12() {
+            document.getElementById('activeNonActive12').style.display = 'block';
+        }
+
+        // Function to hide the active-non-active div
+        function boxNonActive12() {
+            document.getElementById('activeNonActive12').style.display = 'none';
+        }
+
+        // Initially hide the active-non-active div
+        document.getElementById('activeNonActive12').style.display = 'none';
+    </script>
+
+
+    <script>
+        // Function to display the active-non-active div
+        function boxActive14() {
+            document.getElementById('activeNonActive14').style.display = 'block';
+        }
+
+        // Function to hide the active-non-active div
+        function boxNonActive14() {
+            document.getElementById('activeNonActive14').style.display = 'none';
+        }
+
+        // Initially hide the active-non-active div
+        document.getElementById('activeNonActive14').style.display = 'none';
+    </script>
+
+
+    <script>
+        // Function to display the active-non-active div
+        function boxActive13() {
+            document.getElementById('activeNonActive13').style.display = 'block';
+        }
+
+        // Function to hide the active-non-active div
+        function boxNonActive13() {
+            document.getElementById('activeNonActive13').style.display = 'none';
+        }
+
+        // Initially hide the active-non-active div
+        document.getElementById('activeNonActive13').style.display = 'none';
     </script>
 
     <script>
@@ -1295,147 +1758,6 @@
     </script>
 
 
-
-    <script>
-        const progressInput = document.getElementById('progressInput');
-        const progressNumber = document.getElementById('progressNumber');
-        const progressNumberForDB = document.getElementById('progressNumberForDB');
-
-        // Individual input boxes
-        const numberInput1 = document.getElementById('numberInput1');
-        const numberInput2 = document.getElementById('numberInput2');
-        const numberInput3 = document.getElementById('numberInput3');
-        const numberInput4 = document.getElementById('numberInput4');
-        const numberInput5 = document.getElementById('numberInput5');
-
-        // Listen to slider changes and update corresponding number inputs
-        progressInput.addEventListener('input', function() {
-            const progress = parseInt(progressInput.value);
-            updateProgress(progress);
-            changeBarColor(progressInput.value);
-            changeInputColors(progress);
-            progressNumberForDB.value = progress;
-            console.log("val", progressNumberForDB.value);
-        });
-
-        // Listen to number input changes to update progress bar
-        numberInput1.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 10 && value < 500) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput2.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 500 && value < 1000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput3.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 1000 && value < 1500) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput4.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 1500 && value < 2000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput5.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 2000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        // Function to update the progress and which number input is active
-        function updateProgress(value) {
-            progressNumber.innerText = value;
-            // Update number inputs based on the current progress value
-            if (value >= 10 && value < 500) {
-                numberInput1.value = value;
-            } else if (value >= 500 && value < 1000) {
-                numberInput2.value = value;
-            } else if (value >= 1000 && value < 1500) {
-                numberInput3.value = value;
-            } else if (value >= 1500 && value < 2000) {
-                numberInput4.value = value;
-            } else if (value >= 2000) {
-                numberInput5.value = value;
-            }
-        }
-
-        // Change the color of the progress bar based on the value
-        function changeBarColor(value) {
-            const maxValue = parseInt(progressInput.max);
-            const percentage = (value / maxValue) * 100;
-
-            // Set a color based on the percentage
-            if (percentage <= 50) {
-                progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
-            } else {
-                progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
-            }
-        }
-
-        // Change the background color of the input box corresponding to the progress value
-        function changeInputColors(value) {
-            // Reset background color of all input boxes
-            resetInputs();
-
-            // Change color based on the progress value
-            if (value >= 10 && value < 500) {
-                numberInput1.style.backgroundColor = '#0077B6'; // Change color for 10-500 range
-            } else if (value >= 500 && value < 1000) {
-                numberInput2.style.backgroundColor = '#0077B6'; // Change color for 500-1000 range
-            } else if (value >= 1000 && value < 1500) {
-                numberInput3.style.backgroundColor = '#0077B6'; // Change color for 1000-1500 range
-            } else if (value >= 1500 && value < 2000) {
-                numberInput4.style.backgroundColor = '#0077B6'; // Change color for 1500-2000 range
-            } else if (value >= 2000) {
-                numberInput5.style.backgroundColor = '#0077B6'; // Change color for 2000+ range
-            }
-        }
-
-        // Reset all number inputs to avoid multiple updates
-        function resetInputs() {
-            numberInput1.style.backgroundColor = '';
-            numberInput2.style.backgroundColor = '';
-            numberInput3.style.backgroundColor = '';
-            numberInput4.style.backgroundColor = '';
-            numberInput5.style.backgroundColor = '';
-        }
-
-        // Start progress on click (demo)
-        function startProgress() {
-            const intervals = [10, 500, 1000, 1500, 2000]; // The progress increments
-            let index = 0;
-
-            const progressInterval = setInterval(() => {
-                if (index < intervals.length) {
-                    const progress = intervals[index];
-                    progressInput.value = progress;
-                    updateProgress(progress);
-                    changeBarColor(progress);
-                    changeInputColors(progress); // Update input box colors
-                    index++;
-                } else {
-                    clearInterval(progressInterval); // Stop when all increments are done
-                }
-            }, 1000); // Update every second
-        }
-    </script>
 
     <script>
         const fileInput = document.getElementById('fileInput');
@@ -1633,8 +1955,4 @@
             }
         }
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 @endsection

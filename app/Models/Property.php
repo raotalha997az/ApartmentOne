@@ -30,7 +30,24 @@ class Property extends Model
         'when_evicted',
         'contact_name',
         'contact_phone_number',
-        'contact_email'
+        'contact_email',
+        'parking',
+        'credit_check',
+        'kind_of_parking',
+        'no_of_vehicle',
+        'waterbed',
+        'availability_check',
+        'date_availability',
+        'lease_check',
+        'lease_type',
+        'lease_period',
+        'rent_type',
+        'payment_frequency',
+        'security_deposit',
+        'deposit_amount',
+        'conviction',
+        'conviction_pecify',
+
     ];
     public function category()
     {
