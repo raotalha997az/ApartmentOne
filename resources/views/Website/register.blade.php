@@ -1,4 +1,15 @@
 @extends('Website.layouts.master')
+
+<style>
+    .form-box form select{
+        border: 2px solid #777777 !important;
+        background-color: #e5e5e594 !important;
+    }
+
+    .form-box form select option{
+        color: #777777
+    }
+</style>
 @section('content')
     <section class="login-register-sec" style="background-image: url({{ asset('assets/images/login-banner.png') }}">
         <div class="container">
@@ -27,18 +38,18 @@
                             <input type="text" placeholder="Full Name"  name="name" value="{{ old('name') }}">
                             <input type="email" placeholder="Email Address" name="email" value="{{ old('email') }}">
                             <input type="tel" placeholder="Contact Number" name="phone" value="{{ old('phone') }}">
-                            <textarea placeholder="Street Name" name="address">{{ old('address') }}</textarea>
-                            <input type="number" placeholder="House Number" name="house_number" value="{{ old('house_number') }}">
-                            <input type="password" id="password" placeholder="Password" name="password">
-                            <input type="password" id="c_password" placeholder="Confirm Password" name="c_password">
                             <select name="role">
                                 <option disabled {{ old('role') ? '' : 'selected' }}>Select Role</option>
                                 <option value="tenant" {{ old('role') == 'tenant' ? 'selected' : '' }}>Tenant</option>
                                 <option value="land_lord" {{ old('role') == 'land_lord' ? 'selected' : '' }}>Landlord</option>
                             </select>
+                            <textarea class="mt-4" placeholder="Street Name" name="address">{{ old('address') }}</textarea>
+                            <input type="number" placeholder="House Number" name="house_number" value="{{ old('house_number') }}">
+                            <input type="password" id="password" placeholder="Password" name="password">
+                            <input type="password" id="c_password" placeholder="Confirm Password" name="c_password">
                             {{-- <input type="text" placeholder="Social Security Number" required name="ssn"> --}}
 
-                            <div class="input-check-box mt-4">
+                            <div class="input-check-box">
                                 <input type="checkbox" id="show-password" onclick="togglePassword()">
                                 <label for="show-password">Show Password</label>
                             </div>

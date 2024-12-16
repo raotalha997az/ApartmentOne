@@ -21,14 +21,18 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
-        li.user-login-dropdown {}
 
         header li.user-login-dropdown {
-            position: relative;
-            transition: .3s;
-        }
+    position: relative;
+    transition: .3s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
 
-        header li.user-login-dropdown ul {
+        header li.user-login-dropdown ul.sub-menu {
             position: absolute;
             background-color: red;
             display: flex;
@@ -46,11 +50,21 @@
             transition: .3s;
         }
 
-        header li.user-login-dropdown ul li a {
+        header li.user-login-dropdown ul {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 0 !important;
+    width: fit-content;
+    margin: 0 !important;
+    display: block;
+}
+
+        header li.user-login-dropdown ul.sub-menu li a {
             font-size: 14px;
         }
 
-        header li.user-login-dropdown:hover ul {
+        header li.user-login-dropdown:hover ul.sub-menu {
             display: flex !important;
         }
 
@@ -69,9 +83,13 @@
             border: 3px solid #80808059;
         }
 
-        header .header-menu ul {
+        header .header-menu ul.sub-menu {
             align-items: center;
         }
+
+        header .header-menu ul a.t-btn.t-btn-header:last-child {
+    margin: 0;
+}
     </style>
 </head>
 
@@ -150,6 +168,7 @@
                                     </ul>
                                 @else
                                     <a href="{{ route('login') }}" class="t-btn t-btn-header">Login</a>
+                                    <a href="{{ route('register') }}" class="t-btn t-btn-header">Register</a></li>
                                 @endif
 
 
