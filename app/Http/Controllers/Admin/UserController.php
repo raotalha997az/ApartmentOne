@@ -169,15 +169,25 @@ class UserController extends Controller
 
         return redirect()->route('admin.user.index')->with('success', 'User updated successfully!');
     }
-    public function destroy($id)
+public function destroy($id)
 {
     $user = User::findOrFail($id);
 
+    // Check if the user has any associated properties
+    if ($user->properties()->exists()) {
+        return redirect()->back()->with('error', 'Cannot delete user. The user has associated properties!');
+    }
+
+    if ($user->applyPropertyHistory()->exists()) {
+        return redirect()->back()->with('error', 'Cannot delete user. The user has applied for properties!');
+    }
+
     // Delete the user
     $user->delete();
-    return redirect()->route('admin.user.index')->with('success', 'User deleted successfully!');
 
+    return redirect()->route('admin.user.index')->with('success', 'User deleted successfully!');
 }
+
     public function search(Request $request)
     {
         // Retrieve the search value from the request

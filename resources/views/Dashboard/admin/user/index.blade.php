@@ -91,107 +91,111 @@
 
 
     .badge {
-    font-weight: 400;
-}
+        font-weight: 400;
+    }
 
-td {
-    align-content: center;
-}
+    td {
+        align-content: center;
+    }
 
-a.Delet-btn.dan {
-    background: red;
-    border-radius: 10px;
-    padding: 5px;
-}
+    a.Delet-btn.dan {
+        background: red;
+        border-radius: 10px;
+        padding: 5px;
+    }
 
-.btn {
-    align-content: center;
-    border-radius: 10px;
-    padding: 5px 15px;
-    transition: .3s;
-}
-
-
-.dt-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.dt-search {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
-
- .dt-search input#dt-search-0 {
-    width: 50%;
-    border-radius: 10px;
-    border: 2px solid #80808075;
-    color: #000;
-}
-
- .dt-search label {
-    font-weight: 600;
-}
+    .btn {
+        align-content: center;
+        border-radius: 10px;
+        padding: 5px 15px;
+        transition: .3s;
+    }
 
 
-#roomFeaturesTable_info {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #00000094;
-    width: 100%;
-    text-align: end;
-}
- .dt-paging {
-    width: 100%;
-    text-align: end;
-    margin-top: 10px;
-}
+    .dt-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
 
- .dt-paging nav {
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
+    .dt-search {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
 
-.dt-paging nav button {
-    border-radius: 10px !important;
-    color: #fff !important;
-    font-weight: 500;
-    background: #0077B6 !important;
-}
+    .dt-search input#dt-search-0 {
+        width: 50%;
+        border-radius: 10px;
+        border: 2px solid #80808075;
+        color: #000;
+    }
 
-a.Delet-btn.dan img {
-    height: 25px;
-    width: 25px;
-    object-fit: contain;
-}
-
-div.dt-container .dt-paging .dt-paging-button.disabled, div.dt-container .dt-paging .dt-paging-button.disabled:hover, div.dt-container .dt-paging .dt-paging-button.disabled:active {
-    color: #fff !important;
-}
-
-div.dt-container .dt-paging .dt-paging-button {
-    color: #fff !important;
-}
-
-div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-paging .dt-paging-button.current:hover {
-    color: #fff !important;
-}
+    .dt-search label {
+        font-weight: 600;
+    }
 
 
-.box-inline {
-    width: 100%;
-    justify-content: flex-end;
-}
+    #roomFeaturesTable_info {
+        margin-top: 10px;
+        font-weight: 600;
+        color: #00000094;
+        width: 100%;
+        text-align: end;
+    }
+
+    .dt-paging {
+        width: 100%;
+        text-align: end;
+        margin-top: 10px;
+    }
+
+    .dt-paging nav {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .dt-paging nav button {
+        border-radius: 10px !important;
+        color: #fff !important;
+        font-weight: 500;
+        background: #0077B6 !important;
+    }
+
+    a.Delet-btn.dan img {
+        height: 25px;
+        width: 25px;
+        object-fit: contain;
+    }
+
+    div.dt-container .dt-paging .dt-paging-button.disabled,
+    div.dt-container .dt-paging .dt-paging-button.disabled:hover,
+    div.dt-container .dt-paging .dt-paging-button.disabled:active {
+        color: #fff !important;
+    }
+
+    div.dt-container .dt-paging .dt-paging-button {
+        color: #fff !important;
+    }
+
+    div.dt-container .dt-paging .dt-paging-button.current,
+    div.dt-container .dt-paging .dt-paging-button.current:hover {
+        color: #fff !important;
+    }
+
+
+    .box-inline {
+        width: 100%;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('content')
@@ -328,7 +332,8 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
             });
         });
 
-        function confirmDelete(userId) {
+        // Handle delete confirmation
+        window.confirmDelete = function(userId) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -342,22 +347,24 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                     document.getElementById('deleteForm' + userId).submit();
                 }
             });
-        }
-        // function confirmDelete(userId) {
-        //     console.log(userId);
-        //     Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, delete it!'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             document.getElementById('deleteForm' + userId).submit();
-        //         }
-        //     })
-        // }
+        };
+
+        // Show SweetAlert for success or error messages
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}'
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '{{ session('error') }}'
+            });
+        @endif
+
     </script>
 @endsection
