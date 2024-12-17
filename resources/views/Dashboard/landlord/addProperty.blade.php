@@ -820,7 +820,7 @@
                 <div class="radio-item">
                     <input type="radio" class="smokingYes" id="smokingYes" name="waterbed" value="1"
                         onclick="setActiveSmoking(this)"
-                        {{ old('smoking', $selectedSmoking ?? '') == 1 ? 'checked' : '' }}>
+                        {{ old('waterbed', $selectedSmoking ?? '') == 1 ? 'checked' : '' }}>
                     <label class="smokingYesLabel {{ old('smoking', $selectedSmoking ?? '') == 1 ? 'active' : '' }}"
                         for="smokingYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
@@ -979,8 +979,8 @@
 
                 <div class="box active-non-active" id="activeNonActive13">
                     <label for="">What is the minimum length of the lease?</label>
-                    <input type="text" name="lease_length" placeholder="Minimum Length  (6 mon , 1 yr)">
-                    @error('lease_length')
+                    <input type="text" name="lease_period" placeholder="Minimum Length  (6 mon , 1 yr)">
+                    @error('lease_period')
                     <div class="error-message">
                         <span class="text-danger">{{ $message }}</span>
                     </div>

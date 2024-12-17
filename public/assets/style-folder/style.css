@@ -95,6 +95,7 @@ header .header-menu ul {
     display: flex;
     justify-content: flex-end;
     column-gap: 30px;
+    align-items: center;
 }
 header .header-menu ul li a {
 color: #777777;
