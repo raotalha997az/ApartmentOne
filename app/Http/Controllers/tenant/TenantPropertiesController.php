@@ -24,7 +24,8 @@ class TenantPropertiesController extends Controller
     public function screening()
     {
         $user = Auth::user()->load('bank');
-        return view('Dashboard.tenant.screening', compact('user'));
+        $categories =  Category::all();
+        return view('Dashboard.tenant.screening', compact('user','categories'));
     }
 
     public function properties()
@@ -79,7 +80,7 @@ class TenantPropertiesController extends Controller
             //old data
 
             $properties = Property::where('approve', 1)->with('category')->get();
-            
+
             foreach ($properties as $property) {
                 $property->hide = 0;  // Set the default value to not hide
 
@@ -95,12 +96,12 @@ class TenantPropertiesController extends Controller
                         $property->hide = 1;
                     }
                 }
-                
+
                 // // Credit score condition
                 if ($score < $property->credit_point) {
                     $property->hide = 1;  // Hide if credit score is insufficient
                 }
-                
+
                 // // Criminal record condition
                 if ($property->criminal_records == 1) {
                     if ($criminalCount > 0) {
@@ -178,7 +179,7 @@ class TenantPropertiesController extends Controller
             //old data
 
             $properties = Property::where('approve', 1)->where('cat_id', $id)->with('category')->get();
-            
+
             foreach ($properties as $property) {
                 $property->hide = 0;  // Set the default value to not hide
 
@@ -194,12 +195,12 @@ class TenantPropertiesController extends Controller
                         $property->hide = 1;
                     }
                 }
-                
+
                 // // Credit score condition
                 if ($score < $property->credit_point) {
                     $property->hide = 1;  // Hide if credit score is insufficient
                 }
-                
+
                 // // Criminal record condition
                 if ($property->criminal_records == 1) {
                     if ($criminalCount > 0) {

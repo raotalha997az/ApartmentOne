@@ -45,6 +45,86 @@
     .profile-page.rooms-features-page .two-hex-align input {
         width: 1000px !important;
     }
+
+
+    .profile-page .profile-basic-info-form form .two-inputs-boxes-align .input-box select {
+        background-color: #E5E5E5;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #0000003d;
+    padding: 10px;
+    color: #666666;
+    font-size: 17px;
+    font-weight: 500;
+    }
+
+    .picture-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+}
+
+.radio-item {
+    position: relative;
+    display: block;
+}
+
+.radio-item input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+.radio-item label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 40px;
+    border: 3px solid #E5E5E5;
+    border-radius: 30px;
+    transition: .3s;
+    gap: 10px;
+}
+
+.radio-item label {
+    color: #777777;
+    font-size: 17px;
+}
+
+.selection-boxex-true {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.selection-boxex-true .selection-content-true span, .selection-boxex-true .radio-item label {
+    color: #777777;
+    font-size: 20px;
+}
+
+#featureContainer ul li{
+    color: #777777;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#featureContainer ul li.mt-3 .input-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile-page .profile-basic-info-form form .two-inputs-boxes-align .input-box label img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+}
+
 </style>
 @section('content')
     <h3>Screening</h3>
@@ -78,7 +158,6 @@
                                         @endif
                                             <div class="col-md-6">
                                                 <div class="input-box">
-                                                    <label for="first_name">First Name</label>
                                                     <div class="two-hex-align">
                                                         <input type="text" placeholder="First Name" name="firstName"
                                                             id="first_name" class="w-100" value="{{ $firstName ?? '' }}">
@@ -90,7 +169,6 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="input-box">
-                                                    <label for="last_name">Last Name</label>
                                                     <div class="two-hex-align">
                                                         <input type="text" placeholder="Last Name" name="last_name"
                                                             id="last_name" class="w-100" value="{{ $lastName ?? '' }}">
@@ -103,20 +181,21 @@
                                         </div>
 
                                         <div class="row p-3">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Date of Birth</label>
-                                                <input class="form-control" type="date" name="date_of_birth"
-                                                    id="dateOfBirth" onfocus="this.showPicker()" placeholder="Date Of Birth"
-                                                    value="{{ $user->date_of_birth ?? '' }}">
+
+                                            <div class="col-md-6">
+
+                                                <div class="form-group">
+                                                    <input class="form-control" type="date" name="date_of_birth"
+                                                        id="dateOfBirth" onfocus="this.showPicker()" placeholder="Date Of Birth"
+                                                        value="{{ $user->date_of_birth ?? '' }}">
+                                                </div>
+                                                @error('date_of_birth')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
-                                            @error('date_of_birth')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="row p-3">
+
                                             <div class="col-md-6">
                                                 <div class="input-box">
-                                                    <label for="social_security_number">Social Security Number</label>
                                                     <div class="two-hex-align">
                                                         <input type="text" placeholder="Social Security Number"
                                                             name="identity_card" id="social_security_number" class="w-100"
@@ -127,9 +206,25 @@
                                                     @enderror
                                                 </div>
                                             </div>
+
+                                        </div>
+                                        <div class="row p-3">
+
+                                            <div class="col-md-6">
+
+                                                <div class="input-box">
+                                                    <div class="two-hex-align">
+                                                        <input type="email" placeholder="Email Address" name="email-address"
+                                                            id="email-address" class="w-100"
+                                                            value="{{ $user->house_number ?? '' }}">
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
                                             <div class="col-md-6">
                                                 <div class="input-box">
-                                                    <label for="house_number">House Number</label>
                                                     <div class="two-hex-align">
                                                         <input type="text" placeholder="House Number" name="house_number"
                                                             id="house_number" class="w-100"
@@ -144,7 +239,6 @@
                                         <div class="row p-3">
                                             <div class="col-md-6">
                                                 <div class="input-box">
-                                                    <label for="street_name">Street Name</label>
                                                     <div class="two-hex-align">
                                                         <input type="text" placeholder="Street Name" name="street_name"
                                                             id="street_name" class="w-100"
@@ -157,7 +251,6 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="input-box">
-                                                        <label for="city">City</label>
                                                         <div class="two-hex-align">
                                                             <input type="text" placeholder="City" name="city"
                                                                 id="city" class="w-100" value="{{ $user->city ?? '' }}">
@@ -172,7 +265,6 @@
                                                 <div class="row p-3">
                                                     <div class="col-md-6">
                                                         <div class="input-box">
-                                                            <label for="state">State</label>
                                                             <div class="two-hex-align">
                                                                 <input type="text" placeholder="State" name="state"
                                                                     id="state" class="w-100"
@@ -186,9 +278,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="input-box">
-                                                                <label for="zip_code">ZIP Code</label>
                                                                 <div class="two-hex-align">
-                                                                    <input type="text" placeholder="ZIP Code" name="postal_code"
+                                                                    <input type="text" placeholder="Postal Code" name="postal_code"
                                                                         id="zip_code" class="w-100"
                                                                         value="{{ $user->postal_code ?? '' }}">
 
@@ -200,8 +291,293 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="row p-3">
+                                                            <div class="col-md-6">
+                                                                <div class="input-box">
+                                                                    <div class="two-hex-align">
+                                                                        <input type="text" placeholder="City of the property you wish to move to" name="state"
+                                                                            class="w-100">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="input-box">
+                                                                    <div class="two-hex-align">
+                                                                        <input type="text" placeholder="Preferred location of the property you wish to move to" name="postal_code"
+                                                                            class="w-100">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row p-3">
+                                                            <div class="col-md-6">
+                                                                <div class="input-box">
+                                                                    <div class="two-hex-align">
+                                                                        <input type="date" placeholder="Preferred move-in date" name="state"
+                                                                            class="w-100">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="input-box">
+                                                                    <div class="two-hex-align">
+                                                                            <select name="" id="" class="w-100">
+                                                                                <option value="" class="disabled">How frequently would you like to pay rent?</option>
+                                                                                <option value="">How frequently would you like to pay rent?</option>
+                                                                                <option value="">How frequently would you like to pay rent?</option>
+                                                                                <option value="">How frequently would you like to pay rent?</option>
+                                                                                <option value="">How frequently would you like to pay rent?</option>
+                                                                            </select>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="row p-3">
+
+                                                            <div class="input-box">
+                                                                <p for="">What type of property are you looking for?</p>
+
+                                                                <div class="get-started-content">
+                                                                    <div class="picture-tabs">
+                                                                        @foreach ($categories as $category)
+                                                                            <div class="radio-item">
+                                                                                <input type="radio" id="category-{{ $category->id }}" name="category"
+                                                                                    value="{{ $category->id }}" onclick="selectCategory(this)"
+                                                                                    {{ old('category', $selectedCategory ?? '') == $category->id ? 'checked' : '' }}>
+                                                                                <label for="category-{{ $category->id }}"
+                                                                                    class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
+                                                                                    <img src="{{ Storage::url($category->image ?? '') }}" alt="{{ $category->name }}">
+                                                                                    <span>{{ $category->name }}</span>
+                                                                                </label>
+                                                                            </div>
+                                                                        @endforeach
+                                                                        <!-- Display validation error for category -->
+                                                                        @error('category')
+                                                                            <div class="error-message">
+                                                                                <span class="text-danger">{{ $message }}</span>
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row p-3">
+
+                                                            <div class="col-md-6">
+
+                                                                <p>Do you have pets?</p>
+
+                                                                <div class="selection-boxex-true">
+
+                                                                    <div class="radio-item" onclick="boxActive10()" id="boxactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="1">
+                                                                        <label class="evction" for="yes" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/checked.png" alt="Yes">
+                                                                            Yes
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                    <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="0">
+                                                                        <label class="evction" for="no" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/cancel.png" alt="No">
+                                                                            No
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                </div>
+
+                                                                <div class="active-non-active" id="activeNonActive10">
+
+                                                                    <div class="box">
+                                                                        <input type="text" placeholder="Please Specify" class="w-100">
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                            </div>
+
+                                                            <div class="col-md-6">
+
+                                                                <p>Do you smoke?</p>
+
+                                                                <div class="selection-boxex-true">
+
+                                                                    <div class="radio-item" onclick="boxActive10()" id="boxactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="1">
+                                                                        <label class="evction" for="yes" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/checked.png" alt="Yes">
+                                                                            Yes
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                    <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="0">
+                                                                        <label class="evction" for="no" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/cancel.png" alt="No">
+                                                                            No
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row p-3">
+
+                                                            <div class="col-md-6">
+
+                                                                <p>Will you bring waterbeds to the property?</p>
+
+                                                                <div class="selection-boxex-true">
+
+                                                                    <div class="radio-item" onclick="boxActive10()" id="boxactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="1">
+                                                                        <label class="evction" for="yes" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/checked.png" alt="Yes">
+                                                                            Yes
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                    <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="0">
+                                                                        <label class="evction" for="no" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/cancel.png" alt="No">
+                                                                            No
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                </div>
+
+
+                                                            </div>
+
+                                                            <div class="col-md-6">
+
+                                                                <p>Are you looking for a short-term leasing option?</p>
+
+                                                                <div class="selection-boxex-true">
+
+                                                                    <div class="radio-item" onclick="boxActive10()" id="boxactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="1">
+                                                                        <label class="evction" for="yes" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/checked.png" alt="Yes">
+                                                                            Yes
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                    <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="0">
+                                                                        <label class="evction" for="no" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/cancel.png" alt="No">
+                                                                            No
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row p-3">
+
+                                                            <div class="col-md-6">
+
+                                                                <p>Will you be providing a security deposit?</p>
+
+                                                                <div class="selection-boxex-true">
+
+                                                                    <div class="radio-item" onclick="boxActive10()" id="boxactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="1">
+                                                                        <label class="evction" for="yes" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/checked.png" alt="Yes">
+                                                                            Yes
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                    <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
+                                                                        <input type="radio" id="eviction" name="eviction" value="0">
+                                                                        <label class="evction" for="no" onclick="setEvction(this)">
+                                                                            <img src="/assets/images/cancel.png" alt="No">
+                                                                            No
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                </div>
+
+                                                                <div class="active-non-active" id="activeNonActive10">
+
+                                                                    <div class="box">
+                                                                        <input type="number" placeholder="Enter Amount" class="w-100">
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <div class="row p-3">
+                                                            <div class="col-lg-12" style="height: max-content !important;">
+                                                                <ul>
+                                                                    <li>By submitting your application, you acknowledge and authorize [Company Name] to conduct background checks on your behalf, including but not limited to:
+                                                                    </li>
+                                                                    <li>Criminal record checks
+                                                                    </li>
+                                                                    <li>Eviction history checks
+                                                                    </li>
+                                                                    <li>Credit score evaluations
+                                                                    </li>
+                                                                    <li>These checks are conducted solely for the purpose of assisting you in finding a suitable rental property that meets the landlord’s criteria.
+                                                                    </li>
+                                                                    <li>Your Privacy Matters
+                                                                    </li>
+                                                                    <li>All information obtained during these checks will be handled with strict confidentiality and used only for the stated purpose. We do not share or disclose your information to third parties beyond what is necessary to complete the screening process.
+                                                                    </li>
+                                                                    <li>By proceeding, you confirm your consent to these checks and agree to the terms outlined above.</li>
+                                                                    <li class="mt-3">
+                                                                        <div class="input-box">
+                                                                            <input type="checkbox" name="consent">
+                                                                            <label for="consent">I consent to the background checks as described.</label>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
+
+
+
                                             </div>
                                             <div class="two-btn-align-sub-del p-3">
                                                 <button type="submit" class="t-btn t-btn-blue">Agree & Apply
