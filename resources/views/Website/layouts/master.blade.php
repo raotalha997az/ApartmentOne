@@ -43,11 +43,11 @@
             width: 240px;
             padding: 20px !important;
             right: 0;
-            left: 0;
             margin: auto !important;
             border: 1px solid #0077b6;
             display: none;
             transition: .3s;
+            top: 100%;
         }
 
         header li.user-login-dropdown ul {
@@ -77,10 +77,10 @@
         }
 
         .user-login-dropdown a.user-profile-link img {
-            height: 50px;
-            width: 50px;
+            height: 35px;
+            width: 35px;
             border-radius: 50%;
-            border: 3px solid #80808059;
+            /* border: 1px solid #80808059; */
         }
 
         header .header-menu ul.sub-menu {
@@ -139,11 +139,12 @@
                                 @if (Auth::user())
 
 
-                                    <a href="{{ $dashboardUrl }}" class="user-profile-link">
+                                    <a href="{{ $dashboardUrl }}" class="t-btn t-btn-header user-profile-link">
                                         <img src="{{ Storage::url(Auth::user()->profile_img ?? '') }}"
                                             alt="">{{ Auth::user()->name }}
+                                            <i class="fa-solid fa-chevron-down"></i>
                                     </a>
-                                    <ul>
+                                    <ul class="sub-menu">
                                         <li>
                                             @if (Auth::user()->hasRole('tenant'))
                                                 <a href="{{ route('tenant.dashboard') }}">Dashboard</a>

@@ -120,11 +120,13 @@ class PropertyController extends Controller
             'conviction'=>'nullable|boolean',
             'conviction_pecify'=>'nullable|string',
             'credit_check'=>'nullable|boolean',
+            'available_status'=>'nullable|boolean',
 
 
 
         ]);
         // Create the new property
+        // 'available_status' => 1,
         $property = Property::create([
             'user_id' => $id,
             'name' => $validated['name'],
@@ -132,9 +134,8 @@ class PropertyController extends Controller
             'cat_id' => $validated['category'],
             'credit_point' => $validated['credit_point'],
             'other_details' => $validated['other_details'] ?? null,
-            'available_status' => 1,
+            'available_status' => $validated['available_status'] ?? null,
             'price_rent' => $validated['price_rent'],
-            'many_time_evicted' => $validated['many_time_evicted'] ?? null,
             'when_evicted' => $validated['when_evicted'] ?? null,
             'contact_name' => $validated['contact_name'] ?? null,
             'contact_phone_number' => $validated['contact_phone_number'] ?? null,

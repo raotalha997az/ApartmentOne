@@ -224,7 +224,8 @@
     }
 
 
-    p,#regForm .box label {
+    p,
+    #regForm .box label {
         color: #777777 !important;
         font-size: 20px !important;
     }
@@ -251,7 +252,12 @@
         margin-top: 25px;
     }
 
-    select,textarea,textarea,input, #activeNonActive12 .activeNonActive12 label, #activeNonActive180 .activeNonActive18 label {
+    select,
+    textarea,
+    textarea,
+    input,
+    #activeNonActive12 .activeNonActive12 label,
+    #activeNonActive180 .activeNonActive18 label {
         background-color: #E5E5E5;
         border-radius: 10px;
         padding: 15px 20px;
@@ -261,25 +267,28 @@
     }
 
 
-    #activeNonActive12 .activeNonActive12 label.active, #activeNonActive180 .activeNonActive18 label.active{
-    border-color: #414141;
-    color: #414141 !important;
-}
+    #activeNonActive12 .activeNonActive12 label.active,
+    #activeNonActive180 .activeNonActive18 label.active {
+        border-color: #414141;
+        color: #414141 !important;
+    }
 
 
 
-    #activeNonActive12 .activeNonActive12, #activeNonActive180 .activeNonActive18 {
-    position: relative;
-}
+    #activeNonActive12 .activeNonActive12,
+    #activeNonActive180 .activeNonActive18 {
+        position: relative;
+    }
 
-#activeNonActive12 .activeNonActive12 input, #activeNonActive180 .activeNonActive18 input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0;
-}
+    #activeNonActive12 .activeNonActive12 input,
+    #activeNonActive180 .activeNonActive18 input {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
 
     /* .section-content{
     display: none
@@ -544,11 +553,11 @@
     border-color: #007BFF;
   } */
 
-  .profile-page .profile-basic-info-form form .two-inputs-boxes-align .input-box label img {
-    height: 80px;
-    width: 80px;
-    object-fit: cover;
-}
+    .profile-page .profile-basic-info-form form .two-inputs-boxes-align .input-box label img {
+        height: 80px;
+        width: 80px;
+        object-fit: cover;
+    }
 </style>
 
 
@@ -604,7 +613,8 @@
                             <label for="category-{{ $category->id }}"
                                 class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
                                 {{-- <img src="{{ Storage::url($category->image ?? '') }}" alt="{{ $category->name }}"> --}}
-                                <img src="{{ asset('assets/images/cat_') . ($loop->index + 1) . '.png' }}" alt="{{ $category->name }}">
+                                <img src="{{ asset('assets/images/cat_') . ($loop->index + 1) . '.png' }}"
+                                    alt="{{ $category->name }}">
                                 <span>{{ $category->name }}</span>
                             </label>
                         </div>
@@ -716,11 +726,12 @@
 
                 <div class="box">
                     <label>What kind of parking is offered?</label>
-                    <input type="text" name="kind_of_parking" placeholder="Type here" value="{{ old('kind_of_parking') }}">
+                    <input type="text" name="kind_of_parking" placeholder="Type here"
+                        value="{{ old('kind_of_parking') }}">
                     @error('kind_of_parking')
-                    <div class="error-message">
-                        <span class="text-danger">{{ $message }}</span>
-                    </div>
+                        <div class="error-message">
+                            <span class="text-danger">{{ $message }}</span>
+                        </div>
                     @enderror
                 </div>
 
@@ -730,9 +741,9 @@
                     {{-- <textarea name="no_of_vehicle" id="" cols="30" rows="10" placeholder="Description">{{ old('no_of_vehicle') }}</textarea> --}}
                     <input type="number" name="no_of_vehicle" placeholder="Type here" value="{{ old('no_of_vehicle') }}">
                     @error('no_of_vehicle')
-                    <div class="error-message">
-                        <span class="text-danger">{{ $message }}</span>
-                    </div>
+                        <div class="error-message">
+                            <span class="text-danger">{{ $message }}</span>
+                        </div>
                     @enderror
                 </div>
 
@@ -818,27 +829,35 @@
 
             <div class="selection-boxex-true">
                 <div class="radio-item">
-                    <input type="radio" class="smokingYes" id="smokingYes" name="waterbed" value="1"
-                        onclick="setActiveSmoking(this)"
-                        {{ old('waterbed', $selectedSmoking ?? '') == 1 ? 'checked' : '' }}>
-                    <label class="smokingYesLabel {{ old('smoking', $selectedSmoking ?? '') == 1 ? 'active' : '' }}"
-                        for="smokingYes">
+                    <input type="radio" class="propertyYes" id="propertyYes" name="available_status" value="1"
+                        onclick="setActiveProperty(this)"
+                        {{ old('available_status', $selectedProperty ?? '') == 1 ? 'checked' : '' }}>
+                    <label
+                        class="propertyYesLabel {{ old('available_status', $selectedProperty ?? '') == 1 ? 'active' : '' }}"
+                        for="propertyYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
                 <div class="radio-item">
-                    <input type="radio" class="smokingNo" id="smokingNo" name="waterbed" value="0"
-                        onclick="setActiveSmoking(this)"
-                        {{ old('smoking', $selectedSmoking ?? '') == 0 ? 'checked' : '' }}>
-                    <label class="smokingNoLabel {{ old('smoking', $selectedSmoking ?? '') == 0 ? 'active' : '' }}"
-                        for="smokingNo">
+                    <input type="radio" class="propertyNo" id="propertyNo" name="available_status" value="0"
+                        onclick="setActiveProperty(this)"
+                        {{ old('available_status', $selectedProperty ?? '') == 0 ? 'checked' : '' }}>
+                    <label
+                        class="propertyNoLabel {{ old('available_status', $selectedProperty ?? '') == 0 ? 'active' : '' }}"
+                        for="propertyNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
                 </div>
             </div>
+
+            @error('smoking')
+                <div class="error-available_status">
+                    <span class="text-danger">{{ $message }}</span>
+                </div>
+            @enderror
 
 
 
@@ -907,9 +926,9 @@
                 <p>When will the property be available?</p>
                 <input type="date" name="date_availability" id="" placeholder="DD MM YYYY">
                 @error('date_availability')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
                 @enderror
             </div>
 
@@ -951,28 +970,32 @@
 
                 <div class="box activeNonActive12">
                     <label for="">Short Term</label>
-                    <input type="radio" name="lease_type" value="1" placeholder="Short Term" onclick="boxNonActive13()">
+                    <input type="radio" name="lease_type" value="1" placeholder="Short Term"
+                        onclick="boxNonActive13()">
                 </div>
 
                 <div class="box activeNonActive12">
                     <label for="" class="active">Fixed Term</label>
-                    <input type="radio" name="lease_type" value="2" placeholder="Fixed Term" onclick="boxActive13()">
+                    <input type="radio" name="lease_type" value="2" placeholder="Fixed Term"
+                        onclick="boxActive13()">
                 </div>
 
                 <div class="box activeNonActive12">
                     <label for="">Month-to-Month</label>
-                    <input type="radio" name="lease_type" value="3" placeholder="Month-to-Month" onclick="boxNonActive13()">
+                    <input type="radio" name="lease_type" value="3" placeholder="Month-to-Month"
+                        onclick="boxNonActive13()">
                 </div>
 
                 <div class="box activeNonActive12">
                     <label for="">Year-to-Year</label>
-                    <input type="radio" name="lease_type" value="4" placeholder="Year-to-Year" onclick="boxNonActive13()">
+                    <input type="radio" name="lease_type" value="4" placeholder="Year-to-Year"
+                        onclick="boxNonActive13()">
                 </div>
 
                 @error('lease_type')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
                 @enderror
 
 
@@ -981,9 +1004,9 @@
                     <label for="">What is the minimum length of the lease?</label>
                     <input type="text" name="lease_period" placeholder="Minimum Length  (6 mon , 1 yr)">
                     @error('lease_period')
-                    <div class="error-message">
-                        <span class="text-danger">{{ $message }}</span>
-                    </div>
+                        <div class="error-message">
+                            <span class="text-danger">{{ $message }}</span>
+                        </div>
                     @enderror
                 </div>
 
@@ -1014,45 +1037,51 @@
                 </div>
                 <div class="box activeNonActive18">
                     <label for="">Specific Terms</label>
-                    <input type="radio" name="rent_type" value="4" onclick="handleRentSelection('Specific Terms')">
+                    <input type="radio" name="rent_type" value="4"
+                        onclick="handleRentSelection('Specific Terms')">
                 </div>
 
                 @error('rent_type')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
                 @enderror
 
                 <div class="box active-non-active" id="activeNonActive18">
                     <label for="">Amount</label>
-                    <input type="number" name="price_rent" placeholder="Monthly Amount" value="{{ old('price_rent') }}">
+                    <input type="number" name="price_rent" placeholder="Monthly Amount"
+                        value="{{ old('price_rent') }}">
                 </div>
                 <div class="box active-non-active" id="Weekly">
                     <label for="">Amount</label>
-                    <input type="number" name="price_rent" placeholder="Weekly Amount" value="{{ old('price_rent') }}">
+                    <input type="number" name="price_rent" placeholder="Weekly Amount"
+                        value="{{ old('price_rent') }}">
                 </div>
                 <div class="box active-non-active" id="Yearly">
                     <label for="">Amount</label>
-                    <input type="number" name="price_rent" placeholder="Yearly Amount" value="{{ old('price_rent') }}">
+                    <input type="number" name="price_rent" placeholder="Yearly Amount"
+                        value="{{ old('price_rent') }}">
                 </div>
                 <div class="box active-non-active" id="payment_frequency">
                     <label for="">Payment Frequency</label>
-                    <input type="number" name="payment_frequency" placeholder="Payment Frequency Amount" value="{{ old('payment_frequency') }}">
+                    <input type="number" name="payment_frequency" placeholder="Payment Frequency Amount"
+                        value="{{ old('payment_frequency') }}">
                     @error('payment_frequency')
-                    <div class="error-message">
-                        <span class="text-danger">{{ $message }}</span>
-                    </div>
+                        <div class="error-message">
+                            <span class="text-danger">{{ $message }}</span>
+                        </div>
                     @enderror
                 </div>
                 <div class="box active-non-active" id="specificTerm">
                     <label for="">Amount</label>
-                    <input type="number" name="price_rent" placeholder="Specific Term Amount" value="{{ old('price_rent') }}">
+                    <input type="number" name="price_rent" placeholder="Specific Term Amount"
+                        value="{{ old('price_rent') }}">
                 </div>
             </div>
             @error('price_rent')
-            <div class="error-message">
-                <span class="text-danger">{{ $message }}</span>
-            </div>
+                <div class="error-message">
+                    <span class="text-danger">{{ $message }}</span>
+                </div>
             @enderror
 
 
@@ -1092,12 +1121,13 @@
 
                 <div class="box">
                     <p>Security Deposit</p>
-                    <input type="number" name="deposit_amount" placeholder="$1500" value="{{ old('deposit_amount') }}">
+                    <input type="number" name="deposit_amount" placeholder="$1500"
+                        value="{{ old('deposit_amount') }}">
                 </div>
                 @error('deposit_amount')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
                 @enderror
 
             </div>
@@ -1179,7 +1209,8 @@
             <h6>Felony Convictions</h6>
             <p>What background check will you do to screen your applicant?</p>
 
-            <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony conviction in their past?</p>
+            <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony conviction in their
+                past?</p>
 
             <div class="selection-boxex-true">
                 <div class="radio-item" onclick="boxActive100()" id="boxactive100">
@@ -1220,22 +1251,33 @@
                     {{-- <textarea name="conviction_pecify" placeholder="Type Here" id="" cols="30" rows="10">  {{ old('conviction_pecify') }} </textarea> --}}
 
                     <select name="conviction_pecify" id="">
-                        <option value="Murder " {{ old('conviction_pecify') == 'Murder ' ? 'selected' : '' }}>Murder </option>
-                        <option value="Assault with a deadly weapon " {{ old('conviction_pecify') == 'Assault with a deadly weapon ' ? 'selected' : '' }}>Assault with a deadly weapon </option>
-                        <option value="Aggravated Assault " {{ old('conviction_pecify') == 'Aggravated Assault ' ? 'selected' : '' }}>Aggravated Assault </option>
-                        <option value="Kidnapping " {{ old('conviction_pecify') == 'Kidnapping ' ? 'selected' : '' }}>Kidnapping </option>
-                        <option value="Robbery  " {{ old('conviction_pecify') == 'Robbery  ' ? 'selected' : '' }}>Robbery  </option>
-                        <option value="Domestic Violence " {{ old('conviction_pecify') == 'Domestic Violence ' ? 'selected' : '' }}>Domestic Violence </option>
-                        <option value="Drug Trafficking " {{ old('conviction_pecify') == 'Drug Trafficking ' ? 'selected' : '' }}>Drug Trafficking </option>
+                        <option value="Murder " {{ old('conviction_pecify') == 'Murder ' ? 'selected' : '' }}>Murder
+                        </option>
+                        <option value="Assault with a deadly weapon "
+                            {{ old('conviction_pecify') == 'Assault with a deadly weapon ' ? 'selected' : '' }}>Assault
+                            with a deadly weapon </option>
+                        <option value="Aggravated Assault "
+                            {{ old('conviction_pecify') == 'Aggravated Assault ' ? 'selected' : '' }}>Aggravated Assault
+                        </option>
+                        <option value="Kidnapping " {{ old('conviction_pecify') == 'Kidnapping ' ? 'selected' : '' }}>
+                            Kidnapping </option>
+                        <option value="Robbery  " {{ old('conviction_pecify') == 'Robbery  ' ? 'selected' : '' }}>Robbery
+                        </option>
+                        <option value="Domestic Violence "
+                            {{ old('conviction_pecify') == 'Domestic Violence ' ? 'selected' : '' }}>Domestic Violence
+                        </option>
+                        <option value="Drug Trafficking "
+                            {{ old('conviction_pecify') == 'Drug Trafficking ' ? 'selected' : '' }}>Drug Trafficking
+                        </option>
 
                     </select>
 
 
                 </div>
                 @error('conviction_pecify')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
                 @enderror
 
             </div>
@@ -1251,7 +1293,8 @@
             <h6>Credit Score</h6>
             <p>Do you require applicants to meet a minimum credit score threshold?</p>
 
-            <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony conviction in their past?</p>
+            <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony conviction in their
+                past?</p>
 
             <div class="selection-boxex-true">
                 <div class="radio-item" onclick="boxActive110()" id="boxactive110">
@@ -1289,12 +1332,13 @@
 
                 <div class="box">
                     <p>What is the minimum required FICO credit score?</p>
-                   <input type="number" name="credit_point" placeholder="Enter Credit Score" value="{{ old('credit_point') }}">
+                    <input type="number" name="credit_point" placeholder="Enter Credit Score"
+                        value="{{ old('credit_point') }}">
                 </div>
                 @error('credit_point')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
                 @enderror
 
             </div>
@@ -1371,7 +1415,8 @@
             <div class="many-forms-fields-box">
                 <div class="input-box">
                     <label for="">Name</label>
-                    <input type="text" placeholder="2nd floor Apartment in Las Vegas USA" name="name" value="{{ old('name') }}">
+                    <input type="text" placeholder="2nd floor Apartment in Las Vegas USA" name="name"
+                        value="{{ old('name') }}">
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -1391,17 +1436,17 @@
             <div class="many-check-box mt-3">
                 <div class="box">
                     <label for="rent_whos">Rent to Who</label>
-                <div class="paren-check-box">
-                    @foreach ($rentWhos as $rentWho)
-                        <input type="checkbox" id="rentWho-{{ $rentWho->id }}" name="rent_whos[]"
-                            value="{{ $rentWho->id }}" class="mt-3"
-                            {{ in_array($rentWho->id, old('rent_whos', [])) ? 'checked' : '' }}>
-                        <label for="rentWho-{{ $rentWho->id }}" class="mt-3">{{ $rentWho->name }}</label>
-                    @endforeach
-                    @error('rent_whos')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="paren-check-box">
+                        @foreach ($rentWhos as $rentWho)
+                            <input type="checkbox" id="rentWho-{{ $rentWho->id }}" name="rent_whos[]"
+                                value="{{ $rentWho->id }}" class="mt-3"
+                                {{ in_array($rentWho->id, old('rent_whos', [])) ? 'checked' : '' }}>
+                            <label for="rentWho-{{ $rentWho->id }}" class="mt-3">{{ $rentWho->name }}</label>
+                        @endforeach
+                        @error('rent_whos')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
 
             </div>
@@ -1497,10 +1542,7 @@
 
         // Initially hide the active-non-active div
         document.getElementById('activeNonActive10').style.display = 'none';
-    </script>
 
-
-    <script>
         // Function to display the active-non-active div
         function boxActive110() {
             document.getElementById('activeNonActive110').style.display = 'block';
@@ -1528,6 +1570,8 @@
 
         // Initially hide the active-non-active div
         document.getElementById('activeNonActive20').style.display = 'none';
+
+        
     </script>
 
 
@@ -1549,8 +1593,8 @@
 
 
     <script>
-                // Function to display the active-non-active div
-                window.onload = function () {
+        // Function to display the active-non-active div
+        window.onload = function() {
             const fields = document.querySelectorAll('.active-non-active');
             fields.forEach(field => field.style.display = 'none');
         };
@@ -1809,6 +1853,25 @@
                 document.querySelector('.smokingYesLabel').classList.add('active');
             } else if (element.classList.contains('smokingNo')) {
                 document.querySelector('.smokingNoLabel').classList.add('active');
+            }
+
+            // Check the radio button
+            element.checked = true;
+        }
+
+        function setActiveProperty(element) {
+            console.log('Clicked element:', element);
+
+            // Reset all labels
+            document.querySelectorAll('.propertyYesLabel, .propertyNoLabel').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add 'active' to the corresponding label
+            if (element.classList.contains('propertyYes')) {
+                document.querySelector('.propertyYesLabel').classList.add('active');
+            } else if (element.classList.contains('propertyNo')) {
+                document.querySelector('.propertyNoLabel').classList.add('active');
             }
 
             // Check the radio button
