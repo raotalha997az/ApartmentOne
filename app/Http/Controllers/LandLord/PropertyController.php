@@ -76,7 +76,7 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
-            dd($request->all());
+            // dd($request->all());
         $id = Auth::user()->id;
         // Validate the request data
         $validated = $request->validate([
@@ -98,12 +98,31 @@ class PropertyController extends Controller
             'contact_phone_number' => 'required|digits:10',
             'contact_email' => 'required|email',
             'when_evicted' => 'nullable|string',
-            'price' => 'required|numeric',
+            'price_rent' => 'required|numeric',
             'eviction' => 'nullable|boolean',
             'smoking' => 'nullable|boolean',
             'bankruptcy' => 'nullable|boolean',
             'credit_history_check' => 'nullable|boolean',
             'criminal_records' => 'nullable|boolean',
+            'parking' => 'nullable|boolean',
+            'kind_of_parking'=>'nullable|string',
+            'no_of_vehicle'=>'nullable|integer',
+            'waterbed'=>'nullable|boolean',
+            'availability_check'=>'nullable|boolean',
+            'date_availability'=>'nullable|date',
+            'lease_check'=>'nullable|boolean',
+            'lease_type'=>'nullable|integer',
+            'lease_length'=>'nullable|integer',
+            'rent_type'=>'nullable|integer',
+            'payment_frequency'=>'nullable|integer',
+            'security_deposit'=>'nullable|boolean',
+            'deposit_amount'=>'nullable|numeric',
+            'conviction'=>'nullable|boolean',
+            'conviction_pecify'=>'nullable|string',
+            'credit_check'=>'nullable|boolean',
+
+
+
         ]);
         // Create the new property
         $property = Property::create([
@@ -114,7 +133,7 @@ class PropertyController extends Controller
             'credit_point' => $validated['credit_point'],
             'other_details' => $validated['other_details'] ?? null,
             'available_status' => 1,
-            'price_rent' => $validated['price'],
+            'price_rent' => $validated['price_rent'],
             'many_time_evicted' => $validated['many_time_evicted'] ?? null,
             'when_evicted' => $validated['when_evicted'] ?? null,
             'contact_name' => $validated['contact_name'] ?? null,
@@ -126,6 +145,23 @@ class PropertyController extends Controller
             'smoking' => $validated['smoking'] ?? false,
             'bankruptcy' => $validated['bankruptcy'] ?? false,
             'credit_history_check' => $validated['credit_history_check'] ?? false,
+
+            'parking' => $validated['parking'] ?? false,
+            'kind_of_parking' => $validated['kind_of_parking'] ?? null,
+            'no_of_vehicle' => $validated['no_of_vehicle'] ?? null,
+            'waterbed' => $validated['waterbed'] ?? false,
+            'availability_check' => $validated['availability_check'] ?? false,
+            'date_availability' => $validated['date_availability'] ?? null,
+            'lease_check' => $validated['lease_check'] ?? false,
+            'lease_type' => $validated['lease_type'] ?? null,
+            'lease_length' => $validated['lease_length'] ?? null,
+            'rent_type' => $validated['rent_type'] ?? null,
+            'payment_frequency' => $validated['payment_frequency'] ?? null,
+            'security_deposit' => $validated['security_deposit'] ?? false,
+            'deposit_amount' => $validated['deposit_amount'] ?? null,
+            'conviction' => $validated['conviction'] ?? false,
+            'conviction_pecify' => $validated['conviction_pecify'] ?? null,
+            'credit_check' => $validated['credit_check'] ?? false,
 
         ]);
 
@@ -257,6 +293,8 @@ class PropertyController extends Controller
             'country' => 'required|string|max:255',
             'many_time_evicted' => 'nullable|string',
             'when_evicted' => 'nullable|string',
+
+
 
         ]);
         if($validated['eviction']==0){
