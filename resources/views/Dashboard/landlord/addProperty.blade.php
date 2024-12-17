@@ -543,6 +543,12 @@
   .radio-item:hover {
     border-color: #007BFF;
   } */
+
+  .profile-page .profile-basic-info-form form .two-inputs-boxes-align .input-box label img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+}
 </style>
 
 
