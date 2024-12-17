@@ -697,24 +697,24 @@
 
             <div class="selection-boxex-true">
 
-                <div class="radio-item" onclick="boxActive10()" id="boxactive10">
-                    <input type="radio" id="eviction" name="parking" value="1">
-                    <label class="evction" for="yes" onclick="setEvction(this)">
+                <div class="radio-item" onclick="boxActive10(1)" id="boxactive10">
+                    <input type="radio" id="parkingYes" name="parking" value="1">
+                    <label class="parking" for="parkingYes" id="parkingYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
 
-                <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
-                    <input type="radio" id="eviction" name="parking" value="0">
-                    <label class="evction" for="no" onclick="setEvction(this)">
+                <div class="radio-item" onclick="boxActive10(0)" id="boxnunactive10">
+                    <input type="radio" id="parkingNo" name="parking" value="0">
+                    <label class="parking" for="parkingNo" id="parkingNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
                 </div>
 
-                @error('eviction')
+                @error('parking')
                     <div class="error-message">
                         <span class="text-danger">{{ $message }}</span>
                     </div>
@@ -759,20 +759,24 @@
             <p>Are pets allowed in the property?</p>
 
             <div class="selection-boxex-true">
-                <div class="selection-content-true" onclick="boxActive3()" id="boxactive3">
-                    <img src="{{ asset('assets/images/checked.png') }}" alt="">
-                    <span>Yes</span>
+                <div class="radio-item" onclick="boxActive3(1)" id="boxactive3">
+                    <label class="selection-content-true" id="selectionYesLabel">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                        <span>Yes</span>
+                    </label>
                 </div>
 
-                <div class="selection-content-true" onclick="boxNonActive3()" id="boxnunactive3">
-                    <img src="{{ asset('assets/images/cancel.png') }}" alt="">
-                    <span>No</span>
+                <div class="radio-item" onclick="boxActive3(0)" id="boxnonactive3">
+                    <label class="selection-content-true" id="selectionNoLabel">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                        <span>No</span>
+                    </label>
                 </div>
             </div>
 
             <div class="active-non-active" id="activeNonActive3">
                 <div class="input-box mt-3">
-                    <label for="select pets">Select pets</label>
+                    <label for="select_pets">Select pets</label>
                     <select class="js-example-basic-multiple" multiple="multiple" style="width: 300px;" name="pets[]">
                         @foreach ($pets as $pet)
                             <option value="{{ $pet->id }}"
@@ -785,9 +789,8 @@
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-
-
             </div>
+
 
             <p>Is smoking of cigarettes allowed in the property?</p>
 
@@ -825,11 +828,11 @@
 
 
 
-            <p>Is the property already available for rent?</p>
+            <p>Are waterbeds allowed in the property</p>
 
             <div class="selection-boxex-true">
                 <div class="radio-item">
-                    <input type="radio" class="propertyYes" id="propertyYes" name="available_status" value="1"
+                    <input type="radio" class="propertyYes" id="propertyYes" name="waterbed" value="1"
                         onclick="setActiveProperty(this)"
                         {{ old('available_status', $selectedProperty ?? '') == 1 ? 'checked' : '' }}>
                     <label
@@ -841,7 +844,7 @@
                 </div>
 
                 <div class="radio-item">
-                    <input type="radio" class="propertyNo" id="propertyNo" name="available_status" value="0"
+                    <input type="radio" class="propertyNo" id="propertyNo" name="waterbed" value="0"
                         onclick="setActiveProperty(this)"
                         {{ old('available_status', $selectedProperty ?? '') == 0 ? 'checked' : '' }}>
                     <label
@@ -900,38 +903,35 @@
             <p>Is the property already available for rent?</p>
 
             <div class="selection-boxex-true">
-
-                <div class="radio-item" onclick="boxActive11()" id="boxactive11" name="availability_check">
-                    <input type="radio" id="eviction" name="availability_check" value="1">
-                    <label class="evction" for="yes" onclick="setEvction(this)">
+                <!-- "Yes" Option -->
+                <div class="radio-item" onclick="boxActive11(1)" id="boxactive11">
+                    <input type="radio" id="availability_yes" name="availability_check" value="1">
+                    <label class="availability_check" for="availability_yes" id="availabilityYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
-
-                <div class="radio-item" onclick="boxNonActive11()" id="boxnunactive11" name="availability_check">
-                    <input type="radio" id="eviction" name="availability_check" value="0">
-                    <label class="evction" for="no" onclick="setEvction(this)">
+                <!-- "No" Option -->
+                <div class="radio-item" onclick="boxActive11(0)" id="boxnonactive11">
+                    <input type="radio" id="availability_no" name="availability_check" value="0">
+                    <label class="availability_check" for="availability_no" id="availabilityNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
                 </div>
-
-
             </div>
 
-
-            <div class="box">
+            <!-- Box for Date Input -->
+            <div class="box" id="activeNonActive11">
                 <p>When will the property be available?</p>
-                <input type="date" name="date_availability" id="" placeholder="DD MM YYYY">
+                <input type="date" name="date_availability" placeholder="DD MM YYYY">
                 @error('date_availability')
                     <div class="error-message">
                         <span class="text-danger">{{ $message }}</span>
                     </div>
                 @enderror
             </div>
-
 
         </div>
 
@@ -944,52 +944,50 @@
             <p>Would you like to include details about the lease term, rent, and security deposit? </p>
 
             <div class="selection-boxex-true">
-
-                <div class="radio-item" onclick="boxActive12()" id="boxactive12">
-                    <input type="radio" id="lease_check" name="lease_check" value="1">
-                    <label class="evction" for="yes" onclick="setEvction(this)">
+                <!-- Yes Option -->
+                <div class="radio-item" onclick="boxActive12(1)" id="boxactive12">
+                    <input type="radio" id="lease_check_yes" name="lease_check" value="1">
+                    <label class="lease_check" for="lease_check_yes" id="leaseYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
-
-                <div class="radio-item" onclick="boxNonActive12()" id="boxnunactive12">
-                    <input type="radio" id="lease_check" name="lease_check" value="0">
-                    <label class="evction" for="no" onclick="setEvction(this)">
+                <!-- No Option -->
+                <div class="radio-item" onclick="boxActive12(0)" id="boxnonactive12">
+                    <input type="radio" id="lease_check_no" name="lease_check" value="0">
+                    <label class="lease_check" for="lease_check_no" id="leaseNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
                 </div>
-
-
             </div>
 
 
             <div class="active-non-active" id="activeNonActive12">
 
                 <div class="box activeNonActive12">
-                    <label for="">Short Term</label>
+                    <label for="" id="Short_term_label" class="">Short Term</label>
                     <input type="radio" name="lease_type" value="1" placeholder="Short Term"
-                        onclick="boxNonActive13()">
+                        onclick="boxNonActive13('Short_term')">
                 </div>
 
                 <div class="box activeNonActive12">
-                    <label for="" class="active">Fixed Term</label>
+                    <label for="" id="Fixed_term_label" class="">Fixed Term</label>
                     <input type="radio" name="lease_type" value="2" placeholder="Fixed Term"
-                        onclick="boxActive13()">
+                        onclick="boxNonActive13('Fixed_term')">
                 </div>
 
                 <div class="box activeNonActive12">
-                    <label for="">Month-to-Month</label>
+                    <label for="" id="Month_to_Month_label" class="">Month-to-Month</label>
                     <input type="radio" name="lease_type" value="3" placeholder="Month-to-Month"
-                        onclick="boxNonActive13()">
+                        onclick="boxNonActive13('Month-to-Month')">
                 </div>
 
                 <div class="box activeNonActive12">
-                    <label for="">Year-to-Year</label>
+                    <label for="" id="Year_to_Year_label" class="">Year-to-Year</label>
                     <input type="radio" name="lease_type" value="4" placeholder="Year-to-Year"
-                        onclick="boxNonActive13()">
+                        onclick="boxNonActive13('Year-to-Year')">
                 </div>
 
                 @error('lease_type')
@@ -1024,19 +1022,19 @@
             <h6>Rent</h6>
             <div id="activeNonActive180">
                 <div class="box activeNonActive18">
-                    <label for="">Weekly</label>
+                    <label for="" id="Weekly_label">Weekly</label>
                     <input type="radio" name="rent_type" value="1" onclick="handleRentSelection('Weekly')">
                 </div>
                 <div class="box activeNonActive18">
-                    <label for="" class="active">Monthly</label>
+                    <label for="" id="Monthly_label">Monthly</label>
                     <input type="radio" name="rent_type" value="2" onclick="handleRentSelection('Monthly')">
                 </div>
                 <div class="box activeNonActive18">
-                    <label for="">Yearly</label>
+                    <label for="" id="Yearly_label">Yearly</label>
                     <input type="radio" name="rent_type" value="3" onclick="handleRentSelection('Yearly')">
                 </div>
                 <div class="box activeNonActive18">
-                    <label for="">Specific Terms</label>
+                    <label for="" id="Specific_Terms_label">Specific Terms</label>
                     <input type="radio" name="rent_type" value="4"
                         onclick="handleRentSelection('Specific Terms')">
                 </div>
@@ -1097,18 +1095,18 @@
 
             <div class="selection-boxex-true">
 
-                <div class="radio-item" onclick="boxActive20()" id="boxactive20">
-                    <input type="radio" id="security_deposit" name="security_deposit" value="1">
-                    <label class="evction" for="yes" onclick="setEvction(this)">
+                <div class="radio-item" onclick="boxActive20(1)" id="boxactive20">
+                    <input type="radio" id="security_deposit_yes" name="security_deposit" value="1">
+                    <label class="security_deposit" for="security_deposit_yes" id="securitydepositYeslable">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
 
-                <div class="radio-item" onclick="boxNonActive20()" id="boxnunactive20">
-                    <input type="radio" id="security_deposit" name="security_deposit" value="0">
-                    <label class="evction" for="no" onclick="setEvction(this)">
+                <div class="radio-item" onclick="boxActive20(0)" id="boxnunactive20">
+                    <input type="radio" id="security_deposit_yes_no" name="security_deposit" value="0">
+                    <label class="security_deposit" for="security_deposit_yes_no" id="securitydepositNolable">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -1142,24 +1140,23 @@
         <div class="tab" id="tab-3">
 
             <h6>Eviction Terms</h6>
-            <p>What background check will you do to screen your applicant?</p>
 
             <p style="margin-top: 20px !important;">Would you like to accept applicants with a history of eviction?</p>
 
             <div class="selection-boxex-true">
-
-                <div class="radio-item" onclick="boxActive1()" id="boxactive1">
-                    <input type="radio" id="eviction" name="eviction" value="1">
-                    <label class="evction" for="yes" onclick="setEvction(this)">
+                <!-- Yes Option -->
+                <div class="radio-item" onclick="boxActive1(1)" id="boxactive1">
+                    <input type="radio" id="eviction_yes" name="eviction" value="1">
+                    <label class="evction" for="eviction_yes" id="evictionYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
-
-                <div class="radio-item" onclick="boxNonActive1()" id="boxnunactive1">
-                    <input type="radio" id="eviction" name="eviction" value="0">
-                    <label class="evction" for="no" onclick="setEvction(this)">
+                <!-- No Option -->
+                <div class="radio-item" onclick="boxActive1(0)" id="boxnonactive1">
+                    <input type="radio" id="eviction_no" name="eviction" value="0">
+                    <label class="evction" for="eviction_no" id="evictionNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -1170,11 +1167,10 @@
                         <span class="text-danger">{{ $message }}</span>
                     </div>
                 @enderror
-
             </div>
 
+            <!-- Hidden Box -->
             <div class="active-non-active" id="activeNonActive1">
-
                 <div class="box">
                     <p>How many are allowed?</p>
                     <input type="number" placeholder="00" name="many_time_evicted"
@@ -1200,6 +1196,7 @@
                 @enderror
             </div>
 
+
         </div>
 
         {{-- third tab form part 5 --}}
@@ -1207,31 +1204,22 @@
         <div class="tab" id="conviction">
 
             <h6>Felony Convictions</h6>
-            <p>What background check will you do to screen your applicant?</p>
 
             <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony conviction in their
                 past?</p>
 
             <div class="selection-boxex-true">
-                <div class="radio-item" onclick="boxActive100()" id="boxactive100">
-                    <input type="radio" class="bankruptcyYes" id="conviction" name="conviction" value="1"
-                        onclick="setActiveBank(this)"
-                        {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'checked' : '' }}>
-                    <label
-                        class="bankruptcyYesLabel {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'active' : '' }}"
-                        for="bankruptcyYes">
+                <div class="radio-item" onclick="boxActive100(1)" id="boxactive100">
+                    <input type="radio" class="Convictions" id="convictions_yes" name="conviction" value="1">
+                    <label class="Convictions" for="Convictions_yes" id="ConvictionsYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
-                <div class="radio-item" onclick="boxNonActive100()" id="boxnunactive100">
-                    <input type="radio" class="bankruptcyNo" id="conviction" name="conviction" value="0"
-                        onclick="setActiveBank(this)"
-                        {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'checked' : '' }}>
-                    <label
-                        class="bankruptcyNoLabel {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'active' : '' }}"
-                        for="bankruptcyNo">
+                <div class="radio-item" onclick="boxActive100(0)" id="boxnunactive100">
+                    <input type="radio" class="ConvictionsNo" id="convictions_no" name="conviction" value="0">
+                    <label class="ConvictionsNoLabel" for="convictions_no" id="ConvictionsNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -1287,37 +1275,24 @@
         </div>
 
 
-
         <div class="tab" id="credit_score">
-
             <h6>Credit Score</h6>
             <p>Do you require applicants to meet a minimum credit score threshold?</p>
 
-            <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony conviction in their
-                past?</p>
-
             <div class="selection-boxex-true">
-                <div class="radio-item" onclick="boxActive110()" id="boxactive110">
-                    <input type="radio" class="bankruptcyYes" id="credit_check" name="credit_check" value="1"
-                        onclick="setActiveBank(this)"
-                        {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'checked' : '' }}>
-                    <label
-                        class="bankruptcyYesLabel {{ old('bankruptcy', $selectedBankruptcy ?? '') == 1 ? 'active' : '' }}"
-                        for="bankruptcyYes">
-                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
-                        Yes
+                <!-- Yes Option -->
+                <div class="radio-item" onclick="boxActive110(1)">
+                    <input type="radio" id="credit_check_yes" name="credit_check" value="1">
+                    <label for="credit_check_yes" id="credit_check_yes_label">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes"> Yes
                     </label>
                 </div>
 
-                <div class="radio-item" onclick="boxNonActive110()" id="boxnunactive110">
-                    <input type="radio" class="bankruptcyNo" id="credit_check" name="credit_check" value="0"
-                        onclick="setActiveBank(this)"
-                        {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'checked' : '' }}>
-                    <label
-                        class="bankruptcyNoLabel {{ old('bankruptcy', $selectedBankruptcy ?? '') == 0 ? 'active' : '' }}"
-                        for="bankruptcyNo">
-                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
-                        No
+                <!-- No Option -->
+                <div class="radio-item" onclick="boxActive110(0)">
+                    <input type="radio" id="credit_check_no" name="credit_check" value="0">
+                    <label for="credit_check_no" id="credit_check_no_label">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No"> No
                     </label>
                 </div>
 
@@ -1328,8 +1303,8 @@
                 @enderror
             </div>
 
-            <div class="active-non-active" id="activeNonActive110">
-
+            <!-- Hidden Box -->
+            <div class="active-non-active" id="activeNonActive110" style="display: none;">
                 <div class="box">
                     <p>What is the minimum required FICO credit score?</p>
                     <input type="number" name="credit_point" placeholder="Enter Credit Score"
@@ -1340,12 +1315,9 @@
                         <span class="text-danger">{{ $message }}</span>
                     </div>
                 @enderror
-
             </div>
-
-
-
         </div>
+
 
 
 
@@ -1522,77 +1494,168 @@
         </div>
 
     </form>
+@endsection
 
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+@section('scripts')
     <script>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}");
+            @endforeach
+        @endif
+
         // Function to display the active-non-active div
-        function boxActive10() {
-            document.getElementById('activeNonActive10').style.display = 'block';
-        }
+        function boxActive10(show) {
+            var box = document.getElementById('activeNonActive10');
 
-        // Function to hide the active-non-active div
-        function boxNonActive10() {
-            document.getElementById('activeNonActive10').style.display = 'none';
-        }
+            if (show == 1) {
+                box.style.display = 'block';
+                document.getElementById('parkingYesLabel').classList.add('active');
+                document.getElementById('parkingNoLabel').classList.remove('active');
 
+            } else {
+                box.style.display = 'none';
+                document.getElementById('parkingNoLabel').classList.add('active');
+                document.getElementById('parkingYesLabel').classList.remove('active');
+            }
+
+        }
         // Initially hide the active-non-active div
         document.getElementById('activeNonActive10').style.display = 'none';
 
-        // Function to display the active-non-active div
-        function boxActive110() {
-            document.getElementById('activeNonActive110').style.display = 'block';
-        }
+        function boxActive3(show) {
+            var box = document.getElementById('activeNonActive3');
 
-        // Function to hide the active-non-active div
-        function boxNonActive110() {
-            document.getElementById('activeNonActive110').style.display = 'none';
-        }
-
-        // Initially hide the active-non-active div
-        document.getElementById('activeNonActive110').style.display = 'none';
-    </script>
-
-    <script>
-        // Function to display the active-non-active div
-        function boxActive20() {
-            document.getElementById('activeNonActive20').style.display = 'block';
-        }
-
-        // Function to hide the active-non-active div
-        function boxNonActive20() {
-            document.getElementById('activeNonActive20').style.display = 'none';
+            if (show == 1) {
+                box.style.display = 'block';
+                document.getElementById('selectionYesLabel').classList.add('active');
+                document.getElementById('selectionNoLabel').classList.remove('active');
+            } else {
+                box.style.display = 'none';
+                document.getElementById('selectionNoLabel').classList.add('active');
+                document.getElementById('selectionYesLabel').classList.remove('active');
+            }
         }
 
         // Initially hide the active-non-active div
+        document.getElementById('activeNonActive3').style.display = 'none';
+
+
+        function boxActive12(show) {
+            var box = document.getElementById('activeNonActive12');
+
+            if (show == 1) {
+                box.style.display = 'block';
+                document.getElementById('leaseYesLabel').classList.add('active');
+                document.getElementById('leaseNoLabel').classList.remove('active');
+            } else {
+                box.style.display = 'none';
+                document.getElementById('leaseNoLabel').classList.add('active');
+                document.getElementById('leaseYesLabel').classList.remove('active');
+            }
+        }
+
+        document.getElementById('activeNonActive12').style.display = 'none';
+
+
+        function boxActive11(show) {
+            var box = document.getElementById('activeNonActive11');
+
+            if (show == 0) {
+                box.style.display = 'block';
+                document.getElementById('availabilityNoLabel').classList.add('active');
+                document.getElementById('availabilityYesLabel').classList.remove('active');
+
+            } else {
+                box.style.display = 'none';
+                document.getElementById('availabilityYesLabel').classList.add('active');
+                document.getElementById('availabilityNoLabel').classList.remove('active');
+            }
+        }
+
+        // Initially hide the availability box
+        document.getElementById('activeNonActive11').style.display = 'none';
+
+
+
+        function boxActive20(show) {
+            var box = document.getElementById('activeNonActive20');
+            if (show == 1) {
+                box.style.display = 'block';
+                document.getElementById('securitydepositYeslable').classList.add('active');
+                document.getElementById('securitydepositNolable').classList.remove('active');
+            } else {
+                box.style.display = 'none';
+                document.getElementById('securitydepositNolable').classList.add('active');
+                document.getElementById('securitydepositYeslable').classList.remove('active');
+            }
+        }
+
         document.getElementById('activeNonActive20').style.display = 'none';
 
-        
-    </script>
 
-
-
-    <script>
-        // Function to display the active-non-active div
-        function boxActive100() {
-            document.getElementById('activeNonActive100').style.display = 'block';
+        function boxActive1(show) {
+            var box = document.getElementById('activeNonActive1');
+            if (show == 1) {
+                // Show the box
+                box.style.display = 'block';
+                document.getElementById('evictionYesLabel').classList.add('active');
+                document.getElementById('evictionNoLabel').classList.remove('active');
+            } else {
+                // Hide the box
+                box.style.display = 'none';
+                document.getElementById('evictionNoLabel').classList.add('active');
+                document.getElementById('evictionYesLabel').classList.remove('active');
+            }
         }
 
-        // Function to hide the active-non-active div
-        function boxNonActive100() {
-            document.getElementById('activeNonActive100').style.display = 'none';
-        }
+        // Initially hide the box
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('activeNonActive1').style.display = 'none';
+        })
 
-        // Initially hide the active-non-active div
+
+        function boxActive100(show) {
+            var box = document.getElementById('activeNonActive100');
+            if (show == 1) {
+                // Show the box
+                box.style.display = 'block';
+                document.getElementById('ConvictionsYesLabel').classList.add('active');
+                document.getElementById('ConvictionsNoLabel').classList.remove('active');
+            } else {
+                // Hide the box
+                box.style.display = 'none';
+                document.getElementById('ConvictionsNoLabel').classList.add('active');
+                document.getElementById('ConvictionsYesLabel').classList.remove('active');
+            }
+        }
         document.getElementById('activeNonActive100').style.display = 'none';
-    </script>
 
 
-    <script>
+        function boxActive110(show) {
+            var box = document.getElementById('activeNonActive110');
+            var yesLabel = document.getElementById('credit_check_yes_label');
+            var noLabel = document.getElementById('credit_check_no_label');
+
+            if (show == 1) {
+                // Show the box and highlight Yes label
+                box.style.display = 'block';
+                yesLabel.classList.add('active');
+                noLabel.classList.remove('active');
+            } else {
+                // Hide the box and highlight No label
+                box.style.display = 'none';
+                noLabel.classList.add('active');
+                yesLabel.classList.remove('active');
+            }
+        }
+
+        // Initially hide the box on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('activeNonActive110').style.display = 'none';
+        });
+
+
         // Function to display the active-non-active div
         window.onload = function() {
             const fields = document.querySelectorAll('.active-non-active');
@@ -1608,25 +1671,33 @@
             // Show the relevant fields based on the selected radio button
             if (selection === 'Monthly') {
                 document.getElementById('activeNonActive18').style.display = 'block';
+                document.getElementById('Weekly_label').classList.remove('active');
+                document.getElementById('Monthly_label').classList.add('active');
+                document.getElementById('Yearly_label').classList.remove('active');
+                document.getElementById('Specific_Terms_label').classList.remove('active');
+
             } else if (selection === 'Weekly') {
                 document.getElementById('Weekly').style.display = 'block';
+
+                document.getElementById('Weekly_label').classList.add('active');
+                document.getElementById('Monthly_label').classList.remove('active');
+                document.getElementById('Yearly_label').classList.remove('active');
+                document.getElementById('Specific_Terms_label').classList.remove('active');
             } else if (selection === 'Yearly') {
                 document.getElementById('Yearly').style.display = 'block';
+                document.getElementById('Weekly_label').classList.remove('active');
+                document.getElementById('Monthly_label').classList.remove('active');
+                document.getElementById('Yearly_label').classList.add('active');
+                document.getElementById('Specific_Terms_label').classList.remove('active');
             } else if (selection === 'Specific Terms') {
                 document.getElementById('payment_frequency').style.display = 'block';
                 document.getElementById('specificTerm').style.display = 'block';
+                document.getElementById('Weekly_label').classList.remove('active');
+                document.getElementById('Monthly_label').classList.remove('active');
+                document.getElementById('Yearly_label').classList.remove('active');
+                document.getElementById('Specific_Terms_label').classList.add('active');
             }
         }
-    </script>
-
-
-
-
-
-
-
-
-    <script>
         // Function to display the active-non-active div
         function boxActive() {
             document.getElementById('activeNonActive').style.display = 'block';
@@ -1637,90 +1708,50 @@
             document.getElementById('activeNonActive').style.display = 'none';
         }
 
-        // Initially hide the active-non-active div
-        document.getElementById('activeNonActive').style.display = 'none';
-    </script>
-
-
-
-    <script>
         // Function to display the active-non-active div
-        function boxActive1() {
-            document.getElementById('activeNonActive1').style.display = 'block';
-        }
+        function boxActive13() {}
 
         // Function to hide the active-non-active div
-        function boxNonActive1() {
-            document.getElementById('activeNonActive1').style.display = 'none';
-        }
+        function boxNonActive13(name) {
+            if (name == 'Short_term') {
+                document.getElementById('activeNonActive13').style.display = 'none';
 
-        // Initially hide the active-non-active div
-        document.getElementById('activeNonActive1').style.display = 'none';
-    </script>
+                document.getElementById('Short_term_label').classList.add('active');
+                document.getElementById('Fixed_term_label').classList.remove('active');
+                document.getElementById('Month_to_Month_label').classList.remove('active');
+                document.getElementById('Year_to_Year_label').classList.remove('active');
 
+            }
+            if (name == 'Fixed_term') {
+                document.getElementById('activeNonActive13').style.display = 'block';
 
-    <script>
-        // Function to display the active-non-active div
-        function boxActive12() {
-            document.getElementById('activeNonActive12').style.display = 'block';
-        }
+                document.getElementById('Short_term_label').classList.remove('active');
+                document.getElementById('Fixed_term_label').classList.add('active');
+                document.getElementById('Month_to_Month_label').classList.remove('active');
+                document.getElementById('Year_to_Year_label').classList.remove('active');
+            }
+            if (name == 'Month-to-Month') {
+                document.getElementById('activeNonActive13').style.display = 'none';
 
-        // Function to hide the active-non-active div
-        function boxNonActive12() {
-            document.getElementById('activeNonActive12').style.display = 'none';
-        }
+                document.getElementById('Short_term_label').classList.remove('active');
+                document.getElementById('Fixed_term_label').classList.remove('active');
+                document.getElementById('Month_to_Month_label').classList.add('active');
+                document.getElementById('Year_to_Year_label').classList.remove('active');
+            }
+            if (name == 'Year-to-Year') {
+                document.getElementById('activeNonActive13').style.display = 'none';
 
-        // Initially hide the active-non-active div
-        document.getElementById('activeNonActive12').style.display = 'none';
-    </script>
+                document.getElementById('Short_term_label').classList.remove('active');
+                document.getElementById('Fixed_term_label').classList.remove('active');
+                document.getElementById('Month_to_Month_label').classList.remove('active');
+                document.getElementById('Year_to_Year_label').classList.add('active');
+            }
 
-
-    <script>
-        // Function to display the active-non-active div
-        function boxActive14() {
-            document.getElementById('activeNonActive14').style.display = 'block';
-        }
-
-        // Function to hide the active-non-active div
-        function boxNonActive14() {
-            document.getElementById('activeNonActive14').style.display = 'none';
-        }
-
-        // Initially hide the active-non-active div
-        document.getElementById('activeNonActive14').style.display = 'none';
-    </script>
-
-
-    <script>
-        // Function to display the active-non-active div
-        function boxActive13() {
-            document.getElementById('activeNonActive13').style.display = 'block';
-        }
-
-        // Function to hide the active-non-active div
-        function boxNonActive13() {
-            document.getElementById('activeNonActive13').style.display = 'none';
         }
 
         // Initially hide the active-non-active div
         document.getElementById('activeNonActive13').style.display = 'none';
-    </script>
 
-    <script>
-        // Function to display the active-non-active div
-        function boxActive3() {
-            document.getElementById('activeNonActive3').style.display = 'block';
-        }
-
-        // Function to hide the active-non-active div
-        function boxNonActive3() {
-            document.getElementById('activeNonActive3').style.display = 'none';
-        }
-
-        // Initially hide the active-non-active div
-        document.getElementById('activeNonActive3').style.display = 'none';
-    </script>
-    <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
 
@@ -1796,13 +1827,6 @@
             //... and adds the "active" class on the current step:
             x[n].className += " active";
         }
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
 
         function selectCategory(element) {
             // Remove 'active' class from all labels
@@ -1895,11 +1919,7 @@
                 radioInput.checked = true;
             }
         }
-    </script>
 
-
-
-    <script>
         const fileInput = document.getElementById('fileInput');
         const imageContainer = document.getElementById('imageContainer');
         let selectedImages = [];
@@ -1919,7 +1939,7 @@
                         displayImage(file);
                     }
                 } else {
-                    alert("Only image files are allowed.");
+                    toastr.error("Only image files are allowed.");
                 }
             });
 
@@ -1953,12 +1973,15 @@
 
         function checkImageCount() {
             if (selectedImages.length < 3) {
-                alert('You need to upload at least 3 images.');
+                toastr.error('You need to upload at least 3 images.');
             }
         }
-    </script>
-    <script>
+
         $(document).ready(function() {
+
+            console.log('run22');
+            $('.js-example-basic-multiple').select2();
+
             // Handle form submission inside the modal
             $('#categoryForm').on('submit', function(event) {
                 event.preventDefault(); // Prevent the form from submitting normally
@@ -1987,16 +2010,15 @@
                             }
                         },
                         error: function(error) {
-                            alert('Error creating category');
+                            toastr.error('Error creating category');
                         }
                     });
                 } else {
-                    alert('Please enter a category name');
+                    toastr.error('Please enter a category name');
                 }
             });
         });
-    </script>
-    <script>
+
         $(document).ready(function() {
             $('#saveChangesBtn').click(function(e) {
                 e.preventDefault();
@@ -2078,7 +2100,7 @@
 
                         } else {
                             // Handle general errors
-                            alert('Error occurred while creating property.');
+                            toastr.error('Error occurred while creating property.');
                         }
                     }
                 });
