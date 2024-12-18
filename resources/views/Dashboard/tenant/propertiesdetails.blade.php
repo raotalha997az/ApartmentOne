@@ -11,14 +11,18 @@
     .propertieslistings-page .properties_details_main .properties_name_add .add a {
         background-color: #0077B6 !important;
         width: fit-content !important;
-        padding: 5px 20px !important;
-        border-radius: 20% !important;
+        padding: 10px 30px !important;
+        border-radius: 30px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         color: #fff !important;
         transition: .3s !important;
     }
+
+    .propertieslistings-page .properties_details_main .properties_name_add .add a svg path {
+    fill: white;
+}
 </style>
 @section('content')
 

@@ -20,7 +20,9 @@
     padding: 0px 15px 15px 15px;
 }
 
-.main-parent-place-box .child-place-box .properties-icons-details ul li {font-size: 14px;margin-top: 5px;}
+.main-parent-place-box .child-place-box .properties-icons-details ul li {
+    font-size: 14px;margin-top: 5px;
+}
 
 .main-parent-place-box .child-place-box .properties-icons-details ul li svg {
     width: 25px;

@@ -77,6 +77,10 @@
   flex: 0 0 auto;
 }
 
+.categories-slider::-webkit-scrollbar{
+    height: 5px;
+}
+
 </style>
 
 
@@ -103,7 +107,7 @@
                                 @foreach ($categories as $category)
                                     {{-- {{ dd($category) }} --}}
                                 <li class="nav-item">
-                                        <a class="nav-link active"
+                                        <a class="nav-link"
                                         href="{{ route('tenant.fluter.property', $category->id) }}"
                                         role="tab">
                                          {{ $category->name }}

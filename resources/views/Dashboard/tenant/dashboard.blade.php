@@ -67,6 +67,66 @@
                 </div>
             </div>
         </div>
+
+        <div class="notification-recent-box">
+            <div class="two-things-align">
+                <div class="box">
+                    <h6>Recent Notifications</h6>
+                </div>
+                <div class="box">
+                    <a href="#">View All Notifications</a>
+                </div>
+            </div>
+
+            <div class="notifications-main-box">
+                <div class="notification-listing">
+                    <div class="box">
+                    <h6>Property Approved!</h6>
+                        <span>Your property Test Api Match Porperty has been approved.</span>
+                    </div>
+                    <button class="cancel-notify" data-id="d29ffee1-a89a-4eaa-9e8a-023c02247ed3">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="notification-listing">
+                    <div class="box">
+                    <h6>Property Approved!</h6>
+                        <span>Your property Test Api Match Porperty has been approved.</span>
+                    </div>
+                    <button class="cancel-notify" data-id="d29ffee1-a89a-4eaa-9e8a-023c02247ed3">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="notification-listing">
+                    <div class="box">
+                    <h6>Property Approved!</h6>
+                        <span>Your property Test Api Match Porperty has been approved.</span>
+                    </div>
+                    <button class="cancel-notify" data-id="d29ffee1-a89a-4eaa-9e8a-023c02247ed3">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="notification-listing">
+                    <div class="box">
+                    <h6>Property Approved!</h6>
+                        <span>Your property Test Api Match Porperty has been approved.</span>
+                    </div>
+                    <button class="cancel-notify" data-id="d29ffee1-a89a-4eaa-9e8a-023c02247ed3">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.9091 7.40628L12.4893 11.825L8.07057 7.40628L6.59766 8.8792L11.0164 13.2979L6.59766 17.7167L8.07057 19.1896L12.4893 14.7709L16.9091 19.1896L18.382 17.7167L13.9633 13.2979L18.382 8.8792L16.9091 7.40628Z" fill="#414141"></path>
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
         {{-- <div class="top-listing-parent-box">
             <div class="two-things-align">
                 <div class="box">

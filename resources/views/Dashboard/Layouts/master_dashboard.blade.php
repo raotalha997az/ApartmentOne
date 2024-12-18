@@ -670,7 +670,7 @@
 
                         <div class="page-detail-box">
                             <p>Welcome</p>
-                            <a href="{{ url('/') }}" class="t-btn t-btn-blue t-btn-svg">Go To Website
+                            {{-- <a href="{{ url('/') }}" class="t-btn t-btn-blue t-btn-svg">Go To Website
                                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -678,7 +678,7 @@
                                         fill="white"></path>
                                 </svg>
 
-                            </a>
+                            </a> --}}
                             {{-- <h6>{{ Auth::user()->name }}</h6> --}}
                         </div>
 
@@ -688,6 +688,11 @@
 
                         <div class="right-header-links">
                             <ul>
+
+                                <li><a href="{{ url('/') }}" class="t-btn"><svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23 0.25H3C1.62125 0.25 0.5 1.37125 0.5 2.75V20.25C0.5 21.6287 1.62125 22.75 3 22.75H23C24.3787 22.75 25.5 21.6287 25.5 20.25V2.75C25.5 1.37125 24.3787 0.25 23 0.25ZM19.25 4H21.75V6.5H19.25V4ZM15.5 4H18V6.5H15.5V4ZM3 20.25V9H23.0012L23.0025 20.25H3Z" fill="#777777"/>
+                                    </svg>
+                                    Go To Website</a></li>
                                 {{-- @if (Auth::user()->hasRole('land_lord')) --}}
                                 @if (Auth::user()->hasRole('land_lord') || Auth::user()->hasRole('admin'))
                                     <li class="notification-drop-box">

@@ -160,6 +160,17 @@ width: 580px;
 position: relative;
 }
 
+
+
+.detailed-user-box .user-more-details ul li {
+    color: #777777;
+}
+
+.detailed-user-box .user-img-box h5 {
+    color: #414141;
+    font-weight: 600;
+}
+
 .form-box form input {
 color: #777777;
 background-color: #ffffffc7;
@@ -1146,7 +1157,7 @@ margin: 0;
 .dashboard-main .left-panel .left-panel-menu ul li a {
     background-color: #414141;
     display: flex;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 10px;
     align-items: center;
     column-gap: 10px;
@@ -1211,7 +1222,7 @@ margin: 0;
     align-items: center;
     column-gap: 5px;
     color: #777777;
-    font-size: 20px;
+    font-size: 17px;
     text-decoration: none;
     transition: .3s;
 }
@@ -1247,7 +1258,7 @@ margin: 0;
 .detailed-user-box {
     background-color: #E5E5E5;
     border-radius: 15px;
-    border: 1px solid #00000030;
+    border: 1px solid #DEDEDE;
     padding: 30px;
 }
 
@@ -1282,11 +1293,9 @@ margin: 0;
 }
 
 .credit-report-box {
-    background-color: #E5E5E5;
-    border-radius: 15px;
-    border: 1px solid #00000030;
-    padding: 30px;
-    margin-bottom: 30px;
+    padding: 30px 25px 40px 25px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .two-things-align {
@@ -1302,12 +1311,12 @@ margin: 0;
 
 .two-things-align .box p {
     font-size: 16px;
+    color: #777777;
 }
 
 .credit-report-box   .two-things-align {
-    border-bottom: 1px solid #0000002b;
     padding-bottom: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 0px !important;
 }
 
 .two-things-align {
@@ -1325,6 +1334,49 @@ margin: 0;
     font-size: 45px;
     font-weight: 700;
     margin: 0;
+}
+
+.notification-recent-box .notification-listing .cancel-notify svg {
+    background: #E4E4E4;
+    border-radius: 6px;
+}
+
+
+.notification-recent-box .notification-listing {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #ececec8c;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.notification-recent-box .notification-listing .box h6 {
+    color: #414141;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.notification-recent-box .notification-listing .box  span {
+    color: #777777;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.notification-recent-box .box h6 {
+    color: #555555;
+}
+
+.notification-recent-box .two-things-align .box a {
+    color: #0077B6;
+    font-size: 15px;
+    border-bottom: 1px solid #0077B6;
+}
+
+.credit-report-box .four-reports-align .number-box:first-child h6 {
+    color: #003170;
 }
 
 .credit-report-box .four-reports-align .number-box p {
@@ -1458,7 +1510,7 @@ margin: 0;
 }
 
 .properties-page .two-things-align ul.nav.nav-tabs a.nav-link {
-    background-color: #CCCCCC;
+    background-color: #ecececa1;
     color: #666666;
     border-radius: 50px;
     border: none;
@@ -1498,12 +1550,12 @@ margin: 0;
 }
 
 .propertieslistings-page .place-gallery-box .proper-list-price h3 {
-    font-size: 30px;
-    color: #414141;
+    font-size: 35px;
+    color: #0077B6;
     font-weight: 800;
+    margin-top: 20px;
 }
 
-.propertieslistings-page .properties_details_main {}
 
 .propertieslistings-page .properties_details_main .properties_name_add {
     display: flex;
@@ -1814,9 +1866,12 @@ input[type=number] {
 }
 
 .parent-tabs-mesg-box {
-    background-color: #E5E5E5;
+    background-color: #ecececab;
     border-radius: 15px;
     padding: 20px;
+}
+.maintop-bar-profile{
+    background:#ecececab !important;
 }
 
 .parent-tabs-mesg-box .heading-form-mesg-box h6 {
@@ -1921,11 +1976,15 @@ a{
     transition: .3s ;
 }
 
+.main-person-message-box .content-box {
+    background: transparent !important;
+}
+
 .parent-tabs-mesg-box .parent-box-message-user:hover .img-box img ,a.active-mesg-person  .parent-box-message-user .img-box img  {
     border-color: #0077B6;
 }
 .messages-page .large-mesg-box {
-    background-color: #e5e5e5;
+    background-color: #ecececab !important;
     height: 970px;
     border-radius: 15px;
 }
