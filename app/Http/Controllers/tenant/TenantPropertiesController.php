@@ -223,7 +223,7 @@ class TenantPropertiesController extends Controller
             ->toArray();
 
         $categories = Category::all();
-        return view('Dashboard.tenant.properties', compact('user','properties'));
+        return view('Dashboard.tenant.properties', compact('user','properties', 'wishlist', 'categories'));
     }
 
     public function propertieslistings()
