@@ -56,6 +56,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 @endif
+
+                @if (session('error'))
+                    <div class="mt-3 alert alert-danger alert-dismissible fade show">
+                        <strong>Error!</strong> {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+                
                 <form id='checkout-form' method='post' action="{{ route('tenant.stripe.post') }}">
 
                     @csrf
