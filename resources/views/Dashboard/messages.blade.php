@@ -581,7 +581,7 @@
             var conversationId = $('#conversation_id').val();
 
             if (message.trim() === '') {
-                alert('Please enter a message before sending.');
+                toastr.error('Please enter a message before sending.');
                 return;
             }
 
