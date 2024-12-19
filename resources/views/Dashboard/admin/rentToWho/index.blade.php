@@ -180,6 +180,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                                     <a class="btn btn-sm btn-success"
                                         href="{{ route('admin.rent-to-who.edit', $rentToWho->id) }}">
                                         <img src="{{ asset('assets/images/bx-pencil.png') }}" width="30" height="20">
+
                                     </a>
                                     <form id="deleteForm{{ $rentToWho->id }}"
                                         action="{{ route('admin.rent-to-who.destroy', $rentToWho->id) }}" method="POST"

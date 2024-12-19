@@ -21,7 +21,8 @@
 
                 <div class="detailed-user-box">
                     <div class="user-img-box">
-                        <img src="{{ Storage::url($user->profile_img ?? '') }}" alt="">
+                        {{-- <img src="{{ Storage::url($user->profile_img ?? '') }}" alt=""> --}}
+                        <img src="{{ asset('assets/' . ($user->profile_img ?? 'default.png')) }}" alt="User Profile Image">
                         <h5>{{ $user->name ?? '' }}</h5>
                     </div>
                     <div class="user-more-details">

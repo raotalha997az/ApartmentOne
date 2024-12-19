@@ -105,7 +105,7 @@ class AdminAuthController extends Controller
         // Delete old profile image if it exists
         if ($user->profile_img) {
             // Define the path to the old image
-            $oldImagePath = storage_path('app/public/' . $user->profile_img);
+            $oldImagePath = public_path('assets/' . $user->profile_img);
             // Check if the old image exists and delete it
             if (file_exists($oldImagePath)) {
                 unlink($oldImagePath);
@@ -115,8 +115,14 @@ class AdminAuthController extends Controller
         // Generate a unique name for the new image
         $extension = $request->file('profile_img')->getClientOriginalExtension();
         $uniqueName = 'profile_' . Str::random(40) . '.' . $extension;
+
+        $destinationPath = public_path('assets/profile_images');
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+
         // Store new image in the public directory
-        $request->file('profile_img')->storeAs('public/profile_images', $uniqueName);
+        $request->file('profile_img')->move($destinationPath, $uniqueName);
         // Update user's profile_img attribute
         $user->profile_img = 'profile_images/' . $uniqueName; // Store relative path
     }

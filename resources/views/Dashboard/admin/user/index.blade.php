@@ -255,8 +255,9 @@
                                     <td>{{ $user->address ?? 'N/A' }}</td>
                                     <td>
                                         @if ($user->profile_img)
-                                            <img src="{{ Storage::url($user->profile_img) }}" alt="Profile Image"
+                                            <img src="{{ asset('assets/' . ($user->profile_img ?? 'default.png')) }}" alt="Profile Image"
                                                 width="50" height="50">
+
                                         @else
                                             No Image
                                         @endif

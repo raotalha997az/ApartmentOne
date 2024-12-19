@@ -766,19 +766,19 @@
 
                                 @if (Auth::user()->hasRole('land_lord'))
                                     <li><a href="{{ route('landlord.profile') }}" class="user-profile-link"><img
-                                                src="{{ Storage::url(auth()->user()->profile_img ?? '') }}"
+                                                src="{{ asset('assets/' . ($user->profile_img ?? 'default.png')) }}"
                                                 alt="">{{ explode(' ', Auth::user()->name)[0] ?? '' }}</a>
                                     </li>
                                 @endif
                                 @if (Auth::user()->hasRole('admin'))
                                     <li><a href="{{ route('admin.profile') }}" class="user-profile-link"><img
-                                                src="{{ Storage::url(auth()->user()->profile_img ?? '') }}"
+                                                src="{{ asset('assets/' . ($user->profile_img ?? 'default.png')) }}"
                                                 alt="">{{ explode(' ', Auth::user()->name)[0] ?? '' }}</a>
                                     </li>
                                 @endif
                                 @if (Auth::user()->hasRole('tenant'))
                                     <li><a href="{{ route('tenant.profile') }}" class="user-profile-link"><img
-                                                src="{{ Storage::url(auth()->user()->profile_img ?? '') }}"
+                                                src="{{ asset('assets/' . ($user->profile_img ?? 'default.png')) }}"
                                                 alt="">{{ explode(' ', Auth::user()->name)[0] ?? '' }}</a>
                                     </li>
                                 @endif

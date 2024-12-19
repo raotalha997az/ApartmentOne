@@ -68,24 +68,53 @@ class UserController extends Controller
         $user->assignRole($request->role === 'land_lord' ? $land_lord : $tenant);
 
         // Handle profile image upload
+        // if ($request->hasFile('profile_img')) {
+        //     // Delete old profile image if it exists
+        //     if ($user->profile_img) {
+        //         $oldImagePath = storage_path('app/public/' . $user->profile_img);
+        //         if (file_exists($oldImagePath)) {
+        //             unlink($oldImagePath);
+        //         }
+        //     }
+
+        //     // Store new profile image
+        //     $extension = $request->file('profile_img')->getClientOriginalExtension();
+        //     $uniqueName = 'profile_' . Str::random(40) . '.' . $extension;
+        //     $request->file('profile_img')->storeAs('public/profile_images', $uniqueName);
+
+        //     // Update the profile_img attribute
+        //     $user->profile_img = 'profile_images/' . $uniqueName;
+        // }
+
         if ($request->hasFile('profile_img')) {
             // Delete old profile image if it exists
             if ($user->profile_img) {
-                $oldImagePath = storage_path('app/public/' . $user->profile_img);
+                // Define the path to the old image
+                $oldImagePath = public_path('assets/' . $user->profile_img);
+                // Check if the old image exists and delete it
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
             }
 
-            // Store new profile image
+            // Store the new profile image
             $extension = $request->file('profile_img')->getClientOriginalExtension();
             $uniqueName = 'profile_' . Str::random(40) . '.' . $extension;
-            $request->file('profile_img')->storeAs('public/profile_images', $uniqueName);
 
-            // Update the profile_img attribute
+            // Define the destination path for storing the image
+            $destinationPath = public_path('assets/profile_images');
+
+            // Ensure the directory exists
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true); // Create directory if it does not exist
+            }
+
+            // Move the file to the destination path
+            $request->file('profile_img')->move($destinationPath, $uniqueName);
+
+            // Update the profile_img attribute with the relative path
             $user->profile_img = 'profile_images/' . $uniqueName;
         }
-
         // Save the user instance with the new profile image if applicable
         $user->save();
 
@@ -140,19 +169,27 @@ class UserController extends Controller
         if ($request->hasFile('profile_img')) {
             // Delete old profile image if it exists
             if ($user->profile_img) {
-                $oldImagePath = storage_path('app/public/' . $user->profile_img);
+                // Define the path to the old image
+                $oldImagePath = public_path('assets/' . $user->profile_img);
+                // Check if the old image exists and delete it
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
             }
 
-            // Store new profile image
+            // Generate a unique name for the new image
             $extension = $request->file('profile_img')->getClientOriginalExtension();
             $uniqueName = 'profile_' . Str::random(40) . '.' . $extension;
-            $request->file('profile_img')->storeAs('public/profile_images', $uniqueName);
 
-            // Update the profile_img attribute
-            $user->profile_img = 'profile_images/' . $uniqueName;
+            $destinationPath = public_path('assets/profile_images');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            // Store new image in the public directory
+            $request->file('profile_img')->move($destinationPath, $uniqueName);
+            // Update user's profile_img attribute
+            $user->profile_img = 'profile_images/' . $uniqueName; // Store relative path
         }
 
         // Assign roles
