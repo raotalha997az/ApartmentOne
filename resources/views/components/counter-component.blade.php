@@ -30,6 +30,15 @@
                     <h3 class="text">Sold Properties</h3>
                  </div>
             </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="item">
+                    <div class="align-plus">
+                        <h1 class="count" data-number="{{ $counterData['properties_sold'] ?? '0' }}" ></h1>
+                        <h1>+</h1>
+                      </div>
+                    <h3 class="text">Apartments</h3>
+                 </div>
+            </div>
         </div>
     </div>
 

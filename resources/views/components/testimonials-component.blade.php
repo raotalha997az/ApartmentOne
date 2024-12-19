@@ -29,7 +29,6 @@
                     <div class="text">
                         <h3>Testimonials</h3>
                         <h2>Client Experiences That<br> Speak Volumes</h2>
-                        <p>Lorem Ipsum is simply dummy text</p>
                     </div>
 
                     {{-- <a href="#" class="t-btn t-btn-blue">See All Properties</a> --}}

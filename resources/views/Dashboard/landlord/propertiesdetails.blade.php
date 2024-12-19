@@ -119,7 +119,7 @@
                         <p>{{ $property->address ?? '' }}</p>
                     </div>
                     <div class="properties-content-style properties-street-address">
-                        <h6>Credit Score:</h6>
+                        <h6>Credit Score</h6>
                         <p>{{ $property->credit_point ?? '' }}</p>
                     </div>
                     <div class="properties-content-style properties-other-details">
@@ -135,6 +135,14 @@
                     <div class="properties-content-style properties-other-details">
                         <h6>Eviction</h6>
                         <p>{{ $property->eviction ? 'Required' : 'Not Required' }}</p>
+                        @if ($property->eviction)
+                            <p>Numer of Times {{ $property->many_time_evicted }}</p>
+                            <p>Eviction last Time: {{ $property->when_evicted }}</p>
+                        @endif
+                    </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Parking</h6>
+                        <p>{{ $property->parking ? 'Avalable' : 'Avalable' }}</p>
                         @if ($property->eviction)
                             <p>Numer of Times {{ $property->many_time_evicted }}</p>
                             <p>Eviction last Time: {{ $property->when_evicted }}</p>
