@@ -643,7 +643,7 @@
             <p>Where is the rental property located?</p>
             <div class="select-box">
                 <span>State</span>
-                <select name="country" id="">
+                <select name="country" id="" >
                     <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                     <option value="Canada" {{ old('country') == 'Canada' ? 'selected' : '' }}>Canada</option>
                     <option value="UK" {{ old('country') == 'UK' ? 'selected' : '' }}>United Kingdom</option>
@@ -834,9 +834,9 @@
                 <div class="radio-item">
                     <input type="radio" class="propertyYes" id="propertyYes" name="waterbed" value="1"
                         onclick="setActiveProperty(this)"
-                        {{ old('available_status', $selectedProperty ?? '') == 1 ? 'checked' : '' }}>
+                        {{ old('waterbed', $selectedProperty ?? '') == 1 ? 'checked' : '' }}>
                     <label
-                        class="propertyYesLabel {{ old('available_status', $selectedProperty ?? '') == 1 ? 'active' : '' }}"
+                        class="propertyYesLabel {{ old('waterbed', $selectedProperty ?? '') == 1 ? 'active' : '' }}"
                         for="propertyYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
@@ -846,9 +846,9 @@
                 <div class="radio-item">
                     <input type="radio" class="propertyNo" id="propertyNo" name="waterbed" value="0"
                         onclick="setActiveProperty(this)"
-                        {{ old('available_status', $selectedProperty ?? '') == 0 ? 'checked' : '' }}>
+                        {{ old('waterbed', $selectedProperty ?? '') == 0 ? 'checked' : '' }}>
                     <label
-                        class="propertyNoLabel {{ old('available_status', $selectedProperty ?? '') == 0 ? 'active' : '' }}"
+                        class="propertyNoLabel {{ old('waterbed', $selectedProperty ?? '') == 0 ? 'active' : '' }}"
                         for="propertyNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
@@ -856,7 +856,7 @@
                 </div>
             </div>
 
-            @error('smoking')
+            @error('waterbed')
                 <div class="error-available_status">
                     <span class="text-danger">{{ $message }}</span>
                 </div>
@@ -925,7 +925,7 @@
             <!-- Box for Date Input -->
             <div class="box" id="activeNonActive11">
                 <p>When will the property be available?</p>
-                <input type="date" name="date_availability" placeholder="DD MM YYYY">
+                <input type="date" name="date_availability" placeholder="DD MM YYYY" value="{{ old('date_availability') }}">
                 @error('date_availability')
                     <div class="error-message">
                         <span class="text-danger">{{ $message }}</span>
@@ -1044,37 +1044,28 @@
                         <span class="text-danger">{{ $message }}</span>
                     </div>
                 @enderror
-
-                <div class="box active-non-active" id="activeNonActive18">
-                    <label for="">Amount</label>
-                    <input type="number" name="price_rent" placeholder="Monthly Amount"
-                        value="{{ old('price_rent') }}">
-                </div>
                 <div class="box active-non-active" id="Weekly">
                     <label for="">Amount</label>
-                    <input type="number" name="price_rent" placeholder="Weekly Amount"
-                        value="{{ old('price_rent') }}">
+                    <input type="number" name="price_rent_weekly" placeholder="Weekly Amount"
+                           value="{{ old('price_rent_weekly') }}">
                 </div>
+                <div class="box active-non-active" id="activeNonActive18">
+                    <label for="">Amount</label>
+                    <input type="number" name="price_rent_monthly" placeholder="Monthly Amount"
+                           value="{{ old('price_rent_monthly') }}">
+                </div>
+
                 <div class="box active-non-active" id="Yearly">
                     <label for="">Amount</label>
-                    <input type="number" name="price_rent" placeholder="Yearly Amount"
-                        value="{{ old('price_rent') }}">
-                </div>
-                <div class="box active-non-active" id="payment_frequency">
-                    <label for="">Payment Frequency</label>
-                    <input type="number" name="payment_frequency" placeholder="Payment Frequency Amount"
-                        value="{{ old('payment_frequency') }}">
-                    @error('payment_frequency')
-                        <div class="error-message">
-                            <span class="text-danger">{{ $message }}</span>
-                        </div>
-                    @enderror
+                    <input type="number" name="price_rent_yearly" placeholder="Yearly Amount"
+                           value="{{ old('price_rent_yearly') }}">
                 </div>
                 <div class="box active-non-active" id="specificTerm">
                     <label for="">Amount</label>
-                    <input type="number" name="price_rent" placeholder="Specific Term Amount"
-                        value="{{ old('price_rent') }}">
+                    <input type="number" name="price_rent_specific" placeholder="Specific Term Amount"
+                           value="{{ old('price_rent_specific') }}">
                 </div>
+
             </div>
             @error('price_rent')
                 <div class="error-message">
@@ -1111,6 +1102,11 @@
                         No
                     </label>
                 </div>
+                @error('security_deposit')
+                <div class="error-message">
+                    <span class="text-danger">{{ $message }}</span>
+                </div>
+            @enderror
 
 
             </div>

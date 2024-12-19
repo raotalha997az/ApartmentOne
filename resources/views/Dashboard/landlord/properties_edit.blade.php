@@ -86,6 +86,55 @@
             color: #777777;
             font-size: 20px;
         }
+
+        .radio-item input {
+            position: absolute !important;
+            height: 100% !important;
+            width: 100% !important;
+            opacity: 0 !important;
+        }
+
+        .radio-item label:hover,
+        .radio-item label.active {
+            transition: .3s !important;
+            border-color: #0077B6 !important;
+        }
+
+        #activeNonActive12 .activeNonActive12,
+        #activeNonActive180 .activeNonActive18 {
+            position: relative;
+        }
+
+        select,
+        textarea,
+        textarea,
+        input,
+        #activeNonActive12 .activeNonActive12 label,
+        #activeNonActive180 .activeNonActive18 label {
+            background-color: #E5E5E5;
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: #999999;
+            border: 1px solid #999999;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #activeNonActive12 .activeNonActive12 input,
+        #activeNonActive180 .activeNonActive18 input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        #activeNonActive12 .activeNonActive12 label.active,
+        #activeNonActive180 .activeNonActive18 label.active {
+            border-color: #414141;
+            color: #414141 !important;
+        }
     </style>
     <div class="add-property-form-sec">
         <div class="row">
@@ -126,157 +175,9 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        @error('eviction')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                        <div class="many-forms-fields-box">
-                            {{-- <div class="paren-check-box eviction-custom-style">
-                           <div class="eviction-custom-one">
-                            <label for="eviction">Eviction</label>
-                            <!-- Hidden input to send 0 when unchecked -->
-                            <input type="hidden" name="eviction" value="0">
-                            <input type="checkbox" name="eviction" id="eviction" value="1"
-                                {{ old('eviction', $property->eviction) == 1 ? 'checked' : '' }} onclick="toggleEvictionBox()">
-
-                           </div>
-
-                                <div class="eviction-box-1" id="eviction-box-1" style="{{ old('eviction', $property->eviction) == 1 ? 'display: block;' : 'display: none;' }}     margin-bottom: 20px;">
-
-                                    <div class="box">
-                                        <p>How Many Times You Are Evicted?</p>
-                                        <input type="number" placeholder="00" name="many_time_evicted" value="{{$property->many_time_evicted }}">
-                                    </div>
-                                    @error('many_time_evicted')
-                                    <div class="error-message">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                     @enderror
-
-                                    <div class="box">
-                                        <p>When You Are Evicted?</p>
-                                        <div class="flex-input">
-                                            <input type="date" placeholder="YYYY-MM-DD" name="when_evicted" value="{{ $property->when_evicted }}">
-                                        </div>
-                                    </div>
-                                    @error('when_evicted')
-                                    <div class="error-message">
-                                        <span class="text-danger">{{ $message }}</span>
-                                    </div>
-                                @enderror
-                                </div>
-                        </div> --}}
-                            <div class="tab" id="tab-3">
-
-                                <h6>Eviction Terms</h6>
-                                <p>What background check will you do to screen your applicant?</p>
-
-                                <p style="margin-top: 30px !important;">Have you ever been evicted?</p>
-
-                                <div class="selection-boxex-true">
-                                    <!-- Yes Radio Button -->
-                                    <div class="radio-item {{ $property->eviction == 1 ? 'active' : '' }}" onclick="boxActive1()" id="boxactive1">
-                                        <input type="radio" id="eviction_yes" name="eviction" value="1"
-                                               {{ $property->eviction == 1 ? 'checked' : '' }}>
-                                        <label class="evction" for="eviction_yes" onclick="setEvction(this)">
-                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
-                                            Yes
-                                        </label>
-                                    </div>
-
-                                    <!-- No Radio Button -->
-                                    <div class="radio-item {{ $property->eviction == 0 ? 'active' : '' }}" onclick="boxNonActive1()" id="boxnunactive1">
-                                        <input type="radio" id="eviction_no" name="eviction" value="0"
-                                               {{ $property->eviction == 0 ? 'checked' : '' }}>
-                                        <label class="evction" for="eviction_no" onclick="setEvction(this)">
-                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
-                                            No
-                                        </label>
-                                    </div>
-
-                                    <!-- Error Message -->
-                                    @error('eviction')
-                                        <div class="error-message">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
-                                </div>
-
-
-                                <div class="active-non-active" id="activeNonActive1">
-
-                                    <div class="input-box">
-                                        <p>How Many Times You Are Evicted?</p>
-                                        <input type="number" placeholder="00" name="many_time_evicted"
-                                            value="{{ $property->many_time_evicted }}">
-                                    </div>
-                                    @error('many_time_evicted')
-                                        <div class="error-message">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
-
-                                    <div class="input-box">
-                                        <p>When You Are Evicted?</p>
-                                        <div class="flex-input">
-                                            <input type="date" placeholder="YYYY-MM-DD" name="when_evicted"
-                                                value="{{ $property->when_evicted }}">
-                                        </div>
-                                    </div>
-                                    @error('when_evicted')
-                                        <div class="error-message">
-                                            <span class="text-danger">{{ $message }}</span>
-                                        </div>
-                                    @enderror
-                                </div>
-
-                            </div>
-
-                            <div class="many-forms-fields-box">
-                                <div class="paren-check-box">
-                                    <input type="hidden" name="criminal_records" value="0">
-                                    <input type="checkbox" name="criminal_records" id="criminal_records" value="1"
-                                    {{ old('criminal_records', $property->criminal_records) == 1 ? 'checked' : '' }}>
-                                    <label for="criminal_records">Crimanal report</label>
-                                </div>
-                            </div>
-
-
-                            <div class="many-forms-fields-box">
-                                <div class="paren-check-box">
-                                    <input type="hidden" name="smoking" value="0">
-                                    <input type="checkbox" name="smoking" id="smoking" value="1"
-                                    {{ old('smoking', $property->smoking) == 1 ? 'checked' : '' }}>
-                                    <label for="smoking">Smoking Allowed</label>
-                                </div>
-                            </div>
-
-                            <div class="many-forms-fields-box">
-                                <div class="paren-check-box">
-                                    <input type="hidden" name="credit_history_check" value="0">
-                                    <input type="checkbox" name="credit_history_check" id="credit_history_check"
-                                    value="1"
-                                    {{ old('credit_history_check', $property->credit_history_check) == 1 ? 'checked' : '' }}>
-                                    <label for="credit_history_check">Credit history check</label>
-                                </div>
-                            </div>
-
-                            <div class="many-forms-fields-box">
-                                <div class="paren-check-box">
-                                    <input type="hidden" name="bankruptcy" value="0">
-                                    <input type="checkbox" name="bankruptcy" id="bankruptcy" value="1"
-                                    {{ old('bankruptcy', $property->bankruptcy) == 1 ? 'checked' : '' }}>
-                                    <label for="bankruptcy">Bank Currepcy</label>
-                                </div>
-                            </div>
-
-                        </div>
-
-
                         <div class="input-box simple-select mt-3">
-                            <label for="country">Country</label>
+                            <label for="country">State</label>
                             <select name="country" id="country">
-                                <option disabled>Select Country</option>
                                 <option value="USA">USA</option>
                                 <option value="Canada">Canada</option>
                                 <option value="UK">United Kingdom</option>
@@ -294,35 +195,9 @@
                         </div>
 
                         <div class="input-box">
-                            <label for="address">Address</label>
-                            <input type="text" placeholder="address" name="address"
-                                value="{{ old('address', $property->address) }}" required>
+                            <label for="address">Street Address</label>
+                            <textarea id="address" name="address" placeholder="Enter your street address" cols="100" rows="10">{{ old('address', $property->address) }}</textarea>
                             @error('address')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="input-box">
-                            <label for="contact_name">Cotact Name</label>
-                            <input type="text" placeholder="contact name" name="contact_name"
-                                value="{{ old('contact_name', $property->contact_name) }}">
-                            @error('contact_name')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="input-box">
-                            <label for="address">Cotact Phone</label>
-                            <input type="text" placeholder="contact phone number" name="contact_phone_number"
-                                value="{{ old('contact_phone_number', $property->contact_phone_number) }}">
-                            @error('contact_phone_number')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="input-box">
-                            <label for="address">Cotact Email</label>
-                            <input type="text" placeholder="contact_ mail" name="contact_email"
-                                value="{{ old('contact_email', $property->contact_email) }}">
-                            @error('contact_email')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -349,37 +224,676 @@
                             @enderror
                         </div>
 
-                        <div class="input-box progress-bar">
-                            <label for="category">Credit Points</label>
-                            <div class="progress-container">
-                                {{-- <label for="category">Credit Points</label> --}}
-                                <input type="range" id="progressInput" min="10" max="2500"
-                                    value="{{ $property->credit_point ?? 0 }}" step="10">
+
+                        <div class="many-forms-fields-box">
+
+                            <div class="input-box">
+
+                                {{-- <h6>Parking</h6> --}}
+                                <label for="parking">Parking</label>
+                                <p>Does the property have designated parking?</p>
+
+                                <div class="selection-boxex-true">
+
+                                    <div class="radio-item" onclick="boxActive10(1)" id="boxactive10">
+                                        <input type="radio" id="parkingYes" name="parking" value="1"
+                                            {{ $property->parking == 1 ? 'checked' : '' }}>
+                                        <label class="parking {{ $property->parking == 1 ? 'active' : '' }}"
+                                            for="parkingYes" id="parkingYesLabel">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+
+                                    <div class="radio-item" onclick="boxActive10(0)" id="boxnunactive10">
+                                        <input type="radio" id="parkingNo" name="parking" value="0"
+                                            {{ $property->parking == 0 ? 'checked' : '' }}>
+                                        <label class="parking {{ $property->parking == 0 ? 'active' : '' }}"
+                                            for="parkingNo" id="parkingNoLabel">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    @error('parking')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+                                </div>
+                                <div class="active-non-active" id="activeNonActive10">
+                                    <div class="box">
+                                        <label>What kind of parking is offered?</label>
+                                        <input type="text" name="kind_of_parking" placeholder="Type here"
+                                            value="{{ old('kind_of_parking', $property->kind_of_parking) }}">
+                                        @error('kind_of_parking')
+                                            <div class="error-message">
+                                                <span class="text-danger">{{ $message }}</span>
+                                            </div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="box">
+                                        <label>How many vehicles can be accommodated?</label>
+                                        {{-- <textarea name="no_of_vehicle" id="" cols="30" rows="10" placeholder="Description">{{ old('no_of_vehicle') }}</textarea> --}}
+                                        <input type="number" name="no_of_vehicle" placeholder="Type here"
+                                            value="{{ old('no_of_vehicle', $property->no_of_vehicle) }}">
+                                        @error('no_of_vehicle')
+                                            <div class="error-message">
+                                                <span class="text-danger">{{ $message }}</span>
+                                            </div>
+                                        @enderror
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="tab" id="tab-3">
+                                    <p>Are pets allowed in the property?</p>
+
+                                    <div class="selection-boxex-true">
+                                        <div class="radio-item" onclick="boxActive3(1)" id="boxactive3">
+                                            <label
+                                                class="selection-content-true {{ $property->pets != null ? 'active' : '' }}"
+                                                id="selectionYesLabel">
+                                                <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                                <span>Yes</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="radio-item" onclick="boxActive3(0)" id="boxnonactive3">
+                                            <label
+                                                class="selection-content-true {{ $property->pets == null ? 'active' : '' }}"
+                                                id="selectionNoLabel">
+                                                <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                                <span>No</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="active-non-active" id="activeNonActive3">
+                                        <!-- Allowed Pets Section -->
+                                        <div class="input-box mt-3">
+                                            <label for="pets">Allowed Pets</label>
+                                            <select class="js-example-basic-multiple" multiple="multiple"
+                                                style="width: 100%;" name="pets[]">
+                                                @foreach ($pets as $pet)
+                                                    <option value="{{ $pet->id }}"
+                                                        {{ in_array($pet->id, $property->pets->pluck('pet_id')->toArray()) ? 'selected' : '' }}>
+                                                        {{ $pet->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('pets')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+
+
+                                    <p>Is smoking of cigarettes allowed in the property?</p>
+
+                                    <div class="selection-boxex-true">
+                                        <div class="radio-item">
+                                            <input type="radio" class="smokingYes" id="smokingYes" name="smoking"
+                                                value="1" onclick="setActiveSmoking(this)"
+                                                {{ $property->smoking == 1 ? 'checked' : '' }}>
+                                            <label class="smokingYesLabel " for="smokingYes">
+                                                <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="radio-item">
+                                            <input type="radio" class="smokingNo" id="smokingNo" name="smoking"
+                                                value="0" onclick="setActiveSmoking(this)"
+                                                {{ $property->smoking == 0 ? 'checked' : '' }}>
+                                            <label class="smokingNoLabel" for="smokingNo">
+                                                <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                    @error('smoking')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+
+
+
+                                    <p>Are waterbeds allowed in the property</p>
+
+                                    <div class="selection-boxex-true">
+                                        <div class="radio-item">
+                                            <input type="radio" class="propertyYes" id="propertyYes" name="waterbed"
+                                                value="1" onclick="setActiveProperty(this)"
+                                                {{ $property->waterbed == 1 ? 'checked' : '' }}>
+                                            <label class="propertyYesLabel" for="propertyYes">
+                                                <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="radio-item">
+                                            <input type="radio" class="propertyNo" id="propertyNo" name="waterbed"
+                                                value="0" onclick="setActiveProperty(this)"
+                                                {{ $property->waterbed == 0 ? 'checked' : '' }}>
+                                            <label class="propertyNoLabel" for="propertyNo">
+                                                <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    @error('waterbed')
+                                        <div class="error-available_status">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+
+
+                                </div>
                             </div>
-                            <div class="numbers-main-bb d-none">
-                                <input type="number" id="numberInput1" class="number-input"
-                                    value="{{ $property->credit_point ? $property->credit_point <= 10 : 10 }}"
-                                    min="10" max="500" step="10">
-                                <input type="number" id="numberInput2" class="number-input"
-                                    value="{{ $property->credit_point ? $property->credit_point <= 500 : 500 }}"
-                                    min="500" max="1000" step="10">
-                                <input type="number" id="numberInput3" class="number-input"
-                                    value="{{ $property->credit_point ?? 1000 }}" min="1000" max="1500"
-                                    step="10">
-                                <input type="number" id="numberInput4" class="number-input"
-                                    value="{{ $property->credit_point ?? 1500 }}" min="1500" max="2000"
-                                    step="10">
-                                <input type="number" id="numberInput5" class="number-input"
-                                    value="{{ $property->credit_point ?? 2000 }}" min="2000" max="2500"
-                                    step="10">
+                            <div class="tab" id="availability_date">
+
+                                <h6>Availability Date</h6>
+                                <p>Is the property already available for rent?</p>
+
+                                <div class="selection-boxex-true">
+                                    <!-- "Yes" Option -->
+                                    <div class="radio-item" onclick="boxActive11(1)" id="boxactive11">
+                                        <input type="radio" id="availability_yes" name="availability_check"
+                                            value="1" {{ $property->availability_check == 1 ? 'checked' : '' }}>
+                                        <label class="availability_check" for="availability_yes"
+                                            id="availabilityYesLabel">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <!-- "No" Option -->
+                                    <div class="radio-item" onclick="boxActive11(0)" id="boxnonactive11">
+                                        <input type="radio" id="availability_no" name="availability_check"
+                                            value="0" {{ $property->availability_check == 0 ? 'checked' : '' }}>
+                                        <label class="availability_check" for="availability_no" id="availabilityNoLabel">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Box for Date Input -->
+                                <div class="box" id="activeNonActive11">
+                                    <p>When will the property be available?</p>
+                                    <input type="date" name="date_availability"
+                                        value="{{ old('date_availability', $property->date_availability) }}"
+                                        placeholder="DD MM YYYY">
+                                    @error('date_availability')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+
                             </div>
-                            <div class="progress-number" id="progressNumber">{{ $property->credit_point ?? 0 }}</div>
-                            <input type="hidden" id="progress_points" name="progress_points"
-                                value="{{ $property->credit_point ?? 0 }}">
-                            @error('progress_points')
+
+                            <div class="tab" id="lease_details">
+
+                                <h6>Lease Details</h6>
+                                <p>Would you like to include details about the lease term, rent, and security deposit? </p>
+
+                                <div class="selection-boxex-true">
+                                    <!-- Yes Option -->
+                                    <div class="radio-item" onclick="boxActive12(1)" id="boxactive12">
+                                        <input type="radio" id="lease_check_yes" name="lease_check" value="1"
+                                            {{ $property->lease_check == 1 ? 'checked' : '' }}>
+                                        <label class="lease_check {{ $property->lease_check == 1 ? 'active' : '' }}"
+                                            for="lease_check_yes" id="leaseYesLabel">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <!-- No Option -->
+                                    <div class="radio-item" onclick="boxActive12(0)" id="boxnonactive12">
+                                        <input type="radio" id="lease_check_no" name="lease_check" value="0"
+                                            {{ $property->lease_check == 0 ? 'checked' : '' }}>
+                                        <label class="lease_check {{ $property->lease_check == 0 ? 'active' : '' }}"
+                                            for="lease_check_no" id="leaseNoLabel">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="active-non-active" id="activeNonActive12">
+
+                                    <div class="box activeNonActive12">
+                                        <label for="" id="Short_term_label" class="">Short Term</label>
+                                        <input type="radio" name="lease_type" value="1" placeholder="Short Term"
+                                            onclick="boxNonActive13('Short_term')">
+                                    </div>
+
+                                    <div class="box activeNonActive12">
+                                        <label for="" id="Fixed_term_label" class="">Fixed Term</label>
+                                        <input type="radio" name="lease_type" value="2" placeholder="Fixed Term"
+                                            onclick="boxNonActive13('Fixed_term')">
+                                    </div>
+
+                                    <div class="box activeNonActive12">
+                                        <label for="" id="Month_to_Month_label"
+                                            class="">Month-to-Month</label>
+                                        <input type="radio" name="lease_type" value="3"
+                                            placeholder="Month-to-Month" onclick="boxNonActive13('Month-to-Month')">
+                                    </div>
+
+                                    <div class="box activeNonActive12">
+                                        <label for="" id="Year_to_Year_label" class="">Year-to-Year</label>
+                                        <input type="radio" name="lease_type" value="4"
+                                            placeholder="Year-to-Year" onclick="boxNonActive13('Year-to-Year')">
+                                    </div>
+
+                                    @error('lease_type')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+
+
+                                    <div class="box active-non-active" id="activeNonActive13">
+                                        <label for="">What is the minimum length of the lease?</label>
+                                        <input type="text" name="lease_period"
+                                            placeholder="Minimum Length  (6 mon , 1 yr)"
+                                            value="{{ $property->lease_period }}">
+                                        @error('lease_period')
+                                            <div class="error-message">
+                                                <span class="text-danger">{{ $message }}</span>
+                                            </div>
+                                        @enderror
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+                            <div class="tab" id="rent_detail">
+
+                                <h6>Rent</h6>
+                                <div id="activeNonActive180">
+                                    <div class="box activeNonActive18">
+                                        <label for="" id="Weekly_label">Weekly</label>
+                                        <input type="radio" name="rent_type" value="1"
+                                            onclick="handleRentSelection('Weekly')"
+                                            {{ $property->rent_type == 1 ? 'checked' : '' }}>
+                                    </div>
+                                    <div class="box activeNonActive18">
+                                        <label for="" id="Monthly_label">Monthly</label>
+                                        <input type="radio" name="rent_type" value="2"
+                                            onclick="handleRentSelection('Monthly')"
+                                            {{ $property->rent_type == 2 ? 'checked' : '' }}>
+                                    </div>
+                                    <div class="box activeNonActive18">
+                                        <label for="" id="Yearly_label">Yearly</label>
+                                        <input type="radio" name="rent_type" value="3"
+                                            onclick="handleRentSelection('Yearly')"
+                                            {{ $property->rent_type == 3 ? 'checked' : '' }}>
+                                    </div>
+                                    <div class="box activeNonActive18">
+                                        <label for="" id="Specific_Terms_label">Specific Terms</label>
+                                        <input type="radio" name="rent_type" value="4"
+                                            onclick="handleRentSelection('Specific Terms')"
+                                            {{ $property->rent_type == 4 ? 'checked' : '' }}>
+                                    </div>
+
+                                    @error('rent_type')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+                                    <div class="box active-non-active" id="Weekly">
+                                        <label for="">Amount</label>
+                                        <input type="number" name="price_rent_weekly" placeholder="Weekly Amount"
+                                            value="{{ $property->price_rent ?? '' }}">
+                                    </div>
+                                    <div class="box active-non-active" id="activeNonActive18">
+                                        <label for="">Amount</label>
+                                        <input type="number" name="price_rent_monthly" placeholder="Monthly Amount"
+                                            value="{{ $property->price_rent ?? '' }}">
+                                    </div>
+
+                                    <div class="box active-non-active" id="Yearly">
+                                        <label for="">Amount</label>
+                                        <input type="number" name="price_rent_yearly" placeholder="Yearly Amount"
+                                            value="{{ $property->price_rent ?? '' }}">
+                                    </div>
+                                    <div class="box active-non-active" id="payment_frequency">
+                                        <label for="">Payment Frequency</label>
+                                        <input type="number" name="payment_frequency"
+                                            placeholder="Payment Frequency Amount"
+                                            value="{{ $property->payment_frequency ?? '' }}">
+                                        @error('payment_frequency')
+                                            <div class="error-message">
+                                                <span class="text-danger">{{ $message }}</span>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="box active-non-active" id="specificTerm">
+                                        <label for="">Amount</label>
+                                        <input type="number" name="price_rent_specific"
+                                            placeholder="Specific Term Amount" value="{{ $property->price_rent ?? '' }}">
+                                    </div>
+                                </div>
+                                @error('price_rent')
+                                    <div class="error-message">
+                                        <span class="text-danger">{{ $message }}</span>
+                                    </div>
+                                @enderror
+
+
+                            </div>
+                            <div class="tab" id="security_deposit">
+
+                                <h6>Security Deposit</h6>
+                                <p>What background check will you do to screen your applicant?</p>
+
+                                <div class="selection-boxex-true">
+
+                                    <div class="radio-item" onclick="boxActive20(1)" id="boxactive20">
+                                        <input type="radio" id="security_deposit_yes" name="security_deposit"
+                                            value="1" {{ $property->security_deposit == 1 ? 'checked' : '' }}>
+                                        <label
+                                            class="security_deposit {{ $property->security_deposit == 1 ? 'active' : '' }}"
+                                            for="security_deposit_yes" id="securitydepositYeslable">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+
+                                    <div class="radio-item" onclick="boxActive20(0)" id="boxnunactive20">
+                                        <input type="radio" id="security_deposit_yes_no" name="security_deposit"
+                                            value="0" {{ $property->security_deposit == 0 ? 'checked' : '' }}>
+                                        <label
+                                            class="security_deposit {{ $property->security_deposit == 0 ? 'active' : '' }}"
+                                            for="security_deposit_yes_no" id="securitydepositNolable">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                            No
+                                        </label>
+                                    </div>
+                                    @error('security_deposit')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+                                </div>
+
+                                <div class="active-non-active" id="activeNonActive20">
+
+                                    <div class="box">
+                                        <p>Security Deposit</p>
+                                        <input type="number" name="deposit_amount" placeholder="$1500"
+                                            value="{{ old('deposit_amount', $property->deposit_amount) }}">
+                                    </div>
+                                    @error('deposit_amount')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="tab" id="tab-3">
+
+                                <h6>Eviction Terms</h6>
+
+                                <p style="margin-top: 20px !important;">Would you like to accept applicants with a history
+                                    of eviction?</p>
+
+                                <div class="selection-boxex-true">
+                                    <!-- Yes Option -->
+                                    <div class="radio-item" onclick="boxActive1(1)" id="boxactive1">
+                                        <input type="radio" id="eviction_yes" name="eviction" value="1"
+                                            {{ $property->eviction == 1 ? 'checked' : '' }}>
+                                        <label class="evction {{ $property->eviction == 1 ? 'active' : '' }}"
+                                            for="eviction_yes" id="evictionYesLabel">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <!-- No Option -->
+                                    <div class="radio-item" onclick="boxActive1(0)" id="boxnonactive1">
+                                        <input type="radio" id="eviction_no" name="eviction" value="0"
+                                            {{ $property->eviction == 0 ? 'checked' : '' }}>
+                                        <label class="evction {{ $property->eviction == 0 ? 'active' : '' }}"
+                                            for="eviction_no" id="evictionNoLabel">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    @error('eviction')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <!-- Hidden Box -->
+                                <div class="active-non-active" id="activeNonActive1">
+                                    <div class="box">
+                                        <p>How many are allowed?</p>
+                                        <input type="number" placeholder="00" name="many_time_evicted"
+                                            value="{{ old('many_time_evicted', $property->many_time_evicted) }}">
+                                    </div>
+                                    @error('many_time_evicted')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+                                    <div class="box">
+                                        <p>How far back should the eviction be considered?</p>
+                                        <div class="flex-input">
+                                            <input type="date" placeholder="dd-mm-yy" name="when_evicted"
+                                                value="{{ old('when_evicted', $property->when_evicted) }}">
+                                        </div>
+                                    </div>
+                                    @error('when_evicted')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+
+
+                            </div>
+                            <div class="tab" id="conviction">
+
+                                <h6>Felony Convictions</h6>
+
+                                <p style="margin-top: 30px !important;">Would you like to accept applicants with a felony
+                                    conviction in their
+                                    past?</p>
+
+                                <div class="selection-boxex-true">
+                                    <div class="radio-item" onclick="boxActive100(1)" id="boxactive100">
+                                        <input type="radio" class="Convictions" id="convictions_yes" name="conviction"
+                                            value="1" {{ $property->conviction == 1 ? 'checked' : '' }}>
+                                        <label class="Convictions {{ $property->conviction == 1 ? 'active' : '' }}"
+                                            for="Convictions_yes" id="ConvictionsYesLabel">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="radio-item" onclick="boxActive100(0)" id="boxnunactive100">
+                                        <input type="radio" class="ConvictionsNo" id="convictions_no"
+                                            name="conviction" value="0"
+                                            {{ $property->conviction == 0 ? 'checked' : '' }}>
+                                        <label class="ConvictionsNoLabel {{ $property->conviction == 0 ? 'active' : '' }}"
+                                            for="convictions_no" id="ConvictionsNoLabel">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    @error('conviction')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="active-non-active" id="activeNonActive100">
+
+                                    <div class="box">
+                                        <p>Specify</p>
+                                        {{-- <textarea name="conviction_pecify" placeholder="Type Here" id="" cols="30" rows="10">  {{ old('conviction_pecify') }} </textarea> --}}
+
+                                        <select name="conviction_pecify" id="">
+                                            <option value="Murder "
+                                                {{ old('conviction_pecify') == 'Murder ' ? 'selected' : '' }}>Murder
+                                            </option>
+                                            <option value="Assault with a deadly weapon "
+                                                {{ old('conviction_pecify', $property->conviction_pecify) == 'Assault with a deadly weapon ' ? 'selected' : '' }}>
+                                                Assault
+                                                with a deadly weapon </option>
+                                            <option value="Aggravated Assault "
+                                                {{ old('conviction_pecify', $property->conviction_pecify) == 'Aggravated Assault ' ? 'selected' : '' }}>
+                                                Aggravated Assault
+                                            </option>
+                                            <option value="Kidnapping "
+                                                {{ old('conviction_pecify', $property->conviction_pecify) == 'Kidnapping ' ? 'selected' : '' }}>
+                                                Kidnapping </option>
+                                            <option value="Robbery  "
+                                                {{ old('conviction_pecify', $property->conviction_pecify) == 'Robbery  ' ? 'selected' : '' }}>
+                                                Robbery
+                                            </option>
+                                            <option value="Domestic Violence "
+                                                {{ old('conviction_pecify', $property->conviction_pecify) == 'Domestic Violence ' ? 'selected' : '' }}>
+                                                Domestic Violence
+                                            </option>
+                                            <option value="Drug Trafficking "
+                                                {{ old('conviction_pecify', $property->conviction_pecify) == 'Drug Trafficking ' ? 'selected' : '' }}>
+                                                Drug Trafficking
+                                            </option>
+
+                                        </select>
+
+
+                                    </div>
+                                    @error('conviction_pecify')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="tab" id="credit_score">
+                                <h6>Credit Score</h6>
+                                <p>Do you require applicants to meet a minimum credit score threshold?</p>
+
+                                <div class="selection-boxex-true">
+                                    <!-- Yes Option -->
+                                    <div class="radio-item" onclick="boxActive110(1)">
+                                        <input type="radio" id="credit_check_yes" name="credit_check" value="1"
+                                            {{ $property->credit_check == 1 ? 'checked' : '' }}>
+                                        <label for="credit_check_yes" id="credit_check_yes_label"
+                                            class="{{ $property->credit_check == 1 ? 'active' : '' }}">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes"> Yes
+                                        </label>
+                                    </div>
+
+                                    <!-- No Option -->
+                                    <div class="radio-item" onclick="boxActive110(0)">
+                                        <input type="radio" id="credit_check_no" name="credit_check" value="0"
+                                            {{ $property->credit_check == 0 ? 'checked' : '' }}>
+                                        <label for="credit_check_no" id="credit_check_no_label"
+                                            class="{{ $property->credit_check == 0 ? 'active' : '' }}">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No"> No
+                                        </label>
+                                    </div>
+
+                                    @error('credit_check')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <!-- Hidden Box -->
+                                <div class="active-non-active" id="activeNonActive110" style="display: none;">
+                                    <div class="box">
+                                        <p>What is the minimum required FICO credit score?</p>
+                                        <input type="number" name="credit_point" placeholder="Enter Credit Score"
+                                            value="{{ old('credit_point', $property->credit_point) }}">
+                                    </div>
+                                    @error('credit_point')
+                                        <div class="error-message">
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="input-box">
+                            <label for="contact deatail">Your Contact Details</label>
+                            <label for="contact_name">Cotact Name</label>
+                            <input type="text" placeholder="contact name" name="contact_name"
+                                value="{{ old('contact_name', $property->contact_name) }}">
+                            @error('contact_name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="input-box">
+                            <label for="address">Cotact Phone</label>
+                            <input type="text" placeholder="contact phone number" name="contact_phone_number"
+                                value="{{ old('contact_phone_number', $property->contact_phone_number) }}">
+                            @error('contact_phone_number')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-box">
+                            <label for="address">Cotact Email</label>
+                            <input type="text" placeholder="contact_ mail" name="contact_email"
+                                value="{{ old('contact_email', $property->contact_email) }}">
+                            @error('contact_email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+
+
 
                         <!-- Rooms & Features Section -->
                         <div class="many-check-box">
@@ -409,22 +923,7 @@
                         </div>
 
 
-                        <!-- Allowed Pets Section -->
-                        <div class="input-box mt-3">
-                            <label for="pets">Allowed Pets</label>
-                            <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%;"
-                                name="pets[]">
-                                @foreach ($pets as $pet)
-                                    <option value="{{ $pet->id }}"
-                                        {{ in_array($pet->id, $property->pets->pluck('pet_id')->toArray()) ? 'selected' : '' }}>
-                                        {{ $pet->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('pets')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+
 
 
 
@@ -437,7 +936,8 @@
                                         value="{{ $rentWho->id }}"
                                         {{ $property->RentToWhoDetails->pluck('rent_to_who_id')->contains($rentWho->id) ? 'checked' : '' }}
                                         class="mt-3">
-                                    <label for="rentWho-{{ $rentWho->id }}" class="mt-3">{{ $rentWho->name }}</label>
+                                    <label for="rentWho-{{ $rentWho->id }}"
+                                        class="mt-3">{{ $rentWho->name }}</label>
                                 @endforeach
                                 @error('rent_whos')
                                     <div class="text-danger">{{ $message }}</div>
@@ -463,19 +963,9 @@
                             @enderror
                         </div>
 
-                        <div class="input-box simple-select">
-                            <label for="price">Price/Rent</label>
-                            <input type="text" placeholder="price" name="price" id="price"
-                                value="{{ old('price', $property->price_rent) }}">
-                            @error('price')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
 
                         <div class="two-btn-inline">
                             <button id="saveChangesBtn" type="button" class="t-btn">Save Changes</button>
-                            {{-- <button type="button" class="t-btn t-btn-gray"
-                                    onclick="window.history.back();">Discard</button> --}}
                         </div>
 
                     </div>
@@ -509,43 +999,379 @@
     </div>
 
     <!-- Load jQuery -->
+@endsection
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+@section('scripts')
     <script>
-        // Function to display the active-non-active div
-        function boxActive1() {
-            document.getElementById('activeNonActive1').style.display = 'block';
-        }
+        function boxActive10(show) {
+            var box = document.getElementById('activeNonActive10');
 
-        // Function to hide the active-non-active div
-        function boxNonActive1() {
-            document.getElementById('activeNonActive1').style.display = 'none';
-        }
+            if (show == 1) {
+                box.style.display = 'block';
+                document.getElementById('parkingYesLabel').classList.add('active');
+                document.getElementById('parkingNoLabel').classList.remove('active');
 
-        // Initially hide the active-non-active div
-        document.getElementById('activeNonActive1').style.display = 'none';
-    </script>
-
-    <script>
-        function toggleEvictionBox() {
-            const evictionCheckbox = document.getElementById('eviction');
-            const evictionBox = document.getElementById('eviction-box-1');
-            if (evictionCheckbox.checked) {
-                evictionBox.style.display = 'block';
             } else {
-                evictionBox.style.display = 'none';
+                box.style.display = 'none';
+                document.getElementById('parkingNoLabel').classList.add('active');
+                document.getElementById('parkingYesLabel').classList.remove('active');
+            }
+
+        }
+        // Initially hide the active-non-active div
+        var parking = "{{ $property->parking }}";
+        if (parking == 1) {
+            document.getElementById('activeNonActive10').style.display = 'block';
+
+        } else {
+
+            document.getElementById('activeNonActive10').style.display = 'none';
+        }
+
+        function boxActive3(show) {
+            var box = document.getElementById('activeNonActive3');
+
+            if (show == 1) {
+                box.style.display = 'block';
+                document.getElementById('selectionYesLabel').classList.add('active');
+                document.getElementById('selectionNoLabel').classList.remove('active');
+            } else {
+                box.style.display = 'none';
+                document.getElementById('selectionNoLabel').classList.add('active');
+                document.getElementById('selectionYesLabel').classList.remove('active');
             }
         }
 
-        // Call the function on page load in case the checkbox is pre-checked
-        document.addEventListener('DOMContentLoaded', toggleEvictionBox);
-    </script>
+        // Initially hide the active-non-active div
+        var selection = "{{ $property->pets }}";
+        if (selection != null) {
+            document.getElementById('activeNonActive3').style.display = 'block';
+        } else {
+
+            document.getElementById('activeNonActive3').style.display = 'none';
+        }
+
+
+        function setActiveSmoking(element) {
+            console.log('Clicked element:', element);
+            // Reset all labels
+            document.querySelectorAll('.smokingYesLabel, .smokingNoLabel').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add 'active' to the corresponding label
+            if (element.classList.contains('smokingYes')) {
+                document.querySelector('.smokingYesLabel').classList.add('active');
+            } else if (element.classList.contains('smokingNo')) {
+                document.querySelector('.smokingNoLabel').classList.add('active');
+            }
+
+            // Check the radio button
+            element.checked = true;
+        }
+
+        var smoking = "{{ $property->smoking }}";
+        if (smoking == 1) {
+            document.querySelector('.smokingYesLabel').classList.add('active');
+        } else {
+            document.querySelector('.smokingNoLabel').classList.add('active');
+        }
+
+
+        function setActiveProperty(element) {
+            console.log('Clicked element:', element);
+
+            // Reset all labels
+            document.querySelectorAll('.propertyYesLabel, .propertyNoLabel').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add 'active' to the corresponding label
+            if (element.classList.contains('propertyYes')) {
+                document.querySelector('.propertyYesLabel').classList.add('active');
+            } else if (element.classList.contains('propertyNo')) {
+                document.querySelector('.propertyNoLabel').classList.add('active');
+            }
+
+            // Check the radio button
+            element.checked = true;
+        }
+
+        var smoking = "{{ $property->waterbed }}";
+        if (smoking == 1) {
+            document.querySelector('.propertyYesLabel').classList.add('active');
+        } else {
+            document.querySelector('.propertyNoLabel').classList.add('active');
+        }
+
+
+        function boxActive11(show) {
+            var box = document.getElementById('activeNonActive11');
+
+            if (show == 0) {
+                box.style.display = 'block';
+                document.getElementById('availabilityNoLabel').classList.add('active');
+                document.getElementById('availabilityYesLabel').classList.remove('active');
+
+            } else {
+                box.style.display = 'none';
+                document.getElementById('availabilityYesLabel').classList.add('active');
+                document.getElementById('availabilityNoLabel').classList.remove('active');
+            }
+        }
+
+        // Initially hide the availability box
+        var availability = "{{ $property->availability }}";
+        if (availability == 0) {
+            document.getElementById('activeNonActive11').style.display = 'block';
+            document.getElementById('availabilityNoLabel').classList.add('active');
+        } else {
+            document.getElementById('activeNonActive11').style.display = 'none';
+            document.getElementById('availabilityYesLabel').classList.add('active');
+        }
+
+        function boxActive12(show) {
+            var box = document.getElementById('activeNonActive12');
+
+            if (show == 1) {
+                box.style.display = 'block';
+                document.getElementById('leaseYesLabel').classList.add('active');
+                document.getElementById('leaseNoLabel').classList.remove('active');
+            } else {
+                box.style.display = 'none';
+                document.getElementById('leaseNoLabel').classList.add('active');
+                document.getElementById('leaseYesLabel').classList.remove('active');
+            }
+        }
+        var lease = "{{ $property->lease_check }}";
+        if (lease == 1) {
+            document.getElementById('activeNonActive12').style.display = 'block';
+        } else {
+            document.getElementById('activeNonActive12').style.display = 'none';
+        }
+
+        function boxNonActive13(name) {
+            if (name == 'Short_term') {
+                document.getElementById('activeNonActive13').style.display = 'none';
+
+                document.getElementById('Short_term_label').classList.add('active');
+                document.getElementById('Fixed_term_label').classList.remove('active');
+                document.getElementById('Month_to_Month_label').classList.remove('active');
+                document.getElementById('Year_to_Year_label').classList.remove('active');
+
+            }
+            if (name == 'Fixed_term') {
+                document.getElementById('activeNonActive13').style.display = 'block';
+
+                document.getElementById('Short_term_label').classList.remove('active');
+                document.getElementById('Fixed_term_label').classList.add('active');
+                document.getElementById('Month_to_Month_label').classList.remove('active');
+                document.getElementById('Year_to_Year_label').classList.remove('active');
+            }
+            if (name == 'Month-to-Month') {
+                document.getElementById('activeNonActive13').style.display = 'none';
+
+                document.getElementById('Short_term_label').classList.remove('active');
+                document.getElementById('Fixed_term_label').classList.remove('active');
+                document.getElementById('Month_to_Month_label').classList.add('active');
+                document.getElementById('Year_to_Year_label').classList.remove('active');
+            }
+            if (name == 'Year-to-Year') {
+                document.getElementById('activeNonActive13').style.display = 'none';
+
+                document.getElementById('Short_term_label').classList.remove('active');
+                document.getElementById('Fixed_term_label').classList.remove('active');
+                document.getElementById('Month_to_Month_label').classList.remove('active');
+                document.getElementById('Year_to_Year_label').classList.add('active');
+            }
+
+        }
+
+        var availabilitytype = "{{ $property->lease_type }}";
+        if (availabilitytype == 1) {
+            document.getElementById('Short_term_label').classList = 'active';
+        } else if (availabilitytype == 2) {
+            document.getElementById('Fixed_term_label').classList = 'active';
+        } else if (availabilitytype == 3) {
+            document.getElementById('Month_to_Month_label').classList = 'active';
+        } else if (availabilitytype == 4) {
+            document.getElementById('Year_to_Year_label').classList = 'active';
+        }
+
+        var rent = "{{ $property->rent_type }}";
+
+        // Reset all labels and sections to default state
+        document.getElementById('Weekly_label').classList.remove('active');
+        document.getElementById('Monthly_label').classList.remove('active');
+        document.getElementById('Yearly_label').classList.remove('active');
+        document.getElementById('Specific_Terms_label').classList.remove('active');
+
+        document.getElementById('Weekly').style.display = 'none';
+        document.getElementById('activeNonActive18').style.display = 'none';
+        document.getElementById('Yearly').style.display = 'none';
+        document.getElementById('payment_frequency').style.display = 'none';
+        document.getElementById('specificTerm').style.display = 'none';
+
+        if (rent == 1) {
+            document.getElementById('Weekly_label').classList.add('active');
+            document.getElementById('Weekly').style.display = 'block';
+        } else if (rent == 2) {
+            document.getElementById('Monthly_label').classList.add('active');
+            document.getElementById('activeNonActive18').style.display = 'block';
+        } else if (rent == 3) {
+            document.getElementById('Yearly_label').classList.add('active');
+            document.getElementById('Yearly').style.display = 'block';
+        } else if (rent == 4) {
+            document.getElementById('Specific_Terms_label').classList.add('active');
+            document.getElementById('payment_frequency').style.display = 'block';
+            document.getElementById('specificTerm').style.display = 'block';
+
+            // Hide other sections specific to rent types
+            document.getElementById('activeNonActive18').style.display = 'none';
+            document.getElementById('Weekly').style.display = 'none';
+            document.getElementById('Yearly').style.display = 'none';
+        }
 
 
 
-    <script>
+        function handleRentSelection(selection) {
+            // Hide all fields
+            const fields = document.querySelectorAll('.active-non-active');
+            fields.forEach(field => field.style.display = 'none');
+
+            // Show the relevant fields based on the selected radio button
+            if (selection === 'Monthly') {
+                document.getElementById('activeNonActive18').style.display = 'block';
+                document.getElementById('Weekly_label').classList.remove('active');
+                document.getElementById('Monthly_label').classList.add('active');
+                document.getElementById('Yearly_label').classList.remove('active');
+                document.getElementById('Specific_Terms_label').classList.remove('active');
+
+            } else if (selection === 'Weekly') {
+                document.getElementById('Weekly').style.display = 'block';
+
+                document.getElementById('Weekly_label').classList.add('active');
+                document.getElementById('Monthly_label').classList.remove('active');
+                document.getElementById('Yearly_label').classList.remove('active');
+                document.getElementById('Specific_Terms_label').classList.remove('active');
+            } else if (selection === 'Yearly') {
+                document.getElementById('Yearly').style.display = 'block';
+                document.getElementById('Weekly_label').classList.remove('active');
+                document.getElementById('Monthly_label').classList.remove('active');
+                document.getElementById('Yearly_label').classList.add('active');
+                document.getElementById('Specific_Terms_label').classList.remove('active');
+            } else if (selection === 'Specific Terms') {
+                document.getElementById('payment_frequency').style.display = 'block';
+                document.getElementById('specificTerm').style.display = 'block';
+                document.getElementById('Weekly_label').classList.remove('active');
+                document.getElementById('Monthly_label').classList.remove('active');
+                document.getElementById('Yearly_label').classList.remove('active');
+                document.getElementById('Specific_Terms_label').classList.add('active');
+            }
+        }
+
+        function boxActive20(show) {
+            var box = document.getElementById('activeNonActive20');
+            if (show == 1) {
+                box.style.display = 'block';
+                document.getElementById('securitydepositYeslable').classList.add('active');
+                document.getElementById('securitydepositNolable').classList.remove('active');
+            } else {
+                box.style.display = 'none';
+                document.getElementById('securitydepositNolable').classList.add('active');
+                document.getElementById('securitydepositYeslable').classList.remove('active');
+            }
+        }
+
+        var securitydeposit = "{{ $property->security_deposit }}";
+
+        if (securitydeposit == 1) {
+            document.getElementById('securitydepositYeslable').classList.add('active');
+            document.getElementById('activeNonActive20').style.display = 'block';
+        } else {
+            document.getElementById('securitydepositYeslable').classList.add('active');
+            document.getElementById('activeNonActive20').style.display = 'none';
+
+        }
+
+        function boxActive1(show) {
+            var box = document.getElementById('activeNonActive1');
+            if (show == 1) {
+                // Show the box
+                box.style.display = 'block';
+                document.getElementById('evictionYesLabel').classList.add('active');
+                document.getElementById('evictionNoLabel').classList.remove('active');
+            } else {
+                // Hide the box
+                box.style.display = 'none';
+                document.getElementById('evictionNoLabel').classList.add('active');
+                document.getElementById('evictionYesLabel').classList.remove('active');
+            }
+        }
+
+        // Initially hide the box
+        var eviction = "{{ $property->eviction }}";
+        if (eviction == 1) {
+            document.getElementById('evictionNoLabel').classList.remove('active');
+            document.getElementById('activeNonActive1').style.display = 'block';
+
+        } else {
+            document.getElementById('evictionYesLabel').classList.remove('active');
+            document.getElementById('activeNonActive1').style.display = 'none';
+        }
+
+        function boxActive100(show) {
+            var box = document.getElementById('activeNonActive100');
+            if (show == 1) {
+                // Show the box
+                box.style.display = 'block';
+                document.getElementById('ConvictionsYesLabel').classList.add('active');
+                document.getElementById('ConvictionsNoLabel').classList.remove('active');
+            } else {
+                // Hide the box
+                box.style.display = 'none';
+                document.getElementById('ConvictionsNoLabel').classList.add('active');
+                document.getElementById('ConvictionsYesLabel').classList.remove('active');
+            }
+        }
+        var convictions = "{{ $property->conviction }}";
+        if (convictions == 1) {
+            document.getElementById('ConvictionsNoLabel').classList.remove('active');
+            document.getElementById('activeNonActive100').style.display = 'block';
+        } else {
+            document.getElementById('ConvictionsYesLabel').classList.remove('active');
+            document.getElementById('activeNonActive100').style.display = 'none';
+        }
+
+        function boxActive110(show) {
+            var box = document.getElementById('activeNonActive110');
+            var yesLabel = document.getElementById('credit_check_yes_label');
+            var noLabel = document.getElementById('credit_check_no_label');
+
+            if (show == 1) {
+                // Show the box and highlight Yes label
+                box.style.display = 'block';
+                yesLabel.classList.add('active');
+                noLabel.classList.remove('active');
+            } else {
+                // Hide the box and highlight No label
+                box.style.display = 'none';
+                noLabel.classList.add('active');
+                yesLabel.classList.remove('active');
+            }
+        }
+
+        // Initially hide the box on page load
+        var creditCheck = "{{ $property->credit_check }}";
+        if (creditCheck == 1)
+            document.getElementById('activeNonActive110').style.display = 'block';
+        else {
+
+            document.getElementById('activeNonActive110').style.display = 'none';
+
+        }
+
+
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2({
                 placeholder: "Select Allowed Pets",
@@ -558,8 +1384,7 @@
             changeBarColor(progressInput.value);
             changeInputColors(progress);
         });
-    </script>
-    <script>
+
         // check work feature
         function toggleQuantityInput(checkbox, featureId) {
             const quantityContainer = document.getElementById('quantity-container-' + featureId);
@@ -639,8 +1464,7 @@
 
             checkImageCount(); // Check the image count after removal
         }
-    </script>
-    <script>
+
         var deletedImages = [];
 
         function removeImage(button, imgPath) {
@@ -687,147 +1511,4 @@
             });
         });
     </script>
-    <script>
-        const progressInput = document.getElementById('progressInput');
-        const progressNumber = document.getElementById('progressNumber');
-        const progress_points = document.getElementById('progress_points');
-
-        // Individual input boxes
-        const numberInput1 = document.getElementById('numberInput1');
-        const numberInput2 = document.getElementById('numberInput2');
-        const numberInput3 = document.getElementById('numberInput3');
-        const numberInput4 = document.getElementById('numberInput4');
-        const numberInput5 = document.getElementById('numberInput5');
-
-        // Listen to slider changes and update corresponding number inputs
-        progressInput.addEventListener('input', function() {
-            const progress = parseInt(progressInput.value);
-            updateProgress(progress);
-            changeBarColor(progressInput.value);
-            changeInputColors(progress); // Change input box colors
-        });
-
-        // Listen to number input changes to update progress bar
-        numberInput1.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 10 && value < 500) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput2.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 500 && value < 1000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput3.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 1000 && value < 1500) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput4.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 1500 && value < 2000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        numberInput5.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            if (value >= 2000) {
-                progressInput.value = value;
-                updateProgress(value);
-            }
-        });
-
-        // Function to update the progress and which number input is active
-        function updateProgress(value) {
-            progressNumber.innerText = value;
-            progress_points.value = value;
-
-            // Update number inputs based on the current progress value
-            if (value >= 10 && value < 500) {
-                numberInput1.value = value;
-            } else if (value >= 500 && value < 1000) {
-                numberInput2.value = value;
-            } else if (value >= 1000 && value < 1500) {
-                numberInput3.value = value;
-            } else if (value >= 1500 && value < 2000) {
-                numberInput4.value = value;
-            } else if (value >= 2000) {
-                numberInput5.value = value;
-            }
-        }
-
-        // Change the color of the progress bar based on the value
-        function changeBarColor(value) {
-            const maxValue = parseInt(progressInput.max);
-            const percentage = (value / maxValue) * 100;
-
-            // Set a color based on the percentage
-            if (percentage <= 50) {
-                progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
-            } else {
-                progressInput.style.background = `linear-gradient(90deg, #0077B6 ${percentage}%, #f3f3f3 ${percentage}%)`;
-            }
-        }
-
-        // Change the background color of the input box corresponding to the progress value
-        function changeInputColors(value) {
-            // Reset background color of all input boxes
-            resetInputs();
-
-            // Change color based on the progress value
-            if (value >= 10 && value < 500) {
-                numberInput1.style.backgroundColor = '#0077B6'; // Change color for 10-500 range
-            } else if (value >= 500 && value < 1000) {
-                numberInput2.style.backgroundColor = '#0077B6'; // Change color for 500-1000 range
-            } else if (value >= 1000 && value < 1500) {
-                numberInput3.style.backgroundColor = '#0077B6'; // Change color for 1000-1500 range
-            } else if (value >= 1500 && value < 2000) {
-                numberInput4.style.backgroundColor = '#0077B6'; // Change color for 1500-2000 range
-            } else if (value >= 2000) {
-                numberInput5.style.backgroundColor = '#0077B6'; // Change color for 2000+ range
-            }
-        }
-
-        // Reset all number inputs to avoid multiple updates
-        function resetInputs() {
-            numberInput1.style.backgroundColor = '';
-            numberInput2.style.backgroundColor = '';
-            numberInput3.style.backgroundColor = '';
-            numberInput4.style.backgroundColor = '';
-            numberInput5.style.backgroundColor = '';
-        }
-
-        // Start progress on click (demo)
-        function startProgress() {
-            const intervals = [10, 500, 1000, 1500, 2000]; // The progress increments
-            let index = 0;
-
-            const progressInterval = setInterval(() => {
-                if (index < intervals.length) {
-                    const progress = intervals[index];
-                    progressInput.value = progress;
-                    updateProgress(progress);
-                    changeBarColor(progress);
-                    changeInputColors(progress); // Update input box colors
-                    index++;
-                } else {
-                    clearInterval(progressInterval); // Stop when all increments are done
-                }
-            }, 1000); // Update every second
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.8/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 @endsection

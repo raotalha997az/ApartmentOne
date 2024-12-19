@@ -79,6 +79,12 @@ class PropertyController extends Controller
             // dd($request->all());
         $id = Auth::user()->id;
         // Validate the request data
+        $price_rent = $request->input('price_rent_monthly')
+        ?? $request->input('price_rent_weekly')
+        ?? $request->input('price_rent_yearly')
+        ?? $request->input('price_rent_specific')
+        ?? 0;
+
         $validated = $request->validate([
             'images' => 'required|array|max:50',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8048',
@@ -98,7 +104,8 @@ class PropertyController extends Controller
             'contact_phone_number' => 'required|digits:10',
             'contact_email' => 'required|email',
             'when_evicted' => 'nullable|string',
-            'price_rent' => 'required|numeric',
+
+            // 'price_rent' => 'required|numeric',
             'eviction' => 'nullable|boolean',
             'smoking' => 'nullable|boolean',
             'bankruptcy' => 'nullable|boolean',
@@ -125,6 +132,8 @@ class PropertyController extends Controller
 
         ]);
         // Create the new property
+        $validated['price_rent'] = $price_rent;
+        // dd($validated['price_rent']);
         $property = Property::create([
             'user_id' => $id,
             'name' => $validated['name'],
@@ -135,6 +144,7 @@ class PropertyController extends Controller
             'available_status' => 1,
             'price_rent' => $validated['price_rent'],
             'when_evicted' => $validated['when_evicted'] ?? null,
+            'many_time_evicted' => $validated['many_time_evicted'] ?? null,
             'contact_name' => $validated['contact_name'] ?? null,
             'contact_phone_number' => $validated['contact_phone_number'] ?? null,
             'contact_email' => $validated['contact_email'] ?? null,
@@ -263,7 +273,14 @@ class PropertyController extends Controller
 
         public function properties_update(Request $request, $id)
 {
+    // dd($request->all());
         $property = Property::findOrFail($id);
+        $price_rent = $request->input('price_rent_monthly')
+        ?? $request->input('price_rent_weekly')
+        ?? $request->input('price_rent_yearly')
+        ?? $request->input('price_rent_specific')
+        ?? 0;
+
         $this->authorize('update', $property);
         $validated = $request->validate([
             'images' => 'sometimes|array|max:50', // 'sometimes' means it's optional, unlike 'required'
@@ -273,14 +290,13 @@ class PropertyController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'category' => 'required|integer',
-            'progress_points' =>'required',
+            'credit_point' => 'required|integer|min:10|max:2500',
             'features' => 'required|array',
             'quantities' => 'required|array',
             'pets' => 'nullable|array',
             'rent_whos' => 'required|array',
             'other_details' => 'nullable|string',
             'availability' => 'required|boolean',
-            'price' => 'required|numeric',
             'eviction' => 'nullable|boolean',
             'criminal_records' => 'nullable|boolean',
             'smoking' => 'nullable|boolean',
@@ -293,22 +309,71 @@ class PropertyController extends Controller
             'many_time_evicted' => 'nullable|string',
             'when_evicted' => 'nullable|string',
 
+            'parking' => 'nullable|boolean',
+            'kind_of_parking'=>'nullable|string',
+            'no_of_vehicle'=>'nullable|integer',
+            'waterbed'=>'nullable|boolean',
+            'availability_check'=>'nullable|boolean',
+            'date_availability'=>'nullable|date',
+            'lease_check'=>'nullable|boolean',
+            'lease_period'=>'nullable|integer',
+            'payment_frequency'=>'nullable|integer',
+            'security_deposit'=>'nullable|boolean',
+            'deposit_amount'=>'nullable|numeric',
+            'conviction'=>'nullable|boolean',
+            'conviction_pecify'=>'nullable|string',
+            'credit_check'=>'nullable|boolean',
+            'rent_type'=>'nullable|integer',
+            'lease_type'=>'nullable|integer',
+
+
 
 
         ]);
+        $validated['price_rent'] = $price_rent;
+
+
         if($validated['eviction']==0){
             $validated['many_time_evicted'] = null;
             $validated['when_evicted'] = null;
         }
 
+        if($validated['parking']==0){
+            $validated['kind_of_parking'] = null;
+            $validated['no_of_vehicle'] = null;
+        }
+
+        if($validated['availability_check']==1){
+            $validated['date_availability'] = null;
+        }
+        if($validated['lease_check']==0){
+            $validated['lease_type'] = null;
+            $validated['lease_period'] = null;
+
+        }
+
+        if($validated['rent_type']==0){
+            $validated['price_rent'] = null;
+            $validated['payment_frequency'] = null;
+        }
+        if($validated['security_deposit']==0){
+            $validated['deposit_amount'] = null;
+        }
+        if($validated['conviction']==0){
+            $validated['conviction_pecify'] = null;
+        }
+
+        if($validated['credit_check']==0){
+            $validated['credit_point'] = null;
+        }
         $property->update([
             'name' => $validated['name'],
             'address' => $validated['address'],
             'cat_id' => $validated['category'],
-            'credit_point' => $request['progress_points'],
+            'credit_point' => $request['credit_point'],
             'other_details' => $validated['other_details'],
             'available_status' => $validated['availability'],
-            'price_rent' => $validated['price'],
+            'price_rent' => $validated['price_rent'],
             'eviction' => $validated['eviction'] ?? false,
             'criminal_records' => $validated['criminal_records'] ?? false,
             'smoking' => $validated['smoking'] ?? false,
@@ -320,6 +385,24 @@ class PropertyController extends Controller
             'country' => $validated['country'],
             'many_time_evicted' => $validated['many_time_evicted'] ?? null,
             'when_evicted' => $validated['when_evicted'] ?? null,
+            'rent_type' => $validated['rent_type'] ?? null,
+
+            'parking' => $validated['parking'] ?? false,
+            'kind_of_parking' => $validated['kind_of_parking'] ?? null,
+            'no_of_vehicle' => $validated['no_of_vehicle'] ?? null,
+            'waterbed' => $validated['waterbed'] ?? false,
+            'availability_check' => $validated['availability_check'] ?? false,
+            'date_availability' => $validated['date_availability'] ?? null,
+            'lease_check' => $validated['lease_check'] ?? false,
+            'lease_period' => $validated['lease_period'] ?? null,
+            'payment_frequency' => $validated['payment_frequency'] ?? null,
+            'security_deposit' => $validated['security_deposit'] ?? false,
+            'deposit_amount' => $validated['deposit_amount'] ?? null,
+            'conviction' => $validated['conviction'] ?? false,
+            'conviction_pecify' => $validated['conviction_pecify'] ?? null,
+            'credit_check' => $validated['credit_check'] ?? false,
+            'lease_type' => $validated['lease_type'] ?? null,
+
         ]);
 
         if ($request->has('deleted_images')) {
