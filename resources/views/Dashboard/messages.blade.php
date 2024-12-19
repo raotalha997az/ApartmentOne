@@ -470,7 +470,7 @@
             activeConversationId = id;
 
 
-            $("#message").val('');
+            // $("#message").val('');
 
             $.ajax({
                 url: "{{ route('tenant.get.messages') }}",
