@@ -524,7 +524,7 @@
                     @endif
 
                     response.messages.forEach(message => {
-                        const isSender = message.sender_id === currentUserId;
+                        const isSender = message.sender_id == currentUserId;
 
                         $("#chat-box").append(`
                     <div class="message-box ${isSender ? 'you' : 'client'}">
