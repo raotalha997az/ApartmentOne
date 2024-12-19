@@ -1497,13 +1497,14 @@
                 error: function(xhr, status, error) {
                     var errors = xhr.responseJSON.errors;
                     if (errors) {
+                        console.log("xhr",xhr);
                         $.each(errors, function(key, value) {
                             var input = $('[name="' + key + '"]');
                             input.addClass('is-invalid');
                             input.after('<span class="error-message text-danger">' + value[0] +
                                 '</span>');
+                                toastr.error(key + ": " + value[0]);
                         });
-                        toastr.error('Error occurred while updating property.');
                     } else {
                         toastr.error('Error occurred while updating property.');
                     }
