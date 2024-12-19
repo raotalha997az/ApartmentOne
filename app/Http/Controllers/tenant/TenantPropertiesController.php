@@ -216,7 +216,7 @@ class TenantPropertiesController extends Controller
         //     $properties = [];
         // }
 
-        $properties = Property::where('approve', 1)->where('deleted_at', null)->with('media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category')->get();
+        $properties = Property::where('approve', 1)->where('cat_id', $id)->where('deleted_at', null)->with('media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category')->get();
         $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();
         $wishlist = Wishlist::where('user_id', Auth::user()->id)
             ->pluck('property_id')
