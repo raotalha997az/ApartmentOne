@@ -274,12 +274,16 @@ class PropertyController extends Controller
         public function properties_update(Request $request, $id)
 {
     // dd($request->all());
-        $property = Property::findOrFail($id);
-        $price_rent = $request->input('price_rent_monthly')
+    $property = Property::findOrFail($id);
+
+    $price_rent = $request->input('price_rent_monthly')
         ?? $request->input('price_rent_weekly')
         ?? $request->input('price_rent_yearly')
         ?? $request->input('price_rent_specific')
         ?? 0;
+
+    // Debug or store the value
+    // dd($price_rent);
 
         $this->authorize('update', $property);
         $validated = $request->validate([
@@ -340,11 +344,11 @@ class PropertyController extends Controller
 
         if($validated['parking']==0){
             $validated['kind_of_parking'] = null;
-            $validated['no_of_vehicle'] = null;
+            $validated['no_of_vehicle'] = false;
         }
 
         if($validated['availability_check']==1){
-            $validated['date_availability'] = null;
+            $validated['date_availability'] = false;
         }
         if($validated['lease_check']==0){
             $validated['lease_type'] = null;
@@ -448,7 +452,7 @@ class PropertyController extends Controller
         }
 
         if ($request->has('features') && is_array($request->features)) {
-            // FeatureDetails::where('property_id', $property->id)->delete();
+            FeatureDetails::where('property_id', $property->id)->delete();
             foreach ($request->features as $featureId) {
                 if (isset($request->quantities[$featureId]) && $request->quantities[$featureId] !== null) {
                     FeatureDetails::create([

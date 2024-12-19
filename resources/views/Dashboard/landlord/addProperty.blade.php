@@ -1044,29 +1044,42 @@
                         <span class="text-danger">{{ $message }}</span>
                     </div>
                 @enderror
-                <div class="box active-non-active" id="Weekly">
-                    <label for="">Amount</label>
-                    <input type="number" name="price_rent_weekly" placeholder="Weekly Amount"
-                           value="{{ old('price_rent_weekly') }}">
-                </div>
                 <div class="box active-non-active" id="activeNonActive18">
                     <label for="">Amount</label>
                     <input type="number" name="price_rent_monthly" placeholder="Monthly Amount"
-                           value="{{ old('price_rent_monthly') }}">
+                        value="{{ old('price_rent_monthly') }}">
                 </div>
-
+                <div class="box active-non-active" id="Weekly">
+                    <label for="">Amount</label>
+                    <input type="number" name="price_rent_weekly" placeholder="Weekly Amount"
+                        value="{{ old('price_rent_weekly') }}">
+                </div>
                 <div class="box active-non-active" id="Yearly">
                     <label for="">Amount</label>
                     <input type="number" name="price_rent_yearly" placeholder="Yearly Amount"
-                           value="{{ old('price_rent_yearly') }}">
+                        value="{{ old('price_rent_yearly') }}">
+                </div>
+                <div class="box active-non-active" id="payment_frequency">
+                    <label for="">Payment Frequency</label>
+                    <input type="number" name="payment_frequency" placeholder="Payment Frequency Amount"
+                        value="{{ old('payment_frequency') }}" >
+                    @error('payment_frequency')
+                        <div class="error-message">
+                            <span class="text-danger">{{ $message }}</span>
+                        </div>
+                    @enderror
                 </div>
                 <div class="box active-non-active" id="specificTerm">
                     <label for="">Amount</label>
                     <input type="number" name="price_rent_specific" placeholder="Specific Term Amount"
-                           value="{{ old('price_rent_specific') }}">
+                        value="{{ old('price_rent_specific') }}">
                 </div>
-
             </div>
+            @error('price_rent')
+                <div class="error-message">
+                    <span class="text-danger">{{ $message }}</span>
+                </div>
+            @enderror
             @error('price_rent')
                 <div class="error-message">
                     <span class="text-danger">{{ $message }}</span>

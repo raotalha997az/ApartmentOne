@@ -111,11 +111,11 @@
 
                     </div>
                     <div class="properties-content-style properties-street-address">
-                        <h6> Country</h6>
+                        <h6> State</h6>
                         <p>{{ $property->country ?? '' }}</p>
                     </div>
                     <div class="properties-content-style properties-street-address">
-                        <h6> Address</h6>
+                        <h6> Street Address</h6>
                         <p>{{ $property->address ?? '' }}</p>
                     </div>
                     <div class="properties-content-style properties-street-address">

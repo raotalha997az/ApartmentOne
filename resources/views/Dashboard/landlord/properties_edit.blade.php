@@ -1505,7 +1505,7 @@
                         });
                         toastr.error('Error occurred while updating property.');
                     } else {
-                        alert('Error occurred while updating property.');
+                        toastr.error('Error occurred while updating property.');
                     }
                 }
             });

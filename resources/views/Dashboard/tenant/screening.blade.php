@@ -345,7 +345,7 @@
 
                                                                 <div class="get-started-content">
                                                                     <div class="picture-tabs">
-                                                                        @foreach ($categories as $category)
+                                                                        {{-- @foreach ($categories as $category)
                                                                             <div class="radio-item">
                                                                                 <input type="radio" id="category-{{ $category->id }}" name="category"
                                                                                     value="{{ $category->id }}" onclick="selectCategory(this)"
@@ -356,7 +356,21 @@
                                                                                     <span>{{ $category->name }}</span>
                                                                                 </label>
                                                                             </div>
-                                                                        @endforeach
+                                                                        @endforeach --}}
+                                                                        @foreach ($categories as $category)
+                                                                        <div class="radio-item">
+                                                                            <input type="radio" id="category-{{ $category->id }}" name="category"
+                                                                                value="{{ $category->id }}" onclick="selectCategory(this)"
+                                                                                {{ old('category', $selectedCategory ?? '') == $category->id ? 'checked' : '' }}>
+                                                                            <label for="category-{{ $category->id }}"
+                                                                                class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
+                                                                                {{-- <img src="{{ Storage::url($category->image ?? '') }}" alt="{{ $category->name }}"> --}}
+                                                                                <img src="{{ asset('assets/images/cat_') . ($loop->index + 1) . '.png' }}"
+                                                                                    alt="{{ $category->name }}">
+                                                                                <span>{{ $category->name }}</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    @endforeach
                                                                         <!-- Display validation error for category -->
                                                                         @error('category')
                                                                             <div class="error-message">
