@@ -55,13 +55,13 @@
                             </div>
 
                             {!!htmlFormSnippet()!!}
-                            {{-- @if ($errors->has('g-recaptcha-response'))
+                            @if ($errors->has('g-recaptcha-response'))
 
                                 <div class="alert alert-danger">
                                     {{ $errors->first('g-recaptcha-response') }}
                                 </div>
 
-                            @endif --}}
+                            @endif
 
 
                             <div class="forms-btns-inline">

@@ -42,7 +42,7 @@ class AuhController extends Controller
             'address' => 'nullable|string|max:255',
             'house_number' => 'nullable|integer|digits_between:1,5',
             'role' => 'required|in:tenant,land_lord',
-            // 'g-recaptcha-response' => 'required|recaptcha',
+            'g-recaptcha-response' => 'required|recaptcha',
         ]);
 
         if ($validator->fails()) {
