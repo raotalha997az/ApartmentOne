@@ -267,7 +267,7 @@
                 <div class="parent-tabs-mesg-box">
                     <div class="heading-form-mesg-box">
                         <h6>Messages</h6>
-                        <h5>0 New Message</h5>
+                        <h5>New Message</h5>
                         <form action="">
                             <input type="text" placeholder="Search">
                             <button><i class="fa fa-search" aria-hidden="true"></i></button>
