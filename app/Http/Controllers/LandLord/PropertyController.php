@@ -245,11 +245,11 @@ class PropertyController extends Controller
     {
         // Retrieve the specific property with its media, pets, and related features and feature details
         $property = Property::with(['media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category'])->findOrFail($id);
-        $this->authorize('show', $property);
         $tenants = ApplyPropertyHistory::with('user')  // Assuming user is the tenant
         ->where('property_id', $id)
         ->get()
         ->pluck('user');
+        $this->authorize('show', $property);
 
         return view('Dashboard.landlord.propertiesdetails', compact('tenants','property'));
     }

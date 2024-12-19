@@ -78,5 +78,10 @@ class Property extends Model
     {
         return $this->hasMany(ApplyPropertyHistory::class, 'property_id');
     }
+    public function applications()
+    {
+        return $this->hasMany(ApplyPropertyHistory::class);
+    }
+
 
 }

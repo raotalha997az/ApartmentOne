@@ -21,7 +21,7 @@ class PropertyPolicy
     public function update(User $user, Property $property)
     {
         // Check if the user is the owner of the property
-        return $user->id === $property->user_id;
+        return $user->id == $property->user_id;
     }
 
     /**
@@ -34,20 +34,29 @@ class PropertyPolicy
     public function edit(User $user, Property $property)
     {
         // Check if the user is the owner of the property
-        return $user->id === $property->user_id;
+        return $user->id == $property->user_id;
     }
 
     public function delete(User $user, Property $property)
     {
         // Ensure that only the owner can delete the property
-        return $user->id === $property->user_id;
+        return $user->id == $property->user_id;
     }
 
 
 
     public function show(User $user, Property $property)
     {
-        // Ensure that only the owner can delete the property
-        return $user->id === $property->user_id;
+           // Allow the owner to view the property
+            if ($user->id == $property->user_id) {
+                return true;
+            }
+
+            // Allow tenants who have applied to the property to view it
+            $applied = $property->applications()
+                                ->where('user_id', $user->id)
+                                ->exists();
+
+            return $applied;
     }
 }

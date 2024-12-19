@@ -100,8 +100,7 @@ Route::controller(StripePaymentController::class)->group(function(){
         });
     Route::get('/properties',[TenantPropertiesController::class,'properties'])->name('properties');
     Route::get('property/{id}',[TenantPropertiesController::class,'fluterproperty'])->name('fluter.property');
-    Route::get('/propertiesdetails/{id}', [TenantPropertiesController::class, 'propertiesd
-    etails'])->name('propertiesdetails');
+    Route::get('/propertiesdetails/{id}', [TenantPropertiesController::class, 'propertiesdetails'])->name('propertiesdetails');
 
     Route::post('/wishlistadd', [TenantAuthController::class, 'addToWishlist'])->name('wishlist.add');
      Route::post('/wishlistremove', [TenantAuthController::class, 'removeFromWishlist'])->name('wishlist.remove');
