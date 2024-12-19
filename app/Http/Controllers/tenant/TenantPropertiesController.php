@@ -235,7 +235,7 @@ class TenantPropertiesController extends Controller
     {
         // Retrieve the specific property with its media, pets, and related features and feature details
         $property = Property::with(['user', 'media', 'pets.pet', 'features.feature', 'RentToWhoDetails.rentToWho', 'category'])->findOrFail($id);
-        $this->authorize('show', $property);
+        // $this->authorize('show', $property);
         $AppliedProperies = ApplyPropertyHistory::where('user_id', Auth::user()->id)
             ->pluck('property_id')
             ->toArray();
