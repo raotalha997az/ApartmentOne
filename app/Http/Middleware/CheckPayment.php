@@ -21,7 +21,7 @@ class CheckPayment
         $user = User::find($userAuth->id, ['id','name', 'payment_status', 'payment_expires_at']);
 
         if (!$user->payment_status || now()->greaterThan($user->payment_expires_at)) {
-            return redirect()->route('tenant.stripe')->with('error', 'You need to complete payment to access properties.');
+            return redirect()->route('tenant.screening')->with('error', 'You need to complete payment to access properties.');
         }
 
         return $next($request);
