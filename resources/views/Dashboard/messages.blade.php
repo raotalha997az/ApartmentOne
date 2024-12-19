@@ -204,7 +204,7 @@
         top: 10% !important;
     }
 
-    #write-message-box button { 
+    #write-message-box button {
         padding: 7px 20px;
         background-color: #0077B6;
         color: #fff;
@@ -248,7 +248,7 @@
     #message {
     width: 90%;
     border: 1px solid #ccc;
-    border-radius: 20px;    
+    border-radius: 20px;
     padding: 10px;
     font-size: 14px;
     resize: none; /* Disable manual resizing */
@@ -267,7 +267,7 @@
                 <div class="parent-tabs-mesg-box">
                     <div class="heading-form-mesg-box">
                         <h6>Messages</h6>
-                        <h5>120 New Messages</h5>
+                        <h5>0 New Message</h5>
                         <form action="">
                             <input type="text" placeholder="Search">
                             <button><i class="fa fa-search" aria-hidden="true"></i></button>
