@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <div class="notification-recent-box">
+        {{-- <div class="notification-recent-box">
             <div class="two-things-align">
                 <div class="box">
                     <h6>Recent Notifications</h6>
@@ -125,7 +125,7 @@
                 </div>
 
             </div>
-        </div>
+        </div> --}}
 
         {{-- <div class="top-listing-parent-box">
             <div class="two-things-align">
