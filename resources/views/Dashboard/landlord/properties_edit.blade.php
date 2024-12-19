@@ -1401,7 +1401,7 @@
 
             // Check for max images
             if (selectedImages.length + files.length > 50) {
-                alert("You can only upload a maximum of 50 images.");
+                toastr.error("You can only upload a maximum of 50 images.");
                 return;
             }
 
@@ -1412,7 +1412,7 @@
                         displayImage(file);
                     }
                 } else {
-                    alert("Only image files are allowed.");
+                    toastr.error("Only image files are allowed.");
                 }
             });
 
@@ -1449,7 +1449,7 @@
         function checkImageCount() {
             const totalImages = selectedImages.length + existingImagesContainer.children.length;
             if (totalImages < 3) {
-                alert('You need to upload at least 3 images.');
+                toastr.error('You need to upload at least 3 images.');
             }
         }
 
