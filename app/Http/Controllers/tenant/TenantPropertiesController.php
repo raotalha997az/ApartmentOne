@@ -25,7 +25,8 @@ class TenantPropertiesController extends Controller
     {
         $user = Auth::user()->load('bank');
         $categories =  Category::all();
-        return view('Dashboard.tenant.screening', compact('user','categories'));
+        $pets = Pet::select('name','id')->get();
+        return view('Dashboard.tenant.screening', compact('pets','user','categories'));
     }
 
     public function properties()

@@ -172,9 +172,6 @@
                                                     <div class="two-hex-align">
                                                         <input type="text" placeholder="Last Name" name="last_name"
                                                             id="last_name" class="w-100" value="{{ $lastName ?? '' }}">
-                                                        @error('last_name')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,8 +213,13 @@
                                                     <div class="two-hex-align">
                                                         <input type="email" placeholder="Email Address" name="email-address"
                                                             id="email-address" class="w-100"
-                                                            value="{{ $user->house_number ?? '' }}">
+                                                            value="{{ $user->email ?? '' }}">
                                                     </div>
+                                                    @error('email-address')
+                                                    <div class="error-message">
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    </div>
+                                                @enderror
                                                 </div>
 
 
@@ -272,7 +274,7 @@
                                                             </div>
                                                             @error('state')
                                                                 <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
+                                                            @enderror
 
                                                             </div>
                                                         </div>
@@ -286,7 +288,7 @@
                                                                 </div>
                                                                 @error('postal_code')
                                                                     <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
+                                                                 @enderror
 
                                                                 </div>
                                                             </div>
@@ -296,7 +298,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="input-box">
                                                                     <div class="two-hex-align">
-                                                                        <input type="text" placeholder="City of the property you wish to move to" name="state"
+                                                                        <input type="text" placeholder="City of the property you wish to move to" name="property_city"
                                                                             class="w-100">
                                                                     </div>
                                                                 </div>
@@ -304,7 +306,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="input-box">
                                                                     <div class="two-hex-align">
-                                                                        <input type="text" placeholder="Preferred location of the property you wish to move to" name="postal_code"
+                                                                        <input type="text" placeholder="Preferred location of the property you wish to move to" name="property_location"
                                                                             class="w-100">
 
                                                                     </div>
@@ -316,7 +318,8 @@
                                                             <div class="col-md-6">
                                                                 <div class="input-box">
                                                                     <div class="two-hex-align">
-                                                                        <input type="date" placeholder="Preferred move-in date" name="state"
+                                                                        <label for="shifting_date">Preferred moving date</label>
+                                                                        <input type="date" placeholder="Preferred move-in date" name="shifting_date"
                                                                             class="w-100">
                                                                     </div>
                                                                 </div>
@@ -324,15 +327,20 @@
                                                             <div class="col-md-6">
                                                                 <div class="input-box">
                                                                     <div class="two-hex-align">
-                                                                            <select name="" id="" class="w-100">
-                                                                                <option value="" class="disabled">How frequently would you like to pay rent?</option>
-                                                                                <option value="">How frequently would you like to pay rent?</option>
-                                                                                <option value="">How frequently would you like to pay rent?</option>
-                                                                                <option value="">How frequently would you like to pay rent?</option>
-                                                                                <option value="">How frequently would you like to pay rent?</option>
+                                                                            <select name="rent_type" id="rent_type" class="w-100">
+                                                                                <option value="" class="disabled" disabled selected>How frequently would you like to pay rent?</option>
+                                                                                <option value="1">How frequently would you like to pay rent Weekly?</option>
+                                                                                <option value="2">How frequently would you like to pay rent Bi-Weekly?</option>
+                                                                                <option value="3">How frequently would you like to pay rent Monthly?</option>
+                                                                                <option value="4">How frequently would you like to pay rent Yearly?</option>
                                                                             </select>
 
                                                                     </div>
+                                                                    @error('rent_type')
+                                                                    <div class="error-message">
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    </div>
+                                                                @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -359,7 +367,7 @@
                                                                         @endforeach --}}
                                                                         @foreach ($categories as $category)
                                                                         <div class="radio-item">
-                                                                            <input type="radio" id="category-{{ $category->id }}" name="category"
+                                                                            <input type="radio" id="category-{{ $category->id }}" name="cat_id"
                                                                                 value="{{ $category->id }}" onclick="selectCategory(this)"
                                                                                 {{ old('category', $selectedCategory ?? '') == $category->id ? 'checked' : '' }}>
                                                                             <label for="category-{{ $category->id }}"
@@ -389,38 +397,43 @@
                                                         <div class="row p-3">
 
                                                             <div class="col-md-6">
-
                                                                 <p>Do you have pets?</p>
 
                                                                 <div class="selection-boxex-true">
-
-                                                                    <div class="radio-item" onclick="boxActive10()" id="boxactive10">
-                                                                        <input type="radio" id="eviction" name="eviction" value="1">
-                                                                        <label class="evction" for="yes" onclick="setEvction(this)">
-                                                                            <img src="/assets/images/checked.png" alt="Yes">
-                                                                            Yes
+                                                                    <div class="radio-item" onclick="boxActive3(1)" id="boxactive3">
+                                                                        <label class="selection-content-true" id="selectionYesLabel">
+                                                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                                                            <span>Yes</span>
+                                                                            <input type="radio" name="radio-item" id="radio-item" value="1">
                                                                         </label>
                                                                     </div>
 
-
-                                                                    <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
-                                                                        <input type="radio" id="eviction" name="eviction" value="0">
-                                                                        <label class="evction" for="no" onclick="setEvction(this)">
-                                                                            <img src="/assets/images/cancel.png" alt="No">
-                                                                            No
+                                                                    <div class="radio-item" onclick="boxActive3(0)" id="boxnonactive3">
+                                                                        <label class="selection-content-true" id="selectionNoLabel">
+                                                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                                                            <span>No</span>
+                                                                            <input type="radio" name="radio-" id="radio-item" value="0">
                                                                         </label>
                                                                     </div>
-
-
                                                                 </div>
-
-                                                                <div class="active-non-active" id="activeNonActive10">
-
-                                                                    <div class="box">
-                                                                        <input type="text" placeholder="Please Specify" class="w-100">
-                                                                    </div>
-
+                                                                @error('radio-item')
+                                                                <div class="error-message">
+                                                                    <span class="text-danger">{{ $message }}</span>
                                                                 </div>
+                                                            @enderror
+                                                            
+
+                                                            <!-- Pets Select2 Dropdown -->
+                                                            <div class="active-non-active" id="activeNonActive10" style="display: none;">
+                                                                <div class="box">
+                                                                    <label for="pets">Select Pets</label>
+                                                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%;" name="pets[]" id="pets">
+                                                                        @foreach ($pets as $pet)
+                                                                            <option value="{{ $pet->id }}">{{ $pet->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
 
 
 
@@ -518,11 +531,8 @@
                                                         <div class="row p-3">
 
                                                             <div class="col-md-6">
-
                                                                 <p>Will you be providing a security deposit?</p>
-
                                                                 <div class="selection-boxex-true">
-
                                                                     <div class="radio-item" onclick="boxActive10()" id="boxactive10">
                                                                         <input type="radio" id="eviction" name="eviction" value="1">
                                                                         <label class="evction" for="yes" onclick="setEvction(this)">
@@ -531,7 +541,6 @@
                                                                         </label>
                                                                     </div>
 
-
                                                                     <div class="radio-item" onclick="boxNonActive10()" id="boxnunactive10">
                                                                         <input type="radio" id="eviction" name="eviction" value="0">
                                                                         <label class="evction" for="no" onclick="setEvction(this)">
@@ -539,20 +548,13 @@
                                                                             No
                                                                         </label>
                                                                     </div>
-
-
                                                                 </div>
 
-                                                                <div class="active-non-active" id="activeNonActive10">
-
+                                                                <div class="active-non-active" id="securityDeposit" style="display: none;">
                                                                     <div class="box">
-                                                                        <input type="number" placeholder="Enter Amount" class="w-100">
+                                                                        <input type="number" placeholder="Enter Amount" class="w-100" name="deposit_amount">
                                                                     </div>
-
                                                                 </div>
-
-
-
                                                             </div>
 
                                                         </div>
@@ -561,7 +563,7 @@
                                                         <div class="row p-3">
                                                             <div class="col-lg-12" style="height: max-content !important;">
                                                                 <ul>
-                                                                    <li>By submitting your application, you acknowledge and authorize [Company Name] to conduct background checks on your behalf, including but not limited to:
+                                                                    <li>By submitting your application, you acknowledge and authorize <b>Apartment One</b> to conduct background checks on your behalf, including but not limited to:
                                                                     </li>
                                                                     <li>Criminal record checks
                                                                     </li>
@@ -606,9 +608,84 @@
                     </div>
                 @endsection
                 @section('scripts')
-                    <script>
-                        document.getElementById('dateOfBirth').addEventListener('focus', function() {
-                            this.showPicker();
+                <script>
+                    $(document).ready(function () {
+                        // Initialize Select2 for Pets
+                        $('#pets').select2({
+                            placeholder: "Select your pets",
+                            allowClear: true
                         });
-                    </script>
+
+                        // Show/Hide Pets Dropdown Based on Selection
+                        window.boxActive3 = function (isActive) {
+                            if (isActive) {
+                                $('#activeNonActive10').show(); // Show the pets dropdown
+                            } else {
+                                $('#activeNonActive10').hide(); // Hide the pets dropdown
+                                $('#pets').val(null).trigger('change'); // Clear selection
+                            }
+                        };
+                    });
+
+                    function boxActive10() {
+                        // Show the input field when "Yes" is selected
+                        document.getElementById('securityDeposit').style.display = 'block';
+                    }
+
+                    function boxNonActive10() {
+                        // Hide the input field when "No" is selected
+                        document.getElementById('securityDeposit').style.display = 'none';
+                    }
+
+                    function boxActive3(show) {
+                    var box = document.getElementById('activeNonActive3');
+
+                    if (show == 1) {
+                        box.style.display = 'block';
+                        document.getElementById('selectionYesLabel').classList.add('active');
+                        document.getElementById('selectionNoLabel').classList.remove('active');
+                    } else {
+                        box.style.display = 'none';
+                        document.getElementById('selectionNoLabel').classList.add('active');
+                        document.getElementById('selectionYesLabel').classList.remove('active');
+                    }
+                }
+
+
+                function selectCategory(element) {
+            // Remove 'active' class from all labels
+            document.querySelectorAll('.select_box').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add 'active' class to the corresponding label of the clicked radio button
+            const label = element.closest('.radio-item').querySelector('.select_box');
+            if (label) {
+                label.classList.add('active');
+            }
+
+            // Optionally, log or store the selected category value
+            const selectedCategory = element.value;
+            console.log('Selected category ID:', selectedCategory);
+        }
+
+        function setEvction(element) {
+            // Remove 'active' class from all radio items
+            document.querySelectorAll('.evction').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked radio-item
+            element.classList.add('active');
+
+            // Ensure the radio input within the clicked item is checked
+            const radioInput = element.querySelector('input[type="radio"]');
+            if (radioInput) {
+                radioInput.checked = true;
+            }
+        }
+         </script>
+
+
+
                 @endsection

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Bank;
 use App\Models\Wishlist;
+use App\Models\Screening;
+use App\Models\TenantPet;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,7 +24,6 @@ class TenantAuthController extends Controller
 
     public function updateProfile(Request $request)
     {
-
         $user = auth()->user();
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
@@ -84,39 +85,86 @@ class TenantAuthController extends Controller
     }
     public function updateScreening(Request $request)
     {
+
+
         $user = auth()->user();
+
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'firstName' => 'required|string|max:255',
             'city' => 'nullable|string|max:255',
             'country' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',
-            'postal_code' => 'nullable|digits_between:2,5',
+            // 'postal_code' => 'nullabl',
             'date_of_birth' => 'nullable|date|before_or_equal:today',
             'house_number' => 'nullable|integer|digits_between:1,5',
             'identity_card' => 'nullable|digits:9',
             'street_name' => 'nullable|string|max:255',
+            'property_city' => 'nullable|string|max:255',
+            'property_location' => 'nullable|string|max:255',
+            'shifting_date' => 'nullable|date',
+            'rent_type' => 'nullable|integer',
+            'cat_id' => 'nullable|integer',
+            'pets' => 'nullable|array',
+            'pets.*' => 'integer|exists:pets,id',
+            'smoke' => 'nullable|boolean',
+            'waterbed' => 'nullable|boolean',
+            'lease_short_term' => 'nullable|boolean',
+            'security_deposit' => 'nullable|boolean',
+            'deposit_amount' => 'nullable|numeric',
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
         // Update user fields
         $validatedData = $validator->validated();
+        $user->update([
+            'name' => $validatedData['firstName'],
+            'date_of_birth' => $validatedData['date_of_birth'] ?? $user->date_of_birth,
+            'city' => $validatedData['city'] ?? $user->city,
+            'country' => $validatedData['country'] ?? $user->country,
+            'state' => $validatedData['state'] ?? $user->state,
+            'postal_code' => $validatedData['postal_code'] ?? $user->postal_code,
+            'house_number' => $validatedData['house_number'] ?? $user->house_number,
+            'address' => $validatedData['street_name'] ?? $user->address,
+        ]);
 
-    $user->name = $validatedData['firstName'];
-    $user->date_of_birth = $validatedData['date_of_birth'] ?? $user->date_of_birth;
-    $user->city = $validatedData['city'] ?? $user->city;
-    $user->country = $validatedData['country'] ?? $user->country;
-    $user->state = $validatedData['state'] ?? $user->state;
-    $user->postal_code = $validatedData['postal_code'] ?? $user->postal_code;
-    $user->house_number = $validatedData['house_number'] ?? $user->house_number;
-    $user->address = $validatedData['street_name'] ?? $user->address;
-    $user->save();
+        // Update or create screening record
+        $screening = Screening::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'property_city' => $validatedData['property_city'] ?? null,
+                'property_location' => $validatedData['property_location'] ?? null,
+                'shifting_date' => $validatedData['shifting_date'] ?? null,
+                'rent_type' => $validatedData['rent_type'] ?? null,
+                'cat_id' => $validatedData['cat_id'] ?? null,
+                'pet' => $validatedData['pet'] ?? false,
+                'smoke' => $validatedData['smoke'] ?? false,
+                'waterbed' => $validatedData['waterbed'] ?? false,
+                'lease_short_term' => $validatedData['lease_short_term'] ?? false,
+                'security_deposit' => $validatedData['security_deposit'] ?? false,
+                'deposit_amount' => $validatedData['deposit_amount'] ?? null,
+            ]
+        );
 
-    // Update or create bank record
-    $bank = Bank::firstOrNew(['user_id' => $user->id]);
-    $bank->identity_card = $validatedData['identity_card'] ?? $bank->identity_card;
-    $bank->save();
+        // Update or create tenant pets
+            if ($request->has('pets') && is_array($request->input('pets'))) {
+                TenantPet::where('screening_id', $screening->id)->delete();
+                foreach ($request->input('pets') as $petId) {
+                    TenantPet::create([
+                        'screening_id' => $screening->id,
+                        'pet_id' => $petId,
+                    ]);
+                }
+            }
+
+
+        // Update or create bank record
+        $bank = Bank::firstOrNew(['user_id' => $user->id]);
+        $bank->identity_card = $validatedData['identity_card'] ?? $bank->identity_card;
+        $bank->save();
 
 
         return redirect()->route('tenant.stripe')->with('success', 'Screening updated successfully!');

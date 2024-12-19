@@ -1987,8 +1987,6 @@
         }
 
         $(document).ready(function() {
-
-            console.log('run22');
             $('.js-example-basic-multiple').select2();
 
             // Handle form submission inside the modal
