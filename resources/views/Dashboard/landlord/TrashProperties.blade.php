@@ -77,7 +77,7 @@
                                     @foreach ($properties as $property)
                                             <a href="#">
                                             <div class="box img-box-property">
-                                                    <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}"
+                                                    <img src="{{ asset($property->media[0]->img_path ?? '') }}"
                                                         alt="">
                                                 <div class="content">
                                                     <h4>{{ $property->name ?? ''}}</h4>
