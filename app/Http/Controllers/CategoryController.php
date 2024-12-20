@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Property;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -79,7 +80,9 @@ class CategoryController extends Controller
         }
 
         // Include the full URL of the image
-        $category->image_url = $category->image ? Storage::url($category->image) : null;
+        // $category->image_url = $category->image ? Storage::url($category->image) : null;
+        $category->image_url = $category->image ? asset($category->image) : null;
+
 
         return response()->json(['category' => $category], 200);
     }
@@ -104,16 +107,43 @@ class CategoryController extends Controller
         $category->name = $request->name;
 
         // Check if a new image is uploaded
+        // if ($request->hasFile('image')) {
+        //     // Delete the old image from storage if it exists
+        //     if ($category->image && Storage::disk('public')->exists('categories/' . $category->image)) {
+        //         Storage::disk('public')->delete('categories/' . $category->image);
+        //     }
+
+        //     $imagePath = $request->file('image')->store('categories', 'public'); // Save to storage/app/public/categories
+        //     $imageUrl = asset($imagePath); // Generate URL for the stored image
+        //     $category->image = $imageUrl;
+        // }
         if ($request->hasFile('image')) {
             // Delete the old image from storage if it exists
-            if ($category->image && Storage::disk('public')->exists('categories/' . $category->image)) {
-                Storage::disk('public')->delete('categories/' . $category->image);
+            if ($category->image && file_exists(public_path('assets/categories/' . basename($category->image)))) {
+                unlink(public_path('assets/categories/' . basename($category->image)));
             }
 
-            $imagePath = $request->file('image')->store('categories', 'public'); // Save to storage/app/public/categories
-            $imageUrl = asset($imagePath); // Generate URL for the stored image
-            $category->image = $imageUrl;
+            // Retrieve the uploaded file
+            $file = $request->file('image');
+
+            // Generate a unique name for the new image
+            $uniqueName = 'category_' . Str::random(40) . '.' . $file->getClientOriginalExtension();
+
+            // Define the destination path
+            $destinationPath = public_path('assets/categories');
+
+            // Ensure the directory exists
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            // Move the image to the destination path
+            $file->move($destinationPath, $uniqueName);
+
+            // Update the image path in the database
+            $category->image = 'assets/categories/' . $uniqueName;
         }
+
         // Save the changes
         $category->save();
 
@@ -138,6 +168,16 @@ class CategoryController extends Controller
             return response()->json(['message' => 'Category not found'], 404);
         }
 
+        if ($category->image) {
+            // Construct the full path to the image
+            $imagePath = public_path($category->image);
+
+            // Verify if the image file exists
+            if (File::exists($imagePath)) {
+                // Delete the image file
+                File::delete($imagePath);
+            }
+        }
         $category->delete();
 
         return response()->json(['message' => 'Category deleted successfully'], 200);

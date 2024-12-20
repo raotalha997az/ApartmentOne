@@ -613,8 +613,8 @@
                             <label for="category-{{ $category->id }}"
                                 class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
                                 {{-- <img src="{{ Storage::url($category->image ?? '') }}" alt="{{ $category->name }}"> --}}
-                                <img src="{{ asset('assets/images/cat_') . ($loop->index + 1) . '.png' }}"
-                                    alt="{{ $category->name }}">
+                                {{-- <img src="{{ asset('assets/images/cat_') . ($loop->index + 1) . '.png' }}" --}}
+                                <img src="{{ asset( ($category->image ?? 'default.png')) }}" alt="{{ $category->name }}">
                                 <span>{{ $category->name }}</span>
                             </label>
                         </div>
