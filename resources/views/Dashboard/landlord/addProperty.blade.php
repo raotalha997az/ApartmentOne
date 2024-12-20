@@ -936,6 +936,32 @@
         </div>
 
 
+        <div class="tab" id="availability_date">
+            <h6>Section 8 Housing Choice Voucher</h6>
+
+            <p>Does this property accept Section 8 Housing Choice Voucher?</p>
+            <div class="selection-boxex-true">
+                <!-- "Yes" Option -->
+                <div class="radio-item" onclick="boxActive21(1)" id="boxactive11">
+                    <input type="radio" id="availability_yes" name="availability_check" value="1">
+                    <label class="availability_check" for="availability_yes" id="availabilityYesLabel">
+                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                        Yes
+                    </label>
+                </div>
+
+                <!-- "No" Option -->
+                <div class="radio-item" onclick="boxActive21(0)" id="boxnonactive11">
+                    <input type="radio" id="availability_no" name="availability_check" value="0">
+                    <label class="availability_check" for="availability_no" id="availabilityNoLabel">
+                        <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                        No
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
 
 
         <div class="tab" id="lease_details">
@@ -1512,6 +1538,25 @@
                 toastr.error("{{ $error }}");
             @endforeach
         @endif
+
+
+        function boxActive21(show) {
+            var box = document.getElementById('activeNonActive11');
+
+            if (show == 0) {
+                box.style.display = 'block';
+                document.getElementById('availabilityNoLabel').classList.add('active');
+                document.getElementById('availabilityYesLabel').classList.remove('active');
+
+            } else {
+                box.style.display = 'none';
+                document.getElementById('availabilityYesLabel').classList.add('active');
+                document.getElementById('availabilityNoLabel').classList.remove('active');
+            }
+        }
+
+        // Initially hide the availability box
+        document.getElementById('activeNonActive11').style.display = 'none';
 
         // Function to display the active-non-active div
         function boxActive10(show) {

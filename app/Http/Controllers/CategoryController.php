@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Property;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,9 +26,20 @@ class CategoryController extends Controller
         ]);
 
         // Handle the image upload
+        // if ($request->hasFile('image')) {
+        //     $imagePath = $request->file('image')->store('categories', 'public'); // Save to storage/app/public/categories
+        //     $imageUrl = asset('storage/' . $imagePath); // Generate URL for the stored image
+        // }
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('categories', 'public'); // Save to storage/app/public/categories
-            $imageUrl = asset('storage/' . $imagePath); // Generate URL for the stored image
+            // Generate a unique name for the image
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $uniqueName = 'category_' . Str::random(40) . '.' . $extension;
+
+            // Define the destination path for storing the image
+            $destinationPath = public_path('assets/categories');
+
+            // Generate the public URL for the image
+            $imageUrl = asset($destinationPath);
         }
 
         // Create the category

@@ -47,6 +47,7 @@ class Property extends Model
         'deposit_amount',
         'conviction',
         'conviction_pecify',
+        'choice_voucher',
 
     ];
     public function category()

@@ -155,10 +155,11 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                         </thead>
                         <tbody>
                             @foreach ($categorys as $category)
+                            {{-- {{ dd($category) }} --}}
                                 <tr>
                                     <td>{{ $category->id ?? '' }}</td>
                                     <td>{{ $category->name ?? '' }}</td>
-                                    <td><img src="{{ Storage::url($category->image ?? '') }}" alt="" height="50px" width="50px"></td>
+                                    <td><img src="{{ asset('assets/' . ($category->image ?? 'default.png')) }}" alt="" height="50px" width="50px"></td>
                                     <td>
                                         <a class="btn btn-sm btn-success" href="{{ route('admin.category.edit', $category->id) }}">
                                             <img src="{{ asset('assets/images/bx-pencil.png') }}" width="30" height="20">

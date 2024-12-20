@@ -185,7 +185,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                                     <td>{{ $user->address ?? '' }}</td>
                                     <td>
                                         @if ($user->profile_img)
-                                            <img src="{{ Storage::url($user->profile_img) }}" alt="Profile Image"
+                                            <img src="{{ asset('assets/' . ($user->profile_img ?? 'default.png')) }}" alt="Profile Image"
                                                 width="50" height="50">
                                         @else
                                             No Image
