@@ -127,6 +127,7 @@ class PropertyController extends Controller
             'conviction'=>'nullable|boolean',
             'conviction_pecify'=>'nullable|string',
             'credit_check'=>'nullable|boolean',
+            'choice_voucher'=>'nullable|boolean',
 
 
 
@@ -171,6 +172,7 @@ class PropertyController extends Controller
             'conviction' => $validated['conviction'] ?? false,
             'conviction_pecify' => $validated['conviction_pecify'] ?? null,
             'credit_check' => $validated['credit_check'] ?? false,
+            'choice_voucher' => $validated['choice_voucher'] ?? false,
 
         ]);
 
@@ -329,6 +331,7 @@ class PropertyController extends Controller
             'credit_check'=>'nullable|boolean',
             'rent_type'=>'nullable|integer',
             'lease_type'=>'nullable|integer',
+            'choice_voucher'=>'nullable|boolean',
 
 
 
@@ -406,6 +409,7 @@ class PropertyController extends Controller
             'conviction_pecify' => $validated['conviction_pecify'] ?? null,
             'credit_check' => $validated['credit_check'] ?? false,
             'lease_type' => $validated['lease_type'] ?? null,
+            'choice_voucher' => $validated['choice_voucher'] ?? false,
 
         ]);
 

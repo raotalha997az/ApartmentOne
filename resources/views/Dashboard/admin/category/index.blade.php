@@ -155,7 +155,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
                         </thead>
                         <tbody>
                             @foreach ($categorys as $category)
-                            {{-- {{ dd($category) }} --}}
+                            {{ dd($category) }}
                                 <tr>
                                     <td>{{ $category->id ?? '' }}</td>
                                     <td>{{ $category->name ?? '' }}</td>

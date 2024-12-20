@@ -643,7 +643,7 @@
             <p>Where is the rental property located?</p>
             <div class="select-box">
                 <span>State</span>
-                <select name="country" id="" >
+                <select name="country" id="">
                     <option value="USA" {{ old('country') == 'USA' ? 'selected' : '' }}>USA</option>
                     <option value="Canada" {{ old('country') == 'Canada' ? 'selected' : '' }}>Canada</option>
                     <option value="UK" {{ old('country') == 'UK' ? 'selected' : '' }}>United Kingdom</option>
@@ -835,8 +835,7 @@
                     <input type="radio" class="propertyYes" id="propertyYes" name="waterbed" value="1"
                         onclick="setActiveProperty(this)"
                         {{ old('waterbed', $selectedProperty ?? '') == 1 ? 'checked' : '' }}>
-                    <label
-                        class="propertyYesLabel {{ old('waterbed', $selectedProperty ?? '') == 1 ? 'active' : '' }}"
+                    <label class="propertyYesLabel {{ old('waterbed', $selectedProperty ?? '') == 1 ? 'active' : '' }}"
                         for="propertyYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
@@ -847,8 +846,7 @@
                     <input type="radio" class="propertyNo" id="propertyNo" name="waterbed" value="0"
                         onclick="setActiveProperty(this)"
                         {{ old('waterbed', $selectedProperty ?? '') == 0 ? 'checked' : '' }}>
-                    <label
-                        class="propertyNoLabel {{ old('waterbed', $selectedProperty ?? '') == 0 ? 'active' : '' }}"
+                    <label class="propertyNoLabel {{ old('waterbed', $selectedProperty ?? '') == 0 ? 'active' : '' }}"
                         for="propertyNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
@@ -925,7 +923,8 @@
             <!-- Box for Date Input -->
             <div class="box" id="activeNonActive11">
                 <p>When will the property be available?</p>
-                <input type="date" name="date_availability" placeholder="DD MM YYYY" value="{{ old('date_availability') }}">
+                <input type="date" name="date_availability" placeholder="DD MM YYYY"
+                    value="{{ old('date_availability') }}">
                 @error('date_availability')
                     <div class="error-message">
                         <span class="text-danger">{{ $message }}</span>
@@ -942,25 +941,36 @@
             <p>Does this property accept Section 8 Housing Choice Voucher?</p>
             <div class="selection-boxex-true">
                 <!-- "Yes" Option -->
-                <div class="radio-item" onclick="boxActive21(1)" id="boxactive11">
-                    <input type="radio" id="availability_yes" name="availability_check" value="1">
-                    <label class="availability_check" for="availability_yes" id="availabilityYesLabel">
+                <div class="radio-item">
+                    <input type="radio" class="choice_voucherYes" id="choice_voucherYes" name="choice_voucher" value="1"
+                        onclick="boxActive21(this)"
+                        {{ old('choice_voucher', $selectedchoice_voucher ?? '') == 1 ? 'checked' : '' }}>
+                    <label
+                        class="choice_voucherYesLabel {{ old('choice_voucher', $selectedchoice_voucher ?? '') == 1 ? 'active' : '' }}"
+                        for="choice_voucherYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
                 <!-- "No" Option -->
-                <div class="radio-item" onclick="boxActive21(0)" id="boxnonactive11">
-                    <input type="radio" id="availability_no" name="availability_check" value="0">
-                    <label class="availability_check" for="availability_no" id="availabilityNoLabel">
+                <div class="radio-item">
+                    <input type="radio" class="choice_voucherNo" id="choice_voucherNo" name="choice_voucher" value="0"
+                        onclick="boxActive21(this)"
+                        {{ old('choice_voucher', $selectedchoice_voucher ?? '') == 0 ? 'checked' : '' }}>
+                    <label
+                        class="choice_voucherNoLabel {{ old('choice_voucher', $selectedchoice_voucher ?? '') == 0 ? 'active' : '' }}"
+                        for="choice_voucherNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
                 </div>
             </div>
 
+
+
         </div>
+
 
 
 
@@ -1088,7 +1098,7 @@
                 <div class="box active-non-active" id="payment_frequency">
                     <label for="">Payment Frequency</label>
                     <input type="number" name="payment_frequency" placeholder="Payment Frequency Amount"
-                        value="{{ old('payment_frequency') }}" >
+                        value="{{ old('payment_frequency') }}">
                     @error('payment_frequency')
                         <div class="error-message">
                             <span class="text-danger">{{ $message }}</span>
@@ -1142,10 +1152,10 @@
                     </label>
                 </div>
                 @error('security_deposit')
-                <div class="error-message">
-                    <span class="text-danger">{{ $message }}</span>
-                </div>
-            @enderror
+                    <div class="error-message">
+                        <span class="text-danger">{{ $message }}</span>
+                    </div>
+                @enderror
 
 
             </div>
@@ -1540,24 +1550,6 @@
         @endif
 
 
-        function boxActive21(show) {
-            var box = document.getElementById('activeNonActive11');
-
-            if (show == 0) {
-                box.style.display = 'block';
-                document.getElementById('availabilityNoLabel').classList.add('active');
-                document.getElementById('availabilityYesLabel').classList.remove('active');
-
-            } else {
-                box.style.display = 'none';
-                document.getElementById('availabilityYesLabel').classList.add('active');
-                document.getElementById('availabilityNoLabel').classList.remove('active');
-            }
-        }
-
-        // Initially hide the availability box
-        document.getElementById('activeNonActive11').style.display = 'none';
-
         // Function to display the active-non-active div
         function boxActive10(show) {
             var box = document.getElementById('activeNonActive10');
@@ -1936,6 +1928,26 @@
             // Check the radio button
             element.checked = true;
         }
+
+        function boxActive21(element) {
+            console.log('Clicked element:', element);
+
+            // Reset all labels
+            document.querySelectorAll('.choice_voucherYesLabel, .choice_voucherNoLabel').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add 'active' to the corresponding label
+            if (element.value === "1") {
+                document.querySelector('.choice_voucherYesLabel').classList.add('active');
+            } else if (element.value === "0") {
+                document.querySelector('.choice_voucherNoLabel').classList.add('active');
+            }
+
+            // Check the radio button
+            element.checked = true;
+        }
+
 
         function setActiveProperty(element) {
             console.log('Clicked element:', element);

@@ -447,6 +447,42 @@
 
                             </div>
 
+                            <div class="tab" id="availability_date">
+                                <h6>Section 8 Housing Choice Voucher</h6>
+
+                                <p>Does this property accept Section 8 Housing Choice Voucher?</p>
+                                <div class="selection-boxex-true">
+                                    <!-- "Yes" Option -->
+                                    <div class="radio-item">
+                                        <input type="radio" class="choice_voucherYes" id="choice_voucherYes" name="choice_voucher" value="1"
+                                            onclick="boxActive21(this)"
+                                            {{ old('choice_voucher', $selectedchoice_voucher ?? '') == 1 ? 'checked' : '' }}>
+                                        <label
+                                            class="choice_voucherYesLabel {{ old('choice_voucher', $selectedchoice_voucher ?? '') == 1 ? 'active' : '' }}"
+                                            for="choice_voucherYes">
+                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <!-- "No" Option -->
+                                    <div class="radio-item">
+                                        <input type="radio" class="choice_voucherNo" id="choice_voucherNo" name="choice_voucher" value="0"
+                                            onclick="boxActive21(this)"
+                                            {{ old('choice_voucher', $selectedchoice_voucher ?? '') == 0 ? 'checked' : '' }}>
+                                        <label
+                                            class="choice_voucherNoLabel {{ old('choice_voucher', $selectedchoice_voucher ?? '') == 0 ? 'active' : '' }}"
+                                            for="choice_voucherNo">
+                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
                             <div class="tab" id="lease_details">
 
                                 <h6>Lease Details</h6>
@@ -1104,6 +1140,30 @@
             document.querySelector('.propertyNoLabel').classList.add('active');
         }
 
+        function boxActive21(element) {
+            console.log('Clicked element:', element);
+
+            // Reset all labels
+            document.querySelectorAll('.choice_voucherYesLabel, .choice_voucherNoLabel').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add 'active' to the corresponding label
+            if (element.value === "1") {
+                document.querySelector('.choice_voucherYesLabel').classList.add('active');
+            } else if (element.value === "0") {
+                document.querySelector('.choice_voucherNoLabel').classList.add('active');
+            }
+
+            // Check the radio button
+            element.checked = true;
+        }
+        var choice_voucher = "{{ $property->choice_voucher }}";
+        if (choice_voucher == 1) {
+            document.querySelector('.choice_voucherYesLabel').classList.add('active');
+        } else {
+            document.querySelector('.choice_voucherNoLabel').classList.add('active');
+        }
 
         function boxActive11(show) {
             var box = document.getElementById('activeNonActive11');

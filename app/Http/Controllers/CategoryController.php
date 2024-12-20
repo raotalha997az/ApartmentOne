@@ -31,16 +31,30 @@ class CategoryController extends Controller
         //     $imageUrl = asset('storage/' . $imagePath); // Generate URL for the stored image
         // }
         if ($request->hasFile('image')) {
-            // Generate a unique name for the image
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $uniqueName = 'category_' . Str::random(40) . '.' . $extension;
+            // Retrieve the uploaded file
+            $file = $request->file('image');
 
-            // Define the destination path for storing the image
+            // Generate a unique name for the image
+            $uniqueName = 'category_' . Str::random(40) . '.' . $file->getClientOriginalExtension();
+
+            // Define the destination path within the public directory
             $destinationPath = public_path('assets/categories');
 
+            // Ensure the directory exists; create it if it doesn't
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            // Move the image to the destination path
+            $file->move($destinationPath, $uniqueName);
+
+            // Store the relative path for saving in the database or elsewhere
+            $imagePath = 'assets/categories/' . $uniqueName;
+
             // Generate the public URL for the image
-            $imageUrl = asset($destinationPath);
+            $imageUrl = asset($imagePath);
         }
+
 
         // Create the category
         $category = Category::create([
