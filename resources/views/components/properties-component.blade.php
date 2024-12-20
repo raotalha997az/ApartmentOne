@@ -62,7 +62,7 @@
 
                         <a href="{{ $dashboardUrl }}" class="properties-main-box-child">
                             <div class="img-box">
-                                <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}" alt="">
+                                <img src="{{ asset($property->media[0]->img_path ?? '') }}" alt="">
                                 <div class="arrow-box">
                                     <img src="{{ asset('assets/images/right-arrow.png') }}" alt="">
                                 </div>

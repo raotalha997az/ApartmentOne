@@ -10,6 +10,7 @@ use App\Models\Property;
 use App\Models\Wishlist;
 use App\Models\RentToWho;
 use App\Models\PetDetails;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\FeatureDetails;
 use App\Models\RentToWhoDetails;
@@ -177,12 +178,27 @@ class PropertyController extends Controller
         ]);
 
         // Handle image upload and store paths in the Media model
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $imagePath = $image->store('image/property', 'public');
+        //         Media::create([
+        //             'property_id' => $property->id,
+        //             'img_path' => $imagePath,
+        //         ]);
+        //     }
+        // }
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imagePath = $image->store('image/property', 'public');
+                // Get file extension
+                $extension = $image->getClientOriginalExtension();
+                // Generate unique name for the image
+                $uniqueName = 'property_' . Str::random(40) . '.' . $extension;
+                // Move the image to 'public/assets/images/properties/propertyimage/' directory
+                $image->move(public_path('assets/images/properties'), $uniqueName);
+                // Store the image path in the database
                 Media::create([
                     'property_id' => $property->id,
-                    'img_path' => $imagePath,
+                    'img_path' => 'assets/images/properties/' . $uniqueName,
                 ]);
             }
         }
@@ -373,6 +389,9 @@ class PropertyController extends Controller
         if($validated['credit_check']==0){
             $validated['credit_point'] = null;
         }
+        if($validated['availability_check']== 1){
+            $validated['date_availability'] = null;
+        }
         $property->update([
             'name' => $validated['name'],
             'address' => $validated['address'],
@@ -413,27 +432,61 @@ class PropertyController extends Controller
 
         ]);
 
+        // if ($request->has('deleted_images')) {
+        //     foreach ($request->deleted_images as $imgPath) {
+        //         // Soft delete the image or remove the media record
+        //         $media = Media::where('property_id', $property->id)
+        //                     ->where('img_path', $imgPath)
+        //                     ->first();
+        //         if ($media) {
+        //             $media->delete(); // Soft delete
+        //         }
+        //     }
+        // }
+
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $imagePath = $image->store('image/property', 'public');
+        //         Media::create([
+        //             'property_id' => $property->id,
+        //             'img_path' => $imagePath,
+        //         ]);
+        //     }
+        // }
+
+
         if ($request->has('deleted_images')) {
             foreach ($request->deleted_images as $imgPath) {
-                // Soft delete the image or remove the media record
+                // Find the media record and delete the physical file
                 $media = Media::where('property_id', $property->id)
-                            ->where('img_path', $imgPath)
-                            ->first();
+                              ->where('img_path', $imgPath)
+                              ->first();
                 if ($media) {
-                    $media->delete(); // Soft delete
+                    $filePath = public_path($media->img_path);
+                    if (file_exists($filePath)) {
+                        unlink($filePath); // Remove the physical file
+                    }
+                    $media->delete(); // Remove the media record
                 }
             }
         }
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imagePath = $image->store('image/property', 'public');
+                // Get file extension
+                $extension = $image->getClientOriginalExtension();
+                // Generate unique name for the image
+                $uniqueName = 'property_' . Str::random(40) . '.' . $extension;
+                // Move the image to 'public/assets/images/properties/propertyimage/' directory
+                $image->move(public_path('assets/images/properties/propertyimage'), $uniqueName);
+                // Store the image path in the database
                 Media::create([
                     'property_id' => $property->id,
-                    'img_path' => $imagePath,
+                    'img_path' => 'assets/images/properties/propertyimage/' . $uniqueName,
                 ]);
             }
         }
+
 
         if ($request->has('rent_whos') && is_array($request->rent_whos)) {
             RentToWhoDetails::where('property_id', $property->id)->delete();

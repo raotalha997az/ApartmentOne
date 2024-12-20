@@ -84,8 +84,7 @@
 
                                         <a href="{{ route('landlord.propertiesdetails', $property->id) }}">
                                             <div class="box img-box-property">
-                                                <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}"
-                                                    alt="">
+                                                <img src="{{ asset($property->media[0]->img_path ?? '') }}" alt="">
                                                 <div class="content">
                                                     <h4>{{ $property->name ?? '' }}</h4>
                                                     <p>

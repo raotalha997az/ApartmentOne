@@ -18,8 +18,8 @@
             <div class="place-gallery-box">
                 <div class="large-gallery-box">
                     @if ($property->media->isNotEmpty())
-                        <a href="{{ Storage::url($property->media[0]->img_path ?? '') }}" data-fancybox="gallery" data-caption="Caption Image 1">
-                            <img src="{{ Storage::url($property->media[0]->img_path ?? '') }}" alt="Image Gallery">
+                        <a href="{{ asset($property->media[0]->img_path ?? '') }}" data-fancybox="gallery" data-caption="Caption Image 1">
+                            <img src="{{ asset($property->media[0]->img_path ?? '') }}" alt="Image Gallery">
                         </a>
                     @endif
                 </div>
@@ -27,15 +27,14 @@
                 <div class="small-gallery-box">
                     @if ($property->media->isNotEmpty())
                         @foreach ($property->media->skip(1) as $media)
-                            <a href="{{ Storage::url($media->img_path) }}" style="box-shadow: 0px 0px 11px 0px black;" data-fancybox="gallery" data-caption="Property Image {{ $loop->iteration }}">
-                                <img src="{{ Storage::url($media->img_path) }}" alt="Image Gallery">
+                            <a href="{{ asset($media->img_path) }}" style="box-shadow: 0px 0px 11px 0px black;" data-fancybox="gallery" data-caption="Property Image {{ $loop->iteration }}">
+                                <img src="{{ asset($media->img_path) }}" alt="Image Gallery">
                             </a>
                         @endforeach
                     @else
                         <p>No images available for this property.</p>
                     @endif
                 </div>
-
                 <div class="proper-list-price">
                     <h3>$ {{ $property->price_rent }}</h3>
                 </div>

@@ -155,7 +155,8 @@
                             <div id="existingImagesContainer">
                                 @foreach ($property->media as $image)
                                     <div class="image-preview">
-                                        <img src="{{ Storage::url($image->img_path) }}" alt="Image" />
+                                        {{-- <img src="{{ Storage::url($image->img_path) }}" alt="Image" /> --}}
+                                        <img src="{{ asset($image->img_path) }}" alt="Image" />
                                         <input type="hidden" name="existing_images[]" value="{{ $image->img_path }}">
                                         <button type="button" class="close-btn"
                                             onclick="removeImage(this, '{{ $image->img_path }}')">X</button>
