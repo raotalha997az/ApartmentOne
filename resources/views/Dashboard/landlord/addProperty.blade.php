@@ -828,7 +828,7 @@
 
 
 
-            <p>Are waterbeds allowed in the property</p>
+            <p>Are waterbeds allowed in the property?</p>
 
             <div class="selection-boxex-true">
                 <div class="radio-item">

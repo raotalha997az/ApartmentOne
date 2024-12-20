@@ -156,7 +156,7 @@
 
                          </div>
                          <div class="img-box">
-                             <img src="{{ Storage::url($property->user->profile_img ?? '') }}" alt="owner">
+                             <img src="{{ asset('assets/' . ($property->user->profile_img ?? 'default.png')) }}" alt="owner">
                          </div>
                         </div>
                         <div class="owner-details-links">
@@ -185,8 +185,9 @@
                             <div class="three-box-table">
                                 @foreach ($tenants as $tenant)
                                     <span>
+
                                         <div class="box img-box-property">
-                                            <img src="{{ Storage::url($tenant->profile_img) }}" alt="{{ $tenant->name }}" class="tenant-image" width="60" height="60" style="border-radius: 50%;">
+                                            <img src="{{ asset('assets/' . ($tenant->profile_img ?? 'default.png')) }}" alt="{{ $tenant->name }}" class="tenant-image" width="60" height="60" style="border-radius: 50%;">
                                             <div class="content">
                                                 <h4>{{ $tenant->name }}</h4> <!-- Tenant's name -->
                                             </div>

@@ -105,7 +105,8 @@
 
                                     @foreach ($propertyWithTenants['tenants'] as $index => $tenant)
                                         @if ($index < $maxImages)
-                                            <img src="{{ Storage::url($tenant->profile_img) }}" alt="{{ $tenant->name }}" class="tenant-image" width="60" height="60" style="border-radius: 50%;">
+
+                                            <img src="{{ asset('assets/' . ($tenant->profile_img ?? 'default.png')) }}" alt="{{ $tenant->name }}" class="tenant-image" width="60" height="60" style="border-radius: 50%;">
                                         @else
                                             @break
                                         @endif

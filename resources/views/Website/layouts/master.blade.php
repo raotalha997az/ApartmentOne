@@ -140,7 +140,7 @@
 
 
                                     <a href="{{ $dashboardUrl }}" class="t-btn t-btn-header user-profile-link">
-                                        <img src="{{ Storage::url(Auth::user()->profile_img ?? '') }}"
+                                        <img src="{{ asset('assets/' . (Auth::user()->profile_img ?? 'default.png')) }}"
                                             alt="">{{ Auth::user()->name }}
                                             <i class="fa-solid fa-chevron-down"></i>
                                     </a>
