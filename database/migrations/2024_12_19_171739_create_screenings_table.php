@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('screenings', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('property_city');
-            $table->string('property_location');
-            $table->date('shifting_date');
-            $table->integer('rent_type');
-            $table->integer('cat_id');
+            $table->string('property_city')->nullable();
+            $table->string('property_location')->nullable();
+            $table->date('shifting_date')->nullable();
+            $table->integer('rent_type')->nullable();
+            $table->integer('cat_id')->nullable();
             $table->boolean('pet')->default(false);
             $table->boolean('smoke')->default(false);
             $table->boolean('waterbed')->default(false);

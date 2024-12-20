@@ -1183,12 +1183,12 @@
 
         // Initially hide the availability box
         var availability = "{{ $property->availability }}";
-        if (availability == 0) {
+        if (availability == 1) {
             document.getElementById('activeNonActive11').style.display = 'block';
-            document.getElementById('availabilityNoLabel').classList.add('active');
+            document.getElementById('availabilityYesLabel').classList.add('active');
         } else {
             document.getElementById('activeNonActive11').style.display = 'none';
-            document.getElementById('availabilityYesLabel').classList.add('active');
+            document.getElementById('availabilityNoLabel').classList.add('active');
         }
 
         function boxActive12(show) {

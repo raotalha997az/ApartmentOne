@@ -331,8 +331,11 @@
                                                     <div class="two-hex-align">
                                                         <input type="text"
                                                             placeholder="City of the property you wish to move to"
-                                                            name="property_city" class="w-100">
+                                                            name="property_city" class="w-100"  value="{{ $user->screening['property_city'] ?? '' }}">
                                                     </div>
+                                                    @error('property_city')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -341,9 +344,12 @@
                                                     <div class="two-hex-align">
                                                         <input type="text"
                                                             placeholder="Preferred location of the property you wish to move to"
-                                                            name="property_location" class="w-100">
+                                                            name="property_location" class="w-100" value="{{ $user->screening['property_location'] ?? '' }}">
 
                                                     </div>
+                                                    @error('property_location')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -354,8 +360,11 @@
                                                     <label for="shifting_date">Preferred moving date</label>
                                                     <div class="two-hex-align">
                                                         <input type="date" placeholder="Preferred move-in date"
-                                                            name="shifting_date" class="w-100">
+                                                            name="shifting_date" class="w-100" value="{{ $user->screening['shifting_date'] ?? '' }}">
                                                     </div>
+                                                    @error('shifting_date')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -409,11 +418,12 @@
                                                                 <input type="radio" id="category-{{ $category->id }}"
                                                                     name="cat_id" value="{{ $category->id }}"
                                                                     onclick="selectCategory(this)"
+                                                                    onclick="selectCategory(this)"
                                                                     {{ old('category', $selectedCategory ?? '') == $category->id ? 'checked' : '' }}>
                                                                 <label for="category-{{ $category->id }}"
                                                                     class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
                                                                     {{-- <img src="{{ Storage::url($category->image ?? '') }}" alt="{{ $category->name }}"> --}}
-                                                                    <img src="{{ asset('assets/images/cat_') . ($loop->index + 1) . '.png' }}"
+                                                                    <img src="{{ asset($category->image ?? 'default.png') }}"
                                                                         alt="{{ $category->name }}">
                                                                     <span>{{ $category->name }}</span>
                                                                 </label>
@@ -482,7 +492,11 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
+                                                @error('pets')
+                                                <div class="error-message">
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                </div>
+                                            @enderror
 
 
                                             </div>
@@ -493,10 +507,11 @@
 
                                                 <div class="selection-boxex-true">
 
-                                                    <div class="radio-item" onclick="boxActivesmoke(1)" >
+                                                    <div class="radio-item" onclick="boxActivesmoke(1)">
                                                         <input type="radio" id="eviction" name="eviction"
                                                             value="1">
-                                                        <label class="evction" for="yes" onclick="setEvction(this)" id="selectionYesSmokeLabel">
+                                                        <label class="evction" for="yes" onclick="setEvction(this)"
+                                                            id="selectionYesSmokeLabel">
                                                             <img src="/assets/images/checked.png" alt="Yes">
                                                             Yes
                                                         </label>
@@ -507,12 +522,17 @@
                                                         id="boxnunactive10">
                                                         <input type="radio" id="eviction" name="eviction"
                                                             value="0">
-                                                        <label class="evction" for="no" onclick="setEvction(this)" id="selectionNoSmokeLabel">
+                                                        <label class="evction" for="no" onclick="setEvction(this)"
+                                                            id="selectionNoSmokeLabel">
                                                             <img src="/assets/images/cancel.png" alt="No">
                                                             No
                                                         </label>
                                                     </div>
-
+                                                    @error('smoke')
+                                                    <div class="error-message">
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    </div>
+                                                @enderror
 
                                                 </div>
                                             </div>
@@ -527,10 +547,12 @@
 
                                                 <div class="selection-boxex-true">
 
-                                                    <div class="radio-item" onclick="boxActiveWaterbed(1)" id="boxactive10">
+                                                    <div class="radio-item" onclick="boxActiveWaterbed(1)"
+                                                        id="boxactive10">
                                                         <input type="radio" id="eviction" name="eviction"
                                                             value="1">
-                                                        <label class="evction" for="yes" onclick="setEvction(this)" id="selectionYesWaterbedLabel">
+                                                        <label class="evction" for="yes" onclick="setEvction(this)"
+                                                            id="selectionYesWaterbedLabel">
                                                             <img src="/assets/images/checked.png" alt="Yes">
                                                             Yes
                                                         </label>
@@ -541,12 +563,17 @@
                                                         id="boxnunactive10">
                                                         <input type="radio" id="eviction" name="eviction"
                                                             value="0">
-                                                        <label class="evction" for="no" onclick="setEvction(this)" id="selectionNoWaterbedLabel">
+                                                        <label class="evction" for="no" onclick="setEvction(this)"
+                                                            id="selectionNoWaterbedLabel">
                                                             <img src="/assets/images/cancel.png" alt="No">
                                                             No
                                                         </label>
                                                     </div>
-
+                                                    @error('waterbed')
+                                                    <div class="error-message">
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    </div>
+                                                @enderror
 
                                                 </div>
 
@@ -562,7 +589,8 @@
                                                     <div class="radio-item" onclick="boxActiveLease(1)" id="boxactive10">
                                                         <input type="radio" id="eviction" name="eviction"
                                                             value="1">
-                                                        <label class="evction" for="yes" onclick="setEvction(this)" id="selectionYesLeaseLabel">
+                                                        <label class="evction" for="yes" onclick="setEvction(this)"
+                                                            id="selectionYesLeaseLabel">
                                                             <img src="/assets/images/checked.png" alt="Yes">
                                                             Yes
                                                         </label>
@@ -573,13 +601,18 @@
                                                         id="boxnunactive10">
                                                         <input type="radio" id="eviction" name="eviction"
                                                             value="0">
-                                                        <label class="evction" for="no" onclick="setEvction(this)" id="selectionNoLeaseLabel">
+                                                        <label class="evction" for="no" onclick="setEvction(this)"
+                                                            id="selectionNoLeaseLabel">
                                                             <img src="/assets/images/cancel.png" alt="No">
                                                             No
                                                         </label>
                                                     </div>
 
-
+                                                    @error('lease_short_term')
+                                                    <div class="error-message">
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    </div>
+                                                @enderror
                                                 </div>
                                             </div>
 
@@ -590,10 +623,12 @@
                                             <div class="col-md-12" style="height: min-content !important;">
                                                 <p>Will you be providing a security deposit?</p>
                                                 <div class="selection-boxex-true">
-                                                    <div class="radio-item" onclick="boxActiveDeposit(1)" id="boxactive10">
+                                                    <div class="radio-item" onclick="boxActiveDeposit(1)"
+                                                        id="boxactive10">
                                                         <input type="radio" id="eviction" name="eviction"
                                                             value="1">
-                                                        <label class="evction" for="yes" onclick="setEvction(this)" id="selectionYesDepositLabel">
+                                                        <label class="evction" for="yes" onclick="setEvction(this)"
+                                                            id="selectionYesDepositLabel">
                                                             <img src="/assets/images/checked.png" alt="Yes">
                                                             Yes
                                                         </label>
@@ -603,7 +638,8 @@
                                                         id="boxnunactive10">
                                                         <input type="radio" id="eviction" name="eviction"
                                                             value="0">
-                                                        <label class="evction" for="no" onclick="setEvction(this)" id="selectionNoDepositLabel">
+                                                        <label class="evction" for="no" onclick="setEvction(this)"
+                                                            id="selectionNoDepositLabel">
                                                             <img src="/assets/images/cancel.png" alt="No">
                                                             No
                                                         </label>
@@ -617,7 +653,11 @@
                                                             name="deposit_amount">
                                                     </div>
                                                 </div>
+                                            </div>    @error('security_deposit')
+                                            <div class="error-message">
+                                                <span class="text-danger">{{ $message }}</span>
                                             </div>
+                                        @enderror
 
                                         </div>
 
@@ -656,6 +696,11 @@
                                                     </li>
                                                 </ul>
                                             </div>
+                                            @error('consent')
+                                            <div class="error-message">
+                                                <span class="text-danger">{{ $message }}</span>
+                                            </div>
+                                        @enderror
                                         </div>
 
 
@@ -679,126 +724,143 @@
 @endsection
 @section('scripts')
     <script>
-$(document).ready(function () {
-    // Define the function globally
-    window.boxActive3 = function (value) {
-        const yesLabel = document.getElementById('selectionYesLabel');
-        const noLabel = document.getElementById('selectionNoLabel');
-        console.log(value);
+        $(document).ready(function() {
+            // Define the function globally
+            window.boxActive3 = function(value) {
+                const yesLabel = document.getElementById('selectionYesLabel');
+                const noLabel = document.getElementById('selectionNoLabel');
+                console.log(value);
 
-        if (value === 1) {
-            yesLabel.classList.add('active');
-            noLabel.classList.remove('active');
-        } else {
-            noLabel.classList.add('active');
-            yesLabel.classList.remove('active');
+                if (value === 1) {
+                    yesLabel.classList.add('active');
+                    noLabel.classList.remove('active');
+                } else {
+                    noLabel.classList.add('active');
+                    yesLabel.classList.remove('active');
+                }
+            };
+            window.boxActivesmoke = function(value) {
+                const yesLabel = document.getElementById('selectionYesSmokeLabel');
+                const noLabel = document.getElementById('selectionNoSmokeLabel');
+                console.log(value);
+
+                if (value === 1) {
+                    yesLabel.classList.add('active');
+                    noLabel.classList.remove('active');
+                } else {
+                    noLabel.classList.add('active');
+                    yesLabel.classList.remove('active');
+                }
+            };
+
+            window.boxActiveWaterbed = function(value) {
+                const yesLabel = document.getElementById('selectionYesWaterbedLabel');
+                const noLabel = document.getElementById('selectionNoWaterbedLabel');
+                if (value === 1) {
+                    yesLabel.classList.add('active');
+                    noLabel.classList.remove('active');
+                } else {
+                    noLabel.classList.add('active');
+                    yesLabel.classList.remove('active');
+                }
+            };
+
+            window.boxActiveShortTerm = function(value) {
+                const yesLabel = document.getElementById('selectionYesShortTermLabel');
+                const noLabel = document.getElementById('selectionNoShortTermLabel');
+                if (value === 1) {
+                    yesLabel.classList.add('active');
+                    noLabel.classList.remove('active');
+                } else {
+                    noLabel.classList.add('active');
+                    yesLabel.classList.remove('active');
+                }
+            };
+
+            window.boxActiveDeposit = function(value) {
+                console.log(value);
+                const yesLabel = document.getElementById('selectionYesDepositLabel');
+                const noLabel = document.getElementById('selectionNoDepositLabel');
+                if (value === 1) {
+                    yesLabel.classList.add('active');
+                    noLabel.classList.remove('active');
+                } else {
+                    noLabel.classList.add('active');
+                    yesLabel.classList.remove('active');
+                }
+            };
+            window.boxActiveLease = function(value) {
+                console.log(value);
+                const yesLabel = document.getElementById('selectionYesLeaseLabel');
+                const noLabel = document.getElementById('selectionNoLeaseLabel');
+                if (value === 1) {
+                    yesLabel.classList.add('active');
+                    noLabel.classList.remove('active');
+                } else {
+                    noLabel.classList.add('active');
+                    yesLabel.classList.remove('active');
+                }
+            };
+
+            // Initialize Select2 for Pets
+            $('#pets').select2({
+                placeholder: "Select your pets",
+                allowClear: true
+            });
+
+            // Show/Hide Pets Dropdown Based on Selection
+            window.boxActive3Pets = function(isActive) {
+                if (isActive) {
+                    $('#activeNonActive10').show(); // Show the pets dropdown
+                } else {
+                    $('#activeNonActive10').hide(); // Hide the pets dropdown
+                    $('#pets').val(null).trigger('change'); // Clear selection
+                }
+            };
+        });
+
+        function boxActive10() {
+            // Show the input field when "Yes" is selected
+            document.getElementById('securityDeposit').style.display = 'block';
         }
-    };
-    window.boxActivesmoke = function (value) {
-        const yesLabel = document.getElementById('selectionYesSmokeLabel');
-        const noLabel = document.getElementById('selectionNoSmokeLabel');
-        console.log(value);
 
-        if (value === 1) {
-            yesLabel.classList.add('active');
-            noLabel.classList.remove('active');
-        } else {
-            noLabel.classList.add('active');
-            yesLabel.classList.remove('active');
+        function boxNonActive10() {
+            // Hide the input field when "No" is selected
+            document.getElementById('securityDeposit').style.display = 'none';
         }
-    };
 
-    window.boxActiveWaterbed  = function (value) {
-        const yesLabel = document.getElementById('selectionYesWaterbedLabel');
-        const noLabel = document.getElementById('selectionNoWaterbedLabel');
-        if (value === 1) {
-            yesLabel.classList.add('active');
-            noLabel.classList.remove('active');
-        } else {
-            noLabel.classList.add('active');
-            yesLabel.classList.remove('active');
+        function selectCategory(element) {
+            // Remove 'active' class from all labels
+            document.querySelectorAll('.select_box').forEach(label => {
+                label.classList.remove('active');
+            });
+
+            // Add 'active' class to the corresponding label of the clicked radio button
+            const label = element.closest('.radio-item').querySelector('.select_box');
+            if (label) {
+                label.classList.add('active');
+            }
+
+            // Optionally, log or store the selected category value
+            const selectedCategory = element.value;
+            console.log('Selected category ID:', selectedCategory);
         }
-    };
 
-    window.boxActiveShortTerm  = function (value) {
-        const yesLabel = document.getElementById('selectionYesShortTermLabel');
-        const noLabel = document.getElementById('selectionNoShortTermLabel');
-        if (value === 1) {
-            yesLabel.classList.add('active');
-            noLabel.classList.remove('active');
-        } else {
-            noLabel.classList.add('active');
-            yesLabel.classList.remove('active');
+
+        function setEvction(element) {
+            // Remove 'active' class from all radio items
+            document.querySelectorAll('.evction').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked radio-item
+            element.classList.add('active');
+
+            // Ensure the radio input within the clicked item is checked
+            const radioInput = element.querySelector('input[type="radio"]');
+            if (radioInput) {
+                radioInput.checked = true;
+            }
         }
-    };
-
-    window.boxActiveDeposit  = function (value) {
-        console.log(value);
-        const yesLabel = document.getElementById('selectionYesDepositLabel');
-        const noLabel = document.getElementById('selectionNoDepositLabel');
-        if (value === 1) {
-            yesLabel.classList.add('active');
-            noLabel.classList.remove('active');
-        } else {
-            noLabel.classList.add('active');
-            yesLabel.classList.remove('active');
-        }
-    };
-    window.boxActiveLease  = function (value) {
-        console.log(value);
-        const yesLabel = document.getElementById('selectionYesLeaseLabel');
-        const noLabel = document.getElementById('selectionNoLeaseLabel');
-        if (value === 1) {
-            yesLabel.classList.add('active');
-            noLabel.classList.remove('active');
-        } else {
-            noLabel.classList.add('active');
-            yesLabel.classList.remove('active');
-        }
-    };
-
-    // Initialize Select2 for Pets
-    $('#pets').select2({
-        placeholder: "Select your pets",
-        allowClear: true
-    });
-
-    // Show/Hide Pets Dropdown Based on Selection
-    window.boxActive3Pets = function (isActive) {
-        if (isActive) {
-            $('#activeNonActive10').show(); // Show the pets dropdown
-        } else {
-            $('#activeNonActive10').hide(); // Hide the pets dropdown
-            $('#pets').val(null).trigger('change'); // Clear selection
-        }
-    };
-});
-
-function boxActive10() {
-    // Show the input field when "Yes" is selected
-    document.getElementById('securityDeposit').style.display = 'block';
-}
-
-function boxNonActive10() {
-    // Hide the input field when "No" is selected
-    document.getElementById('securityDeposit').style.display = 'none';
-}
-
-function setEvction(element) {
-    // Remove 'active' class from all radio items
-    document.querySelectorAll('.evction').forEach(item => {
-        item.classList.remove('active');
-    });
-
-    // Add 'active' class to the clicked radio-item
-    element.classList.add('active');
-
-    // Ensure the radio input within the clicked item is checked
-    const radioInput = element.querySelector('input[type="radio"]');
-    if (radioInput) {
-        radioInput.checked = true;
-    }
-}
-
     </script>
 @endsection
