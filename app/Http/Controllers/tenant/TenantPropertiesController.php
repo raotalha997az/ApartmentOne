@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\tenant;
 
+use App\Models\Pet;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Property;
