@@ -50,7 +50,7 @@
 
             <div class="col-lg-6 col-md-12">
                 <div class="img-box">
-                    <img src="{{Storage::url('blog/' . $blog->image)}}" alt="">
+                    <img src="{{ asset('assets/images/blog/' . $blog->image) }}" alt="">
                 </div>
 
             </div>
@@ -96,7 +96,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="blog-parent-box">
                    <div class="img-box">
-                    <img src="{{ Storage::url('blog/' . $blog->image) }}" alt="">
+                    <img src="{{ asset('assets/images/blog/' . $blog->image) }}" alt="">
                     <h6>Latest</h6>
                    </div>
                     <div class="text">

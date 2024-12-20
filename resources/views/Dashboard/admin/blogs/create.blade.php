@@ -86,7 +86,7 @@
             @if (isset($blog) && $blog->image)
                 <div class="my-3">
                     <label for="">Current Image</label>
-                    <img src="{{ Storage::url('blog/' .$blog->image) }}" width="100" height="100">
+                    <img src="{{ asset('assets/images/blog/' . $blog->image) }}" width="100" height="100">
                 </div>
             @endif
 

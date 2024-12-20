@@ -56,7 +56,7 @@
 
                         <div class="img-box">
 
-                    <img src="{{ Storage::url('blog/' . $blog->image) }}" alt="" >
+                    <img src="{{ asset('assets/images/blog/' . $blog->image) }}" alt="" >
                         @if ($blog->is_popular == 1)
                             <h6>Popular</h6>
                             @elseif ($blog->is_trending == 1)
