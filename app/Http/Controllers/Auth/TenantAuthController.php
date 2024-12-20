@@ -84,15 +84,6 @@ class TenantAuthController extends Controller
             $user->profile_img = 'profile_images/' . $uniqueName; // Store relative path
         }
 
-            // Generate a unique name for the new image
-            $extension = $request->file('profile_img')->getClientOriginalExtension();
-            $uniqueName = 'profile_' . Str::random(40) . '.' . $extension;
-            // Store new image in the public directory
-            $request->file('profile_img')->storeAs('public/profile_images', $uniqueName);
-            // Update user's profile_img attribute
-            $user->profile_img = 'profile_images/' . $uniqueName; // Store relative path
-        }
-
         // Save the updated user
         $user->save();
 
