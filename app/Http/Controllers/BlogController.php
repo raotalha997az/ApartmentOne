@@ -40,12 +40,11 @@ class BlogController extends Controller
                 $extension = $request->file('image')->getClientOriginalExtension();
                 // Generate unique name with 'blog' prefix
                 $uniqueName = 'blog' . Str::random(40) . '.' . $extension;
-                // Store the image in the 'public' directory
-                $request->file('image')->storeAs('public/blog', $uniqueName);
-                // Save the image name in the $data array (without 'public/')
-                $data['image'] =  $uniqueName;
+                // Move the file to 'public/assets/images/blog/' directory
+                $request->file('image')->move(public_path('assets/images/blog'), $uniqueName);
+                // Save the image name in the $data array
+                $data['image'] = $uniqueName;
             }
-
             // Create a new blog entry with the data
             Blog::create($data);
 
@@ -81,22 +80,20 @@ class BlogController extends Controller
             if ($request->hasFile('image')) {
                 // Delete the old image if it exists
                 if ($blog->image) {
-                    $oldImagePath = storage_path('app/public/' . $blog->image);
+                    $oldImagePath = public_path('assets/images/blog/' . $blog->image);
                     if (file_exists($oldImagePath)) {
                         unlink($oldImagePath); // Remove old image
                     }
                 }
 
-                if ($request->hasFile('image')) {
-                    // Get file extension
-                    $extension = $request->file('image')->getClientOriginalExtension();
-                    // Generate unique name with 'blog' prefix
-                    $uniqueName = 'blog' . Str::random(40) . '.' . $extension;
-                    // Store the image in the 'public' directory
-                    $request->file('image')->storeAs('public/blog', $uniqueName);
-                    // Save the image name in the $data array (without 'public/')
-                    $data['image'] =  $uniqueName;
-                }
+                // Get file extension
+                $extension = $request->file('image')->getClientOriginalExtension();
+                // Generate unique name with 'blog' prefix
+                $uniqueName = 'blog' . Str::random(40) . '.' . $extension;
+                // Move the file to 'public/assets/images/blog/' directory
+                $request->file('image')->move(public_path('assets/images/blog'), $uniqueName);
+                // Save the image name in the $data array
+                $data['image'] = $uniqueName;
             }
 
             // Update the blog entry with the new data

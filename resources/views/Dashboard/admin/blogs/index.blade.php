@@ -150,7 +150,7 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
     <tbody>
         @foreach ($blogs as $blog)
         <tr>
-            <td><img src="{{ Storage::url('blog/' . $blog->image) }}" alt="" height="50px" width="50px"></td>
+            <td><img src="{{ asset('assets/images/blog/' . $blog->image) }}" alt="" height="50px" width="50px"></td>
             <td>{{ $blog->title }}</td>
             <td>{{ $blog->slug }}</td>
             <td>{{ $blog->page_title }}</td>
