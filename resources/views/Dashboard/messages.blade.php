@@ -313,7 +313,7 @@
                                     class="mesg-person-{{ $conversation->id }}">
                                     <div class="parent-box-message-user">
                                         <div class="img-box">
-                                            <img src="{{ asset($conversation->user->profile_img) }}" alt="">
+                                            <img src="{{ asset('assets/'.$conversation->user->profile_img) }}" alt="">
                                         </div>
                                         <div class="content-box">
                                             <div class="name-and-date">
