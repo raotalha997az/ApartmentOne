@@ -101,7 +101,7 @@
                                             @if ($tenants->isNotEmpty())
                                                 <div class="box gallery-box-imges">
                                                     @foreach ($tenants as $tenant)
-                                                        <img src="{{ Storage::url($tenant->profile_img ?? '') }}"
+                                                        <img src="{{ asset('assets/' . $tenant->profile_img ?? '') }}"
                                                             alt="">
                                                     @endforeach
                                                 </div>

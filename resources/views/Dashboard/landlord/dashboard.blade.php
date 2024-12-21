@@ -87,7 +87,7 @@
                                 <div class="box img-box-property">
                                     @if (!empty($propertyWithTenants['property']['media']) && count($propertyWithTenants['property']['media']) > 0)
                                     {{-- Show the first image from the media array --}}
-                                    <img src="{{ Storage::url($propertyWithTenants['property']['media'][0]['img_path']) }}" alt="Property Image">
+                                    <img src="{{ asset($propertyWithTenants['property']['media'][0]['img_path']) }}" alt="Property Image">
                                 @else
                                     {{-- Show a placeholder image if no media exists --}}
                                     <img src="{{ asset('assets/images/placeholder.png') }}" alt="No Image Available">
