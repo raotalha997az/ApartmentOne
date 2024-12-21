@@ -57,7 +57,7 @@
                         <div class="box two-person-align-box">
                             <div class="sunb-person-child-box">
                                 <div class="img-box">
-                                    <img src="{{ Storage::url($property->user->profile_img ?? '') }}" alt="" width="150px" height="100" style="object-fit: contain">
+                                    <img src="{{ asset('assets/' . ($property->user->profile_img ?? 'default.png')) }}" alt="" width="150px" height="100" style="object-fit: contain">
                                 </div>
                                 <div class="content">
                                     <h6>Owner/Land Lord</h6>

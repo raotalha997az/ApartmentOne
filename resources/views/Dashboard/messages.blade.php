@@ -281,7 +281,7 @@
                                     class="mesg-person-{{ $conversation->id }}">
                                     <div class="parent-box-message-user">
                                         <div class="img-box">
-                                            <img src="{{ Storage::url($conversation->property->user->profile_img) }}"
+                                            <img src="{{ asset('assets/'.($conversation->property->user->profile_img)) }}"
                                                 alt="">
                                         </div>
                                         <div class="content-box">
@@ -313,7 +313,7 @@
                                     class="mesg-person-{{ $conversation->id }}">
                                     <div class="parent-box-message-user">
                                         <div class="img-box">
-                                            <img src="{{ Storage::url($conversation->user->profile_img) }}" alt="">
+                                            <img src="{{ asset($conversation->user->profile_img) }}" alt="">
                                         </div>
                                         <div class="content-box">
                                             <div class="name-and-date">
@@ -492,7 +492,7 @@
                         $("#profileBar").append(`
                     <div class="top-profile-message-box">
                         <div class="img-box">
-                            <img src="{{ Storage::url('/') }}${response.history.user.profile_img}" alt="">
+                            <img src="{{ asset('assets/${response.history.user.profile_img}') }}" alt="">
                         </div>
                         <div class="profile-name-messange">
                             <p>${response.history.user.name}</p>
@@ -509,7 +509,7 @@
                         $("#profileBar").append(`
                     <div class="top-profile-message-box">
                         <div class="img-box">
-                            <img src="{{ Storage::url('/') }}${response.history.property.user.profile_img}" alt="">
+                            <img src="{{ asset('assets/${response.history.property.user.profile_img}') }}" alt="">
                         </div>
                         <div class="profile-name-messange">
                             <p>${response.history.property.user.name}</p>

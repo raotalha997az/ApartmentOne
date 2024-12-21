@@ -138,10 +138,6 @@
                         <h6> Street Address</h6>
                         <p>{{ $property->address ?? '' }}</p>
                     </div>
-                    <div class="properties-content-style properties-street-address">
-                        <h6>Credit Score</h6>
-                        <p>{{ $property->credit_point ?? '' }}</p>
-                    </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Pets</h6>
                         @if ($property->pets && $property->pets->count())

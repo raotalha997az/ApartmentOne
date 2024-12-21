@@ -96,14 +96,10 @@
                     <div class="tab-pane p-3 active" id="tabs-1" role="tabpanel">
                         <div class="main-parent-place-box">
                             @foreach ($properties as $property)
-
-                                    {{-- {{ dd($property);}} --}}
-                                    {{-- {{ dd($property->property);}} --}}
-                                    {{-- {{ dd($property->property->id);}} --}}
                                     <div class="child-place-box">
                                         <a href="{{ route('tenant.propertiesdetails', $property->property->id) }}">
                                             <div class="img-box">
-                                                <img src="{{ Storage::url($property->property->media[0]->img_path ?? '') }}"
+                                                <img src="{{ asset($property->property->media[0]->img_path ?? '') }}"
                                                     alt="">
                                             </div>
                                         </a>

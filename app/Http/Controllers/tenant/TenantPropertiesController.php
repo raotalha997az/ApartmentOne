@@ -120,9 +120,10 @@ class TenantPropertiesController extends Controller
         //     $properties = [];
         // }
 
-        $properties = Property::where('approve', 1)->where('deleted_at', null)->with('media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category')->get();
-        $wishlist = Wishlist::where('user_id', Auth::user()->id)->get();
+        $properties = Property::where('approve', 1)->where('deleted_at', null)->with('media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category') ->orderBy('created_at', 'desc')->get();
+        $wishlist = Wishlist::where('user_id', Auth::user()->id) ->orderBy('created_at', 'desc')->get();
         $wishlist = Wishlist::where('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
             ->pluck('property_id')
             ->toArray();
 

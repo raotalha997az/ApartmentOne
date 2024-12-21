@@ -149,53 +149,125 @@
 
                     </div>
                     <div class="properties-content-style properties-street-address">
-                        <h6> Country</h6>
+                        <h6> State</h6>
                         <p>{{ $property->country ?? '' }}</p>
                     </div>
                     <div class="properties-content-style properties-street-address">
-                        <h6> Address</h6>
+                        <h6> Street Address</h6>
                         <p>{{ $property->address ?? '' }}</p>
-                    </div>
-                    <div class="properties-content-style properties-street-address">
-                        <h6>Credit Score:</h6>
-                        <p>{{ $property->credit_point ?? '' }}</p>
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Pets</h6>
                         @if ($property->pets && $property->pets->count())
-                        @foreach ($property->pets as $petDetail)
-                            <p>{{ $petDetail->pet->name ?? '' }}</p>
-                        @endforeach
-                    @else
-                        <p>Not Allowed</p>
-                    @endif
+                            @foreach ($property->pets as $petDetail)
+                                <p>{{ $petDetail->pet->name ?? '' }}</p>
+                            @endforeach
+                        @else
+                            <p>Not Allowed</p>
+                        @endif
                     </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Parking</h6>
+                        <p>{{ $property->parking ? 'Avalable' : 'Not Avalable' }}</p>
+                        @if ($property->parking)
+                            <p>What kind of parking is offered : {{ $property->kind_of_parking }}</p>
+                            <p>How many vehicles can be accommodated : {{ $property->no_of_vehicle }}</p>
+                        @endif
+                    </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Is smoking of cigarettes allowed in the property?</h6>
+                        <p>{{ $property->smoking ? 'Yes Allowed' : 'Not Allowed' }}</p>
+                    </div>
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Are waterbeds allowed in the property?</h6>
+                        <p>{{ $property->smoking ? 'Yes Allowed' : 'Not Allowed' }}</p>
+                    </div>
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Availability Date</h6>
+                        <p>{{ $property->availability_check ? 'Avalable' : 'Not Avalable' }}</p>
+                        @if (!$property->availability_check)
+                            <p>When will the property be available : {{ $property->date_availability }}</p>
+                        @endif
+                    </div>
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Section 8 Housing Choice Voucher</h6>
+                        @if ($property->choice_voucher)
+                            <p>Yes</p>
+                        @else
+                            <p>No</p>
+                        @endif
+                    </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Lease Details</h6>
+                        <p>{{ $property->lease_check ? 'Avalable' : 'Not Avalable' }}</p>
+                        @if ($property->lease_check)
+                            @if ($property->lease_type == 1)
+                                <p>Short Term </p>
+                            @elseif ($property->lease_type == 2)
+                                <p>Fixed Term</p>
+                                <p> {{ $property->lease_period }} months</p>
+                            @elseif ($property->lease_type == 3)
+                                <p>Month-to-Month</p>
+                            @elseif ($property->lease_type == 4)
+                                <p>Year-to-Year</p>
+                            @endif
+
+                        @endif
+                    </div>
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Rent</h6>
+                            @if ($property->lease_type == 1)
+                                <p>Weekly : {{ $property->price_rent }} </p>
+                            @elseif ($property->lease_type == 2)
+                                <p>Monthly : {{ $property->price_rent }} </p>
+                            @elseif ($property->lease_type == 3)
+                                <p>Yearly : {{ $property->price_rent }}</p>
+                            @elseif ($property->lease_type == 4)
+                                <p>Specific Terms : {{ $property->price_rent }}</p>
+                                <p> Payment Frequency Amount {{ $property->payment_frequency	 }}</p>
+                                @else
+                                <p>Not define</p>
+                            @endif
+                    </div>
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Security Deposit</h6>
+                        @if ($property->security_deposit)
+                            <p>Yes : {{ $property->deposit_amount }}</p>
+                        @else
+                            <p>No</p>
+                        @endif
+                    </div>
+
                     <div class="properties-content-style properties-other-details">
                         <h6>Eviction</h6>
                         <p>{{ $property->eviction ? 'Required' : 'Not Required' }}</p>
                         @if ($property->eviction)
-                        <p>Numer of Times {{ $property->many_time_evicted }}</p>
-                        <p>Eviction last Time: {{ $property->when_evicted }}</p>
-                    @endif
-                    </div>
-                    <div class="properties-content-style properties-other-details">
-                        <h6>Crimanal Report</h6>
-                        <p>{{ $property->criminal_records ? 'Required' : 'Not Required' }}</p>
-                    </div>
-                    <div class="properties-content-style properties-other-details">
-                        <h6>Amoking Allowed</h6>
-                        <p>{{ $property->smoking ? 'Yes Allowed' : 'Not Allowed' }}</p>
-                    </div>
-
-
-                    <div class="properties-content-style properties-other-details">
-                        <h6> Credit history check</h6>
-                        <p>{{ $property->credit_history_check ? 'Yes check' : 'Not check' }}</p>
+                            <p>Numer of Times {{ $property->many_time_evicted }}</p>
+                            <p>Eviction last Time: {{ $property->when_evicted }}</p>
+                        @endif
                     </div>
 
                     <div class="properties-content-style properties-other-details">
-                        <h6> Bankruptcy check</h6>
-                        <p>{{ $property->bankruptcy ? 'Yes check' : 'Not check' }}</p>
+                        <h6>Security Felony Convictions</h6>
+                        @if ($property->conviction)
+                        <p>Accept applicants with a felony conviction in their past</p>
+                            <p>{{ $property->conviction_pecify }}</p>
+                        @else
+                            <p>No</p>
+                        @endif
+                    </div>
+
+                    <div class="properties-content-style properties-other-details">
+                        <h6>Credit Score</h6>
+                        @if ($property->credit_check)
+                            <p>Credit Score must be at least : {{ $property->credit_point }} </p>
+                        @else
+                        <p>Not define</p>
+                        @endif
                     </div>
                     <div class="properties-content-style properties-other-details">
                         <h6>Rent to Who</h6>

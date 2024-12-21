@@ -70,7 +70,7 @@
                                     <div class="child-place-box">
                                         <a href="{{ route('tenant.propertiesdetails', $property->property->id) }}">
                                             <div class="img-box">
-                                                <img src="{{ Storage::url($property->property->media[0]->img_path ?? '') }}"
+                                                <img src="{{ asset($property->property->media[0]->img_path ?? '') }}"
                                                     alt="">
                                             </div>
                                         </a>

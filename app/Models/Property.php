@@ -59,8 +59,8 @@ class Property extends Model
     }
 
       public function media(){
-        return $this->hasMany(Media::class);
-    }
+       return $this->hasMany(Media::class);
+    } 
 
     public function pets(){
         return $this->hasMany(PetDetails::class, 'property_id');
