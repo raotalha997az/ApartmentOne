@@ -698,17 +698,19 @@
             <div class="selection-boxex-true">
 
                 <div class="radio-item" onclick="boxActive10(1)" id="boxactive10">
-                    <input type="radio" id="parkingYes" name="parking" value="1">
-                    <label class="parking" for="parkingYes" id="parkingYesLabel">
-                        <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
-                        Yes
-                    </label>
+                    <input type="radio" id="parkingYes" name="parking" value="1"
+                        {{ old('parking') == '1' ? 'checked' : '' }} >
+                        <label class="parking {{ old('parking') == '1' ? 'active' : '' }}" for="parkingYes" id="parkingYesLabel">
+                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
+                            Yes
+                        </label>
                 </div>
 
 
                 <div class="radio-item" onclick="boxActive10(0)" id="boxnunactive10">
-                    <input type="radio" id="parkingNo" name="parking" value="0">
-                    <label class="parking" for="parkingNo" id="parkingNoLabel">
+                    <input type="radio" id="parkingNo" name="parking" value="0"
+                        {{ old('parking') == '0' ? 'checked' : '' }}>
+                    <label class="parking {{ old('parking') == '0' ? 'active' : '' }}" for="parkingNo" id="parkingNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -760,14 +762,18 @@
 
             <div class="selection-boxex-true">
                 <div class="radio-item" onclick="boxActive3(1)" id="boxactive3">
-                    <label class="selection-content-true" id="selectionYesLabel">
+                    <input type="radio" id="petYes" name="pet" value="1"
+                    {{ old('pet') == '1' ? 'checked' : '' }} >
+                    <label class="selection-content-true {{ old('pet') == '1' ? 'active' : '' }}" id="selectionYesLabel" for="petYes">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         <span>Yes</span>
                     </label>
                 </div>
 
                 <div class="radio-item" onclick="boxActive3(0)" id="boxnonactive3">
-                    <label class="selection-content-true" id="selectionNoLabel">
+                    <input type="radio" id="petNo" name="pet" value="0"
+                    {{ old('pet') == '0' ? 'checked' : '' }} >
+                    <label class="selection-content-true {{ old('pet') == '0' ? 'active' : '' }}" id="selectionNoLabel" for="petNo">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         <span>No</span>
                     </label>
@@ -903,8 +909,9 @@
             <div class="selection-boxex-true">
                 <!-- "Yes" Option -->
                 <div class="radio-item" onclick="boxActive11(1)" id="boxactive11">
-                    <input type="radio" id="availability_yes" name="availability_check" value="1">
-                    <label class="availability_check" for="availability_yes" id="availabilityYesLabel">
+                    <input type="radio" id="availability_yes" name="availability_check" value="1"
+                        {{ old('availability_check') == '1' ? 'checked' : '' }}>
+                    <label class="availability_check_yes {{ old('availability_check') == '1' ? 'active' : '' }}" for="availability_yes" id="availabilityYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
@@ -912,8 +919,9 @@
 
                 <!-- "No" Option -->
                 <div class="radio-item" onclick="boxActive11(0)" id="boxnonactive11">
-                    <input type="radio" id="availability_no" name="availability_check" value="0">
-                    <label class="availability_check" for="availability_no" id="availabilityNoLabel">
+                    <input type="radio" id="availability_no" name="availability_check" value="0"
+                        {{ old('availability_check') == '0' ? 'checked' : '' }}>
+                    <label class="availability_check_no {{ old('availability_check') == '0' ? 'active' : '' }}" for="availability_no" id="availabilityNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -982,8 +990,9 @@
             <div class="selection-boxex-true">
                 <!-- Yes Option -->
                 <div class="radio-item" onclick="boxActive12(1)" id="boxactive12">
-                    <input type="radio" id="lease_check_yes" name="lease_check" value="1">
-                    <label class="lease_check" for="lease_check_yes" id="leaseYesLabel">
+                    <input type="radio" id="lease_check_yes" name="lease_check" value="1"
+                        {{ old('lease_check') == '1' ? 'checked' : '' }}>
+                    <label class="lease_check {{ old('lease_check') == '1' ? 'active' : '' }}" for="lease_check_yes" id="leaseYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
@@ -991,8 +1000,9 @@
 
                 <!-- No Option -->
                 <div class="radio-item" onclick="boxActive12(0)" id="boxnonactive12">
-                    <input type="radio" id="lease_check_no" name="lease_check" value="0">
-                    <label class="lease_check" for="lease_check_no" id="leaseNoLabel">
+                    <input type="radio" id="lease_check_no" name="lease_check" value="0"
+                        {{ old('lease_check') == '0' ? 'checked' : '' }}>
+                    <label class="lease_check {{ old('lease_check') == '0' ? 'active' : '' }}" for="lease_check_no" id="leaseNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -1136,8 +1146,9 @@
             <div class="selection-boxex-true">
 
                 <div class="radio-item" onclick="boxActive20(1)" id="boxactive20">
-                    <input type="radio" id="security_deposit_yes" name="security_deposit" value="1">
-                    <label class="security_deposit" for="security_deposit_yes" id="securitydepositYeslable">
+                    <input type="radio" id="security_deposit_yes" name="security_deposit" value="1"
+                    {{ old('security_deposit') == '1' ? 'checked' : '' }}>
+                    <label class="security_deposit {{ old('security_deposit') == '1' ? 'active' : '' }}" for="security_deposit_yes" id="securitydepositYeslable">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
@@ -1145,8 +1156,9 @@
 
 
                 <div class="radio-item" onclick="boxActive20(0)" id="boxnunactive20">
-                    <input type="radio" id="security_deposit_yes_no" name="security_deposit" value="0">
-                    <label class="security_deposit" for="security_deposit_yes_no" id="securitydepositNolable">
+                    <input type="radio" id="security_deposit_yes_no" name="security_deposit" value="0"
+                    {{ old('security_deposit') == '0' ? 'checked' : '' }}>
+                    <label class="security_deposit {{ old('security_deposit') == '0' ? 'active' : '' }}" for="security_deposit_yes_no" id="securitydepositNolable">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -1191,8 +1203,9 @@
             <div class="selection-boxex-true">
                 <!-- Yes Option -->
                 <div class="radio-item" onclick="boxActive1(1)" id="boxactive1">
-                    <input type="radio" id="eviction_yes" name="eviction" value="1">
-                    <label class="evction" for="eviction_yes" id="evictionYesLabel">
+                    <input type="radio" id="eviction_yes" name="eviction" value="1"
+                    {{ old('eviction') == '1' ? 'checked' : '' }}>
+                    <label class="evction {{ old('eviction') == 1 ? 'active' : '' }}" for="eviction_yes" id="evictionYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
@@ -1200,8 +1213,9 @@
 
                 <!-- No Option -->
                 <div class="radio-item" onclick="boxActive1(0)" id="boxnonactive1">
-                    <input type="radio" id="eviction_no" name="eviction" value="0">
-                    <label class="evction" for="eviction_no" id="evictionNoLabel">
+                    <input type="radio" id="eviction_no" name="eviction" value="0"
+                    {{ old('eviction') == '0' ? 'checked' : '' }}>
+                    <label class="evction {{ old('eviction') == '0' ? 'active' : '' }}" for="eviction_no" id="evictionNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -1255,16 +1269,18 @@
 
             <div class="selection-boxex-true">
                 <div class="radio-item" onclick="boxActive100(1)" id="boxactive100">
-                    <input type="radio" class="Convictions" id="convictions_yes" name="conviction" value="1">
-                    <label class="Convictions" for="Convictions_yes" id="ConvictionsYesLabel">
+                    <input type="radio" class="Convictions" id="convictions_yes" name="conviction" value="1"
+                    {{ old('conviction') == '1' ? 'checked' : '' }}>
+                    <label class="Convictions {{ old('conviction') == '1' ? 'active' : '' }}" for="Convictions_yes" id="ConvictionsYesLabel">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                         Yes
                     </label>
                 </div>
 
                 <div class="radio-item" onclick="boxActive100(0)" id="boxnunactive100">
-                    <input type="radio" class="ConvictionsNo" id="convictions_no" name="conviction" value="0">
-                    <label class="ConvictionsNoLabel" for="convictions_no" id="ConvictionsNoLabel">
+                    <input type="radio" class="ConvictionsNo" id="convictions_no" name="conviction" value="0"
+                    {{ old('conviction') == '0' ? 'checked' : '' }}>
+                    <label class="ConvictionsNoLabel {{ old('conviction') == '0' ? 'active' : '' }}" for="convictions_no" id="ConvictionsNoLabel">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                         No
                     </label>
@@ -1284,23 +1300,23 @@
                     {{-- <textarea name="conviction_pecify" placeholder="Type Here" id="" cols="30" rows="10">  {{ old('conviction_pecify') }} </textarea> --}}
 
                     <select name="conviction_pecify" id="">
-                        <option value="Murder " {{ old('conviction_pecify') == 'Murder ' ? 'selected' : '' }}>Murder
+                        <option value="Murder" {{ old('conviction_pecify') == 'Murder' ? 'selected' : '' }}>Murder
                         </option>
-                        <option value="Assault with a deadly weapon "
-                            {{ old('conviction_pecify') == 'Assault with a deadly weapon ' ? 'selected' : '' }}>Assault
+                        <option value="Assault with a deadly weapon"
+                            {{ old('conviction_pecify') == 'Assault with a deadly weapon' ? 'selected' : '' }}>Assault
                             with a deadly weapon </option>
-                        <option value="Aggravated Assault "
-                            {{ old('conviction_pecify') == 'Aggravated Assault ' ? 'selected' : '' }}>Aggravated Assault
+                        <option value="Aggravated Assault"
+                            {{ old('conviction_pecify') == 'Aggravated Assault' ? 'selected' : '' }}>Aggravated Assault
                         </option>
-                        <option value="Kidnapping " {{ old('conviction_pecify') == 'Kidnapping ' ? 'selected' : '' }}>
+                        <option value="Kidnapping" {{ old('conviction_pecify') == 'Kidnapping' ? 'selected' : '' }}>
                             Kidnapping </option>
-                        <option value="Robbery  " {{ old('conviction_pecify') == 'Robbery  ' ? 'selected' : '' }}>Robbery
+                        <option value="Robbery" {{ old('conviction_pecify') == 'Robbery' ? 'selected' : '' }}>Robbery
                         </option>
-                        <option value="Domestic Violence "
-                            {{ old('conviction_pecify') == 'Domestic Violence ' ? 'selected' : '' }}>Domestic Violence
+                        <option value="Domestic Violence"
+                            {{ old('conviction_pecify') == 'Domestic Violence' ? 'selected' : '' }}>Domestic Violence
                         </option>
-                        <option value="Drug Trafficking "
-                            {{ old('conviction_pecify') == 'Drug Trafficking ' ? 'selected' : '' }}>Drug Trafficking
+                        <option value="Drug Trafficking"
+                            {{ old('conviction_pecify') == 'Drug Trafficking' ? 'selected' : '' }}>Drug Trafficking
                         </option>
 
                     </select>
@@ -1327,16 +1343,18 @@
             <div class="selection-boxex-true">
                 <!-- Yes Option -->
                 <div class="radio-item" onclick="boxActive110(1)">
-                    <input type="radio" id="credit_check_yes" name="credit_check" value="1">
-                    <label for="credit_check_yes" id="credit_check_yes_label">
+                    <input type="radio" id="credit_check_yes" name="credit_check" value="1"
+                    {{ old('credit_check') == '1' ? 'checked' : '' }}>
+                    <label for="credit_check_yes" class="{{ old('credit_check') == 1 ? 'active' : '' }}" id="credit_check_yes_label">
                         <img src="{{ asset('assets/images/checked.png') }}" alt="Yes"> Yes
                     </label>
                 </div>
 
                 <!-- No Option -->
                 <div class="radio-item" onclick="boxActive110(0)">
-                    <input type="radio" id="credit_check_no" name="credit_check" value="0">
-                    <label for="credit_check_no" id="credit_check_no_label">
+                    <input type="radio" id="credit_check_no" name="credit_check" value="0"
+                    {{ old('credit_check') == '0' ? 'checked' : '' }}>
+                    <label for="credit_check_no " class="{{ old('credit_check') == '0' ? 'active' : '' }}" id="credit_check_no_label">
                         <img src="{{ asset('assets/images/cancel.png') }}" alt="No"> No
                     </label>
                 </div>
@@ -1548,7 +1566,6 @@
                 toastr.error("{{ $error }}");
             @endforeach
         @endif
-
 
         // Function to display the active-non-active div
         function boxActive10(show) {
@@ -2044,6 +2061,8 @@
         }
 
         $(document).ready(function() {
+
+
             $('.js-example-basic-multiple').select2();
 
             // Handle form submission inside the modal

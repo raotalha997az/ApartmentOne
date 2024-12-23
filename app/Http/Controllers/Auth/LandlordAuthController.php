@@ -40,6 +40,7 @@ class LandlordAuthController extends Controller
 
     // Get property applications with tenants limited to 4 per property
     $applyPropertyHistory = ApplyPropertyHistory::with(['property.media', 'user'])
+        ->orderBy('created_at', 'desc')
         ->whereHas('property', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })
