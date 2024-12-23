@@ -1,159 +1,19 @@
 @extends('Dashboard.Layouts.master_dashboard')
 <style>
     .dashboard-main .left-panel .left-panel-menu ul li a.properties-active {
-        background-color: white;
-        color: #414141;
+        background-color: rgba(250, 250, 250, 0.1);
+    transition: .3s;
+    border-left: 5px solid #fff;
     }
-
-    .dashboard-main .left-panel .left-panel-menu ul li a.properties-active svg path {
-        fill: #414141 !important;
-    }
-
-
-    .badge {
-    font-weight: 400;
-}
-
-td {
-    align-content: center;
-}
-
-.btn {
-    align-content: center;
-    border-radius: 10px;
-    padding: 5px 15px;
-    transition: .3s;
-}
-
-
-#propertiesTable_wrapper .dt-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-#propertiesTable_wrapper .dt-search {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
-
-#propertiesTable_wrapper .dt-search input#dt-search-0 {
-    width: 50%;
-    border-radius: 10px;
-    border: 2px solid #80808075;
-    color: #000;
-}
-
-#propertiesTable_wrapper .dt-search label {
-    font-weight: 600;
-}
-
-
-#propertiesTable_info {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #00000094;
-    width: 100%;
-    text-align: end;
-}
-
-#propertiesTable_wrapper .dt-paging {
-    width: 100%;
-    text-align: end;
-    margin-top: 10px;
-}
-
-#propertiesTable_wrapper .dt-paging nav {
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
-
-#propertiesTable_wrapper .dt-paging nav button {
-    border-radius: 10px;
-    color: #fff !important;
-    font-weight: 500;
-    background: #0077B6;
-}
-
-a.Delet-btn.dan img {
-    height: 25px;
-    width: 25px;
-    object-fit: contain;
-}
-
-
-
-
-.drop_down_hover .drop_down_hover_content {
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-    gap: 10px;
-    background: #fff;
-    padding: 20px 15px;
-    border-radius: 5px;
-    border: 1px solid #80808030;
-    position: absolute;
-    z-index: 1;
-    top: 100%;
-    min-width: 150px;
-    transition: .3s;
-    left: 0;
-}
-
-.drop_down_hover {
-    position: relative;
-    transition: .3s;
-    cursor: pointer;
-    width: max-content;
-}
-
-.drop_down_hover:hover .drop_down_hover_content{
-    display: flex;
-    transition: .3s
-}
-
-.drop_down_hover:hover{
-    width: 100%
-}
-
-.drop_down_hover_content .Delet-btn{
-    background: red;
-    color: #fff
-
-}
-
-.drop_down_hover_content .Delet-btn:hover{
-    background: rgb(221, 0, 0);
-    color:#fff;
-}
-
-
 
 </style>
 @section('content')
     <div class="tab-content">
-        <div class="profile-basic-info-form">
-            <div class="box-inline">
-                <h3>List of All Properties</h3>
-
-            </div>
-        </div>
-        <div class="tab-pane p-3 active" id="tabs-1" role="tabpanel">
+        <div class="tab-pane active" id="tabs-1" role="tabpanel">
             <div class="table-responsive">
 
-                <div class="export-buttons mb-3"></div>
-                <table id="propertiesTable" class="table table-bordered table-striped">
+                <div class="export-buttons"></div>
+                <table id="propertiesTable">
                     <thead>
                         <tr>
                             <th>Property Name</th>
@@ -170,32 +30,47 @@ a.Delet-btn.dan img {
                                 <td>{{ $property->user->name }}</td>
                                 <td>
                                     @if ($property->approve)
-                                        <span class="badge bg-success">Approved</span>
+                                        <span class="approved-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 2C6.486 2 2 6.486 2 12C2 17.514 6.486 22 12 22C17.514 22 22 17.514 22 12C22 6.486 17.514 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z" fill="#499C00"/>
+                                            <path d="M9.99909 13.587L7.70009 11.292L6.28809 12.708L10.0011 16.413L16.7071 9.707L15.2931 8.293L9.99909 13.587Z" fill="#499C00"/>
+                                            </svg>
+                                            Approved</span>
                                     @else
-                                        <span class="badge bg-danger">Not Approved</span>
+                                        <span class="not-approved-badge"><svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8.53991 13.535L10.8966 11.1783L13.2532 13.535L14.4316 12.3567L12.0749 10L14.4316 7.64333L13.2532 6.465L10.8966 8.82166L8.53991 6.465L7.36157 7.64333L9.71824 10L7.36157 12.3567L8.53991 13.535Z" fill="#FF4A4A"/>
+                                            <path d="M10.8966 18.3333C15.4916 18.3333 19.2299 14.595 19.2299 10C19.2299 5.405 15.4916 1.66666 10.8966 1.66666C6.30157 1.66666 2.56323 5.405 2.56323 10C2.56323 14.595 6.30157 18.3333 10.8966 18.3333ZM10.8966 3.33333C14.5724 3.33333 17.5632 6.32416 17.5632 10C17.5632 13.6758 14.5724 16.6667 10.8966 16.6667C7.22073 16.6667 4.2299 13.6758 4.2299 10C4.2299 6.32416 7.22073 3.33333 10.8966 3.33333Z" fill="#FF4A4A"/>
+                                            </svg>Not Approved</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="drop_down_hover" >
-                                        <svg width="5" height="19" viewBox="0 0 5 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="2.5" cy="2.5" r="2.5" fill="#000" />
-                                            <circle cx="2.5" cy="9.5" r="2.5" fill="#000" />
-                                            <circle cx="2.5" cy="16.5" r="2.5" fill="#000" />
-                                        </svg>
-
-                                        <div class="drop_down_hover_content" >
+                                        <div class="property-action-buttons" >
                                             @if ($property->approve == 1)
-                                                <a href="{{ route('admin.propertiesdetails', $property->id) }}" class="btn btn-primary btn-sm">Details</a>
+                                                <a href="{{ route('admin.propertiesdetails', $property->id) }}" class="btn btn-primary btn-sm"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 3L16.293 6.293L9.29297 13.293L10.707 14.707L17.707 7.707L21 11V3H13Z" fill="#0077B6"/>
+                                                    <path d="M19 19H5V5H12L10 3H5C3.897 3 3 3.897 3 5V19C3 20.103 3.897 21 5 21H19C20.103 21 21 20.103 21 19V14L19 12V19Z" fill="#0077B6"/>
+                                                    </svg>
+                                                     Details</a>
                                             @else
+                                            <a href="{{ route('admin.properties.approve', $property->id) }}" class="btn btn-success btn-sm"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 2C6.486 2 2 6.486 2 12C2 17.514 6.486 22 12 22C17.514 22 22 17.514 22 12C22 6.486 17.514 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z" fill="#499C00"/>
+                                                <path d="M9.99909 13.587L7.70009 11.292L6.28809 12.708L10.0011 16.413L16.7071 9.707L15.2931 8.293L9.99909 13.587Z" fill="#499C00"/>
+                                                </svg>
+                                                 Approve</a>
+                                            <a href="{{ route('admin.propertiesdetails', $property->id) }}" class="btn btn-primary btn-sm"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13 3L16.293 6.293L9.29297 13.293L10.707 14.707L17.707 7.707L21 11V3H13Z" fill="#0077B6"/>
+                                                <path d="M19 19H5V5H12L10 3H5C3.897 3 3 3.897 3 5V19C3 20.103 3.897 21 5 21H19C20.103 21 21 20.103 21 19V14L19 12V19Z" fill="#0077B6"/>
+                                                </svg>
+                                                 Details</a>
                                                 <a href="#" class="Delet-btn btn-sm btn" data-id="{{ $property->id }}" onclick="deleteProperty(this)">
-                                                    Delete
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M5 20C5 20.5304 5.21071 21.0391 5.58579 21.4142C5.96086 21.7893 6.46957 22 7 22H17C17.5304 22 18.0391 21.7893 18.4142 21.4142C18.7893 21.0391 19 20.5304 19 20V8H21V6H17V4C17 3.46957 16.7893 2.96086 16.4142 2.58579C16.0391 2.21071 15.5304 2 15 2H9C8.46957 2 7.96086 2.21071 7.58579 2.58579C7.21071 2.96086 7 3.46957 7 4V6H3V8H5V20ZM9 4H15V6H9V4ZM8 8H17V20H7V8H8Z" fill="#777777"/>
+                                                        <path d="M9 10H11V18H9V10ZM13 10H15V18H13V10Z" fill="#777777"/>
+                                                        </svg>
+                                                         Delete
                                                 </a>
-                                                <a href="{{ route('admin.properties.approve', $property->id) }}" class="btn btn-success btn-sm">Approve</a>
-                                                <a href="{{ route('admin.propertiesdetails', $property->id) }}" class="btn btn-primary btn-sm">Details</a>
                                             @endif
 
                                         </div>
-                                    </div>
 
                                 </td>
                             </tr>
@@ -210,6 +85,7 @@ a.Delet-btn.dan img {
 
 @section('scripts')
     <script>
+
         $(document).ready(function() {
             $('#propertiesTable').DataTable({
                 dom: 'Bfrtip',
@@ -232,6 +108,9 @@ a.Delet-btn.dan img {
                     }
                 ]
             });
+
+
+
         });
 
 

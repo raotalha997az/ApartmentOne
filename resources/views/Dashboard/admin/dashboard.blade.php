@@ -1,35 +1,313 @@
 @extends('Dashboard.Layouts.master_dashboard')
 <style>
     .dashboard-main .left-panel .left-panel-menu ul li a.dashboard-active {
-        background-color: white;
-        color: #414141;
-    }
-
-    .dashboard-main .left-panel .left-panel-menu ul li a.dashboard-active svg path {
-        fill: #414141 !important;
-    }
+    background-color: rgba(250, 250, 250, 0.1);
+    font-weight: 600;
+    border-left: 5px solid #fff;
+    transition: .3s;
+}
 </style>
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <div class="page-detail-box">
-            <p>Welcome</p>
-            {{-- <h6>{{ Auth::user()->name }}</h6> --}}
+
+        <div class="business-detail-box">
+            <div class="business-revenue bg-box">
+                <img src="{{ asset('assets/new-images/revenue-1.png') }}" alt="">
+                <img src="{{ asset('assets/new-images/revenue-1.png') }}" alt="" class="bg-overlay">
+                <p class="b-title">Business Revenue</p>
+                <span class="business-amount">
+                    $ 1,20,000
+                </span>
+            </div>
+            <div class="propertiy-listed bg-box">
+                <img src="{{ asset('assets/new-images/real-estate.png') }}" alt="">
+                <img src="{{ asset('assets/new-images/real-estate.png') }}" alt="" class="bg-overlay">
+                <p class="p-title">Properties Listed</p>
+                <span class="property-amount">
+                    120
+                </span>
+            </div>
+            <div class="propertiy-listed bg-box">
+                <img src="{{ asset('assets/new-images/online-analytical (1).png') }}" alt="">
+                <img src="{{ asset('assets/new-images/online-analytical (1).png') }}" alt="" class="bg-overlay">
+                <p class="p-title">Business Than Last Month</p>
+                <span class="property-amount">
+                    +15%
+                </span>
+            </div>
         </div>
-        <div class="credit-report-box">
+
+        <div class="business-overview-box">
+            <div class="business-chart bg-box">
+                <h3>Business Overview</h3>
+                <p>January 2024</p>
+                <div class="relative flex flex-col rounded-xl bg-clip-border text-gray-700 shadow-md">
+                    <div class="relative mx-4 mt-4 flex flex-col gap-4 overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none md:flex-row md:items-center"></div>
+                    <div class="pt-6 px-2 pb-0">
+                      <div id="bar-chart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="new-user-panel bg-box">
+                <div class="two-things-align">
+                    <div class="text-box">
+                        <h3>Business Overview</h3>
+                        <p>January 2024</p>
+                    </div>
+                    <div class="search-user">
+                        <form>
+                            <input type="search" placeholder="Search" class="bg-box">
+                        </form>
+                    </div>
+                </div>
+                <div class="user-panel-list-box">
+                    <table>
+                        <tr>
+                            <th>Users</th>
+                            <th>Role</th>
+                            <th>Country</th>
+                            <th>Phone</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="two-things-align">
+                                    <div class="user-img">
+                                        <img src="{{ asset('assets/new-images/user-panel-img.png') }}" alt="">
+                                    </div>
+                                    <div class="user-detail-box">
+                                        <h6>Smith Jonson</h6>
+                                        <p>abc@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-role">
+                                    <p>User</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-country">
+                                    <p>Texas</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-phone">
+                                    <p>123-1234-1234</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="two-things-align">
+                                    <div class="user-img">
+                                        <img src="{{ asset('assets/new-images/user-panel-img.png') }}" alt="">
+                                    </div>
+                                    <div class="user-detail-box">
+                                        <h6>Smith Jonson</h6>
+                                        <p>abc@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-role">
+                                    <p>User</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-country">
+                                    <p>Texas</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-phone">
+                                    <p>123-1234-1234</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="two-things-align">
+                                    <div class="user-img">
+                                        <img src="{{ asset('assets/new-images/user-panel-img.png') }}" alt="">
+                                    </div>
+                                    <div class="user-detail-box">
+                                        <h6>Smith Jonson</h6>
+                                        <p>abc@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-role">
+                                    <p>User</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-country">
+                                    <p>Texas</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-phone">
+                                    <p>123-1234-1234</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="two-things-align">
+                                    <div class="user-img">
+                                        <img src="{{ asset('assets/new-images/user-panel-img.png') }}" alt="">
+                                    </div>
+                                    <div class="user-detail-box">
+                                        <h6>Smith Jonson</h6>
+                                        <p>abc@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-role">
+                                    <p>User</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-country">
+                                    <p>Texas</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-phone">
+                                    <p>123-1234-1234</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="two-things-align">
+                                    <div class="user-img">
+                                        <img src="{{ asset('assets/new-images/user-panel-img.png') }}" alt="">
+                                    </div>
+                                    <div class="user-detail-box">
+                                        <h6>Smith Jonson</h6>
+                                        <p>abc@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-role">
+                                    <p>User</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-country">
+                                    <p>Texas</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-phone">
+                                    <p>123-1234-1234</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="two-things-align">
+                                    <div class="user-img">
+                                        <img src="{{ asset('assets/new-images/user-panel-img.png') }}" alt="">
+                                    </div>
+                                    <div class="user-detail-box">
+                                        <h6>Smith Jonson</h6>
+                                        <p>abc@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-role">
+                                    <p>User</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-country">
+                                    <p>Texas</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-phone">
+                                    <p>123-1234-1234</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="two-things-align">
+                                    <div class="user-img">
+                                        <img src="{{ asset('assets/new-images/user-panel-img.png') }}" alt="">
+                                    </div>
+                                    <div class="user-detail-box">
+                                        <h6>Smith Jonson</h6>
+                                        <p>abc@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-role">
+                                    <p>User</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-country">
+                                    <p>Texas</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-phone">
+                                    <p>123-1234-1234</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="two-things-align">
+                                    <div class="user-img">
+                                        <img src="{{ asset('assets/new-images/user-panel-img.png') }}" alt="">
+                                    </div>
+                                    <div class="user-detail-box">
+                                        <h6>Smith Jonson</h6>
+                                        <p>abc@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-role">
+                                    <p>User</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-country">
+                                    <p>Texas</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-phone">
+                                    <p>123-1234-1234</p>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        {{-- <div class="credit-report-box">
             <div class="two-things-align">
                 <div class="box">
                     <h6>Business Overview</h6>
                     <p>All Basic Business Details</p>
                 </div>
-                {{-- <div class="box">
-                    <a href="#" class="t-btn t-btn-blue t-btn-svg">Download
-                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19.7374 11.575C19.2822 7.98956 16.2114 5.20831 12.5041 5.20831C9.63324 5.20831 7.13949 6.88644 6.00094 9.53123C3.76344 10.2 2.0874 12.3125 2.0874 14.5833C2.0874 17.4552 4.42386 19.7916 7.29574 19.7916H8.3374V17.7083H7.29574C5.57282 17.7083 4.17074 16.3062 4.17074 14.5833C4.17074 13.1208 5.41969 11.7114 6.95511 11.4416L7.56032 11.3354L7.76032 10.7541C8.49261 8.61769 10.3103 7.29165 12.5041 7.29165C15.3759 7.29165 17.7124 9.6281 17.7124 12.5V13.5416H18.7541C19.903 13.5416 20.8374 14.476 20.8374 15.625C20.8374 16.7739 19.903 17.7083 18.7541 17.7083H16.6707V19.7916H18.7541C21.052 19.7916 22.9207 17.9229 22.9207 15.625C22.9195 14.6911 22.6052 13.7847 22.0282 13.0505C21.4511 12.3163 20.6445 11.7968 19.7374 11.575Z" fill="white"/>
-                            <path d="M13.5457 14.5834V10.4167H11.4624V14.5834H8.3374L12.5041 19.7917L16.6707 14.5834H13.5457Z" fill="white"/>
-                            </svg>
-                    </a>
-                </div> --}}
+
             </div>
             <div class="four-reports-align">
                 <div class="number-box">
@@ -54,7 +332,7 @@
                 </div>
 
             </div>
-        </div>
+        </div> --}}
 
         {{-- <div class="top-listing-parent-box">
             <div class="two-things-align">
@@ -141,6 +419,102 @@
     </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    const chartConfig = {
+      series: [
+        {
+          name: "Sales",
+          data: [50, 40, 300, 320, 500, 350, 200, 230, 500, 600, 700, 800],
+        },
+      ],
+      chart: {
+        type: "bar",
+        height: 340,
+        toolbar: {
+          show: false,
+        },
+      },
+      title: {
+        show: "",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      colors: ["#2B2B2B"],
+      plotOptions: {
+        bar: {
+          columnWidth: "40%",
+          borderRadius: 2,
+        },
+      },
+      xaxis: {
+        axisTicks: {
+          show: false,
+        },
+        axisBorder: {
+          show: false,
+        },
+        labels: {
+          style: {
+            colors: "#2B2B2B",
+            fontSize: "12px",
+            fontFamily: "inherit",
+            fontWeight: 400,
+          },
+        },
+        categories: [
+          "jan",
+          "feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: "#616161",
+            fontSize: "12px",
+            fontFamily: "inherit",
+            fontWeight: 400,
+          },
+        },
+      },
+      grid: {
+        show: true,
+        borderColor: "#dddddd",
+        strokeDashArray: 5,
+        xaxis: {
+          lines: {
+            show: true,
+          },
+        },
+        padding: {
+          top: 5,
+          right: 20,
+        },
+      },
+      fill: {
+        opacity: 0.8,
+      },
+      tooltip: {
+        theme: "dark",
+      },
+    };
+
+    const chart = new ApexCharts(document.querySelector("#bar-chart"), chartConfig);
+
+    chart.render();
+    </script>
 
 
 <script>

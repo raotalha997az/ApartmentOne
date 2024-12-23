@@ -2,15 +2,13 @@
 
 
 <style>
-    .dashboard-main .left-panel .left-panel-menu ul li a.category {
-        background-color: white;
-        color: #414141;
+    .dashboard-main .left-panel .left-panel-menu ul li a.properties-active{
+        background-color: rgba(250, 250, 250, 0.1);
+    transition: .3s;
+    border-left: 5px solid #fff;
     }
 
-    .dashboard-main .left-panel .left-panel-menu ul li a.category svg path {
-        fill: #414141 !important;
-    }
-
+/*
     table.table.table-striped {
         width: 100%;
     }
@@ -119,7 +117,7 @@ div.dt-container .dt-paging .dt-paging-button {
 
 div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-paging .dt-paging-button.current:hover {
     color: #fff !important;
-}
+} */
 
 
 </style>
