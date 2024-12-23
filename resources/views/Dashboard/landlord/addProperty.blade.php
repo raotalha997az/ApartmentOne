@@ -1583,9 +1583,16 @@
             }
 
         }
-        // Initially hide the active-non-active div
-        document.getElementById('activeNonActive10').style.display = 'none';
 
+        // Initially hide the active-non-active div
+        // document.getElementById('activeNonActive10').style.display = 'none';
+        var parking = document.getElementById('parkingYes');
+        if(parking.checked){
+            console.log("checked");
+            var box22 = document.getElementById('activeNonActive10');
+            box22.style.display = 'block';
+            console.log(box22);
+        }
         function boxActive3(show) {
             var box = document.getElementById('activeNonActive3');
 
