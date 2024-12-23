@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Property;
 use App\Models\Wishlist;
+use App\Models\Screening;
 use Illuminate\Http\Request;
 use App\Models\ExpTenantVantage4;
 use App\Models\CrimnalRecordModel;
@@ -34,101 +35,159 @@ class TenantPropertiesController extends Controller
     public function properties()
     {
         $userId = Auth::id();
-        $user = User::find($userId, ['*','payment_status']);
+        $user = User::find($userId, ['*', 'payment_status']);
 
-        // if ($user->payment_status == 1) {
-        //     // Credit Point
-        //     $scoreApi = ExpTenantFico9Model::where('user_id', $userId)->select('data')->latest()->first();
-        //     $scoreApiJson = json_decode($scoreApi->data);
-        //     $score = $scoreApiJson->riskModel[0]->score;
-        //     // Credit Point
+        if ($user->payment_status == 1) {
+            // Retrieve the user's screening preferences
+            $screening = Screening::where('user_id', $userId)->with('pets')->latest()->first();
 
-        //     // Eviction
-        //     $eviction = EvictionReportModel::where('user_id', $userId)->select('data')->latest()->first();
-        //     $evictionApi = json_decode($eviction->data);
-        //     $evictionCount = 0;
-        //     $recentEvictionDate = null;
+            if (!$screening) {
+                return view('Dashboard.tenant.properties', [
+                    'properties' => collect([]),
+                    'categories' => Category::all(),
+                    'wishlist' => Wishlist::where('user_id', $userId)->pluck('property_id')->toArray(),
+                    'user' => $user,
+                ]);
+            }
 
-        //     // Loop through candidates
-        //     if (isset($evictionApi->response->candidate)) {
-        //         foreach ($evictionApi->response->candidate as $candidate) {
-        //             $activity = $candidate->activity;
-        //             if (!empty($activity->judgement)) {
-        //                 $evictionCount++;
-        //                 $currentDate = $activity->judgementDate;
-        //                 // Update recent eviction date if it's later
-        //                 if ($recentEvictionDate === null || $currentDate > $recentEvictionDate) {
-        //                     $recentEvictionDate = $currentDate;
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     $formattedApiDate = \DateTime::createFromFormat('m-d-Y', $recentEvictionDate);
-        //     // Format the date to 'Y-m-d' (Database format)
-        //     $formattedApiDate = $formattedApiDate->format('Y-m-d');
-        //     // Eviction
+            // Retrieve all approved properties
+            $properties = Property::where('approve', 1)->with('category')->get();
 
-        //     // Crimnal
-        //     $crimnal_record = CrimnalRecordModel::where('user_id', $userId)->select('data')->latest()->first();
-        //     $crimnalApi = json_decode($crimnal_record->data);
+            foreach ($properties as $property) {
+                $property->hide = 0; // Default: do not hide
 
-        //     // Check if there are any criminal records
-        //     if (isset($crimnalApi->cicCriminal->candidates->count) && $crimnalApi->cicCriminal->candidates->count > 0) {
-        //         $criminalCount = $crimnalApi->cicCriminal->candidates->count;
-        //     } else {
-        //         $criminalCount = 0;
-        //     }
-        //     // Crimnal
+                // Eviction conditions
+                $evictionCount = $this->getEvictionCount($userId);
+                $recentEvictionDate = $this->getRecentEvictionDate($userId);
 
-        //     //old data
+                if ($property->eviction == 1) {
+                    if ($property->many_time_evicted < $evictionCount || $property->when_evicted < $recentEvictionDate) {
+                        $property->hide = 1;
+                    }
+                }
 
-        //     $properties = Property::where('approve', 1)->with('category')->get();
+                // Credit score condition
+                $score = $this->getCreditScore($userId);
+                if ($score < $property->credit_point) {
+                    $property->hide = 1;
+                }
 
-        //     foreach ($properties as $property) {
-        //         $property->hide = 0;  // Set the default value to not hide
+                // Criminal record condition
+                $criminalCount = $this->getCriminalCount($userId);
+                if ($property->criminal_records == 1 && $criminalCount > 0) {
+                    $property->hide = 1;
+                }
 
-        //         // // Eviction condition
-        //         if ($property->eviction == 1) {
-        //             // if condition true prperty hide
-        //             if ($property->many_time_evicted < $evictionCount) {
-        //                 $property->hide = 1;  // Hide if eviction conditions match
-        //             }
+                // Screening preferences
+                if ($screening->cat_id && $property->cat_id != $screening->cat_id) {
+                    $property->hide = 1;
+                }
 
-        //             // if condition true prperty hide
-        //             if ($property->when_evicted < $formattedApiDate) {
-        //                 $property->hide = 1;
-        //             }
-        //         }
+                // Check if the property does not allow pets
+                if ($property->pets->isEmpty()) {
+                    // If pets are not allowed and tenant has pets, hide the property
+                    if ($screening->pets->isNotEmpty()) {
+                        $property->hide = 1;
+                        continue; // Skip further checks for this property
+                    }
+                } else {
+                    // Property allows pets
+                    if ($screening->pets->isNotEmpty()) {
+                        $matchedPet = false;
 
-        //         // // Credit score condition
-        //         if ($score < $property->credit_point) {
-        //             $property->hide = 1;  // Hide if credit score is insufficient
-        //         }
+                        // Loop through tenant's pets to check for a match with allowed pets
+                        foreach ($screening->pets as $screeningPet) {
+                            // Check if the pet is allowed by the landlord
+                            if ($property->pets->contains('pet_id', $screeningPet->pet_id)) {
+                                $matchedPet = true;
+                                break; // Exit loop as soon as a match is found
+                            }
+                        }
+                        // If no pets match and tenant has pets, hide the property
+                        if (!$matchedPet) {
+                            $property->hide = 1;
+                        }
+                    }
+                }
+                if ($screening->smoke && !$property->smoking) {
+                    $property->hide = 1;
+                }
 
-        //         // // Criminal record condition
-        //         if ($property->criminal_records == 1) {
-        //             if ($criminalCount > 0) {
-        //                 $property->hide = 1;  // Hide if criminal count is greater than 0
-        //             }
-        //         }
-        //     }
+                if ($screening->waterbed && !$property->waterbed) {
+                    $property->hide = 1;
+                }
+                if ($screening->lease_short_term && !($property->lease_type == 1) == $screening->lease_short_term) {
+                    $property->hide = 1;
+                }
 
-        //     $properties = $properties->filter(function ($property) {
-        //         return $property->hide == 0;
-        //     });
-        // }else{
-        //     $properties = [];
-        // }
 
-        $properties = Property::where('approve', 1)->where('deleted_at', null)->with('media', 'pets.pet', 'features.feature' ,'RentToWhoDetails.rentToWho','category') ->orderBy('created_at', 'desc')->get();
-        $wishlist = Wishlist::where('user_id', Auth::user()->id) ->orderBy('created_at', 'desc')->get();
-        $wishlist = Wishlist::where('user_id', Auth::user()->id)
-            ->orderBy('created_at', 'desc')
-            ->pluck('property_id')
-            ->toArray();
+                if ($property->security_deposit  && $screening->deposit_amount < $property->deposit_amount) {
+                    $property->hide = 1;
+                }
+            }
+
+            // Filter properties to exclude hidden ones
+            $properties = $properties->filter(function ($property) {
+                return $property->hide == 0;
+            });
+        } else {
+            $properties = collect([]);
+        }
 
         $categories = Category::all();
-        return view('Dashboard.tenant.properties', compact('properties','user', 'wishlist', 'categories'));
+        $wishlist = Wishlist::where('user_id', $userId)->pluck('property_id')->toArray();
+
+        return view('Dashboard.tenant.properties', compact('properties', 'categories', 'wishlist', 'user'));
+    }
+
+    private function getEvictionCount($userId)
+    {
+        $eviction = EvictionReportModel::where('user_id', $userId)->select('data')->latest()->first();
+        $evictionApi = json_decode($eviction->data);
+        $count = 0;
+
+        if (isset($evictionApi->response->candidate)) {
+            foreach ($evictionApi->response->candidate as $candidate) {
+                if (!empty($candidate->activity->judgement)) {
+                    $count++;
+                }
+            }
+        }
+
+        return $count;
+    }
+
+    private function getRecentEvictionDate($userId)
+    {
+        $eviction = EvictionReportModel::where('user_id', $userId)->select('data')->latest()->first();
+        $evictionApi = json_decode($eviction->data);
+        $recentDate = null;
+
+        if (isset($evictionApi->response->candidate)) {
+            foreach ($evictionApi->response->candidate as $candidate) {
+                $date = $candidate->activity->judgementDate ?? null;
+                if ($date && ($recentDate === null || $date > $recentDate)) {
+                    $recentDate = $date;
+                }
+            }
+        }
+
+        return $recentDate ? \DateTime::createFromFormat('m-d-Y', $recentDate)->format('Y-m-d') : null;
+    }
+
+    private function getCreditScore($userId)
+    {
+        $scoreApi = ExpTenantFico9Model::where('user_id', $userId)->select('data')->latest()->first();
+        $scoreApiJson = json_decode($scoreApi->data);
+        return $scoreApiJson->riskModel[0]->score ?? 0;
+    }
+
+    private function getCriminalCount($userId)
+    {
+        $criminalRecord = CrimnalRecordModel::where('user_id', $userId)->select('data')->latest()->first();
+        $criminalApi = json_decode($criminalRecord->data);
+
+        return $criminalApi->cicCriminal->candidates->count ?? 0;
     }
 
     public function fluterproperty($id)

@@ -418,7 +418,6 @@
                                                                 <input type="radio" id="category-{{ $category->id }}"
                                                                     name="cat_id" value="{{ $category->id }}"
                                                                     onclick="selectCategory(this)"
-                                                                    onclick="selectCategory(this)"
                                                                     {{ old('category', $selectedCategory ?? '') == $category->id ? 'checked' : '' }}>
                                                                 <label for="category-{{ $category->id }}"
                                                                     class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
@@ -438,8 +437,6 @@
                                                     </div>
 
                                                 </div>
-
-
                                             </div>
 
                                         </div>
@@ -448,58 +445,37 @@
 
                                             <div class="col-md-6">
                                                 <p>Do you have pets?</p>
-
                                                 <div class="selection-boxex-true active-non-active" id="activeNonActive3">
                                                     <div class="radio-item" onclick="boxActive3(1)" id="boxactive3">
-                                                        <input type="radio" name="radio-item" id="radio-item-yes"
-                                                            value="1">
+                                                        <input type="radio" name="radio-item" id="radio-item-yes" value="1">
                                                         <label class="selection-content-true" id="selectionYesLabel">
-                                                            <img src="{{ asset('assets/images/checked.png') }}"
-                                                                alt="Yes">
+                                                            <img src="{{ asset('assets/images/checked.png') }}" alt="Yes">
                                                             <span>Yes</span>
                                                         </label>
                                                     </div>
 
                                                     <div class="radio-item" onclick="boxActive3(0)" id="boxnonactive3">
-                                                        <input type="radio" name="radio-item" id="radio-item-no"
-                                                            value="0">
+                                                        <input type="radio" name="radio-item" id="radio-item-no" value="0">
                                                         <label class="selection-content-true" id="selectionNoLabel">
-                                                            <img src="{{ asset('assets/images/cancel.png') }}"
-                                                                alt="No">
+                                                            <img src="{{ asset('assets/images/cancel.png') }}" alt="No">
                                                             <span>No</span>
                                                         </label>
                                                     </div>
                                                 </div>
 
-                                                @error('radio-item')
-                                                    <div class="error-message">
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    </div>
-                                                @enderror
-
-
                                                 <!-- Pets Select2 Dropdown -->
-                                                <div class="active-non-active" id="activeNonActive10"
-                                                    style="display: none;">
+                                                <div class="active-non-active" id="activeNonActive10" style="display: none;">
                                                     <div class="box">
                                                         <label for="pets">Select Pets</label>
-                                                        <select class="js-example-basic-multiple" multiple="multiple"
-                                                            style="width: 100%;" name="pets[]" id="pets">
+                                                        <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%;" name="pets[]" id="pets">
                                                             @foreach ($pets as $pet)
-                                                                <option value="{{ $pet->id }}">{{ $pet->name }}
-                                                                </option>
+                                                                <option value="{{ $pet->id }}">{{ $pet->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
-                                                @error('pets')
-                                                <div class="error-message">
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                </div>
-                                            @enderror
-
-
                                             </div>
+
 
                                             <div class="col-md-6">
 
@@ -623,37 +599,32 @@
                                             <div class="col-md-12" style="height: min-content !important;">
                                                 <p>Will you be providing a security deposit?</p>
                                                 <div class="selection-boxex-true">
-                                                    <div class="radio-item" onclick="boxActiveDeposit(1)"
-                                                        id="boxactive10">
-                                                        <input type="radio" id="eviction" name="eviction"
-                                                            value="1">
-                                                        <label class="evction" for="yes" onclick="setEvction(this)"
-                                                            id="selectionYesDepositLabel">
+                                                    <div class="radio-item" onclick="boxActiveDeposit(1)" id="boxactive10">
+                                                        <input type="radio" id="eviction" name="eviction" value="1">
+                                                        <label class="evction" id="selectionYesDepositLabel">
                                                             <img src="/assets/images/checked.png" alt="Yes">
                                                             Yes
                                                         </label>
                                                     </div>
 
-                                                    <div class="radio-item" onclick="boxActiveDeposit(0)"
-                                                        id="boxnunactive10">
-                                                        <input type="radio" id="eviction" name="eviction"
-                                                            value="0">
-                                                        <label class="evction" for="no" onclick="setEvction(this)"
-                                                            id="selectionNoDepositLabel">
+                                                    <div class="radio-item" onclick="boxActiveDeposit(0)" id="boxnunactive10">
+                                                        <input type="radio" id="eviction" name="eviction" value="0">
+                                                        <label class="evction" id="selectionNoDepositLabel">
                                                             <img src="/assets/images/cancel.png" alt="No">
                                                             No
                                                         </label>
                                                     </div>
                                                 </div>
 
-                                                <div class="active-non-active" id="securityDeposit"
-                                                    style="display: none;">
+                                                <div class="active-non-active" id="securityDeposit" style="display: none;">
                                                     <div class="box">
-                                                        <input type="number" placeholder="Enter Amount" class="w-100"
-                                                            name="deposit_amount">
+                                                        <input type="number" placeholder="Enter Amount" class="w-100" name="deposit_amount">
                                                     </div>
                                                 </div>
-                                            </div>    @error('security_deposit')
+                                            </div>
+
+
+                                            @error('security_deposit')
                                             <div class="error-message">
                                                 <span class="text-danger">{{ $message }}</span>
                                             </div>
@@ -724,22 +695,31 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            // Define the function globally
-            window.boxActive3 = function(value) {
-                const yesLabel = document.getElementById('selectionYesLabel');
-                const noLabel = document.getElementById('selectionNoLabel');
-                console.log(value);
+     $(document).ready(function () {
 
-                if (value === 1) {
-                    yesLabel.classList.add('active');
-                    noLabel.classList.remove('active');
-                } else {
-                    noLabel.classList.add('active');
-                    yesLabel.classList.remove('active');
-                }
-            };
-            window.boxActivesmoke = function(value) {
+        function selectCategory(element) {
+        // Remove 'active' class from all labels
+        document.querySelectorAll('.select_box').forEach(label => {
+            label.classList.remove('active');
+        });
+
+        // Add 'active' class to the corresponding label of the clicked radio button
+        const label = element.closest('.radio-item').querySelector('.select_box');
+        if (label) {
+            label.classList.add('active');
+        }
+
+        // Optionally, log or store the selected category value
+        const selectedCategory = element.value;
+        console.log('Selected category ID:', selectedCategory);
+    }
+
+    // Initialize Select2 for Pets
+    $('#pets').select2({
+        placeholder: "Select your pets",
+        allowClear: true,
+    });
+    window.boxActivesmoke = function(value) {
                 const yesLabel = document.getElementById('selectionYesSmokeLabel');
                 const noLabel = document.getElementById('selectionNoSmokeLabel');
                 console.log(value);
@@ -777,18 +757,6 @@
                 }
             };
 
-            window.boxActiveDeposit = function(value) {
-                console.log(value);
-                const yesLabel = document.getElementById('selectionYesDepositLabel');
-                const noLabel = document.getElementById('selectionNoDepositLabel');
-                if (value === 1) {
-                    yesLabel.classList.add('active');
-                    noLabel.classList.remove('active');
-                } else {
-                    noLabel.classList.add('active');
-                    yesLabel.classList.remove('active');
-                }
-            };
             window.boxActiveLease = function(value) {
                 console.log(value);
                 const yesLabel = document.getElementById('selectionYesLeaseLabel');
@@ -801,66 +769,43 @@
                     yesLabel.classList.remove('active');
                 }
             };
+            // Show/Hide Security Deposit Input Field
+            window.boxActiveDeposit = function (value) {
+                const yesLabel = document.getElementById('selectionYesDepositLabel');
+                const noLabel = document.getElementById('selectionNoDepositLabel');
+                const depositField = document.getElementById('securityDeposit');
 
-            // Initialize Select2 for Pets
-            $('#pets').select2({
-                placeholder: "Select your pets",
-                allowClear: true
-            });
+                if (value === 1) {
+                    yesLabel.classList.add('active');
+                    noLabel.classList.remove('active');
+                    depositField.style.display = 'block'; // Show the deposit field
+                } else {
+                    noLabel.classList.add('active');
+                    yesLabel.classList.remove('active');
+                    depositField.style.display = 'none'; // Hide the deposit field
+                }
+            };
 
             // Show/Hide Pets Dropdown Based on Selection
-            window.boxActive3Pets = function(isActive) {
-                if (isActive) {
-                    $('#activeNonActive10').show(); // Show the pets dropdown
+            window.boxActive3 = function (value) {
+                const yesLabel = document.getElementById('selectionYesLabel');
+                const noLabel = document.getElementById('selectionNoLabel');
+                const petsField = document.getElementById('activeNonActive10');
+
+                if (value === 1) {
+                    yesLabel.classList.add('active');
+                    noLabel.classList.remove('active');
+                    petsField.style.display = 'block'; // Show the pets dropdown
                 } else {
-                    $('#activeNonActive10').hide(); // Hide the pets dropdown
+                    noLabel.classList.add('active');
+                    yesLabel.classList.remove('active');
+                    petsField.style.display = 'none'; // Hide the pets dropdown
                     $('#pets').val(null).trigger('change'); // Clear selection
                 }
             };
+
+
         });
 
-        function boxActive10() {
-            // Show the input field when "Yes" is selected
-            document.getElementById('securityDeposit').style.display = 'block';
-        }
-
-        function boxNonActive10() {
-            // Hide the input field when "No" is selected
-            document.getElementById('securityDeposit').style.display = 'none';
-        }
-
-        function selectCategory(element) {
-            // Remove 'active' class from all labels
-            document.querySelectorAll('.select_box').forEach(label => {
-                label.classList.remove('active');
-            });
-
-            // Add 'active' class to the corresponding label of the clicked radio button
-            const label = element.closest('.radio-item').querySelector('.select_box');
-            if (label) {
-                label.classList.add('active');
-            }
-
-            // Optionally, log or store the selected category value
-            const selectedCategory = element.value;
-            console.log('Selected category ID:', selectedCategory);
-        }
-
-
-        function setEvction(element) {
-            // Remove 'active' class from all radio items
-            document.querySelectorAll('.evction').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Add 'active' class to the clicked radio-item
-            element.classList.add('active');
-
-            // Ensure the radio input within the clicked item is checked
-            const radioInput = element.querySelector('input[type="radio"]');
-            if (radioInput) {
-                radioInput.checked = true;
-            }
-        }
     </script>
 @endsection
