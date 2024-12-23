@@ -414,20 +414,15 @@
                                                             </div>
                                                         @endforeach --}}
                                                         @foreach ($categories as $category)
-                                                            <div class="radio-item">
-                                                                <input type="radio" id="category-{{ $category->id }}"
-                                                                    name="cat_id" value="{{ $category->id }}"
-                                                                    onclick="selectCategory(this)"
-                                                                    {{ old('category', $selectedCategory ?? '') == $category->id ? 'checked' : '' }}>
-                                                                <label for="category-{{ $category->id }}"
-                                                                    class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
-                                                                    {{-- <img src="{{ Storage::url($category->image ?? '') }}" alt="{{ $category->name }}"> --}}
-                                                                    <img src="{{ asset($category->image ?? 'default.png') }}"
-                                                                        alt="{{ $category->name }}">
-                                                                    <span>{{ $category->name }}</span>
-                                                                </label>
-                                                            </div>
+                                                        <div class="radio-item">
+                                                            <input type="radio" id="category-{{ $category->id }}" name="cat_id" value="{{ $category->id }}" onclick="selectCategory(this)" {{ old('category', $selectedCategory ?? '') == $category->id ? 'checked' : '' }}>
+                                                            <label for="category-{{ $category->id }}" class="select_box {{ old('category', $selectedCategory ?? '') == $category->id ? 'active' : '' }}">
+                                                                <img src="{{ asset($category->image ?? 'default.png') }}" alt="{{ $category->name }}">
+                                                                <span>{{ $category->name }}</span>
+                                                            </label>
+                                                        </div>
                                                         @endforeach
+
                                                         <!-- Display validation error for category -->
                                                         @error('category')
                                                             <div class="error-message">
@@ -696,24 +691,6 @@
 @section('scripts')
     <script>
      $(document).ready(function () {
-
-        function selectCategory(element) {
-        // Remove 'active' class from all labels
-        document.querySelectorAll('.select_box').forEach(label => {
-            label.classList.remove('active');
-        });
-
-        // Add 'active' class to the corresponding label of the clicked radio button
-        const label = element.closest('.radio-item').querySelector('.select_box');
-        if (label) {
-            label.classList.add('active');
-        }
-
-        // Optionally, log or store the selected category value
-        const selectedCategory = element.value;
-        console.log('Selected category ID:', selectedCategory);
-    }
-
     // Initialize Select2 for Pets
     $('#pets').select2({
         placeholder: "Select your pets",
@@ -806,6 +783,18 @@
 
 
         });
+        function selectCategory(element) {
+        // Remove 'active' class from all labels
+        document.querySelectorAll('.select_box').forEach(label => {
+            label.classList.remove('active');
+        });
+
+        // Add 'active' class to the corresponding label of the clicked radio button
+        const label = element.closest('.radio-item').querySelector('.select_box');
+        if (label) {
+            label.classList.add('active');
+        }
+    }
 
     </script>
 @endsection
