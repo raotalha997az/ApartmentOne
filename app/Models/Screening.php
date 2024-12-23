@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\TenantPet;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Screening extends Model
 {
@@ -25,4 +26,9 @@ class Screening extends Model
         'security_deposit',
         'deposit_amount',
     ];
+
+    public function pets()
+    {
+        return $this->hasMany(TenantPet::class);
+    }
 }
