@@ -212,6 +212,7 @@ class TenantPropertiesController extends Controller
 
                     // Retrieve all approved properties
                     $properties = Property::where('approve', 1)
+                        ->where('cat_id', $id)
                         ->whereNull('deleted_at')
                         ->with('media', 'pets.pet', 'features.feature', 'RentToWhoDetails.rentToWho', 'category')
                         ->get();
