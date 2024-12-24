@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Models\Feature;
+use App\Models\Payment;
 use App\Models\Property;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -18,14 +19,61 @@ class AdminAuthController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
+
+        // Listed and sold properties count
         $listedPropertiesCount = Property::where('available_status', 1)->count();
         $soldPropertiesCount = Property::where('available_status', 0)->count();
+        $RevenueTotal = Payment::sum('amount');
+        // Fetch current month's 10 most recently created users
+        $currentMonthUsers = User::whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
+            ->latest()
+            ->take(10)
+            ->get();
 
-        $landlordsCount = User::role('land_lord')->count();
-        $tenantsCount = User::role('tenant')->count();
+        // Monthly payments data for the chart
+        $monthlyPayments = Payment::selectRaw('MONTH(paid_at) as month, SUM(amount) as total')
+            ->whereYear('paid_at', now()->year)
+            ->groupBy('month')
+            ->pluck('total', 'month');
 
-        return view('Dashboard.admin.dashboard', compact('user', 'listedPropertiesCount', 'soldPropertiesCount', 'landlordsCount', 'tenantsCount'));
+        // Format data for chart
+        $chartData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $chartData[] = $monthlyPayments[$i] ?? 0; // Default to 0 if no payments
+        }
+
+
+        $currentMonth = now()->format('Y-m');
+        $lastMonth = now()->subMonth()->format('Y-m');
+
+        // Payments for the current month
+        $currentMonthPayments = Payment::whereYear('paid_at', now()->year)
+            ->whereMonth('paid_at', now()->month)
+            ->sum('amount');
+        // Payments for the last month
+        $lastMonthPayments = Payment::whereYear('paid_at', now()->subMonth()->year)
+            ->whereMonth('paid_at', now()->subMonth()->month)
+            ->sum('amount');
+        // Calculate percentage change
+        $percentageChange = $lastMonthPayments > 0
+            ? round((($currentMonthPayments - $lastMonthPayments) / $lastMonthPayments) * 100, 2)
+            : 100; // Default to 100% if no payments last month
+
+
+
+
+
+        return view('Dashboard.admin.dashboard', compact(
+            'user',
+            'listedPropertiesCount',
+            'soldPropertiesCount',
+            'currentMonthUsers',
+            'chartData',
+            'RevenueTotal','currentMonthPayments','lastMonthPayments','percentageChange'
+        ));
     }
+
 
 
 
