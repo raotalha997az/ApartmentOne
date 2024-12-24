@@ -70,7 +70,7 @@ document.querySelectorAll('.accordion-button').forEach(button => {
 
 
 const uploadBox = document.getElementById('uploadBox');
-  const fileInput = document.getElementById('fileInput');
+  var fileInput2 = document.getElementById('fileInput');
   const uploadText = document.getElementById('uploadText');
   const previewImage = document.getElementById('previewImage');
   const cancelButton = document.getElementById('cancelButton');
@@ -79,7 +79,7 @@ const uploadBox = document.getElementById('uploadBox');
     fileInput.click();
   });
 
-  fileInput.addEventListener('change', (event) => {
+  fileInput2.addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
