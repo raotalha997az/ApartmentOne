@@ -146,13 +146,13 @@
                     <form id="itemForm" enctype="multipart/form-data">
 
                         <div class="mb-3">
-                            <div class="upload-container" id="uploadBox">
-                                <div class="upload-text" id="uploadText">
+                            <div class="upload-container" id="newUploadBox">
+                                <div class="upload-text" id="newUploadText">
                                   <img src="{{ asset('assets/new-images/bx-cloud-upload.svg.png') }}" alt="upload icon" width="50">
                                 </div>
-                                <img id="previewImage" alt="Preview">
-                                <button class="cancel-button" id="cancelButton">&times;</button>
-                                <input type="file" id="fileInput" style="display: none;" name="image">
+                                <img id="newPreviewImage" alt="Preview">
+                                <button class="cancel-button" id="newCancelButton">&times;</button>
+                                <input type="file" id="newFileInput" style="display: none;" name="image">
                               </div>
                               @error('image')
                               <div class="alert alert-danger">{{ $message }}</div>
@@ -178,7 +178,9 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary">Update Category</button>
+                        <button type="submit" class="btn t-btn-blue-shade btn btn-primary"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.16667 17.5H15.8333C16.2754 17.5 16.6993 17.3244 17.0118 17.0119C17.3244 16.6993 17.5 16.2754 17.5 15.8333V6.66668C17.5006 6.55701 17.4796 6.44829 17.4381 6.34676C17.3967 6.24523 17.3356 6.15288 17.2583 6.07501L13.925 2.74168C13.8471 2.66445 13.7548 2.60334 13.6533 2.56187C13.5517 2.5204 13.443 2.49938 13.3333 2.50001H4.16667C3.72464 2.50001 3.30072 2.67561 2.98816 2.98817C2.67559 3.30073 2.5 3.72465 2.5 4.16668V15.8333C2.5 16.2754 2.67559 16.6993 2.98816 17.0119C3.30072 17.3244 3.72464 17.5 4.16667 17.5ZM12.5 15.8333H7.5V11.6667H12.5V15.8333ZM10.8333 5.83335H9.16667V4.16668H10.8333V5.83335ZM4.16667 4.16668H5.83333V7.50001H12.5V4.16668H12.9917L15.8333 7.00835V15.8333H14.1667V11.6667C14.1667 11.2247 13.9911 10.8007 13.6785 10.4882C13.3659 10.1756 12.942 10 12.5 10H7.5C7.05797 10 6.63405 10.1756 6.32149 10.4882C6.00893 10.8007 5.83333 11.2247 5.83333 11.6667V15.8333H4.16667V4.16668Z" fill="white"/>
+                            </svg>Update Category</button>
                     </form>
                 </div>
             </div>

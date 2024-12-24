@@ -66,6 +66,9 @@ document.querySelectorAll('.accordion-button').forEach(button => {
 //   });
 
 
+// add new property categrory upload box
+
+
 const uploadBox = document.getElementById('uploadBox');
   const fileInput = document.getElementById('fileInput');
   const uploadText = document.getElementById('uploadText');
@@ -99,6 +102,41 @@ const uploadBox = document.getElementById('uploadBox');
     fileInput.value = ''; // Reset file input
   });
 
+// update property categrory upload box
+
+
+const newUploadBox = document.getElementById('newUploadBox');
+const newFileInput = document.getElementById('newFileInput');
+const newUploadText = document.getElementById('newUploadText');
+const newPreviewImage = document.getElementById('newPreviewImage');
+const newCancelButton = document.getElementById('newCancelButton');
+
+newUploadBox.addEventListener('click', () => {
+  newFileInput.click();
+});
+
+newFileInput.addEventListener('change', (event) => {
+  const newFile = event.target.files[0];
+  if (newFile) {
+    const newReader = new FileReader();
+    newReader.onload = (e) => {
+      newPreviewImage.src = e.target.result;
+      newPreviewImage.style.display = 'block';
+      newUploadText.style.display = 'none';
+      newCancelButton.style.display = 'flex';
+    };
+    newReader.readAsDataURL(newFile);
+  }
+});
+
+newCancelButton.addEventListener('click', (event) => {
+  event.stopPropagation(); // Prevent triggering newUploadBox click
+  newPreviewImage.src = '';
+  newPreviewImage.style.display = 'none';
+  newUploadText.style.display = 'flex';
+  newCancelButton.style.display = 'none';
+  newFileInput.value = ''; // Reset file input
+});
 
 
 
