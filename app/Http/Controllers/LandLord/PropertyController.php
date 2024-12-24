@@ -521,7 +521,9 @@ class PropertyController extends Controller
         }
         }
 
-        return response()->json(['success' => 'Property updated successfully!'], 200);
+        // return response()->json(['success' => 'Property updated successfully!'], 200);
+        return redirect()->route('landlord.properties')->with(['success' => 'Property updated successfully!'], 201);
+
         }
         public function properties_delete($id)
         {

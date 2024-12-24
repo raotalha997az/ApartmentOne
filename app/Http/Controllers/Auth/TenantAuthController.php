@@ -92,7 +92,7 @@ class TenantAuthController extends Controller
     public function updateScreening(Request $request)
     {
 
-
+        // dd($request->all());
         $user = auth()->user();
 
         // Validate the incoming request

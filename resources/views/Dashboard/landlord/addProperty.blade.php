@@ -1069,7 +1069,8 @@
             <div id="activeNonActive180">
                 <div class="box activeNonActive18">
                     <label for="" id="Weekly_label">Weekly</label>
-                    <input type="radio" name="rent_type" value="1" onclick="handleRentSelection('Weekly')">
+                    <input type="radio" name="rent_type" value="1" onclick="handleRentSelection('Weekly')"
+                    {{ old('rent_type') == '1' ? 'checked' : '' }}>
                 </div>
                 <div class="box activeNonActive18">
                     <label for="" id="Monthly_label">Monthly</label>

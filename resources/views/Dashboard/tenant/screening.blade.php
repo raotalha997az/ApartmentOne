@@ -479,7 +479,7 @@
                                                 <div class="selection-boxex-true">
 
                                                     <div class="radio-item" onclick="boxActivesmoke(1)">
-                                                        <input type="radio" id="eviction" name="eviction"
+                                                        <input type="radio" id="eviction" name="smoke"
                                                             value="1">
                                                         <label class="evction" for="yes" onclick="setEvction(this)"
                                                             id="selectionYesSmokeLabel">
@@ -491,7 +491,7 @@
 
                                                     <div class="radio-item" onclick="boxActivesmoke(0)"
                                                         id="boxnunactive10">
-                                                        <input type="radio" id="eviction" name="eviction"
+                                                        <input type="radio" id="eviction" name="smoke"
                                                             value="0">
                                                         <label class="evction" for="no" onclick="setEvction(this)"
                                                             id="selectionNoSmokeLabel">
@@ -520,7 +520,7 @@
 
                                                     <div class="radio-item" onclick="boxActiveWaterbed(1)"
                                                         id="boxactive10">
-                                                        <input type="radio" id="eviction" name="eviction"
+                                                        <input type="radio" id="eviction" name="waterbed"
                                                             value="1">
                                                         <label class="evction" for="yes" onclick="setEvction(this)"
                                                             id="selectionYesWaterbedLabel">
@@ -532,7 +532,7 @@
 
                                                     <div class="radio-item" onclick="boxActiveWaterbed(0)"
                                                         id="boxnunactive10">
-                                                        <input type="radio" id="eviction" name="eviction"
+                                                        <input type="radio" id="eviction" name="waterbed"
                                                             value="0">
                                                         <label class="evction" for="no" onclick="setEvction(this)"
                                                             id="selectionNoWaterbedLabel">
@@ -558,7 +558,7 @@
                                                 <div class="selection-boxex-true">
 
                                                     <div class="radio-item" onclick="boxActiveLease(1)" id="boxactive10">
-                                                        <input type="radio" id="eviction" name="eviction"
+                                                        <input type="radio" id="eviction" name="lease_short_term"
                                                             value="1">
                                                         <label class="evction" for="yes" onclick="setEvction(this)"
                                                             id="selectionYesLeaseLabel">
@@ -570,7 +570,7 @@
 
                                                     <div class="radio-item" onclick="boxActiveLease(0)"
                                                         id="boxnunactive10">
-                                                        <input type="radio" id="eviction" name="eviction"
+                                                        <input type="radio" id="eviction" name="lease_short_term"
                                                             value="0">
                                                         <label class="evction" for="no" onclick="setEvction(this)"
                                                             id="selectionNoLeaseLabel">
@@ -595,7 +595,7 @@
                                                 <p>Will you be providing a security deposit?</p>
                                                 <div class="selection-boxex-true">
                                                     <div class="radio-item" onclick="boxActiveDeposit(1)" id="boxactive10">
-                                                        <input type="radio" id="eviction" name="eviction" value="1">
+                                                        <input type="radio" id="eviction" name="security_deposit" value="1">
                                                         <label class="evction" id="selectionYesDepositLabel">
                                                             <img src="/assets/images/checked.png" alt="Yes">
                                                             Yes
@@ -603,7 +603,7 @@
                                                     </div>
 
                                                     <div class="radio-item" onclick="boxActiveDeposit(0)" id="boxnunactive10">
-                                                        <input type="radio" id="eviction" name="eviction" value="0">
+                                                        <input type="radio" id="eviction" name="security_deposit" value="0">
                                                         <label class="evction" id="selectionNoDepositLabel">
                                                             <img src="/assets/images/cancel.png" alt="No">
                                                             No

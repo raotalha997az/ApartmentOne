@@ -1002,7 +1002,7 @@
 
 
                         <div class="two-btn-inline">
-                            <button id="saveChangesBtn" type="button" class="t-btn">Save Changes</button>
+                            <button  type="submit" class="t-btn">Save Changes</button>
                         </div>
 
                     </div>
