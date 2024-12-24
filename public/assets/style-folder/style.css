@@ -452,6 +452,10 @@ font-size: 30px;
 font-weight: 400;
 }
 
+i {
+    align-content: center;
+}
+
 .home-sec-03 .parent-box .text p {
 color: #999999;
 font-size: 15px;
@@ -557,32 +561,30 @@ right: 0;
     background: #CCCCCC;
 }
 
-#propertiesTable_info {
+.dt-info{
     float: left;
     color: #323232;
     font-size: 15px;
     font-weight: 500;
 }
 
-#propertiesTable_wrapper .dt-paging {
+.dt-paging {
     float: right;
 }
 
-#propertiesTable_wrapper .dt-paging .current, #propertiesTable_wrapper .dt-paging .dt-paging-button:hover {
-    background: #0077B6;
-    border-radius: 100%;
-    color: #fff !important;
-    font-weight: 600 !important;
-    border: none;
+table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date{
+    text-align: left !important;
 }
 
-#propertiesTable_wrapper .dt-paging .dt-paging-button {
+.dt-paging .dt-paging-button {
     height: 28px;
     width: 28px;
-    padding: 0;
+    background-color: transparent !important;
+    padding: 0 !important;
     font-size: 15px !important;
-    font-weight: 500;
-    color: #323232;
+    font-weight: 500 !important;
+    color: #323232 !important;
+    border: none !important;
 }
 
 #propertiesTable thead tr {
@@ -591,14 +593,22 @@ right: 0;
     background: #fff;
 }
 
-#propertiesTable_wrapper .dt-paging nav {
+.dt-paging .current, .dt-paging .dt-paging-button:hover {
+    background: #0077B6 !important;
+    border-radius: 100% !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    border: none !important;
+}
+
+.dt-paging nav {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
 }
 
-#propertiesTable {
+#propertiesTable, #categoryTable {
     margin-bottom: 25px;
     height: 700px !important;
     overflow: scroll !important;
@@ -606,17 +616,31 @@ right: 0;
     display: block;
 }
 
-#propertiesTable th {
+#categoryTable td:nth-child(2) img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border: 2px solid #0077B6;
+    border-radius: 100%;
+}
+
+#propertiesTable th, #categoryTable th {
     color: #5A5A5A;
     font-size: 17px;
 }
 
-#propertiesTable td {
-    padding: 20px 0;
-    border-bottom: 1px solid #DEDEDE;
+table{
+    --bs-table-striped-bg:transparent !important;
 }
 
-#propertiesTable .property-action-buttons {
+#propertiesTable td ,#categoryTable td {
+    padding: 20px 0;
+    border-bottom: 1px solid #DEDEDE;
+    background: transparent !important;
+    align-content: center !important;
+}
+
+.property-action-buttons {
     background: #F6F6F6;
     border-radius: 50px;
     width: max-content;
@@ -628,7 +652,7 @@ right: 0;
     gap: 20px;
 }
 
-#propertiesTable .property-action-buttons .Delet-btn {
+ .property-action-buttons .Delet-btn {
     color: #777777;
     display: flex;
     flex-direction: row;
@@ -638,7 +662,7 @@ right: 0;
     font-weight: 400;
 }
 
-#propertiesTable .property-action-buttons .btn-primary {
+.property-action-buttons .btn-primary {
     background: transparent;
     border: none;
     color: #0077B6;
@@ -650,11 +674,102 @@ right: 0;
     gap: 10px;
 }
 
-#propertiesTable th:last-child {
-    text-align: center;
+.modal-title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #5A5A5A;
 }
 
-#propertiesTable .property-action-buttons .btn-success {
+
+.upload-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #0099ff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5faff;
+    overflow: hidden;
+  }
+  .upload-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    /* display: none; */
+    position: absolute;
+    top: 22%;
+    left: 37%;
+    border: none;
+    opacity: 1;
+}
+  .upload-text {
+    text-align: center;
+    color: #0099ff;
+    font-family: Arial, sans-serif;
+  }
+  .cancel-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+.modal-content {
+    border-radius: 30px !important;
+    background: #FFFFFF;
+    border: none !important;
+    padding: 30px;
+}
+
+.form-control {
+    background: #F6F6F6 !important;
+    border: 1px solid #DEDEDE !important;
+    border-radius: 10px !important;
+    padding: 10px 30px !important;
+    color: #999999 !important;
+}
+
+modal input.form-control::placeholder {
+    color: #999999 !important;
+}
+
+.modal-header{
+    justify-content: space-between;
+}
+
+.t-btn-blue-shade {
+    background: linear-gradient(45deg, #0077B6 0%, #96CAE6 100%);
+    padding: 10px 40px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    color: #fff !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    border: none !important;
+}
+
+#propertiesTable th:last-child, #categoryTable th:last-child, #categoryTable th:nth-child(2),#categoryTable td:last-child, #categoryTable td:nth-child(2){
+    text-align: center;
+}
+.modal-header button {
+    background: transparent;
+}
+
+ .property-action-buttons .btn-success {
     background: transparent;
     font-size: 17px;
     font-weight: 400;

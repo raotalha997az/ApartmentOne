@@ -66,6 +66,39 @@ document.querySelectorAll('.accordion-button').forEach(button => {
 //   });
 
 
+const uploadBox = document.getElementById('uploadBox');
+  const fileInput = document.getElementById('fileInput');
+  const uploadText = document.getElementById('uploadText');
+  const previewImage = document.getElementById('previewImage');
+  const cancelButton = document.getElementById('cancelButton');
+
+  uploadBox.addEventListener('click', () => {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImage.src = e.target.result;
+        previewImage.style.display = 'block';
+        uploadText.style.display = 'none';
+        cancelButton.style.display = 'flex';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  cancelButton.addEventListener('click', (event) => {
+    event.stopPropagation(); // Prevent triggering uploadBox click
+    previewImage.src = '';
+    previewImage.style.display = 'none';
+    uploadText.style.display = 'flex';
+    cancelButton.style.display = 'none';
+    fileInput.value = ''; // Reset file input
+  });
+
 
 
 
