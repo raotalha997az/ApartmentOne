@@ -44,7 +44,7 @@ class PropertyController extends Controller
     public function properties()
     {
         $properties = Property::where('approve', 0)
-        ->with('user', 'media')
+        ->with('user', 'media', 'Category')
         ->get();
 
         return view('Dashboard.admin.properties',compact('properties'));
