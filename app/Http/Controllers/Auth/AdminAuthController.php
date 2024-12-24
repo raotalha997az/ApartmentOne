@@ -74,6 +74,29 @@ class AdminAuthController extends Controller
         ));
     }
 
+    public function searchUsers(Request $request)
+    {
+        // dd($request);
+        $query = $request->input('search');
+        $currentMonthUsers = User::where(function ($q) use ($query) {
+            $q->where('name', 'LIKE', "%$query%")
+            ->orWhere('email', 'LIKE', "%$query%")
+            ->orWhere('country', 'LIKE', "%$query%")
+            ->orWhere('phone', 'LIKE', "%$query%");
+        })
+        ->whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
+            ->latest()
+            ->take(10)
+        ->get();
+
+        foreach ($currentMonthUsers as $user) {
+            $user->roles = $user->roles->pluck('name')->toArray();
+        }
+
+        return response()->json($currentMonthUsers);
+    }
+
 
 
 

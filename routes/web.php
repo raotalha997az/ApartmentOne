@@ -175,6 +175,8 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'twofactor', 'verified','role:admin'])->group(function () {
     Route::get('/dashboard',[AdminAuthController::class,'dashboard'])->name('dashboard');
+    Route::post('/search-users', [AdminAuthController::class, 'searchUsers'])->name('search.users');
+
 
     Route::get('properties',[AdminPropertyController::class,'propertiesAll'])->name('properties');
 
