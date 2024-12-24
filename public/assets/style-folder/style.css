@@ -601,6 +601,47 @@ table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataT
     border: none !important;
 }
 
+
+
+.property-for-approvel-table table {
+    width: 100%;
+    height: 850px !important;
+}
+
+.property-for-approvel-table table th:nth-child(1), .property-for-approvel-table table td:nth-child(1) {
+    width: 18%;
+}
+
+.property-for-approvel-table table th:nth-child(2), .property-for-approvel-table table td:nth-child(2) {
+    width: 15%;
+    text-align: center;
+}
+
+.property-for-approvel-table table th:nth-child(3), .property-for-approvel-table table td:nth-child(3) {
+    width: 15%;
+    text-align: center;
+}
+
+.property-for-approvel-table table th:nth-child(4), .property-for-approvel-table table td:nth-child(4) {
+    width: 5%;
+    text-align: center;
+}
+
+.property-for-approvel-table table th:nth-child(5), .property-for-approvel-table table td:nth-child(5) {
+    width: 7%;
+    text-align: center;
+}
+
+.property-for-approvel-table table th:nth-child(6), .property-for-approvel-table table td:nth-child(6) {
+    width: 15%;
+    text-align: center;
+}
+
+.property-for-approvel-table table th:nth-child(7), .property-for-approvel-table table td:nth-child(7) {
+    width: 25%;
+    text-align: center;
+}
+
 .dt-paging nav {
     display: flex;
     flex-direction: row;
@@ -608,12 +649,13 @@ table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataT
     gap: 20px;
 }
 
-#propertiesTable, #categoryTable {
+#propertiesTable, #categoryTable, .fixed-scroll-table {
     margin-bottom: 25px;
     height: 700px !important;
     overflow: scroll !important;
     overflow-x: hidden !important;
     display: block;
+    width: 100%;
 }
 
 #categoryTable td:nth-child(2) img {
@@ -650,6 +692,21 @@ table{
     flex-direction: row;
     align-items: center;
     gap: 20px;
+}
+
+.property-action-buttons .btn-success:hover {
+    background: transparent;
+    color: #499C00;
+}
+
+.property-action-buttons .btn-primary:hover {
+    background: transparent;
+    color: #0077B6;
+}
+
+.property-action-buttons .Delet-btn {
+    background: transparent;
+    color: #777777;
 }
 
  .property-action-buttons .Delet-btn {
@@ -793,6 +850,7 @@ modal input.form-control::placeholder {
     color: #FF4A4A;
     font-size: 17px;
     font-weight: 400;
+    justify-self: center;
 }
 
 .approved-badge {
@@ -807,6 +865,8 @@ modal input.form-control::placeholder {
     background: rgba(73, 156, 0, 0.1);
     width: fit-content;
     padding: 5px 15px;
+    text-align: center;
+    justify-self: center;
 }
 
 
@@ -1636,6 +1696,32 @@ margin: 0;
     font-size: 30px;
 }
 
+table .user-img img {
+    height: 50px;
+    width: 50px;
+    border: 2px solid #0077B6;
+    border-radius: 100%;
+}
+
+table .two-things-align {
+    gap: 10px;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+}
+
+table .user-detail-box h6 {
+    color: #5A5A5A;
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0;
+}
+
+table .user-detail-box p {
+    font-size: 13px;
+    color: #888888;
+}
+
 .dashboard-main .left-panel .header-logo {
     padding-bottom: 20px;
 }
@@ -1646,7 +1732,9 @@ margin: 0;
     font-weight: 800;
 }
 
-
+.property-for-approvel-table table td,.property-for-approvel-table table th {
+    padding: 10px 0;
+}
 
 .left-panel-menu .panel-box:last-child {
     margin-top: 100px;
@@ -3480,6 +3568,13 @@ table {
 .col-lg-12 .page-detail-box {
     margin-bottom: 20px;
     display: none;
+}
+
+
+.property-for-approvel-table table tr:first-child {
+    position: sticky;
+    top: 0;
+    background: #fff;
 }
 
 
