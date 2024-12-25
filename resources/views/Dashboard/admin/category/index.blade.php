@@ -48,7 +48,7 @@
                                 <td>
                                     <div class="property-action-buttons">
 
-                                        <a class="btn-primary category-edit-modal"
+                                        <a class="btn-primary" id="category-edit-modal"
                                             href="{{ route('admin.category.edit', $category->id) }}">
                                             {{-- <img src="{{ asset('assets/images/bx-pencil.png') }}" width="30" height="20"> --}}
                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -234,6 +234,7 @@
             $('#create-category').on('click', function() {
                 $('#categoryModal').modal('show');
             });
+
             $('#categoryForm').on('submit', function(event) {
                 event.preventDefault(); // Prevent the default form submission
 
@@ -324,7 +325,7 @@
 
         $(document).ready(function() {
             // When the "Edit" button is clicked
-            $('.category-edit-modal').on('click', function(event) {
+            $('#category-edit-modal').on('click', function(event) {
                 event.preventDefault(); // Prevent the default link behavior
 
                 // Get the URL from the link's href attribute

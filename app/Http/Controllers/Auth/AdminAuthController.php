@@ -216,22 +216,27 @@ class AdminAuthController extends Controller
 
     public function features_store(Request $request)
     {
+        // dd($request->all());
         // Validate the input (optional but recommended)
         $request->validate([
-            'room_features' => 'required|array',
-            'room_features.*' => 'required|string|max:255', // Validate each feature string
+            'room_features' => 'required|string',
+         // Validate each feature string
         ]);
 
 
         // dd($request->room_features);
     // Loop through the room_features array and create a new feature for each entry
-    foreach ($request->room_features as $feature) {
+    // foreach ($request->room_features as $feature) {
         Feature::create([
-            'name' => $feature,
+            'name' => $request->room_features,
         ]);
-    }
+    // }
     // Redirect or return success response
-    return redirect()->route('admin.features.show')->with('success', 'Features added successfully!');
+    return response()->json([
+        'message' => 'Room Features created successfully',
+         // Return the image URL
+    ], 201);
+    // return redirect()->route('admin.features.show')->with('success', 'Features added successfully!');
     }
 
     public function features_show()
@@ -241,21 +246,39 @@ class AdminAuthController extends Controller
     }
     public function edit($id)
     {
+        // dd($id);
         $feature = Feature::findOrFail($id);
-        return view('Dashboard.admin.roomFeature.room_features', compact('feature'));
+
+        if (!$feature) {
+            return response()->json(['message' => 'Room & Feature not found'], 404);
+        }
+
+        return response()->json(['feature' => $feature], 200);
+
+        // return view('Dashboard.admin.roomFeature.room_features', compact('feature'));
     }
     public function update(Request $request, $id)
     {
+        // dd($request->all());
+        $feature = Feature::findOrFail($id);
+
+        if (!$feature) {
+            return response()->json(['message' => 'Feature not found'], 404);
+        }
+
         $request->validate([
-            'room_features' => 'required|array',
-            'room_features.*' => 'required|string|max:255',
+            'name' => 'required|string',
         ]);
 
-        $feature = Feature::findOrFail($id);
         $feature->update([
-            'name' => $request->room_features[0],
+            'name' => $request->name,
         ]);
-        return redirect()->route('admin.features.show')->with('success', 'Feature updated successfully!');
+
+        return response()->json([
+            'message' => 'Feature updated successfully',
+            'feature' => $feature,
+        ], 200);
+        // return redirect()->route('admin.features.show')->with('success', 'Feature updated successfully!');
     }
 
     public function destroy($id)

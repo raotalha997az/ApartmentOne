@@ -1611,6 +1611,14 @@
         // Initially hide the active-non-active div
         document.getElementById('activeNonActive3').style.display = 'none';
 
+        var pets = document.getElementById('petYes');
+        if(pets.checked){
+            console.log("checked");
+            var box23 = document.getElementById('activeNonActive3');
+            box23.style.display = 'block';
+            console.log(box22);
+        }
+
 
         function boxActive12(show) {
             var box = document.getElementById('activeNonActive12');

@@ -219,7 +219,7 @@ Route::prefix('landlord')->name('landlord.')->group(function () {
     Route::post('store-features',[AdminAuthController::class,'features_store'])->name('features.store');
     Route::get('store-features/show',[AdminAuthController::class,'features_show'])->name('features.show');
     Route::get('roomFeature/{id}/edit', [AdminAuthController::class, 'edit'])->name('roomFeature.edit');
-    Route::post('roomFeature/{id}', [AdminAuthController::class, 'update'])->name('roomFeature.update');
+    Route::put('roomFeature/{id}', [AdminAuthController::class, 'update'])->name('update');
     Route::delete('roomFeature/{id}', [AdminAuthController::class, 'destroy'])->name('roomFeature.destroy');
     // pets
     Route::prefix('pets')->name('pets.')->group(function () {
